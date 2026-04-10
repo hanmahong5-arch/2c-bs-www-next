@@ -20,7 +20,7 @@ spec:
     spec:
       containers:
         - name: www
-          image: ghcr.io/hanmahong5-arch/2c-bs-www-next:latest
+          image: ghcr.io/hanmahong5-arch/2c-bs-www-next:main-29efafc
           ports:
             - containerPort: 3000
               name: http
