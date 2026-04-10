@@ -4,11 +4,14 @@ metadata:
   name: lurus-www
   namespace: lurus-www
   labels:
+    app: lurus-www
     app.kubernetes.io/name: lurus-www
     app.kubernetes.io/part-of: lurus
 spec:
   selector:
+    app: lurus-www
     app.kubernetes.io/name: lurus-www
+    app.kubernetes.io/part-of: lurus
   ports:
     - name: http
       port: 3000
