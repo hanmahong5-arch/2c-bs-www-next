@@ -1,0 +1,20 @@
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: lurus-www-route
+  namespace: lurus-www
+  labels:
+    app.kubernetes.io/name: lurus-www
+    app.kubernetes.io/part-of: lurus
+    app.kubernetes.io/component: ingress
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: Host(`www.lurus.cn`) || Host(`lurus.cn`)
+      kind: Rule
+      services:
+        - name: lurus-www
+          port: 3000
+  tls:
+    secretName: lurus-cn-wildcard-tls

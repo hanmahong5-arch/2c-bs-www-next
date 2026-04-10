@@ -1,0 +1,57 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: lurus-www
+  namespace: lurus-www
+  labels:
+    app.kubernetes.io/name: lurus-www
+    app.kubernetes.io/part-of: lurus
+    app.kubernetes.io/component: web
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: lurus-www
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: lurus-www
+        app.kubernetes.io/part-of: lurus
+    spec:
+      containers:
+        - name: www
+          image: ghcr.io/hanmahong5-arch/2c-bs-www-next:latest
+          ports:
+            - containerPort: 3000
+              name: http
+          env:
+            - name: NODE_ENV
+              value: production
+            - name: HOSTNAME
+              value: "0.0.0.0"
+          resources:
+            requests:
+              cpu: 50m
+              memory: 64Mi
+            limits:
+              cpu: 200m
+              memory: 256Mi
+          livenessProbe:
+            httpGet:
+              path: /
+              port: http
+            initialDelaySeconds: 10
+            periodSeconds: 30
+          readinessProbe:
+            httpGet:
+              path: /
+              port: http
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          securityContext:
+            runAsUser: 1001
+            runAsNonRoot: true
+            readOnlyRootFilesystem: true
+            allowPrivilegeEscalation: false
+      # Next.js standalone needs /tmp for cache
+      volumes: []

@@ -102,15 +102,37 @@ Products are modeled as a **directed graph**:
 
 ## Deployment
 
-Deployed via **Vercel** with custom domain `www.lurus.cn` (ICP-compliant via Aliyun CDN).
+GitOps: **GitHub Actions → GHCR → ArgoCD → K3s**
 
 ```
-Push to main → Vercel auto-builds → CDN edge deployment
+Push to main → CI (lint + build) → Docker build → GHCR push
+            → Update deploy/k8s/deployment.yaml image tag
+            → ArgoCD auto-sync → K3s rollout
+```
+
+### Infrastructure
+
+| Component | Value |
+|-----------|-------|
+| Cluster | K3s (master: `100.98.57.55`) |
+| Namespace | `lurus-www` |
+| Domain | `www.lurus.cn` / `lurus.cn` |
+| Public IP | `123.57.143.63` (Aliyun, ICP) |
+| Ingress | Traefik IngressRoute + wildcard TLS |
+| Image | `ghcr.io/hanmahong5-arch/2c-bs-www-next:main-<sha7>` |
+| Port | 3000 (Next.js standalone) |
+| ArgoCD | `lurus-services` ApplicationSet |
+
+### Docker Build
+
+```bash
+docker build -t lurus-www .
+docker run -p 3000:3000 lurus-www
 ```
 
 ### Environment
 
-No environment variables required for static build. All external links point to:
+No environment variables required. All external links point to:
 - `api.lurus.cn` (Hub console)
 - `auth.lurus.cn` (Zitadel SSO)
 - `docs.lurus.cn` (VitePress docs)
