@@ -3,6 +3,11 @@ name: CI/CD
 on:
   push:
     branches: [main]
+    paths-ignore:
+      - 'deploy/**'
+      - 'README.md'
+      - 'CLAUDE.md'
+      - 'LICENSE'
   pull_request:
     branches: [main]
 
@@ -21,10 +26,32 @@ jobs:
       - run: bun run lint
       - run: bun run build
 
+  changes:
+    name: Detect Source Changes
+    runs-on: ubuntu-latest
+    outputs:
+      src: ${{ steps.filter.outputs.src }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dorny/paths-filter@v3
+        id: filter
+        with:
+          filters: |
+            src:
+              - 'src/**'
+              - 'public/**'
+              - 'package.json'
+              - 'bun.lock'
+              - 'Dockerfile'
+              - '.dockerignore'
+              - 'next.config.ts'
+              - 'tsconfig.json'
+              - 'postcss.config.mjs'
+
   docker:
     name: Build & Push Image
-    needs: check
-    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    needs: [check, changes]
+    if: needs.changes.outputs.src == 'true' && github.event_name == 'push' && github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     permissions:
       contents: read
