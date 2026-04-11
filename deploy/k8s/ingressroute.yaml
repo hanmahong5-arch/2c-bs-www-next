@@ -41,3 +41,18 @@ spec:
           port: 3000
   tls:
     secretName: lurus-cn-wildcard-tls
+---
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
+  name: redirect-bare-to-www
+  namespace: lurus-www
+  labels:
+    app: lurus-www
+    app.kubernetes.io/name: lurus-www
+    app.kubernetes.io/part-of: lurus
+spec:
+  redirectRegex:
+    permanent: true
+    regex: ^https://lurus\.cn/(.*)
+    replacement: https://www.lurus.cn/${1}
