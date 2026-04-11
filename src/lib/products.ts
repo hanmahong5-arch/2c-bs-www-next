@@ -14,14 +14,14 @@ export const productGroups = [
     id: "platform",
     name: "Lurus Platform",
     priority: "P0",
-    tagline: "企业 AI 基础设施套件",
+    tagline: "一座完整的 AI 城市",
     products: [
       {
         id: "hub",
         name: "Lurus Hub",
-        tagline: "AI 数据处理枢纽",
+        tagline: "AI 中央车站",
         description:
-          "30+ LLM 模型统一接入，实时用量分析，智能路由优化，按产品个性化计费。一个 API Key 接入所有 AI 能力。",
+          "所有列车（模型）在此调度，旅客（请求）总能坐上最快那班。一个 API Key，30+ 模型即刻接入。",
         features: [
           "OpenAI 兼容接口，30+ 模型供应商",
           "实时数据处理管道：用量分析 · 成本优化 · 性能监控",
@@ -35,9 +35,9 @@ export const productGroups = [
       {
         id: "billing",
         name: "账户与计费",
-        tagline: "金融级精度",
+        tagline: "数字金库",
         description:
-          "统一账户体系 + 钱包 + 订阅 + 权益管理。DECIMAL(20,4) 精度，事务性保证，零资金损失。",
+          "像银行保险箱一样严谨——每一分钱的流动都有迹可循。钱包、订阅、预授权，事务原子性保证。",
         features: [
           "钱包：充值/扣款/冻结/预授权，SQL 原子保护",
           "订阅：自动续费/过期/宽限期状态机",
@@ -50,9 +50,9 @@ export const productGroups = [
       {
         id: "memorus",
         name: "AI 记忆引擎",
-        tagline: "让 AI 记住每一个用户",
+        tagline: "AI 的海马体",
         description:
-          "持久化 AI 上下文管理，从无状态聊天升级为有记忆的个性化助手。REST API + MCP 双协议。",
+          "让每次对话不再从零开始。你的用户会觉得在和一个真正了解自己的助手交流，而不是一个失忆的机器人。",
         features: [
           "语义搜索：向量化存储 + 相似度检索",
           "自适应上下文：ACE v2.0 自动摘要",
@@ -73,9 +73,9 @@ export const productGroups = [
       {
         id: "lucrum",
         name: "Lucrum",
-        tagline: "AI 驱动的量化交易平台",
+        tagline: "你的 AI 交易副驾",
         description:
-          "AI 策略生成 · 回测验证 · 实盘执行。机构级算法，个人投资者价格。",
+          "用自然语言描述你的交易直觉，AI 将其转化为精确策略。华尔街的武器，个人投资者的价格。",
         features: [
           "AI 策略顾问：自然语言描述 → 可执行策略",
           "历史回测：多品种多周期回测引擎",
@@ -97,9 +97,9 @@ export const productGroups = [
       {
         id: "kova",
         name: "Kova Engine",
-        tagline: "持久执行，崩溃恢复",
+        tagline: "Agent 的黑匣子",
         description:
-          "Rust 构建的 AI Agent 执行引擎。WAL 崩溃恢复，DAG 任务编排，微秒级延迟，零外部依赖。",
+          "无论发生什么，WAL 记录了每一步。崩溃后精确恢复到最后安全点——像飞机黑匣子一样可靠。",
         features: [
           "WAL 持久化：Agent 崩溃后精确恢复",
           "DAG 拓扑调度：复杂工作流编排",
@@ -120,9 +120,9 @@ export const productGroups = [
       {
         id: "switch",
         name: "Lurus Switch",
-        tagline: "桌面 AI 网关",
+        tagline: "你的 AI 遥控器",
         description:
-          "一键切换 30+ AI 模型，本地加密存储，OIDC 单点登录。你的 AI 模型管理中心。",
+          "像电视遥控器切换频道一样——一个界面切换 30+ AI 模型。本地加密，离线可用。",
         features: [
           "模型切换：OpenAI/Claude/Gemini 一键切换",
           "本地优先：加密存储，离线可用",
@@ -134,9 +134,9 @@ export const productGroups = [
       {
         id: "creator",
         name: "Lurus Creator",
-        tagline: "AI 内容工厂",
+        tagline: "你的内容流水线",
         description:
-          "视频下载 → AI 转录 → 内容改写 → 多平台发布。单 exe，零依赖。",
+          "视频进去，多平台内容出来——像工厂传送带一样高效。下载、转录、改写、发布，一气呵成。",
         features: [
           "yt-dlp 集成：全平台视频下载",
           "Whisper 转录：多语言语音转文字",

@@ -18,8 +18,8 @@ export default function PlatformPage() {
     <>
       <PageHero
         highlight="Lurus Platform"
-        title="企业 AI 基础设施套件"
-        description="30+ LLM 模型统一接入 · 金融级账户计费 · AI 记忆引擎 · 智能路由。无需自建，开箱即用。"
+        title="一座完整的 AI 城市"
+        description="Hub 是中央车站，Billing 是银行，Memorus 是图书馆。你只需「入住」，一切就绪。30+ 模型、金融级计费、持久化记忆——无需自建。"
         primaryAction={{ label: "免费试用", href: "https://api.lurus.cn" }}
         secondaryAction={{ label: "阅读文档", href: "https://docs.lurus.cn" }}
       />

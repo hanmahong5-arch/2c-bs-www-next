@@ -29,10 +29,10 @@ export function CTA() {
             </div>
 
             <h2 className="text-3xl md:text-4xl font-bold text-shimmer">
-              准备好让 AI 为企业赋能了吗？
+              今晚接入，明天上线
             </h2>
             <p className="mt-4 text-lg text-[var(--color-text-secondary)] max-w-xl mx-auto">
-              一个 API Key，获得完整的 LLM 网关 + 计费 + 记忆 + 通知能力。
+              三十个模型，一个账单。别再为基础设施写第一行代码——把时间花在你的产品上。
             </p>
             <div className="mt-8 flex flex-col sm:flex-row gap-4 justify-center">
               <a

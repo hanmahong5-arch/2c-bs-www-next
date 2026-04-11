@@ -43,7 +43,7 @@ export function Hero() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.3, duration: 0.6 }}
               >
-                AI 基础设施
+                一行代码
               </motion.span>
               <br />
               <motion.span
@@ -52,7 +52,7 @@ export function Hero() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.45, duration: 0.6 }}
               >
-                开箱即用
+                接入所有 AI
               </motion.span>
             </h1>
 
@@ -62,8 +62,7 @@ export function Hero() {
               transition={{ delay: 0.6 }}
               className="mt-6 text-lg text-[var(--color-text-secondary)] max-w-lg leading-relaxed"
             >
-              LLM 网关 · 金融级计费 · AI 记忆引擎 · 智能路由。
-              为企业 AI 转型提供全栈后端能力，无需自建。
+              让 AI 像水电一样运转。30+ 模型统一网关，金融级计费，持久化记忆——你的产品只需一个 API Key，剩下的交给 Lurus。
             </motion.p>
 
             <motion.div
@@ -91,7 +90,6 @@ export function Hero() {
                 className="px-8 py-3.5 rounded-xl border border-[var(--color-border)] text-[var(--color-text-primary)] font-medium text-base hover:border-[var(--color-ochre)]/50 hover:bg-[var(--color-surface)] transition-all"
               >
                 阅读文档
-                <span className="inline-block ml-1 opacity-40 text-[10px]">↗</span>
               </a>
             </motion.div>
           </motion.div>

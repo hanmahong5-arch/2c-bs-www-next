@@ -25,12 +25,12 @@ export function Comparison() {
           className="text-center mb-16"
         >
           <h2 className="text-3xl md:text-4xl font-bold">
-            <span className="text-[var(--color-text-muted)]">自建</span>
-            <span className="text-[var(--color-text-primary)]"> vs </span>
-            <span className="text-gradient-gold">Lurus</span>
+            <span className="text-[var(--color-text-muted)]">接得越多</span>
+            <span className="text-[var(--color-text-primary)]">，</span>
+            <span className="text-gradient-gold">管得越少</span>
           </h2>
           <p className="mt-4 text-[var(--color-text-secondary)]">
-            把精力放在业务创新上，基础设施交给我们
+            别再为基础设施写第一行代码——你的时间值得用在产品上
           </p>
         </motion.div>
 

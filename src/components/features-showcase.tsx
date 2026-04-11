@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 const capabilities = [
   {
     title: "智能路由",
-    description: "基于延迟、错误率、成本三维指标实时评分，自动选择最优渠道。",
+    description: "像导航软件选最快路线一样——实时评估延迟、错误率、成本，自动把请求送上最优渠道。",
     metric: "<100ms",
     metricLabel: "路由决策延迟",
     visual: <RouterVisual />,
@@ -13,7 +13,7 @@ const capabilities = [
   {
     title: "金融级计费",
     description:
-      "DECIMAL(20,4) 精度，事务原子性保证，钱包 + 订阅 + 预授权全场景覆盖。",
+      "像银行系统一样严谨——每一分钱的流动都有迹可循，钱包、订阅、预授权全覆盖。",
     metric: "0.0001",
     metricLabel: "最小计费粒度",
     visual: <BillingVisual />,
@@ -21,7 +21,7 @@ const capabilities = [
   {
     title: "AI 记忆",
     description:
-      "向量化语义存储 + ACE 自适应摘要，让 AI 从无状态聊天升级为个性化助手。",
+      "AI 的海马体——让每次对话不再从零开始。你的用户会觉得在和一个真正了解自己的助手交流。",
     metric: "∞",
     metricLabel: "上下文持久化",
     visual: <MemoryVisual />,
@@ -29,7 +29,7 @@ const capabilities = [
   {
     title: "事件通知",
     description:
-      "NATS 事件驱动，WebSocket + SMTP + FCM，统一通知网关。",
+      "像 114 查号台——无论用户在哪（App / 邮件 / 浏览器），消息总能送达。",
     metric: "3",
     metricLabel: "通知通道",
     visual: <NotifyVisual />,
@@ -37,7 +37,7 @@ const capabilities = [
   {
     title: "企业认证",
     description:
-      "Zitadel OIDC 单点登录，RBAC 多租户隔离，API Key + JWT 双模认证。",
+      "一把钥匙开所有门——单点登录 + 多租户隔离，你的用户只需登录一次。",
     metric: "SSO",
     metricLabel: "开箱即用",
     visual: <AuthVisual />,
@@ -45,7 +45,7 @@ const capabilities = [
   {
     title: "可观测性",
     description:
-      "Grafana + Prometheus + Jaeger + Loki 全链路追踪。",
+      "像飞机驾驶舱仪表盘——每个请求的延迟、成本、错误，一目了然。",
     metric: "100%",
     metricLabel: "请求可追踪",
     visual: <ObserveVisual />,

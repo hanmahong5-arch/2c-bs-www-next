@@ -57,11 +57,11 @@ export function PersonaRouter() {
           className="text-center mb-12"
         >
           <h2 className="text-3xl md:text-4xl font-bold">
-            <span className="text-gradient-gold">我是</span>
-            <span className="text-[var(--color-text-primary)]">...</span>
+            <span className="text-gradient-gold">你的场景</span>
+            <span className="text-[var(--color-text-primary)]">，你的路径</span>
           </h2>
           <p className="mt-4 text-[var(--color-text-secondary)]">
-            选择你的角色，我们为你推荐最合适的产品路径
+            告诉我们你是谁，我们为你画出最短路线
           </p>
         </motion.div>
 

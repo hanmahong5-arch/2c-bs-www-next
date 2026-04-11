@@ -15,8 +15,8 @@ export default function KovaPage() {
     <>
       <PageHero
         highlight="Kova Engine"
-        title="AI Agent 执行引擎"
-        description="Rust 构建，WAL 持久化，DAG 拓扑调度。让 Agent 崩溃后精确恢复，零外部依赖，单二进制部署。"
+        title="Agent 的操作系统"
+        description="就像 Linux 之于服务器——Kova 是 AI Agent 的运行底座。崩溃？精确恢复到最后安全点。Rust 构建，单二进制部署，零外部依赖。"
         primaryAction={{ label: "快速开始", href: "https://docs.lurus.cn/kova" }}
         secondaryAction={{ label: "GitHub", href: "https://github.com/hanmahong5-arch/2b-svc-kova" }}
       />

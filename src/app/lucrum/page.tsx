@@ -15,8 +15,8 @@ export default function LucrumPage() {
     <>
       <PageHero
         highlight="Lucrum"
-        title="AI 量化交易平台"
-        description="自然语言描述策略 → AI 生成可执行代码 → 历史回测 → 实盘执行。机构级算法，个人投资者价格。"
+        title="华尔街的武器，你的价格"
+        description="用自然语言描述你的交易直觉，AI 将其转化为可执行策略。从回测到实盘，机构级算法不再是少数人的特权。"
         primaryAction={{ label: "开始交易", href: "https://lucrum.lurus.cn" }}
         secondaryAction={{ label: "策略文档", href: "https://docs.lurus.cn/lucrum" }}
       />
