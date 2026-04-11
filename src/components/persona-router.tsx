@@ -8,6 +8,38 @@ import {
   getProduct,
   getPresentation,
 } from "@/lib/ecosystem";
+import {
+  ComputerDesktopIcon,
+  BuildingOffice2Icon,
+  CpuChipIcon,
+  ChartBarIcon,
+  BoltIcon,
+  BanknotesIcon,
+  CircleStackIcon,
+  WrenchScrewdriverIcon,
+  ArrowsRightLeftIcon,
+  VideoCameraIcon,
+} from "@heroicons/react/24/outline";
+import type { ComponentType, SVGProps } from "react";
+
+type HeroIcon = ComponentType<SVGProps<SVGSVGElement>>;
+
+const personaIcons: Record<string, HeroIcon> = {
+  "saas-dev": ComputerDesktopIcon,
+  "enterprise-it": BuildingOffice2Icon,
+  "agent-builder": CpuChipIcon,
+  "trader": ChartBarIcon,
+};
+
+const productIcons: Record<string, HeroIcon> = {
+  hub: BoltIcon,
+  billing: BanknotesIcon,
+  memorus: CircleStackIcon,
+  kova: WrenchScrewdriverIcon,
+  lucrum: ChartBarIcon,
+  switch: ArrowsRightLeftIcon,
+  creator: VideoCameraIcon,
+};
 
 export function PersonaRouter() {
   const [selected, setSelected] = useState<string | null>(null);
@@ -45,7 +77,14 @@ export function PersonaRouter() {
                   : "hover:border-[var(--color-border-hover)]"
               }`}
             >
-              <span className="text-2xl">{p.icon}</span>
+              {(() => {
+                const Icon = personaIcons[p.id];
+                return Icon ? (
+                  <Icon className="w-7 h-7 text-[var(--color-ochre)] icon-glow" />
+                ) : (
+                  <span className="text-2xl">{p.icon}</span>
+                );
+              })()}
               <h3 className="mt-2 text-sm font-semibold text-[var(--color-text-primary)]">
                 {p.title}
               </h3>
@@ -104,7 +143,14 @@ export function PersonaRouter() {
                           href={ui.href}
                           className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-[var(--background)] border border-[var(--color-border)] hover:border-[var(--color-ochre)]/40 transition-colors"
                         >
-                          <span>{ui.icon}</span>
+                          {(() => {
+                            const Icon = productIcons[id];
+                            return Icon ? (
+                              <Icon className="w-5 h-5 text-[var(--color-ochre)] icon-glow" />
+                            ) : (
+                              <span>{ui.icon}</span>
+                            );
+                          })()}
                           <div>
                             <div className="text-sm font-medium text-[var(--color-text-primary)]">
                               {product.name}

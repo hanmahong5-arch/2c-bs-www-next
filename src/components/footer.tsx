@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { ArrowTopRightOnSquareIcon } from "@heroicons/react/24/outline";
 
 const footerLinks = [
   {
@@ -43,6 +44,29 @@ export function Footer() {
               <br />
               开箱即用，金融级可靠。
             </p>
+            {/* Social links */}
+            <div className="mt-4 flex gap-3">
+              <a
+                href="https://github.com/hanmahong5-arch"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-[var(--color-text-muted)] hover:text-[var(--color-ochre)] transition-colors"
+                aria-label="GitHub"
+              >
+                <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                  <path fillRule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clipRule="evenodd" />
+                </svg>
+              </a>
+              <a
+                href="mailto:contact@lurus.cn"
+                className="text-[var(--color-text-muted)] hover:text-[var(--color-ochre)] transition-colors"
+                aria-label="Email"
+              >
+                <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" aria-hidden="true">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" />
+                </svg>
+              </a>
+            </div>
           </div>
 
           {footerLinks.map((group) => (
@@ -71,9 +95,7 @@ export function Footer() {
                         >
                           {link.name}
                           {isExternal && (
-                            <span className="inline-block ml-1 opacity-40 text-[10px]">
-                              ↗
-                            </span>
+                            <ArrowTopRightOnSquareIcon className="inline-block w-3 h-3 ml-1 opacity-40" />
                           )}
                         </a>
                       </li>
@@ -100,7 +122,7 @@ export function Footer() {
           <p className="text-xs text-[var(--color-text-muted)]">
             &copy; {new Date().getFullYear()} Lurus. All rights reserved.
           </p>
-          <div className="flex gap-6 text-xs text-[var(--color-text-muted)]">
+          <div className="flex flex-wrap gap-x-6 gap-y-2 text-xs text-[var(--color-text-muted)]">
             <Link
               href="/privacy"
               className="hover:text-[var(--color-text-secondary)] transition-colors"
@@ -113,7 +135,25 @@ export function Footer() {
             >
               服务条款
             </Link>
-            <span>ICP备案号</span>
+            <a
+              href="https://beian.miit.gov.cn/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-[var(--color-text-secondary)] transition-colors"
+            >
+              鲁ICP备2026000242号
+            </a>
+            <a
+              href="https://www.beian.gov.cn/portal/registerSystemInfo?recordcode=37060002001239"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-[var(--color-text-secondary)] transition-colors inline-flex items-center gap-1"
+            >
+              <svg className="w-3 h-3 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+              </svg>
+              鲁公网安备37060002001239号
+            </a>
           </div>
         </div>
       </div>

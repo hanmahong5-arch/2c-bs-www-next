@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { XCircleIcon, CheckCircleIcon } from "@heroicons/react/20/solid";
 
 const rows = [
   { aspect: "LLM 接入", without: "逐个对接 API，各家格式不同", with: "一个 API Key，30+ 模型即用" },
@@ -51,9 +52,7 @@ export function Comparison() {
               {/* Without */}
               <div className="rounded-xl px-4 py-3 bg-[var(--color-error)]/5 border border-[var(--color-error)]/10">
                 <div className="flex items-start gap-2">
-                  <span className="text-[var(--color-error)] mt-0.5 shrink-0 text-xs">
-                    ✕
-                  </span>
+                  <XCircleIcon className="w-4 h-4 text-[var(--color-error)] mt-0.5 shrink-0" />
                   <span className="text-sm text-[var(--color-text-muted)]">
                     {row.without}
                   </span>
@@ -63,9 +62,7 @@ export function Comparison() {
               {/* With */}
               <div className="rounded-xl px-4 py-3 bg-[var(--color-success)]/5 border border-[var(--color-success)]/10">
                 <div className="flex items-start gap-2">
-                  <span className="text-[var(--color-success)] mt-0.5 shrink-0 text-xs">
-                    ✓
-                  </span>
+                  <CheckCircleIcon className="w-4 h-4 text-[var(--color-success)] mt-0.5 shrink-0" />
                   <span className="text-sm text-[var(--color-text-secondary)]">
                     {row.with}
                   </span>
@@ -82,7 +79,7 @@ export function Comparison() {
           viewport={{ once: true }}
           className="mt-12 text-center"
         >
-          <div className="inline-flex items-center gap-4 card px-8 py-5 glow-ochre">
+          <div className="inline-flex items-center gap-4 card border-beam px-8 py-5 glow-ochre">
             <div>
               <div className="text-3xl font-bold text-gradient-gold">
                 ~90%

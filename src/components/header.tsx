@@ -3,7 +3,12 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
-import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
+import { motion, AnimatePresence } from "framer-motion";
+import {
+  Bars3Icon,
+  XMarkIcon,
+  ArrowTopRightOnSquareIcon,
+} from "@heroicons/react/24/outline";
 
 const nav = [
   { name: "Platform", href: "/platform" },
@@ -13,6 +18,12 @@ const nav = [
   { name: "下载", href: "/download" },
   { name: "文档", href: "https://docs.lurus.cn", external: true },
 ];
+
+function ExternalArrow() {
+  return (
+    <ArrowTopRightOnSquareIcon className="inline-block w-3 h-3 ml-1 opacity-40" />
+  );
+}
 
 export function Header() {
   const [open, setOpen] = useState(false);
@@ -47,11 +58,7 @@ export function Header() {
                 }`}
               >
                 {item.name}
-                {item.external && (
-                  <span className="inline-block ml-1 opacity-40 text-[10px]">
-                    ↗
-                  </span>
-                )}
+                {item.external && <ExternalArrow />}
               </Link>
             );
           })}
@@ -65,13 +72,13 @@ export function Header() {
             className="text-sm text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] transition-colors px-3 py-2"
           >
             控制台
-            <span className="inline-block ml-1 opacity-40 text-[10px]">↗</span>
+            <ExternalArrow />
           </a>
           <a
             href="https://auth.lurus.cn"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-sm px-5 py-2 rounded-lg bg-gradient-gold text-black font-medium hover:opacity-90 transition-opacity"
+            className="text-sm px-5 py-2 rounded-lg bg-gradient-gold text-black font-medium hover:shadow-[0_0_20px_rgba(200,162,78,0.25)] transition-all duration-300"
           >
             登录
           </a>
@@ -91,48 +98,60 @@ export function Header() {
         </button>
       </div>
 
-      {/* Mobile nav */}
-      {open && (
-        <nav className="md:hidden border-t border-[var(--color-border)] bg-[var(--background)] px-6 py-4 space-y-1">
-          {nav.map((item) => {
-            const isActive =
-              !item.external && pathname.startsWith(item.href) && item.href !== "/";
+      {/* Mobile nav — animated */}
+      <AnimatePresence>
+        {open && (
+          <motion.nav
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: "auto", opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
+            className="md:hidden overflow-hidden border-t border-[var(--color-border)] bg-[var(--background)]"
+          >
+            <div className="px-6 py-4 space-y-1">
+              {nav.map((item, i) => {
+                const isActive =
+                  !item.external && pathname.startsWith(item.href) && item.href !== "/";
 
-            return (
-              <Link
-                key={item.name}
-                href={item.href}
-                onClick={() => setOpen(false)}
-                {...(item.external
-                  ? { target: "_blank", rel: "noopener noreferrer" }
-                  : {})}
-                className={`block text-sm px-3 py-2.5 rounded-lg ${
-                  isActive
-                    ? "text-[var(--color-ochre)] bg-[var(--color-ochre)]/5"
-                    : "text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] hover:bg-[var(--color-surface)]"
-                }`}
-              >
-                {item.name}
-                {item.external && (
-                  <span className="inline-block ml-1 opacity-40 text-[10px]">
-                    ↗
-                  </span>
-                )}
-              </Link>
-            );
-          })}
-          <div className="pt-3 border-t border-[var(--color-border)] mt-3 flex gap-3">
-            <a
-              href="https://auth.lurus.cn"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex-1 text-center text-sm px-4 py-2.5 rounded-lg bg-gradient-gold text-black font-medium"
-            >
-              登录
-            </a>
-          </div>
-        </nav>
-      )}
+                return (
+                  <motion.div
+                    key={item.name}
+                    initial={{ opacity: 0, x: -12 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: i * 0.04, duration: 0.3 }}
+                  >
+                    <Link
+                      href={item.href}
+                      onClick={() => setOpen(false)}
+                      {...(item.external
+                        ? { target: "_blank", rel: "noopener noreferrer" }
+                        : {})}
+                      className={`block text-sm px-3 py-2.5 rounded-lg ${
+                        isActive
+                          ? "text-[var(--color-ochre)] bg-[var(--color-ochre)]/5"
+                          : "text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] hover:bg-[var(--color-surface)]"
+                      }`}
+                    >
+                      {item.name}
+                      {item.external && <ExternalArrow />}
+                    </Link>
+                  </motion.div>
+                );
+              })}
+              <div className="pt-3 border-t border-[var(--color-border)] mt-3 flex gap-3">
+                <a
+                  href="https://auth.lurus.cn"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex-1 text-center text-sm px-4 py-2.5 rounded-lg bg-gradient-gold text-black font-medium"
+                >
+                  登录
+                </a>
+              </div>
+            </div>
+          </motion.nav>
+        )}
+      </AnimatePresence>
     </header>
   );
 }

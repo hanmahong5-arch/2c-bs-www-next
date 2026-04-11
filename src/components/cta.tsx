@@ -10,7 +10,7 @@ export function CTA() {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="relative rounded-2xl overflow-hidden"
+          className="relative rounded-2xl overflow-hidden border-beam"
         >
           {/* Background layers */}
           <div className="absolute inset-0 bg-[var(--color-surface)]" />
@@ -28,7 +28,7 @@ export function CTA() {
               5 分钟接入
             </div>
 
-            <h2 className="text-3xl md:text-4xl font-bold text-[var(--color-text-primary)]">
+            <h2 className="text-3xl md:text-4xl font-bold text-shimmer">
               准备好让 AI 为企业赋能了吗？
             </h2>
             <p className="mt-4 text-lg text-[var(--color-text-secondary)] max-w-xl mx-auto">
@@ -39,7 +39,7 @@ export function CTA() {
                 href="https://api.lurus.cn"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="px-8 py-3.5 rounded-xl bg-gradient-gold text-black font-semibold hover:opacity-90 transition-opacity"
+                className="px-8 py-3.5 rounded-xl bg-gradient-gold text-black font-semibold hover:shadow-[0_0_30px_rgba(200,162,78,0.3)] transition-all duration-300"
               >
                 免费试用
               </a>
