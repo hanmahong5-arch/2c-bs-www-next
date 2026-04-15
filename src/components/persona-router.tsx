@@ -43,7 +43,10 @@ const productIcons: Record<string, HeroIcon> = {
 
 export function PersonaRouter() {
   const [selected, setSelected] = useState<string | null>(null);
+  const [hovered, setHovered] = useState<string | null>(null);
   const persona = personas.find((p) => p.id === selected);
+  // Stripe-style: line follows hover when anything is hovered, else follows selection.
+  const activeLineId = hovered ?? selected;
 
   return (
     <section className="py-24 relative overflow-hidden">
@@ -65,34 +68,55 @@ export function PersonaRouter() {
           </p>
         </motion.div>
 
-        {/* Persona selector */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-10">
-          {personas.map((p) => (
-            <button
-              key={p.id}
-              onClick={() => setSelected(selected === p.id ? null : p.id)}
-              className={`card p-5 text-left transition-all cursor-pointer ${
-                selected === p.id
-                  ? "border-[var(--color-ochre)] glow-soft"
-                  : "hover:border-[var(--color-border-hover)]"
-              }`}
-            >
-              {(() => {
-                const Icon = personaIcons[p.id];
-                return Icon ? (
-                  <Icon className="w-7 h-7 text-[var(--color-ochre)] icon-glow" />
-                ) : (
-                  <span className="text-2xl">{p.icon}</span>
-                );
-              })()}
-              <h3 className="mt-2 text-sm font-semibold text-[var(--color-text-primary)]">
-                {p.title}
-              </h3>
-              <p className="mt-1 text-xs text-[var(--color-text-muted)] leading-relaxed">
-                {p.description}
-              </p>
-            </button>
-          ))}
+        {/* Persona selector — Stripe-style gold sweep line tracks hover/selection */}
+        <div
+          className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-10"
+          onMouseLeave={() => setHovered(null)}
+        >
+          {personas.map((p) => {
+            const isActive = activeLineId === p.id;
+            const isSelected = selected === p.id;
+            return (
+              <button
+                key={p.id}
+                onClick={() => setSelected(selected === p.id ? null : p.id)}
+                onMouseEnter={() => setHovered(p.id)}
+                className={`card relative p-5 text-left transition-all cursor-pointer overflow-hidden ${
+                  isSelected
+                    ? "border-[var(--color-ochre)]/40"
+                    : "hover:border-[var(--color-border-hover)]"
+                }`}
+              >
+                {(() => {
+                  const Icon = personaIcons[p.id];
+                  return Icon ? (
+                    <Icon className="w-7 h-7 text-[var(--color-ochre)] icon-glow" />
+                  ) : (
+                    <span className="text-2xl">{p.icon}</span>
+                  );
+                })()}
+                <h3 className="mt-2 text-sm font-semibold text-[var(--color-text-primary)]">
+                  {p.title}
+                </h3>
+                <p className="mt-1 text-xs text-[var(--color-text-muted)] leading-relaxed">
+                  {p.description}
+                </p>
+
+                {/* Sweep underline — layoutId makes the line glide between tabs */}
+                {isActive && (
+                  <motion.div
+                    layoutId="persona-sweep"
+                    className="absolute bottom-0 left-0 right-0 h-[2px] bg-gradient-gold"
+                    transition={{
+                      type: "spring",
+                      stiffness: 380,
+                      damping: 32,
+                    }}
+                  />
+                )}
+              </button>
+            );
+          })}
         </div>
 
         {/* Recommendation panel */}

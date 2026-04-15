@@ -1,6 +1,7 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { useRef } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
 
 const nodes = [
   { id: "client", label: "你的应用", x: 50, y: 15, type: "external" as const },
@@ -50,8 +51,30 @@ const typeStyles = {
 };
 
 export function ArchitectureVisual() {
+  const sectionRef = useRef<HTMLElement>(null);
+
+  // Anthropic-style breathing rectangle: panel starts contained, expands as you
+  // scroll through it. Spatial metaphor for "AI opens up from foyer to room."
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start end", "end start"],
+  });
+
+  // Map scroll progress → max-width + border-radius.
+  // 0 → 0.45: contained 4xl / rounded-2xl.  0.45 → 0.7: expands to 6xl / rounded-xl.
+  const maxWidth = useTransform(
+    scrollYProgress,
+    [0, 0.35, 0.65, 1],
+    ["56rem", "56rem", "76rem", "76rem"]
+  );
+  const borderRadius = useTransform(
+    scrollYProgress,
+    [0, 0.35, 0.65, 1],
+    ["16px", "16px", "24px", "24px"]
+  );
+
   return (
-    <section className="py-24 relative overflow-hidden">
+    <section ref={sectionRef} className="py-24 relative overflow-hidden">
       <div className="mx-auto max-w-7xl px-6">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -59,7 +82,7 @@ export function ArchitectureVisual() {
           viewport={{ once: true }}
           className="text-center mb-12"
         >
-          <h2 className="text-3xl md:text-4xl font-bold">
+          <h2 className="headline-tight text-3xl md:text-4xl font-bold">
             <span className="text-gradient-gold">一个 API</span>
             <span className="text-[var(--color-text-primary)]">，通达一切</span>
           </h2>
@@ -73,7 +96,8 @@ export function ArchitectureVisual() {
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
-          className="card p-6 md:p-10 max-w-4xl mx-auto"
+          style={{ maxWidth, borderRadius }}
+          className="card p-6 md:p-10 mx-auto overflow-hidden"
         >
           <svg viewBox="0 0 100 95" className="w-full" style={{ maxHeight: 420 }}>
             {/* Connections with animated dash */}

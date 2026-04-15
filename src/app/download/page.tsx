@@ -13,8 +13,8 @@ export default function DownloadPage() {
     <>
       <PageHero
         highlight="桌面工具"
-        title="AI 生产力套件"
-        description="本地优先，离线可用。下载即用，无需配置服务器。"
+        title="AI 装进口袋，离线也能用"
+        description="密钥不离开你的电脑，断网照常工作。申请内测，第一时间体验。"
       />
       <DownloadCards />
       <SystemRequirements />

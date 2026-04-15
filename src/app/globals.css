@@ -36,6 +36,35 @@ body {
   color: var(--foreground);
 }
 
+/* ── Editorial Typography ── */
+
+/* Tightened display type — Stripe/Anthropic-level restraint. Apply to H1/H2 ≥ 48px. */
+.headline-tight {
+  letter-spacing: -0.035em;
+  line-height: 1.05;
+  font-feature-settings: "ss01", "cv11";
+}
+
+.headline-balance {
+  text-wrap: balance;
+}
+
+/* Eyebrow label — all-caps, tracked, muted. Spatial metadata, not content. */
+.eyebrow {
+  font-size: 0.6875rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  font-weight: 500;
+}
+
+/* Arrow-compressed stat — Vercel's killer pattern. "800ms → 120ms" */
+.stat-arrow {
+  font-family: var(--font-geist-mono);
+  font-feature-settings: "tnum";
+  letter-spacing: -0.01em;
+}
+
 /* ── Premium Text Effects ── */
 
 /* Shimmer / shine sweep on brand text */

@@ -1,11 +1,21 @@
 "use client";
 
+import { useState } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
+import {
+  ClipboardDocumentIcon,
+  CheckIcon,
+  ArrowRightIcon,
+} from "@heroicons/react/24/outline";
 import { stats } from "@/lib/products";
 import { Aurora } from "./aurora";
 import { ParticleNetwork } from "./particle-network";
 import { AnimatedStat } from "./animated-counter";
+
+// Anthropic-style spring — fast attack, slow settle.
+// Words land with authority, not flair.
+const EDITORIAL_EASE = [0.16, 1, 0.3, 1] as const;
 
 export function Hero() {
   return (
@@ -26,7 +36,7 @@ export function Hero() {
             <motion.div
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 0.2 }}
+              transition={{ delay: 0.2, ease: EDITORIAL_EASE }}
               className="pill mb-8 w-fit"
             >
               <span className="relative flex h-2 w-2">
@@ -36,61 +46,117 @@ export function Hero() {
               企业 AI 基础设施套件
             </motion.div>
 
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight leading-[1.1]">
-              <motion.span
-                className="text-gradient-gold inline-block"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.3, duration: 0.6 }}
-              >
-                一行代码
-              </motion.span>
-              <br />
-              <motion.span
-                className="text-[var(--color-text-primary)] inline-block"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.45, duration: 0.6 }}
-              >
-                接入所有 AI
-              </motion.span>
-            </h1>
+            {/* Headline — word-level staggered reveal with editorial easing.
+                Attack fast, settle slow — like words placed deliberately. */}
+            <motion.h1
+              initial="hidden"
+              animate="visible"
+              variants={{
+                visible: { transition: { staggerChildren: 0.06, delayChildren: 0.25 } },
+              }}
+              className="headline-tight headline-balance text-4xl md:text-5xl lg:text-[4.25rem] font-bold"
+            >
+              <span className="block">
+                {"一行代码".split("").map((ch, i) => (
+                  <motion.span
+                    key={`l1-${i}`}
+                    className="text-gradient-gold inline-block"
+                    variants={{
+                      hidden: { opacity: 0, y: 24 },
+                      visible: {
+                        opacity: 1,
+                        y: 0,
+                        transition: { duration: 0.7, ease: EDITORIAL_EASE },
+                      },
+                    }}
+                  >
+                    {ch}
+                  </motion.span>
+                ))}
+              </span>
+              <span className="block text-[var(--color-text-primary)]">
+                {"接入所有 AI".split("").map((ch, i) => (
+                  <motion.span
+                    key={`l2-${i}`}
+                    className="inline-block"
+                    variants={{
+                      hidden: { opacity: 0, y: 24 },
+                      visible: {
+                        opacity: 1,
+                        y: 0,
+                        transition: { duration: 0.7, ease: EDITORIAL_EASE },
+                      },
+                    }}
+                  >
+                    {ch === " " ? "\u00A0" : ch}
+                  </motion.span>
+                ))}
+              </span>
+            </motion.h1>
 
             <motion.p
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.6 }}
-              className="mt-6 text-lg text-[var(--color-text-secondary)] max-w-lg leading-relaxed"
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.85, duration: 0.6, ease: EDITORIAL_EASE }}
+              className="mt-6 text-lg text-[var(--color-text-secondary)] max-w-lg leading-[1.65]"
             >
-              让 AI 像水电一样运转。30+ 模型统一网关，金融级计费，持久化记忆——你的产品只需一个 API Key，剩下的交给 Lurus。
+              38 个模型统一网关，p50 延迟 &lt;80ms，金融级计费精度到 ¥0.0001。你的产品只需一个 API Key，其余交给 Lurus。
             </motion.p>
 
             <motion.div
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.75 }}
-              className="mt-8 flex flex-wrap gap-4"
+              transition={{ delay: 1.0, ease: EDITORIAL_EASE }}
+              className="mt-8"
             >
-              <Link
-                href="/platform"
-                className="group relative px-8 py-3.5 rounded-xl bg-gradient-gold text-black font-semibold text-base overflow-hidden transition-all hover:shadow-[0_0_30px_rgba(200,162,78,0.3)]"
-              >
-                <span className="relative z-10">探索 Platform</span>
-                <motion.div
-                  className="absolute inset-0 bg-white/20"
-                  initial={{ x: "-100%" }}
-                  whileHover={{ x: "100%" }}
-                  transition={{ duration: 0.5 }}
-                />
-              </Link>
-              <a
-                href="https://docs.lurus.cn"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="px-8 py-3.5 rounded-xl border border-[var(--color-border)] text-[var(--color-text-primary)] font-medium text-base hover:border-[var(--color-ochre)]/50 hover:bg-[var(--color-surface)] transition-all"
-              >
-                阅读文档
-              </a>
+              {/* Developer-oriented monospace hint above primary CTA */}
+              <p className="eyebrow mb-3 font-mono normal-case tracking-[0.05em] text-[0.7rem]">
+                <span className="text-[var(--color-ochre)]/70">$</span>{" "}
+                <span className="text-[var(--color-text-muted)]">curl https://api.lurus.cn/v1/chat/completions</span>
+              </p>
+
+              <div className="flex flex-wrap gap-3">
+                <a
+                  href="https://api.lurus.cn"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group relative px-7 py-3.5 rounded-xl bg-gradient-gold text-black font-semibold text-base overflow-hidden transition-all hover:shadow-[0_0_30px_rgba(200,162,78,0.3)] flex items-center gap-2"
+                >
+                  <span className="relative z-10">立即接入</span>
+                  <ArrowRightIcon className="w-4 h-4 relative z-10 transition-transform group-hover:translate-x-0.5" />
+                  <motion.div
+                    className="absolute inset-0 bg-white/20"
+                    initial={{ x: "-100%" }}
+                    whileHover={{ x: "100%" }}
+                    transition={{ duration: 0.5 }}
+                  />
+                </a>
+                <Link
+                  href="/platform"
+                  className="px-7 py-3.5 rounded-xl border border-[var(--color-border)] text-[var(--color-text-primary)] font-medium text-base hover:border-[var(--color-ochre)]/50 hover:bg-[var(--color-surface)] transition-all"
+                >
+                  探索 Platform
+                </Link>
+              </div>
+
+              {/* Tertiary — understated, for CTO/procurement audience */}
+              <div className="mt-5 flex items-center gap-5 text-xs text-[var(--color-text-muted)]">
+                <a
+                  href="mailto:sales@lurus.cn?subject=Lurus%20%E6%BC%94%E7%A4%BA%E9%A2%84%E7%BA%A6"
+                  className="hover:text-[var(--color-text-secondary)] transition-colors"
+                >
+                  预约演示 →
+                </a>
+                <span className="w-px h-3 bg-[var(--color-border)]" />
+                <a
+                  href="https://docs.lurus.cn"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-[var(--color-text-secondary)] transition-colors"
+                >
+                  阅读文档
+                </a>
+              </div>
             </motion.div>
           </motion.div>
 
@@ -127,6 +193,14 @@ export function Hero() {
 }
 
 function CodeDemo() {
+  const [copied, setCopied] = useState(false);
+
+  const handleCopy = async () => {
+    await navigator.clipboard.writeText(plainCode);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
+
   return (
     <div className="code-block p-5 relative overflow-hidden shadow-2xl shadow-black/50">
       {/* Glow border effect */}
@@ -144,10 +218,30 @@ function CodeDemo() {
         <span className="text-xs text-[var(--color-text-muted)] ml-2 font-mono">
           app.ts
         </span>
-        <span className="ml-auto text-[10px] text-[var(--color-success)] font-mono flex items-center gap-1">
+
+        <span className="ml-auto text-[10px] text-[var(--color-success)] font-mono flex items-center gap-1 mr-2">
           <span className="w-1 h-1 rounded-full bg-[var(--color-success)]" />
           connected
         </span>
+
+        {/* Copy button */}
+        <button
+          onClick={handleCopy}
+          className="flex items-center gap-1.5 text-[10px] px-2 py-1 rounded-md text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)] hover:bg-[var(--color-surface)] transition-all cursor-pointer"
+          aria-label="Copy code"
+        >
+          {copied ? (
+            <>
+              <CheckIcon className="w-3.5 h-3.5 text-[var(--color-success)]" />
+              <span className="text-[var(--color-success)] font-mono">copied</span>
+            </>
+          ) : (
+            <>
+              <ClipboardDocumentIcon className="w-3.5 h-3.5" />
+              <span className="font-mono">copy</span>
+            </>
+          )}
+        </button>
       </div>
 
       {/* Code content with staggered reveal */}
@@ -173,6 +267,19 @@ function CodeDemo() {
     </div>
   );
 }
+
+const plainCode = `// OpenAI-compatible, 5 min to integrate
+import OpenAI from "openai"
+
+const client = new OpenAI({
+  baseURL: "https://api.lurus.cn/v1",
+  apiKey: "sk-your-lurus-key"
+})
+
+const res = await client.chat.completions.create({
+  model: "gpt-4o",  // or claude-4, deepseek-v3...
+  messages: [{ role: "user", content: "hello" }]
+})`;
 
 const codeLines = [
   '<span class="comment">// OpenAI-compatible, 5 min to integrate</span>',

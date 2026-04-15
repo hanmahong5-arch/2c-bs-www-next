@@ -150,8 +150,8 @@ export const productGroups = [
 ] as const;
 
 export const stats = [
-  { value: "30+", label: "AI 模型供应商" },
-  { value: "99.9%", label: "SLA 目标" },
-  { value: "0.01¥", label: "计费精度" },
-  { value: "<100ms", label: "智能路由延迟" },
+  { value: "38", label: "AI 模型供应商" },
+  { value: "99.99%", label: "可用率 SLA" },
+  { value: "¥0.0001", label: "最小计费粒度" },
+  { value: "<80ms", label: "路由 p50 延迟" },
 ];
