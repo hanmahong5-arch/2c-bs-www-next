@@ -30,7 +30,7 @@ spec:
         - name: ghcr-pull-secret
       containers:
         - name: www
-          image: ghcr.io/hanmahong5-arch/2c-bs-www-next:main-f2d63d0
+          image: ghcr.io/hanmahong5-arch/2c-bs-www-next:main-53f596a
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 3000
