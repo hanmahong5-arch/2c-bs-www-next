@@ -24,8 +24,33 @@ export function TrustBand() {
     <section className="py-16 relative overflow-hidden">
       <div className="section-divider" />
 
-      {/* No "TRUSTED BY" header. Confidence doesn't announce itself. */}
-      <div className="py-10 relative">
+      {/* Platform key metrics — monospace terminal aesthetic */}
+      <motion.div
+        initial={{ opacity: 0, y: 10 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        className="flex flex-wrap items-center justify-center gap-x-8 gap-y-2 pt-10 pb-6 text-xs font-mono"
+      >
+        {[
+          { value: "38", unit: "个模型" },
+          { value: "<80ms", unit: "p50 延迟" },
+          { value: "99.99%", unit: "SLA 可用性" },
+          { value: "¥0.0001", unit: "计费精度" },
+          { value: "5 min", unit: "接入时间" },
+        ].map((s, i) => (
+          <div key={s.unit} className="flex items-center gap-3">
+            {i > 0 && <span className="w-px h-3 bg-[var(--color-border)] hidden sm:block" />}
+            <span>
+              <span className="text-[var(--color-ochre)] font-bold">{s.value}</span>
+              {" "}
+              <span className="text-[var(--color-text-muted)]">{s.unit}</span>
+            </span>
+          </div>
+        ))}
+      </motion.div>
+
+      {/* Provider marquee — confidence doesn't announce itself */}
+      <div className="pb-10 relative">
         <div className="absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-[var(--background)] to-transparent z-10" />
         <div className="absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-[var(--background)] to-transparent z-10" />
 

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import {
@@ -160,14 +160,15 @@ export function Hero() {
             </motion.div>
           </motion.div>
 
-          {/* Right: Code demo */}
+          {/* Right: Code demo + streaming response */}
           <motion.div
             initial={{ opacity: 0, x: 30, rotateY: -5 }}
             animate={{ opacity: 1, x: 0, rotateY: 0 }}
             transition={{ delay: 0.4, duration: 0.8 }}
-            className="perspective-[1000px]"
+            className="perspective-[1000px] space-y-3"
           >
             <CodeDemo />
+            <ResponseDemo />
           </motion.div>
         </div>
 
@@ -264,6 +265,96 @@ function CodeDemo() {
 
       {/* Glow accent */}
       <div className="absolute -bottom-10 -right-10 w-40 h-40 rounded-full bg-[var(--color-ochre)] opacity-[0.06] blur-[60px]" />
+    </div>
+  );
+}
+
+const RESPONSE_TEXT = `{
+  "id": "lurus-x7k9m",
+  "model": "deepseek-v3",
+  "routed_via": "lurus-hub",
+  "choices": [{
+    "message": {
+      "role": "assistant",
+      "content": "Sure, how can I help you?"
+    },
+    "finish_reason": "stop"
+  }],
+  "usage": {
+    "prompt_tokens": 12,
+    "completion_tokens": 8,
+    "total_tokens": 20
+  },
+  "lurus_meta": {
+    "latency_ms": 42,
+    "cost_cny": 0.0002
+  }
+}`;
+
+function ResponseDemo() {
+  const ref = useRef<HTMLDivElement>(null);
+  const [displayed, setDisplayed] = useState(0);
+
+  useEffect(() => {
+    let intervalId: ReturnType<typeof setInterval>;
+    // Start after code lines finish animating (~1.5s) plus a brief pause
+    const timeoutId = setTimeout(() => {
+      let i = 0;
+      intervalId = setInterval(() => {
+        i += 4;
+        setDisplayed(Math.min(i, RESPONSE_TEXT.length));
+        if (i >= RESPONSE_TEXT.length) clearInterval(intervalId);
+      }, 16);
+    }, 1500);
+    return () => {
+      clearTimeout(timeoutId);
+      clearInterval(intervalId);
+    };
+  }, []);
+
+  return (
+    <div ref={ref} className="code-block p-4 relative overflow-hidden">
+      {/* Window chrome — inactive (gray dots) to signal "response" tab */}
+      <div className="flex items-center gap-2 mb-3 pb-2.5 border-b border-[var(--color-border)]">
+        <div className="flex gap-1.5">
+          <div className="w-3 h-3 rounded-full bg-[var(--color-border)]" />
+          <div className="w-3 h-3 rounded-full bg-[var(--color-border)]" />
+          <div className="w-3 h-3 rounded-full bg-[var(--color-border)]" />
+        </div>
+        <span className="text-xs text-[var(--color-text-muted)] ml-2 font-mono">response.json</span>
+        <span className="ml-auto flex items-center gap-2">
+          <span className="text-[10px] font-mono font-semibold text-[var(--color-success)]">← 42ms</span>
+          <span className="text-[10px] px-2 py-0.5 rounded-full bg-[var(--color-success)]/10 text-[var(--color-success)] font-mono border border-[var(--color-success)]/20">
+            200 OK
+          </span>
+        </span>
+      </div>
+
+      {/* Routing metadata strip */}
+      <div className="flex items-center gap-3 mb-3 text-[10px] font-mono text-[var(--color-text-muted)]">
+        <span>deepseek-v3</span>
+        <span className="w-px h-2.5 bg-[var(--color-border)]" />
+        <span>20 tokens</span>
+        <span className="w-px h-2.5 bg-[var(--color-border)]" />
+        <span className="text-[var(--color-ochre)]">¥0.0002</span>
+        <span className="w-px h-2.5 bg-[var(--color-border)]" />
+        <span className="text-[var(--color-text-muted)]">↓ 较 GPT-4o 节省 85%</span>
+      </div>
+
+      {/* Streaming response text */}
+      <pre className="text-[0.7rem] leading-[1.7] text-[var(--color-success)]/65 font-mono overflow-hidden">
+        {RESPONSE_TEXT.slice(0, displayed)}
+        {displayed < RESPONSE_TEXT.length && (
+          <motion.span
+            className="inline-block w-[2px] h-[0.85em] bg-[var(--color-success)]/60 ml-0.5 align-middle"
+            animate={{ opacity: [1, 0] }}
+            transition={{ duration: 0.5, repeat: Infinity }}
+          />
+        )}
+      </pre>
+
+      {/* Subtle green glow */}
+      <div className="absolute -bottom-6 -right-6 w-24 h-24 rounded-full bg-[var(--color-success)] opacity-[0.04] blur-[40px] pointer-events-none" />
     </div>
   );
 }
