@@ -66,21 +66,20 @@ export function Header() {
 
         <div className="hidden md:flex items-center gap-3">
           <a
-            href="https://api.lurus.cn"
+            href="https://auth.lurus.cn"
             target="_blank"
             rel="noopener noreferrer"
             className="text-sm text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] transition-colors px-3 py-2"
           >
-            控制台
-            <ExternalArrow />
+            登录
           </a>
           <a
-            href="https://auth.lurus.cn"
+            href="https://api.lurus.cn"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-sm px-5 py-2 rounded-lg bg-gradient-gold text-black font-medium hover:shadow-[0_0_20px_rgba(200,162,78,0.25)] transition-all duration-300"
+            className="text-sm px-5 py-2 rounded-lg bg-gradient-gold text-black font-semibold hover:shadow-[0_0_20px_rgba(200,162,78,0.25)] transition-all duration-300"
           >
-            登录
+            免费开始
           </a>
         </div>
 

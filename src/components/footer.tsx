@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowTopRightOnSquareIcon } from "@heroicons/react/24/outline";
+import { ArrowTopRightOnSquareIcon, ArrowRightIcon } from "@heroicons/react/24/outline";
 
 const footerLinks = [
   {
@@ -35,15 +35,78 @@ export function Footer() {
   return (
     <footer className="border-t border-[var(--color-border)] bg-[var(--color-surface)]">
       <div className="mx-auto max-w-7xl px-6 py-16">
+
+        {/* Pre-footer CTA — last conversion moment before the visitor leaves */}
+        <div className="relative rounded-2xl overflow-hidden mb-16 p-8 md:p-12 border border-[var(--color-border)]">
+          <div className="absolute inset-0 bg-gradient-to-br from-[var(--color-ochre)]/6 via-transparent to-transparent" />
+          <div className="absolute inset-0 grid-bg opacity-20" />
+          <div className="absolute -top-24 -left-24 w-72 h-72 rounded-full bg-[var(--color-ochre)] opacity-[0.05] blur-[90px] pointer-events-none" />
+
+          <div className="relative flex flex-col md:flex-row md:items-center md:justify-between gap-8">
+            <div>
+              <p className="eyebrow mb-3">START NOW</p>
+              <h2 className="text-2xl md:text-3xl font-bold text-[var(--color-text-primary)] headline-tight">
+                今晚接入，明天上线
+              </h2>
+              <p className="mt-2 text-sm text-[var(--color-text-secondary)] max-w-md leading-relaxed">
+                一个 API Key，38 个模型，p50 &lt;80ms。<br />
+                你的产品不该被基础设施拖慢。
+              </p>
+              <div className="mt-4 flex flex-wrap items-center gap-x-4 gap-y-1 text-xs font-mono text-[var(--color-text-muted)]">
+                <span><span className="text-[var(--color-ochre)]">38</span> 个模型</span>
+                <span className="w-px h-3 bg-[var(--color-border)] hidden sm:inline-block" />
+                <span>p50 <span className="text-[var(--color-ochre)]">&lt;80ms</span></span>
+                <span className="w-px h-3 bg-[var(--color-border)] hidden sm:inline-block" />
+                <span>免费额度 <span className="text-[var(--color-ochre)]">$5</span> · 无需信用卡</span>
+              </div>
+            </div>
+
+            <div className="flex flex-col sm:flex-row gap-3 shrink-0">
+              <a
+                href="https://api.lurus.cn"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-gradient-gold text-black font-semibold text-sm hover:shadow-[0_0_30px_rgba(200,162,78,0.3)] transition-all duration-300"
+              >
+                免费注册
+                <ArrowRightIcon className="w-4 h-4 transition-transform group-hover:translate-x-0.5" />
+              </a>
+              <a
+                href="mailto:sales@lurus.cn?subject=Lurus%20企业方案咨询"
+                className="flex items-center justify-center gap-2 px-6 py-3 rounded-xl border border-[var(--color-border)] text-[var(--color-text-primary)] font-medium text-sm hover:border-[var(--color-border-hover)] hover:bg-[var(--color-surface)] transition-all duration-300"
+              >
+                联系销售
+              </a>
+            </div>
+          </div>
+        </div>
+
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
           {/* Brand */}
           <div className="col-span-2 md:col-span-1">
             <span className="text-xl font-bold text-gradient-gold">Lurus</span>
-            <p className="mt-3 text-sm text-[var(--color-text-muted)] max-w-xs">
+            <p className="mt-3 text-sm text-[var(--color-text-muted)] leading-relaxed max-w-xs">
               企业 AI 基础设施套件。
               <br />
-              开箱即用，金融级可靠。
+              一个 API Key，38 个模型，
+              <br />
+              金融级计费，开箱即用。
             </p>
+
+            {/* System status */}
+            <a
+              href="https://status.lurus.cn"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-4 inline-flex items-center gap-2 text-xs text-[var(--color-text-muted)] hover:text-[var(--color-success)] transition-colors"
+            >
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[var(--color-success)] opacity-75" />
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-[var(--color-success)]" />
+              </span>
+              全系统正常运行
+            </a>
+
             {/* Social links */}
             <div className="mt-4 flex gap-3">
               <a
