@@ -24,14 +24,13 @@ export function Comparison() {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <p className="eyebrow mb-4">COMPARISON</p>
+          <p className="eyebrow mb-4">BUILD VS BUY</p>
           <h2 className="headline-tight text-3xl md:text-4xl font-bold">
-            <span className="text-[var(--color-text-muted)]">接得越多</span>
-            <span className="text-[var(--color-text-primary)]">，</span>
-            <span className="text-gradient-gold">管得越少</span>
+            <span className="text-[var(--color-text-primary)]">3–6 个月，</span>
+            <span className="text-gradient-gold">还是 5 分钟</span>
           </h2>
-          <p className="mt-4 text-[var(--color-text-secondary)]">
-            别再为基础设施写第一行代码——你的时间值得用在产品上
+          <p className="mt-4 text-[var(--color-text-secondary)] max-w-lg mx-auto">
+            自建 AI 基础设施：LLM 对接 + 计费 + 认证 + 可观测性，保守估计 5,000 行代码、3 个月工程投入。或者，今晚接入 Lurus。
           </p>
         </motion.div>
 

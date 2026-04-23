@@ -19,8 +19,8 @@ export function FeaturesShowcase() {
             <span className="text-[var(--color-text-primary)]">不止于网关，</span>
             <span className="text-gradient-gold">全栈 AI 后端</span>
           </h2>
-          <p className="mt-4 text-[var(--color-text-secondary)] max-w-xl mx-auto">
-            六大核心能力，覆盖企业 AI 应用的完整后端需求——从接入到计费，从记忆到全链路可观测性
+          <p className="mt-4 text-[var(--color-text-secondary)] max-w-2xl mx-auto">
+            其他平台只解决接入问题。Lurus 覆盖了企业 AI 应用的每一个后端挑战——智能路由、金融级计费、持久记忆、企业认证、实时通知与全链路可观测性——全部开箱即用。
           </p>
         </motion.div>
 

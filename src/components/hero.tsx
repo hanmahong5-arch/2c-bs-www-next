@@ -19,7 +19,7 @@ const EDITORIAL_EASE = [0.16, 1, 0.3, 1] as const;
 
 export function Hero() {
   return (
-    <section className="relative overflow-hidden min-h-[90vh] flex flex-col justify-center">
+    <section className="relative overflow-hidden min-h-[90vh] flex flex-col justify-center noise">
       {/* Background layers */}
       <Aurora />
       <ParticleNetwork className="-z-5 opacity-60" />
@@ -139,15 +139,20 @@ export function Hero() {
                 </Link>
               </div>
 
-              {/* Tertiary — understated, for CTO/procurement audience */}
-              <div className="mt-5 flex items-center gap-5 text-xs text-[var(--color-text-muted)]">
+              {/* Tertiary — social proof + navigation for CTO/procurement audience */}
+              <div className="mt-5 flex flex-wrap items-center gap-4 text-xs text-[var(--color-text-muted)]">
+                <span className="flex items-center gap-1.5">
+                  <CheckIcon className="w-3.5 h-3.5 text-[var(--color-success)] shrink-0" />
+                  <span>500+ 团队已接入</span>
+                </span>
+                <span className="w-px h-3 bg-[var(--color-border)] hidden sm:block" />
                 <a
                   href="mailto:sales@lurus.cn?subject=Lurus%20%E6%BC%94%E7%A4%BA%E9%A2%84%E7%BA%A6"
                   className="hover:text-[var(--color-text-secondary)] transition-colors"
                 >
                   预约演示 →
                 </a>
-                <span className="w-px h-3 bg-[var(--color-border)]" />
+                <span className="w-px h-3 bg-[var(--color-border)] hidden sm:block" />
                 <a
                   href="https://docs.lurus.cn"
                   target="_blank"

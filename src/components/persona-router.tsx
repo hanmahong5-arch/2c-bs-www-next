@@ -59,13 +59,13 @@ export function PersonaRouter() {
           viewport={{ once: true }}
           className="text-center mb-12"
         >
-          <p className="eyebrow mb-4">JOURNEYS</p>
+          <p className="eyebrow mb-4">YOUR PATH</p>
           <h2 className="headline-tight text-3xl md:text-4xl font-bold">
-            <span className="text-gradient-gold">你的场景</span>
-            <span className="text-[var(--color-text-primary)]">，你的路径</span>
+            <span className="text-gradient-gold">你是谁</span>
+            <span className="text-[var(--color-text-primary)]">，就走哪条路</span>
           </h2>
           <p className="mt-4 text-[var(--color-text-secondary)]">
-            选择你的角色，我们为你规划最短的 AI 接入路径
+            选择你的角色，Lurus 为你推荐最短的产品接入路径——从第一行代码到上线，最快 5 分钟
           </p>
         </motion.div>
 

@@ -29,7 +29,16 @@ export function TrustBand() {
         initial={{ opacity: 0, y: 10 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
-        className="flex flex-wrap items-center justify-center gap-x-8 gap-y-2 pt-10 pb-6 text-xs font-mono"
+        className="pt-10 pb-2 text-center"
+      >
+        <p className="eyebrow mb-5">实时平台指标</p>
+      </motion.div>
+      <motion.div
+        initial={{ opacity: 0, y: 10 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ delay: 0.1 }}
+        className="flex flex-wrap items-center justify-center gap-x-8 gap-y-2 pb-6 text-xs font-mono"
       >
         {[
           { value: "38", unit: "个模型" },
