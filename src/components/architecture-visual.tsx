@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useEffect, useState } from "react";
+import { useRef, useEffect, useState, useCallback } from "react";
 import { motion, useScroll, useTransform, useInView } from "framer-motion";
 
 const nodes = [
@@ -39,41 +39,46 @@ const typeStyles = {
 };
 
 const traceSteps = [
-  { time: "0ms",  icon: "→", label: "请求到达",   detail: "POST /v1/chat/completions",      color: "text-[var(--color-text-secondary)]",  ochre: false },
-  { time: "2ms",  icon: "✓", label: "鉴权通过",   detail: "JWT · usr_8k2x · 有效",          color: "text-[var(--color-success)]",         ochre: false },
-  { time: "4ms",  icon: "✓", label: "余额充足",   detail: "¥2,847.32 · 预授权通过",         color: "text-[var(--color-success)]",         ochre: false },
-  { time: "9ms",  icon: "✓", label: "记忆上下文", detail: "3 事实命中 · 相似度 0.89",       color: "text-[var(--color-success)]",         ochre: false },
-  { time: "12ms", icon: "⊙", label: "路由决策",   detail: "DeepSeek V3 · score 98 · -85%",  color: "text-[var(--color-ochre)]",           ochre: true  },
-  { time: "42ms", icon: "✓", label: "模型响应",   detail: "finish_reason: stop · 20 tok",   color: "text-[var(--color-success)]",         ochre: false },
-  { time: "44ms", icon: "✓", label: "原子计费",   detail: "-¥0.0002 已扣款",                color: "text-[var(--color-success)]",         ochre: false },
-  { time: "45ms", icon: "✓", label: "记忆更新",   detail: "+1 事实写入向量库",               color: "text-[var(--color-success)]",         ochre: false },
+  { time: "0ms",  icon: "→", label: "请求到达",   detail: "POST /v1/chat/completions",      color: "text-[var(--color-text-secondary)]", ochre: false },
+  { time: "2ms",  icon: "✓", label: "鉴权通过",   detail: "JWT · usr_8k2x · 有效",          color: "text-[var(--color-success)]",        ochre: false },
+  { time: "4ms",  icon: "✓", label: "余额充足",   detail: "¥2,847.32 · 预授权通过",         color: "text-[var(--color-success)]",        ochre: false },
+  { time: "9ms",  icon: "✓", label: "记忆上下文", detail: "3 事实命中 · 相似度 0.89",       color: "text-[var(--color-success)]",        ochre: false },
+  { time: "12ms", icon: "⊙", label: "路由决策",   detail: "DeepSeek V3 · score 98 · -85%",  color: "text-[var(--color-ochre)]",          ochre: true  },
+  { time: "42ms", icon: "✓", label: "模型响应",   detail: "finish_reason: stop · 20 tok",   color: "text-[var(--color-success)]",        ochre: false },
+  { time: "44ms", icon: "✓", label: "原子计费",   detail: "-¥0.0002 已扣款",                color: "text-[var(--color-success)]",        ochre: false },
+  { time: "45ms", icon: "✓", label: "记忆更新",   detail: "+1 事实写入向量库",               color: "text-[var(--color-success)]",        ochre: false },
 ];
 
-function RequestTrace() {
+// RequestTrace receives onCycle callback. ArchitectureVisual renders it with
+// key={cycleKey} so React remounts it on each cycle — state resets to initial
+// values automatically without any synchronous setState inside effects.
+function RequestTrace({ onCycle }: { onCycle: () => void }) {
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: false, margin: "-80px" });
   const [visibleCount, setVisibleCount] = useState(0);
-  const [cycleKey, setCycleKey] = useState(0);
+
+  // Keep a stable ref to onCycle so the effect dep array stays [isInView] only
+  const onCycleRef = useRef(onCycle);
+  useEffect(() => { onCycleRef.current = onCycle; });
 
   useEffect(() => {
     if (!isInView) return;
-    setVisibleCount(0);
     const timers: ReturnType<typeof setTimeout>[] = [];
 
     traceSteps.forEach((_, i) => {
       timers.push(setTimeout(() => setVisibleCount(i + 1), 400 + i * 420));
     });
 
-    // Pause after all steps shown, then cycle
+    // After all steps shown + pause, signal parent to start next cycle
     timers.push(
       setTimeout(
-        () => setCycleKey((k) => k + 1),
+        () => onCycleRef.current(),
         400 + traceSteps.length * 420 + 2800
       )
     );
 
     return () => timers.forEach(clearTimeout);
-  }, [isInView, cycleKey]);
+  }, [isInView]);
 
   const allDone = visibleCount >= traceSteps.length;
 
@@ -100,11 +105,11 @@ function RequestTrace() {
           <span>Detail</span>
         </div>
 
-        {/* Trace rows */}
+        {/* Trace rows — keyed by index only; component remounts on each cycle */}
         <div className="divide-y divide-[var(--color-border)]/40">
           {traceSteps.map((s, i) => (
             <motion.div
-              key={`${cycleKey}-${i}`}
+              key={i}
               className={`grid grid-cols-[3.2rem_7rem_1fr] gap-2 px-4 py-2.5 text-[10px] font-mono items-center ${
                 i === visibleCount - 1 ? "bg-[var(--color-ochre)]/4" : ""
               }`}
@@ -146,6 +151,8 @@ function RequestTrace() {
 
 export function ArchitectureVisual() {
   const sectionRef = useRef<HTMLElement>(null);
+  const [cycleKey, setCycleKey] = useState(0);
+  const handleCycle = useCallback(() => setCycleKey((k) => k + 1), []);
 
   const { scrollYProgress } = useScroll({
     target: sectionRef,
@@ -198,7 +205,6 @@ export function ArchitectureVisual() {
                 SYSTEM TOPOLOGY
               </p>
               <svg viewBox="0 0 100 95" className="w-full" style={{ maxHeight: 320 }}>
-                {/* Connections */}
                 {connections.map(([from, to], i) => {
                   const a = getNode(from);
                   const b = getNode(to);
@@ -217,7 +223,6 @@ export function ArchitectureVisual() {
                   );
                 })}
 
-                {/* Data flow pulses */}
                 {connections.slice(0, 4).map(([from, to], i) => {
                   const a = getNode(from);
                   const b = getNode(to);
@@ -232,7 +237,6 @@ export function ArchitectureVisual() {
                   );
                 })}
 
-                {/* Nodes */}
                 {nodes.map((node, i) => {
                   const style = typeStyles[node.type];
                   return (
@@ -261,15 +265,14 @@ export function ArchitectureVisual() {
                   );
                 })}
 
-                {/* Layer labels */}
                 <text x="2" y="16" fill="rgba(200,162,78,0.3)" fontSize="1.8" fontFamily="var(--font-geist-mono)">YOUR APP</text>
                 <text x="2" y="36" fill="rgba(200,162,78,0.3)" fontSize="1.8" fontFamily="var(--font-geist-mono)">LURUS PLATFORM</text>
                 <text x="2" y="81" fill="rgba(200,162,78,0.3)" fontSize="1.8" fontFamily="var(--font-geist-mono)">PROVIDERS</text>
               </svg>
             </div>
 
-            {/* Right: Live request trace */}
-            <RequestTrace />
+            {/* Right: Live request trace — key remounts on each cycle, state resets */}
+            <RequestTrace key={cycleKey} onCycle={handleCycle} />
           </div>
         </motion.div>
       </div>
