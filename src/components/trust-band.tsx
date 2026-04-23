@@ -31,7 +31,7 @@ export function TrustBand() {
         viewport={{ once: true }}
         className="pt-10 pb-2 text-center"
       >
-        <p className="eyebrow mb-5">实时平台指标</p>
+        <p className="eyebrow mb-5">平台实时状态</p>
       </motion.div>
       <motion.div
         initial={{ opacity: 0, y: 10 }}

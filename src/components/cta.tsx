@@ -38,7 +38,7 @@ export function CTA() {
             今晚接入，明天上线
           </h2>
           <p className="mt-4 text-[var(--color-text-secondary)] max-w-lg mx-auto">
-            一个 API Key，38 个模型，p50 延迟 &lt;80ms。把时间花在你的产品上，基础设施交给 Lurus。
+            你的第一次 API 调用，距现在不超过五分钟。
           </p>
         </motion.div>
 

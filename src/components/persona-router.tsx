@@ -65,7 +65,7 @@ export function PersonaRouter() {
             <span className="text-[var(--color-text-primary)]">，就走哪条路</span>
           </h2>
           <p className="mt-4 text-[var(--color-text-secondary)]">
-            选择你的角色，Lurus 为你推荐最短的产品接入路径——从第一行代码到上线，最快 5 分钟
+            Lurus 的产品覆盖不同场景与角色。选择你的起点，找到最直接的路径。
           </p>
         </motion.div>
 

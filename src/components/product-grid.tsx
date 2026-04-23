@@ -50,7 +50,7 @@ export function ProductGrid() {
             <span className="text-gradient-gold">产品矩阵</span>
           </h2>
           <p className="mt-4 text-[var(--color-text-secondary)] max-w-xl mx-auto">
-            从 LLM 网关到 AI 量化交易，覆盖企业 AI 全场景——每个产品都能独立使用，也可联动协同
+            从 LLM 接入到 AI 量化交易，每个产品独立完整，也可协同运转。
           </p>
         </motion.div>
 

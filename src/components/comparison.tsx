@@ -26,11 +26,11 @@ export function Comparison() {
         >
           <p className="eyebrow mb-4">BUILD VS BUY</p>
           <h2 className="headline-tight text-3xl md:text-4xl font-bold">
-            <span className="text-[var(--color-text-primary)]">3–6 个月，</span>
-            <span className="text-gradient-gold">还是 5 分钟</span>
+            <span className="text-[var(--color-text-primary)]">你的竞争对手</span>
+            <span className="text-gradient-gold">，正在用这三个月开发功能</span>
           </h2>
           <p className="mt-4 text-[var(--color-text-secondary)] max-w-lg mx-auto">
-            自建 AI 基础设施：LLM 对接 + 计费 + 认证 + 可观测性，保守估计 5,000 行代码、3 个月工程投入。或者，今晚接入 Lurus。
+            LLM 对接、计费系统、身份认证、可观测性——每一层都要写代码，每一层都要维护。这些时间，本可以花在产品上。
           </p>
         </motion.div>
 

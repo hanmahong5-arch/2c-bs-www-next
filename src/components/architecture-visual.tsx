@@ -181,11 +181,11 @@ export function ArchitectureVisual() {
         >
           <p className="eyebrow mb-4">ARCHITECTURE</p>
           <h2 className="headline-tight text-3xl md:text-4xl font-bold">
-            <span className="text-gradient-gold">45ms</span>
-            <span className="text-[var(--color-text-primary)]"> 内，一切完成</span>
+            <span className="text-gradient-gold">一个请求</span>
+            <span className="text-[var(--color-text-primary)]">的完整生命周期</span>
           </h2>
           <p className="mt-4 text-[var(--color-text-secondary)] max-w-lg mx-auto">
-            请求进来，Lurus 在你的响应返回前完成鉴权、路由决策、计费扣款与记忆写入。你只写一行代码。
+            鉴权、路由决策、计费扣款、记忆写入——Lurus 在响应返回前，静默地处理了这一切。
           </p>
         </motion.div>
 

@@ -100,7 +100,7 @@ export function Hero() {
               transition={{ delay: 0.85, duration: 0.6, ease: EDITORIAL_EASE }}
               className="mt-6 text-lg text-[var(--color-text-secondary)] max-w-lg leading-[1.65]"
             >
-              38 个模型统一网关，p50 延迟 &lt;80ms，金融级计费精度到 ¥0.0001。你的产品只需一个 API Key，其余交给 Lurus。
+              38 个模型，一个端点，p50 延迟 80ms 以内。你的团队只需对接一次，其余交给 Lurus。
             </motion.p>
 
             <motion.div
@@ -139,20 +139,15 @@ export function Hero() {
                 </Link>
               </div>
 
-              {/* Tertiary — social proof + navigation for CTO/procurement audience */}
-              <div className="mt-5 flex flex-wrap items-center gap-4 text-xs text-[var(--color-text-muted)]">
-                <span className="flex items-center gap-1.5">
-                  <CheckIcon className="w-3.5 h-3.5 text-[var(--color-success)] shrink-0" />
-                  <span>500+ 团队已接入</span>
-                </span>
-                <span className="w-px h-3 bg-[var(--color-border)] hidden sm:block" />
+              {/* Tertiary — clean navigation, no pressure */}
+              <div className="mt-5 flex flex-wrap items-center gap-5 text-xs text-[var(--color-text-muted)]">
                 <a
                   href="mailto:sales@lurus.cn?subject=Lurus%20%E6%BC%94%E7%A4%BA%E9%A2%84%E7%BA%A6"
                   className="hover:text-[var(--color-text-secondary)] transition-colors"
                 >
                   预约演示 →
                 </a>
-                <span className="w-px h-3 bg-[var(--color-border)] hidden sm:block" />
+                <span className="w-px h-3 bg-[var(--color-border)]" />
                 <a
                   href="https://docs.lurus.cn"
                   target="_blank"
@@ -161,6 +156,8 @@ export function Hero() {
                 >
                   阅读文档
                 </a>
+                <span className="w-px h-3 bg-[var(--color-border)]" />
+                <span>免费额度 $5 · 无需信用卡</span>
               </div>
             </motion.div>
           </motion.div>
