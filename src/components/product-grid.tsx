@@ -33,6 +33,186 @@ const priorityStyle: Record<string, string> = {
   P2: "bg-[var(--color-text-muted)]/10 text-[var(--color-text-muted)] border-[var(--color-text-muted)]/20",
 };
 
+// Three-tier architecture map: P0 foundation → P1 verticals → P2 desktop clients
+// Connection lines show "built on" dependency direction.
+function EcosystemMap() {
+  // P0 (foundation row) — y=138
+  const p0 = [
+    { id: "hub",     label: "Hub",     sub: "P0", x: 120, cx: 160, cy: 148 },
+    { id: "billing", label: "Billing", sub: "P0", x: 272, cx: 312, cy: 148 },
+    { id: "memory",  label: "Memory",  sub: "P0", x: 478, cx: 518, cy: 148 },
+    { id: "auth",    label: "Auth",    sub: "P0", x: 660, cx: 700, cy: 148 },
+  ];
+  // P1 (vertical solutions) — y=80
+  const p1 = [
+    { id: "kova",   label: "Kova",   sub: "P1", x: 196, cx: 240, cy: 93 },
+    { id: "lucrum", label: "Lucrum", sub: "P1", x: 574, cx: 618, cy: 93 },
+  ];
+  // P2 (desktop clients) — y=22
+  const p2 = [
+    { id: "switch",  label: "Switch",  sub: "P2", x: 110, cx: 154, cy: 35 },
+    { id: "creator", label: "Creator", sub: "P2", x: 666, cx: 710, cy: 35 },
+  ];
+
+  // P0 horizontal backbone connections
+  const p0Backbone = [
+    `M 200 148 L 272 148`,  // Hub → Billing
+    `M 352 148 L 478 148`,  // Billing → Memory
+    `M 558 148 L 660 148`,  // Memory → Auth
+  ];
+  // P0 → P1 upward connections
+  const p0ToP1 = [
+    `M 160 138 L 240 106`,   // Hub → Kova
+    `M 518 138 L 618 106`,   // Memory → Lucrum
+  ];
+  // P1 → P2 upward connections
+  const p1ToP2 = [
+    `M 240 80 L 154 48`,   // Kova → Switch
+    `M 618 80 L 710 48`,   // Lucrum → Creator
+  ];
+
+  // Animated pulse positions along backbone (data flowing rightward through P0)
+  const pulses = [
+    { path: "M 200 148 L 272 148", delay: 0 },
+    { path: "M 352 148 L 478 148", delay: 0.4 },
+    { path: "M 558 148 L 660 148", delay: 0.8 },
+  ];
+
+  const tierLabel = (x: number, y: number, text: string) => (
+    <text x={x} y={y} textAnchor="middle"
+      fill="rgba(200,162,78,0.22)" fontSize="6.5"
+      fontFamily="var(--font-geist-mono)" letterSpacing="2">{text}</text>
+  );
+
+  return (
+    <motion.div
+      className="relative rounded-2xl border border-[var(--color-border)] overflow-hidden mb-14 bg-[var(--color-surface)]/40"
+      initial={{ opacity: 0, y: 16 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.5 }}
+    >
+      <svg viewBox="0 0 820 178" className="w-full" style={{ display: "block" }} aria-hidden="true">
+        <defs>
+          <linearGradient id="p0BgGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stopColor="rgba(200,162,78,0.06)" />
+            <stop offset="100%" stopColor="rgba(200,162,78,0.02)" />
+          </linearGradient>
+        </defs>
+
+        {/* P0 foundation band */}
+        <rect x="100" y="128" width="620" height="36" rx="8"
+          fill="rgba(200,162,78,0.04)" stroke="rgba(200,162,78,0.1)" strokeWidth="0.5" />
+
+        {/* Tier labels on the right */}
+        {tierLabel(800, 150, "P0")}
+        {tierLabel(800, 93,  "P1")}
+        {tierLabel(800, 35,  "P2")}
+
+        {/* P0 backbone connections */}
+        {p0Backbone.map((d, i) => (
+          <motion.path key={`p0b-${i}`} d={d}
+            fill="none" stroke="rgba(200,162,78,0.3)" strokeWidth="1"
+            initial={{ pathLength: 0, opacity: 0 }}
+            whileInView={{ pathLength: 1, opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.2 + i * 0.1, duration: 0.5 }}
+          />
+        ))}
+
+        {/* Animated data packets on P0 backbone */}
+        {pulses.map((p, i) => {
+          // Extract start and end x from path string
+          const parts = p.path.match(/[\d.]+/g)!.map(Number);
+          return (
+            <motion.circle key={`pulse-${i}`} r="2" fill="rgba(200,162,78,0.8)" cy="148"
+              animate={{ cx: [parts[0], parts[2]], opacity: [0, 0.9, 0] }}
+              transition={{ duration: 1.2, delay: p.delay, repeat: Infinity, repeatDelay: 2.5, ease: "easeInOut" }}
+            />
+          );
+        })}
+
+        {/* P0 → P1 connections */}
+        {p0ToP1.map((d, i) => (
+          <motion.path key={`p01-${i}`} d={d}
+            fill="none" stroke="rgba(200,162,78,0.2)" strokeWidth="0.8" strokeDasharray="3 3"
+            initial={{ pathLength: 0, opacity: 0 }}
+            whileInView={{ pathLength: 1, opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.5 + i * 0.1, duration: 0.5 }}
+          />
+        ))}
+
+        {/* P1 → P2 connections */}
+        {p1ToP2.map((d, i) => (
+          <motion.path key={`p12-${i}`} d={d}
+            fill="none" stroke="rgba(200,162,78,0.15)" strokeWidth="0.7" strokeDasharray="3 4"
+            initial={{ pathLength: 0, opacity: 0 }}
+            whileInView={{ pathLength: 1, opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.7 + i * 0.1, duration: 0.5 }}
+          />
+        ))}
+
+        {/* P0 product nodes */}
+        {p0.map((node, i) => (
+          <motion.g key={node.id}
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.1 + i * 0.08 }}
+          >
+            <rect x={node.x} y="130" width="80" height="32" rx="6"
+              fill="rgba(200,162,78,0.1)" stroke="rgba(200,162,78,0.32)" strokeWidth="0.6" />
+            <text x={node.cx} y="150" textAnchor="middle"
+              fill="rgba(200,162,78,0.85)" fontSize="9" fontFamily="var(--font-geist-sans)" fontWeight="600">{node.label}</text>
+          </motion.g>
+        ))}
+
+        {/* P1 product nodes */}
+        {p1.map((node, i) => (
+          <motion.g key={node.id}
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.35 + i * 0.1 }}
+          >
+            <rect x={node.x} y="72" width="88" height="30" rx="6"
+              fill="rgba(74,144,226,0.08)" stroke="rgba(74,144,226,0.28)" strokeWidth="0.6" />
+            <text x={node.cx} y="91" textAnchor="middle"
+              fill="rgba(74,144,226,0.8)" fontSize="9" fontFamily="var(--font-geist-sans)" fontWeight="600">{node.label}</text>
+          </motion.g>
+        ))}
+
+        {/* P2 product nodes */}
+        {p2.map((node, i) => (
+          <motion.g key={node.id}
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.55 + i * 0.1 }}
+          >
+            <rect x={node.x} y="18" width="88" height="28" rx="6"
+              fill="rgba(90,90,110,0.14)" stroke="rgba(90,90,110,0.3)" strokeWidth="0.6" />
+            <text x={node.cx} y="36" textAnchor="middle"
+              fill="rgba(160,160,176,0.75)" fontSize="9" fontFamily="var(--font-geist-sans)" fontWeight="500">{node.label}</text>
+          </motion.g>
+        ))}
+
+        {/* Legend */}
+        <g>
+          <circle cx="32" cy="148" r="5" fill="rgba(200,162,78,0.15)" stroke="rgba(200,162,78,0.4)" strokeWidth="0.5" />
+          <text x="42" y="152" fill="rgba(200,162,78,0.45)" fontSize="7" fontFamily="var(--font-geist-mono)">核心基础设施</text>
+          <circle cx="32" cy="93" r="5" fill="rgba(74,144,226,0.1)" stroke="rgba(74,144,226,0.35)" strokeWidth="0.5" />
+          <text x="42" y="97" fill="rgba(74,144,226,0.45)" fontSize="7" fontFamily="var(--font-geist-mono)">垂直产品</text>
+          <circle cx="32" cy="35" r="5" fill="rgba(90,90,110,0.12)" stroke="rgba(90,90,110,0.3)" strokeWidth="0.5" />
+          <text x="42" y="39" fill="rgba(160,160,176,0.4)" fontSize="7" fontFamily="var(--font-geist-mono)">桌面工具</text>
+        </g>
+      </svg>
+    </motion.div>
+  );
+}
+
 export function ProductGrid() {
   return (
     <section className="py-24 relative">
@@ -43,7 +223,7 @@ export function ProductGrid() {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-center mb-16"
+          className="text-center mb-12"
         >
           <p className="eyebrow mb-4">ECOSYSTEM</p>
           <h2 className="headline-tight text-3xl md:text-4xl font-bold">
@@ -53,6 +233,9 @@ export function ProductGrid() {
             从 LLM 接入到 AI 量化交易，每个产品独立完整，也可协同运转。
           </p>
         </motion.div>
+
+        {/* Ecosystem architecture map */}
+        <EcosystemMap />
 
         <div className="space-y-14">
           {productGroups.map((group, gi) => (
