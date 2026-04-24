@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import {
   ClipboardDocumentIcon,
@@ -14,8 +14,137 @@ import { ParticleNetwork } from "./particle-network";
 import { AnimatedStat } from "./animated-counter";
 
 // Anthropic-style spring — fast attack, slow settle.
-// Words land with authority, not flair.
 const EDITORIAL_EASE = [0.16, 1, 0.3, 1] as const;
+
+// ── Multi-language code content ──────────────────────────────────────────────
+
+const LANG_CODE = {
+  ts: {
+    filename: "app.ts",
+    plain: `// OpenAI-compatible, 5 min to integrate
+import OpenAI from "openai"
+
+const client = new OpenAI({
+  baseURL: "https://api.lurus.cn/v1",
+  apiKey: "sk-your-lurus-key"
+})
+
+const res = await client.chat.completions.create({
+  model: "gpt-4o",  // or claude-4, deepseek-v3...
+  messages: [{ role: "user", content: "hello" }]
+})`,
+    lines: [
+      '<span class="comment">// OpenAI-compatible, 5 min to integrate</span>',
+      '<span class="keyword">import</span> <span class="punctuation">OpenAI</span> <span class="keyword">from</span> <span class="string">"openai"</span>',
+      "",
+      '<span class="keyword">const</span> <span class="punctuation">client = </span><span class="keyword">new</span> <span class="function">OpenAI</span><span class="punctuation">({</span>',
+      '  <span class="property">baseURL</span><span class="punctuation">: </span><span class="string">"https://api.lurus.cn/v1"</span><span class="punctuation">,</span>',
+      '  <span class="property">apiKey</span><span class="punctuation">: </span><span class="string">"sk-your-lurus-key"</span>',
+      '<span class="punctuation">})</span>',
+      "",
+      '<span class="keyword">const</span> <span class="punctuation">res = </span><span class="keyword">await</span> <span class="punctuation">client.chat.completions.</span><span class="function">create</span><span class="punctuation">({</span>',
+      '  <span class="property">model</span><span class="punctuation">: </span><span class="string">"gpt-4o"</span><span class="punctuation">,  </span><span class="comment">// or claude-4, deepseek-v3...</span>',
+      '  <span class="property">messages</span><span class="punctuation">: [{ </span><span class="property">role</span><span class="punctuation">: </span><span class="string">"user"</span><span class="punctuation">, </span><span class="property">content</span><span class="punctuation">: </span><span class="string">"hello"</span><span class="punctuation"> }]</span>',
+      '<span class="punctuation">})</span>',
+    ],
+  },
+  py: {
+    filename: "app.py",
+    plain: `# OpenAI-compatible, 5 min to integrate
+from openai import OpenAI
+
+client = OpenAI(
+    base_url="https://api.lurus.cn/v1",
+    api_key="sk-your-lurus-key"
+)
+
+res = client.chat.completions.create(
+    model="gpt-4o",  # or claude-4, deepseek-v3...
+    messages=[{"role": "user", "content": "hello"}]
+)`,
+    lines: [
+      '<span class="comment"># OpenAI-compatible, 5 min to integrate</span>',
+      '<span class="keyword">from</span> <span class="punctuation">openai </span><span class="keyword">import</span> <span class="punctuation">OpenAI</span>',
+      "",
+      '<span class="punctuation">client = </span><span class="function">OpenAI</span><span class="punctuation">(</span>',
+      '  <span class="property">base_url</span><span class="punctuation">=</span><span class="string">"https://api.lurus.cn/v1"</span><span class="punctuation">,</span>',
+      '  <span class="property">api_key</span><span class="punctuation">=</span><span class="string">"sk-your-lurus-key"</span>',
+      '<span class="punctuation">)</span>',
+      "",
+      '<span class="punctuation">res = client.chat.completions.</span><span class="function">create</span><span class="punctuation">(</span>',
+      '  <span class="property">model</span><span class="punctuation">=</span><span class="string">"gpt-4o"</span><span class="punctuation">,  </span><span class="comment"># or claude-4, deepseek-v3...</span>',
+      '  <span class="property">messages</span><span class="punctuation">=[{</span><span class="string">"role"</span><span class="punctuation">: </span><span class="string">"user"</span><span class="punctuation">, </span><span class="string">"content"</span><span class="punctuation">: </span><span class="string">"hello"</span><span class="punctuation">}]</span>',
+      '<span class="punctuation">)</span>',
+    ],
+  },
+  sh: {
+    filename: "request.sh",
+    plain: `# OpenAI-compatible, works immediately
+curl https://api.lurus.cn/v1/chat/completions \\
+  -H "Authorization: Bearer sk-your-lurus-key" \\
+  -H "Content-Type: application/json" \\
+  -d '{
+    "model": "gpt-4o",
+    "messages": [{"role": "user", "content": "hello"}]
+  }'`,
+    lines: [
+      '<span class="comment"># OpenAI-compatible, works immediately</span>',
+      '<span class="function">curl</span> <span class="string">https://api.lurus.cn/v1/chat/completions</span> <span class="punctuation">\\</span>',
+      '  <span class="property">-H</span> <span class="string">"Authorization: Bearer sk-your-lurus-key"</span> <span class="punctuation">\\</span>',
+      '  <span class="property">-H</span> <span class="string">"Content-Type: application/json"</span> <span class="punctuation">\\</span>',
+      "  <span class=\"property\">-d</span> <span class=\"string\">'&#123;</span>",
+      '    <span class="string">"model"</span><span class="punctuation">: </span><span class="string">"gpt-4o"</span><span class="punctuation">,</span>',
+      '    <span class="string">"messages"</span><span class="punctuation">: [{</span>',
+      '      <span class="string">"role"</span><span class="punctuation">: </span><span class="string">"user"</span><span class="punctuation">, </span><span class="string">"content"</span><span class="punctuation">: </span><span class="string">"hello"</span>',
+      '    <span class="punctuation">}]</span>',
+      "  <span class=\"string\">&#125;'</span>",
+    ],
+  },
+  go: {
+    filename: "main.go",
+    plain: `// OpenAI SDK for Go, 5 min to integrate
+client := openai.NewClient(
+  option.WithBaseURL("https://api.lurus.cn/v1"),
+  option.WithAPIKey("sk-your-lurus-key"),
+)
+
+resp, _ := client.Chat.Completions.New(ctx,
+  openai.ChatCompletionNewParams{
+    Model: "gpt-4o",
+    Messages: []openai.ChatCompletionMessageParamUnion{
+      openai.UserMessage("hello"),
+    },
+  },
+)`,
+    lines: [
+      '<span class="comment">// OpenAI SDK for Go, 5 min to integrate</span>',
+      '<span class="punctuation">client := openai.</span><span class="function">NewClient</span><span class="punctuation">(</span>',
+      '  <span class="punctuation">option.</span><span class="function">WithBaseURL</span><span class="punctuation">(</span><span class="string">"https://api.lurus.cn/v1"</span><span class="punctuation">),</span>',
+      '  <span class="punctuation">option.</span><span class="function">WithAPIKey</span><span class="punctuation">(</span><span class="string">"sk-your-lurus-key"</span><span class="punctuation">),</span>',
+      '<span class="punctuation">)</span>',
+      "",
+      '<span class="punctuation">resp, _ := client.Chat.Completions.</span><span class="function">New</span><span class="punctuation">(ctx,</span>',
+      '  <span class="punctuation">openai.</span><span class="function">ChatCompletionNewParams</span><span class="punctuation">{</span>',
+      '    <span class="property">Model</span><span class="punctuation">: </span><span class="string">"gpt-4o"</span><span class="punctuation">,  </span><span class="comment">// claude-4, deepseek-v3...</span>',
+      '    <span class="property">Messages</span><span class="punctuation">: []openai.ChatCompletionMessageParamUnion{</span>',
+      '      <span class="punctuation">openai.</span><span class="function">UserMessage</span><span class="punctuation">(</span><span class="string">"hello"</span><span class="punctuation">),</span>',
+      '    <span class="punctuation">},</span>',
+      '  <span class="punctuation">},</span>',
+      '<span class="punctuation">)</span>',
+    ],
+  },
+} as const;
+
+type LangKey = keyof typeof LANG_CODE;
+
+const LANGS: { id: LangKey; label: string }[] = [
+  { id: "ts",  label: "TypeScript" },
+  { id: "py",  label: "Python" },
+  { id: "sh",  label: "cURL" },
+  { id: "go",  label: "Go" },
+];
+
+// ── Hero ─────────────────────────────────────────────────────────────────────
 
 export function Hero() {
   return (
@@ -46,8 +175,7 @@ export function Hero() {
               企业 AI 基础设施套件
             </motion.div>
 
-            {/* Headline — word-level staggered reveal with editorial easing.
-                Attack fast, settle slow — like words placed deliberately. */}
+            {/* Headline — word-level staggered reveal */}
             <motion.h1
               initial="hidden"
               animate="visible"
@@ -109,7 +237,7 @@ export function Hero() {
               transition={{ delay: 1.0, ease: EDITORIAL_EASE }}
               className="mt-8"
             >
-              {/* Developer-oriented monospace hint above primary CTA */}
+              {/* Developer-oriented monospace hint */}
               <p className="eyebrow mb-3 font-mono normal-case tracking-[0.05em] text-[0.7rem]">
                 <span className="text-[var(--color-ochre)]/70">$</span>{" "}
                 <span className="text-[var(--color-text-muted)]">curl https://api.lurus.cn/v1/chat/completions</span>
@@ -195,42 +323,62 @@ export function Hero() {
   );
 }
 
+// ── CodeDemo with multi-language switcher ─────────────────────────────────────
+
 function CodeDemo() {
+  const [lang, setLang] = useState<LangKey>("ts");
   const [copied, setCopied] = useState(false);
+  // Track whether this is the initial page load — use slow stagger only then.
+  const isFirstRender = useRef(true);
+  useEffect(() => { isFirstRender.current = false; }, []);
+
+  const content = LANG_CODE[lang];
 
   const handleCopy = async () => {
-    await navigator.clipboard.writeText(plainCode);
+    await navigator.clipboard.writeText(content.plain);
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   };
 
   return (
     <div className="code-block p-5 relative overflow-hidden shadow-2xl shadow-black/50">
-      {/* Glow border effect */}
-      <div className="absolute inset-0 rounded-xl opacity-30">
+      {/* Glow border */}
+      <div className="absolute inset-0 rounded-xl opacity-30 pointer-events-none">
         <div className="absolute -inset-[1px] rounded-xl bg-gradient-to-br from-[var(--color-ochre)]/20 via-transparent to-[var(--color-ochre)]/10" />
       </div>
 
       {/* Window chrome */}
       <div className="relative flex items-center gap-2 mb-4 pb-3 border-b border-[var(--color-border)]">
-        <div className="flex gap-1.5">
+        <div className="flex gap-1.5 shrink-0">
           <div className="w-3 h-3 rounded-full bg-[#ff5f57]" />
           <div className="w-3 h-3 rounded-full bg-[#febc2e]" />
           <div className="w-3 h-3 rounded-full bg-[#28c840]" />
         </div>
-        <span className="text-xs text-[var(--color-text-muted)] ml-2 font-mono">
-          app.ts
+        <span className="text-xs text-[var(--color-text-muted)] ml-2 font-mono shrink-0">
+          {content.filename}
         </span>
 
-        <span className="ml-auto text-[10px] text-[var(--color-success)] font-mono flex items-center gap-1 mr-2">
-          <span className="w-1 h-1 rounded-full bg-[var(--color-success)]" />
-          connected
-        </span>
+        {/* Language switcher tabs */}
+        <div className="flex items-center gap-0.5 ml-auto">
+          {LANGS.map((l) => (
+            <button
+              key={l.id}
+              onClick={() => setLang(l.id)}
+              className={`text-[10px] px-2 py-1 rounded font-mono transition-all cursor-pointer ${
+                lang === l.id
+                  ? "bg-[var(--color-ochre)]/15 text-[var(--color-ochre)] border border-[var(--color-ochre)]/20"
+                  : "text-[var(--color-text-muted)] hover:text-[var(--color-text-secondary)] hover:bg-[var(--color-surface)]"
+              }`}
+            >
+              {l.label}
+            </button>
+          ))}
+        </div>
 
         {/* Copy button */}
         <button
           onClick={handleCopy}
-          className="flex items-center gap-1.5 text-[10px] px-2 py-1 rounded-md text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)] hover:bg-[var(--color-surface)] transition-all cursor-pointer"
+          className="flex items-center gap-1.5 text-[10px] px-2 py-1 rounded-md ml-1 text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)] hover:bg-[var(--color-surface)] transition-all cursor-pointer shrink-0"
           aria-label="Copy code"
         >
           {copied ? (
@@ -247,29 +395,43 @@ function CodeDemo() {
         </button>
       </div>
 
-      {/* Code content with staggered reveal */}
-      <pre className="relative text-[0.8125rem] leading-[1.8]">
-        <code>
-          {codeLines.map((line, i) => (
-            <motion.div
-              key={i}
-              className="flex"
-              initial={{ opacity: 0, x: -10 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 0.8 + i * 0.06 }}
-            >
-              <span className="line-number">{i + 1}</span>
-              <span dangerouslySetInnerHTML={{ __html: line }} />
-            </motion.div>
-          ))}
-        </code>
-      </pre>
+      {/* Code content — AnimatePresence handles lang transitions */}
+      <AnimatePresence mode="wait">
+        <motion.pre
+          key={lang}
+          className="relative text-[0.8125rem] leading-[1.8]"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.12 }}
+        >
+          <code>
+            {content.lines.map((line, i) => (
+              <motion.div
+                key={`${lang}-${i}`}
+                className="flex"
+                initial={{ opacity: 0, x: -8 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{
+                  delay: isFirstRender.current ? 0.8 + i * 0.06 : i * 0.022,
+                  duration: 0.25,
+                }}
+              >
+                <span className="line-number">{i + 1}</span>
+                <span dangerouslySetInnerHTML={{ __html: line || "\u00A0" }} />
+              </motion.div>
+            ))}
+          </code>
+        </motion.pre>
+      </AnimatePresence>
 
       {/* Glow accent */}
       <div className="absolute -bottom-10 -right-10 w-40 h-40 rounded-full bg-[var(--color-ochre)] opacity-[0.06] blur-[60px]" />
     </div>
   );
 }
+
+// ── Streaming response demo ───────────────────────────────────────────────────
 
 const RESPONSE_TEXT = `{
   "id": "lurus-x7k9m",
@@ -299,7 +461,6 @@ function ResponseDemo() {
 
   useEffect(() => {
     let intervalId: ReturnType<typeof setInterval>;
-    // Start after code lines finish animating (~1.5s) plus a brief pause
     const timeoutId = setTimeout(() => {
       let i = 0;
       intervalId = setInterval(() => {
@@ -316,7 +477,7 @@ function ResponseDemo() {
 
   return (
     <div ref={ref} className="code-block p-4 relative overflow-hidden">
-      {/* Window chrome — inactive (gray dots) to signal "response" tab */}
+      {/* Window chrome */}
       <div className="flex items-center gap-2 mb-3 pb-2.5 border-b border-[var(--color-border)]">
         <div className="flex gap-1.5">
           <div className="w-3 h-3 rounded-full bg-[var(--color-border)]" />
@@ -355,36 +516,7 @@ function ResponseDemo() {
         )}
       </pre>
 
-      {/* Subtle green glow */}
       <div className="absolute -bottom-6 -right-6 w-24 h-24 rounded-full bg-[var(--color-success)] opacity-[0.04] blur-[40px] pointer-events-none" />
     </div>
   );
 }
-
-const plainCode = `// OpenAI-compatible, 5 min to integrate
-import OpenAI from "openai"
-
-const client = new OpenAI({
-  baseURL: "https://api.lurus.cn/v1",
-  apiKey: "sk-your-lurus-key"
-})
-
-const res = await client.chat.completions.create({
-  model: "gpt-4o",  // or claude-4, deepseek-v3...
-  messages: [{ role: "user", content: "hello" }]
-})`;
-
-const codeLines = [
-  '<span class="comment">// OpenAI-compatible, 5 min to integrate</span>',
-  '<span class="keyword">import</span> <span class="punctuation">OpenAI</span> <span class="keyword">from</span> <span class="string">"openai"</span>',
-  "",
-  '<span class="keyword">const</span> <span class="punctuation">client = </span><span class="keyword">new</span> <span class="function">OpenAI</span><span class="punctuation">({</span>',
-  '  <span class="property">baseURL</span><span class="punctuation">: </span><span class="string">"https://api.lurus.cn/v1"</span><span class="punctuation">,</span>',
-  '  <span class="property">apiKey</span><span class="punctuation">: </span><span class="string">"sk-your-lurus-key"</span>',
-  '<span class="punctuation">})</span>',
-  "",
-  '<span class="keyword">const</span> <span class="punctuation">res = </span><span class="keyword">await</span> <span class="punctuation">client.</span><span class="property">chat</span><span class="punctuation">.</span><span class="property">completions</span><span class="punctuation">.</span><span class="function">create</span><span class="punctuation">({</span>',
-  '  <span class="property">model</span><span class="punctuation">: </span><span class="string">"gpt-4o"</span><span class="punctuation">,</span>  <span class="comment">// or claude-4, deepseek-v3...</span>',
-  '  <span class="property">messages</span><span class="punctuation">: [{ </span><span class="property">role</span><span class="punctuation">: </span><span class="string">"user"</span><span class="punctuation">, </span><span class="property">content</span><span class="punctuation">: </span><span class="string">"hello"</span><span class="punctuation"> }]</span>',
-  '<span class="punctuation">})</span>',
-];
