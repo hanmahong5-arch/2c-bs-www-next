@@ -1,6 +1,7 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { useRef, useEffect, useState } from "react";
+import { motion, useInView, animate } from "framer-motion";
 
 // Logo with hover-revealed precision detail — Stripe's "real logo + real data" pattern.
 // Label is the provider; meta appears on hover with the specific models served.
@@ -18,6 +19,45 @@ const providers = [
   { name: "Yi", meta: "Yi-Large · Yi-Vision" },
   { name: "MiniMax", meta: "abab7 · Speech-02" },
 ];
+
+// Animates a numeric string on scroll entry.
+// Handles prefix/suffix automatically ("38" → 0..38, "<80ms" → <0ms..<80ms, "99.99%" → 99.90%..99.99%).
+function AnimatedMetric({ value }: { value: string }) {
+  const ref = useRef<HTMLSpanElement>(null);
+  const [display, setDisplay] = useState(value);
+  const inView = useInView(ref, { once: true, amount: 0.8 });
+  const started = useRef(false);
+
+  useEffect(() => {
+    if (!inView || started.current) return;
+    started.current = true;
+
+    // Parse: prefix (non-digit), numeric body, suffix
+    const match = value.match(/^([^0-9]*)([0-9]+(?:\.[0-9]+)?)(.*)$/);
+    if (!match) return;
+
+    const [, prefix, numStr, suffix] = match;
+    const target = parseFloat(numStr);
+    const decimals = (numStr.split(".")[1] ?? "").length;
+    // Start from 0 for integers, from 90% for decimals (avoids long 0→99.99 crawl)
+    const startFrom = decimals > 0 ? Math.max(target * 0.9, 0) : 0;
+
+    const controls = animate(startFrom, target, {
+      duration: 1.5,
+      ease: [0.16, 1, 0.3, 1],
+      onUpdate(v) {
+        setDisplay(prefix + v.toFixed(decimals) + suffix);
+      },
+      onComplete() {
+        setDisplay(value); // snap to exact string
+      },
+    });
+
+    return () => controls.stop();
+  }, [inView, value]);
+
+  return <span ref={ref}>{display}</span>;
+}
 
 export function TrustBand() {
   return (
@@ -45,12 +85,14 @@ export function TrustBand() {
           { value: "<80ms", unit: "p50 延迟" },
           { value: "99.99%", unit: "SLA 可用性" },
           { value: "¥0.0001", unit: "计费精度" },
-          { value: "5 min", unit: "接入时间" },
+          { value: "5", unit: "分钟接入" },
         ].map((s, i) => (
           <div key={s.unit} className="flex items-center gap-3">
             {i > 0 && <span className="w-px h-3 bg-[var(--color-border)] hidden sm:block" />}
             <span>
-              <span className="text-[var(--color-ochre)] font-bold">{s.value}</span>
+              <span className="text-[var(--color-ochre)] font-bold">
+                <AnimatedMetric value={s.value} />
+              </span>
               {" "}
               <span className="text-[var(--color-text-muted)]">{s.unit}</span>
             </span>
