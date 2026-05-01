@@ -92,7 +92,36 @@ function EcosystemMap() {
       viewport={{ once: true }}
       transition={{ duration: 0.5 }}
     >
-      <svg viewBox="0 0 820 178" className="w-full" style={{ display: "block" }} aria-hidden="true">
+      {/* Mobile: compact tier outline (SVG too dense below md) */}
+      <div className="md:hidden p-5 space-y-4">
+        <div>
+          <p className="text-[10px] font-mono uppercase tracking-[0.2em] text-[var(--color-text-muted)]/60 mb-2">P2 · 桌面工具</p>
+          <div className="flex flex-wrap gap-2">
+            {["Switch", "Creator"].map((n) => (
+              <span key={n} className="px-3 py-1 rounded-md bg-[var(--color-text-muted)]/10 border border-[var(--color-text-muted)]/20 text-xs text-[var(--color-text-secondary)]">{n}</span>
+            ))}
+          </div>
+        </div>
+        <div className="text-[var(--color-ochre)]/30 text-center text-[10px] font-mono">↑ 构建于</div>
+        <div>
+          <p className="text-[10px] font-mono uppercase tracking-[0.2em] text-[var(--color-accent)]/60 mb-2">P1 · 垂直产品</p>
+          <div className="flex flex-wrap gap-2">
+            {["Kova", "Lucrum"].map((n) => (
+              <span key={n} className="px-3 py-1 rounded-md bg-[var(--color-accent)]/10 border border-[var(--color-accent)]/25 text-xs text-[var(--color-accent)]">{n}</span>
+            ))}
+          </div>
+        </div>
+        <div className="text-[var(--color-ochre)]/30 text-center text-[10px] font-mono">↑ 构建于</div>
+        <div>
+          <p className="text-[10px] font-mono uppercase tracking-[0.2em] text-[var(--color-ochre)]/70 mb-2">P0 · 核心基础设施</p>
+          <div className="flex flex-wrap gap-2">
+            {["Hub", "Billing", "Memory", "Auth"].map((n) => (
+              <span key={n} className="px-3 py-1 rounded-md bg-[var(--color-ochre)]/12 border border-[var(--color-ochre)]/25 text-xs text-[var(--color-ochre)] font-medium">{n}</span>
+            ))}
+          </div>
+        </div>
+      </div>
+      <svg viewBox="0 0 820 178" className="hidden md:block w-full" aria-hidden="true">
         <defs>
           <linearGradient id="p0BgGrad" x1="0%" y1="0%" x2="0%" y2="100%">
             <stop offset="0%" stopColor="rgba(200,162,78,0.06)" />

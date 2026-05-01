@@ -358,7 +358,7 @@ function CodeDemo() {
         </span>
 
         {/* Language switcher tabs */}
-        <div className="flex items-center gap-0.5 ml-auto">
+        <div className="flex flex-wrap items-center gap-0.5 gap-y-1 ml-auto">
           {LANGS.map((l) => (
             <button
               key={l.id}

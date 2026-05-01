@@ -45,10 +45,24 @@ function ComparisonDiagram() {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
     >
+      {/* Compact text alternative for narrow screens — SVG labels become unreadable below 640px */}
+      <div className="sm:hidden grid grid-cols-2 divide-x divide-[var(--color-border)]">
+        <div className="p-5 text-center">
+          <p className="text-[10px] font-mono text-[var(--color-error)]/55 tracking-[0.2em] mb-2">自行搭建</p>
+          <p className="text-2xl font-bold font-mono text-[var(--color-error)]/70">5+</p>
+          <p className="text-[11px] text-[var(--color-text-muted)] mt-1">供应商 · 套接口</p>
+          <p className="text-[10px] text-[var(--color-text-muted)]/60 mt-2">3–6 个月接入</p>
+        </div>
+        <div className="p-5 text-center">
+          <p className="text-[10px] font-mono text-[var(--color-ochre)]/70 tracking-[0.2em] mb-2">LURUS</p>
+          <p className="text-2xl font-bold font-mono text-gradient-gold">1</p>
+          <p className="text-[11px] text-[var(--color-text-muted)] mt-1">端点 · 一套接口</p>
+          <p className="text-[10px] text-[var(--color-success)]/65 mt-2">今晚接入 · 明天上线</p>
+        </div>
+      </div>
       <svg
         viewBox="0 0 800 258"
-        className="w-full"
-        style={{ display: "block" }}
+        className="hidden sm:block w-full"
         aria-hidden="true"
       >
         <defs>
@@ -257,12 +271,12 @@ export function Comparison() {
         {/* Visual diagram: chaos vs clarity */}
         <ComparisonDiagram />
 
-        {/* Column headers */}
+        {/* Column headers — desktop only (mobile uses inline labels per cell) */}
         <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
-          className="grid grid-cols-[1fr_1.2fr_1.2fr] gap-4 mb-3 px-1"
+          className="hidden md:grid grid-cols-[1fr_1.2fr_1.2fr] gap-4 mb-3 px-1"
         >
           <div />
           <div className="flex items-center gap-2 px-4">
@@ -275,7 +289,7 @@ export function Comparison() {
           </div>
         </motion.div>
 
-        <div className="space-y-2.5">
+        <div className="space-y-3 md:space-y-2.5">
           {rows.map((row, i) => (
             <motion.div
               key={row.aspect}
@@ -283,18 +297,21 @@ export function Comparison() {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.06 }}
-              className="grid grid-cols-[1fr_1.2fr_1.2fr] gap-4 items-stretch"
+              className="grid grid-cols-1 md:grid-cols-[1fr_1.2fr_1.2fr] gap-2 md:gap-4 md:items-stretch rounded-xl md:rounded-none border border-[var(--color-border)]/40 md:border-0 p-3 md:p-0 bg-[var(--color-surface)]/30 md:bg-transparent"
             >
-              <div className="flex items-center text-sm font-medium text-[var(--color-text-primary)] pr-4 py-3">
+              <div className="flex items-center text-sm font-semibold md:font-medium text-[var(--color-text-primary)] md:pr-4 md:py-3">
                 {row.aspect}
               </div>
-              <div className="rounded-xl px-4 py-3 bg-[var(--color-error)]/5 border border-[var(--color-error)]/10">
+              <div className="rounded-lg md:rounded-xl px-3 md:px-4 py-2.5 md:py-3 bg-[var(--color-error)]/5 border border-[var(--color-error)]/10">
+                {/* Mobile-only inline label */}
+                <div className="md:hidden text-[10px] font-mono uppercase tracking-wider text-[var(--color-error)]/55 mb-1">自己搭建</div>
                 <div className="flex items-start gap-2">
                   <XCircleIcon className="w-4 h-4 text-[var(--color-error)]/60 mt-0.5 shrink-0" />
                   <span className="text-sm text-[var(--color-text-muted)]">{row.without}</span>
                 </div>
               </div>
-              <div className="rounded-xl px-4 py-3 bg-[var(--color-success)]/5 border border-[var(--color-success)]/10">
+              <div className="rounded-lg md:rounded-xl px-3 md:px-4 py-2.5 md:py-3 bg-[var(--color-success)]/5 border border-[var(--color-success)]/10">
+                <div className="md:hidden text-[10px] font-mono uppercase tracking-wider text-[var(--color-ochre)]/70 mb-1">用 Lurus</div>
                 <div className="flex items-start gap-2">
                   <CheckCircleIcon className="w-4 h-4 text-[var(--color-success)] mt-0.5 shrink-0" />
                   <span className="text-sm text-[var(--color-text-secondary)]">{row.with}</span>

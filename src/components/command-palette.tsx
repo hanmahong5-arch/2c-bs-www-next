@@ -225,7 +225,7 @@ export function CommandPalette() {
             </div>
 
             {/* Footer */}
-            <div className="flex items-center gap-4 px-5 py-3 border-t border-[var(--color-border)] text-[10px] font-mono text-[var(--color-text-muted)]">
+            <div className="flex flex-wrap items-center gap-x-4 gap-y-2 px-5 py-3 border-t border-[var(--color-border)] text-[10px] font-mono text-[var(--color-text-muted)]">
               <span className="flex items-center gap-1.5">
                 <kbd className="px-1.5 py-0.5 rounded bg-[var(--background)] border border-[var(--color-border)]">↑</kbd>
                 <kbd className="px-1.5 py-0.5 rounded bg-[var(--background)] border border-[var(--color-border)]">↓</kbd>

@@ -203,7 +203,8 @@ function RouterProviderTable() {
   return (
     <div className="font-mono text-xs h-full flex flex-col justify-between">
       <div>
-        <div className="grid grid-cols-[2fr_1fr_1fr_1fr] gap-2 pb-2 border-b border-[var(--color-border)] text-[10px] text-[var(--color-text-muted)] uppercase tracking-wider">
+        {/* Header — desktop only (mobile uses stacked cards with inline labels) */}
+        <div className="hidden sm:grid grid-cols-[2fr_1fr_1fr_1fr] gap-2 pb-2 border-b border-[var(--color-border)] text-[10px] text-[var(--color-text-muted)] uppercase tracking-wider">
           <span>Provider</span>
           <span>P50</span>
           <span>¥/1K tok</span>
@@ -213,7 +214,7 @@ function RouterProviderTable() {
           {providers.map((p, i) => (
             <motion.div
               key={p.name}
-              className={`grid grid-cols-[2fr_1fr_1fr_1fr] gap-2 py-1.5 px-2 rounded-lg items-center ${
+              className={`flex flex-col gap-1.5 sm:grid sm:grid-cols-[2fr_1fr_1fr_1fr] sm:gap-2 sm:items-center py-1.5 px-2 rounded-lg ${
                 p.selected ? "bg-[var(--color-ochre)]/8 border border-[var(--color-ochre)]/20" : ""
               }`}
               initial={{ opacity: 0, x: -8 }}
@@ -235,27 +236,33 @@ function RouterProviderTable() {
                   {p.name}
                 </span>
               </div>
-              <span className={p.selected ? "text-[var(--color-success)]" : "text-[var(--color-text-muted)]"}>
-                {p.latency}
-              </span>
-              <span className={p.selected ? "text-[var(--color-success)]" : "text-[var(--color-text-muted)]"}>
-                {p.cost}
-              </span>
-              <div className="flex items-center gap-1">
-                <span className={`font-bold ${p.selected ? "text-[var(--color-ochre)]" : "text-[var(--color-text-muted)]"}`}>
-                  {p.score}
+              {/* Metrics row — labelled inline on mobile, columnar on sm+ */}
+              <div className="flex items-center gap-3 sm:contents text-[10px] sm:text-xs pl-3.5 sm:pl-0">
+                <span className={p.selected ? "text-[var(--color-success)]" : "text-[var(--color-text-muted)]"}>
+                  <span className="sm:hidden text-[var(--color-text-muted)]/70 mr-1">P50</span>
+                  {p.latency}
                 </span>
-                {p.selected && (
-                  <motion.span
-                    className="text-[var(--color-success)]"
-                    initial={{ opacity: 0, scale: 0 }}
-                    whileInView={{ opacity: 1, scale: 1 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: 0.7, type: "spring" }}
-                  >
-                    ✓
-                  </motion.span>
-                )}
+                <span className={p.selected ? "text-[var(--color-success)]" : "text-[var(--color-text-muted)]"}>
+                  <span className="sm:hidden text-[var(--color-text-muted)]/70 mr-1">¥/1K</span>
+                  {p.cost}
+                </span>
+                <div className="flex items-center gap-1">
+                  <span className="sm:hidden text-[var(--color-text-muted)]/70">Score</span>
+                  <span className={`font-bold ${p.selected ? "text-[var(--color-ochre)]" : "text-[var(--color-text-muted)]"}`}>
+                    {p.score}
+                  </span>
+                  {p.selected && (
+                    <motion.span
+                      className="text-[var(--color-success)]"
+                      initial={{ opacity: 0, scale: 0 }}
+                      whileInView={{ opacity: 1, scale: 1 }}
+                      viewport={{ once: true }}
+                      transition={{ delay: 0.7, type: "spring" }}
+                    >
+                      ✓
+                    </motion.span>
+                  )}
+                </div>
               </div>
             </motion.div>
           ))}

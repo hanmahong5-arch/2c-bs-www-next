@@ -98,8 +98,8 @@ function RequestTrace({ onCycle }: { onCycle: () => void }) {
       </div>
 
       <div className="bg-[var(--background)]/60 rounded-xl border border-[var(--color-border)] overflow-hidden">
-        {/* Column header */}
-        <div className="grid grid-cols-[3.2rem_7rem_1fr] gap-2 px-4 py-2 border-b border-[var(--color-border)] text-[9px] font-mono text-[var(--color-text-muted)] uppercase tracking-widest">
+        {/* Column header — hidden on mobile (rows stack into 2 lines instead) */}
+        <div className="hidden md:grid grid-cols-[3.2rem_7rem_1fr] gap-2 px-4 py-2 border-b border-[var(--color-border)] text-[9px] font-mono text-[var(--color-text-muted)] uppercase tracking-widest">
           <span>Time</span>
           <span>Stage</span>
           <span>Detail</span>
@@ -110,21 +110,25 @@ function RequestTrace({ onCycle }: { onCycle: () => void }) {
           {traceSteps.map((s, i) => (
             <motion.div
               key={i}
-              className={`grid grid-cols-[3.2rem_7rem_1fr] gap-2 px-4 py-2.5 text-[10px] font-mono items-center ${
+              className={`flex flex-col gap-1 md:grid md:grid-cols-[3.2rem_7rem_1fr] md:gap-2 md:items-center px-4 py-2.5 text-[10px] font-mono ${
                 i === visibleCount - 1 ? "bg-[var(--color-ochre)]/4" : ""
               }`}
               initial={{ opacity: 0, x: -10 }}
               animate={i < visibleCount ? { opacity: 1, x: 0 } : { opacity: 0, x: -10 }}
               transition={{ duration: 0.22, ease: "easeOut" }}
             >
-              <span className="text-[var(--color-text-muted)]">{s.time}</span>
-              <div className="flex items-center gap-1.5">
-                <span className={`text-[11px] ${s.color} shrink-0 leading-none`}>{s.icon}</span>
-                <span className={`${s.ochre ? "text-[var(--color-ochre)]" : "text-[var(--color-text-primary)]"} whitespace-nowrap`}>
-                  {s.label}
-                </span>
+              {/* Line 1 (mobile): time + stage badge + label.  Desktop: time only in col 1, stage in col 2. */}
+              <div className="flex items-center gap-2 md:contents">
+                <span className="text-[var(--color-text-muted)] shrink-0">{s.time}</span>
+                <div className="flex items-center gap-1.5">
+                  <span className={`text-[11px] ${s.color} shrink-0 leading-none`}>{s.icon}</span>
+                  <span className={`${s.ochre ? "text-[var(--color-ochre)]" : "text-[var(--color-text-primary)]"} whitespace-nowrap`}>
+                    {s.label}
+                  </span>
+                </div>
               </div>
-              <span className="text-[var(--color-text-muted)] truncate">{s.detail}</span>
+              {/* Line 2 (mobile): detail. Desktop: col 3. */}
+              <span className="text-[var(--color-text-muted)] truncate pl-[3.6rem] md:pl-0">{s.detail}</span>
             </motion.div>
           ))}
         </div>
@@ -199,8 +203,8 @@ export function ArchitectureVisual() {
         >
           <div className="grid md:grid-cols-[5fr_6fr] gap-8 items-start">
 
-            {/* Left: System topology diagram */}
-            <div>
+            {/* Left: System topology diagram — hidden on mobile (labels unreadable below 640px) */}
+            <div className="hidden sm:block">
               <p className="text-[9px] font-mono text-[var(--color-text-muted)] uppercase tracking-widest mb-4 opacity-50">
                 SYSTEM TOPOLOGY
               </p>

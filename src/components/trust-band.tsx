@@ -112,7 +112,7 @@ export function TrustBand() {
                 key={`${p.name}-${i}`}
                 whileHover={{ scale: 1.05 }}
                 transition={{ duration: 0.2 }}
-                className="group relative flex flex-col items-center justify-center mx-10 shrink-0 min-w-[8rem]"
+                className="group relative flex flex-col items-center justify-center mx-6 sm:mx-10 shrink-0 min-w-[6rem] sm:min-w-[8rem]"
               >
                 <span className="text-[0.95rem] font-medium text-[var(--color-text-muted)] whitespace-nowrap opacity-55 group-hover:opacity-100 group-hover:text-[var(--color-ochre)] transition-all duration-300">
                   {p.name}
