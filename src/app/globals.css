@@ -164,6 +164,36 @@ body {
   transform: translateY(-2px);
 }
 
+/* ── Spotlight cursor effect (Aceternity / Vercel signature) ──
+   Apply `.card-spotlight` to a card and add onMouseMove handler that
+   sets --mx and --my CSS variables. A radial gradient follows cursor. */
+.card-spotlight {
+  position: relative;
+  isolation: isolate;
+}
+.card-spotlight::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  background: radial-gradient(
+    520px circle at var(--mx, 50%) var(--my, 50%),
+    rgba(200, 162, 78, 0.10),
+    transparent 42%
+  );
+  z-index: 1;
+}
+.card-spotlight:hover::before {
+  opacity: 1;
+}
+.card-spotlight > * {
+  position: relative;
+  z-index: 2;
+}
+
 /* Glow effects */
 .glow-ochre {
   box-shadow: 0 0 60px rgba(200, 162, 78, 0.12), 0 0 120px rgba(200, 162, 78, 0.04);

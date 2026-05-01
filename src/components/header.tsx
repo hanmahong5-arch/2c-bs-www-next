@@ -9,6 +9,7 @@ import {
   XMarkIcon,
   ArrowTopRightOnSquareIcon,
 } from "@heroicons/react/24/outline";
+import { CommandPaletteTrigger } from "./command-palette";
 
 const nav = [
   { name: "Platform", href: "/platform" },
@@ -65,6 +66,7 @@ export function Header() {
         </nav>
 
         <div className="hidden md:flex items-center gap-3">
+          <CommandPaletteTrigger />
           <a
             href="https://auth.lurus.cn"
             target="_blank"

@@ -1,6 +1,15 @@
 "use client";
 
 import { motion } from "framer-motion";
+import type { MouseEvent as ReactMouseEvent } from "react";
+
+// Aceternity-style spotlight: cursor-tracking radial gradient on `.card-spotlight`.
+// Sets --mx / --my CSS variables; the ::before pseudo-element paints the gradient.
+function spotlight(e: ReactMouseEvent<HTMLDivElement>) {
+  const r = e.currentTarget.getBoundingClientRect();
+  e.currentTarget.style.setProperty("--mx", `${e.clientX - r.left}px`);
+  e.currentTarget.style.setProperty("--my", `${e.clientY - r.top}px`);
+}
 
 export function FeaturesShowcase() {
   return (
@@ -29,7 +38,8 @@ export function FeaturesShowcase() {
 
           {/* ① Smart Routing — wide, col-span-2 */}
           <motion.div
-            className="md:col-span-2 card p-6 group relative overflow-hidden"
+            onMouseMove={spotlight}
+            className="md:col-span-2 card card-spotlight p-6 group relative overflow-hidden"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -56,7 +66,8 @@ export function FeaturesShowcase() {
 
           {/* ② Billing — col-span-1 */}
           <motion.div
-            className="card p-6 group relative overflow-hidden flex flex-col"
+            onMouseMove={spotlight}
+            className="card card-spotlight p-6 group relative overflow-hidden flex flex-col"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -79,7 +90,8 @@ export function FeaturesShowcase() {
 
           {/* ③ Memory */}
           <motion.div
-            className="card p-6 group relative overflow-hidden"
+            onMouseMove={spotlight}
+            className="card card-spotlight p-6 group relative overflow-hidden"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -98,7 +110,8 @@ export function FeaturesShowcase() {
 
           {/* ④ Auth */}
           <motion.div
-            className="card p-6 group relative overflow-hidden"
+            onMouseMove={spotlight}
+            className="card card-spotlight p-6 group relative overflow-hidden"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -117,7 +130,8 @@ export function FeaturesShowcase() {
 
           {/* ⑤ Notify */}
           <motion.div
-            className="card p-6 group relative overflow-hidden"
+            onMouseMove={spotlight}
+            className="card card-spotlight p-6 group relative overflow-hidden"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -136,7 +150,8 @@ export function FeaturesShowcase() {
 
           {/* ⑥ Observability — full width, col-span-3 */}
           <motion.div
-            className="md:col-span-3 card p-6 group relative overflow-hidden"
+            onMouseMove={spotlight}
+            className="md:col-span-3 card card-spotlight p-6 group relative overflow-hidden"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}

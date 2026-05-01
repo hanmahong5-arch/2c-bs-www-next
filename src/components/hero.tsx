@@ -328,9 +328,8 @@ export function Hero() {
 function CodeDemo() {
   const [lang, setLang] = useState<LangKey>("ts");
   const [copied, setCopied] = useState(false);
-  // Track whether this is the initial page load — use slow stagger only then.
-  const isFirstRender = useRef(true);
-  useEffect(() => { isFirstRender.current = false; }, []);
+  // Slow stagger before any interaction, fast snap after user picks a language.
+  const [hasInteracted, setHasInteracted] = useState(false);
 
   const content = LANG_CODE[lang];
 
@@ -363,7 +362,7 @@ function CodeDemo() {
           {LANGS.map((l) => (
             <button
               key={l.id}
-              onClick={() => setLang(l.id)}
+              onClick={() => { setLang(l.id); setHasInteracted(true); }}
               className={`text-[10px] px-2 py-1 rounded font-mono transition-all cursor-pointer ${
                 lang === l.id
                   ? "bg-[var(--color-ochre)]/15 text-[var(--color-ochre)] border border-[var(--color-ochre)]/20"
@@ -413,7 +412,7 @@ function CodeDemo() {
                 initial={{ opacity: 0, x: -8 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{
-                  delay: isFirstRender.current ? 0.8 + i * 0.06 : i * 0.022,
+                  delay: !hasInteracted ? 0.8 + i * 0.06 : i * 0.022,
                   duration: 0.25,
                 }}
               >
