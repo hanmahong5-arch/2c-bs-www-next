@@ -35,7 +35,7 @@ export function Header() {
       <div className="mx-auto max-w-7xl px-6 flex h-16 items-center justify-between">
         <Link href="/" className="flex items-center gap-2">
           <span className="text-xl font-bold text-gradient-gold tracking-tight">
-            Lurus
+            LurusTech
           </span>
         </Link>
 

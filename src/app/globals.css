@@ -6,29 +6,44 @@ html {
 }
 
 :root {
-  --background: #0a0a0f;
-  --foreground: #e8e8ed;
-  --color-ochre: #c8a24e;
-  --color-ochre-light: #d4b76a;
-  --color-ochre-dark: #a6842e;
-  --color-surface: #111117;
-  --color-surface-hover: #18181f;
-  --color-surface-elevated: #1c1c24;
-  --color-border: #1f1f2a;
-  --color-border-hover: #2e2e3d;
-  --color-text-primary: #ededf0;
-  --color-text-secondary: #a0a0b0;
-  --color-text-muted: #5a5a6e;
-  --color-accent: #4a90e2;
-  --color-success: #34d399;
-  --color-error: #ef4444;
+  /* Brand-spec light theme tokens */
+  --paper: #F5F2E8;
+  --bg: #E8E4D6;
+  --ink: #14130F;
+  --rule: #D6D2C2;
+  --ok: #1F7A4F;
+  --warn: #B8821F;
+  --err: #B3392B;
+  --info: #2D4A8A;
+  --accent: #FF5D1F;
+
+  /* Semantic aliases (used across components) */
+  --background: var(--paper);
+  --foreground: var(--ink);
+  --color-surface: var(--bg);
+  --color-surface-hover: #DDD9CB;
+  --color-surface-elevated: #EAE7DC;
+  --color-border: var(--rule);
+  --color-border-hover: #C4C0B0;
+  --color-text-primary: var(--ink);
+  --color-text-secondary: #3D3B33;
+  --color-text-muted: #7A7769;
+  --color-accent: var(--accent);
+  --color-success: var(--ok);
+  --color-error: var(--err);
+
+  /* Legacy ochre aliases — kept so existing components don't break */
+  --color-ochre: var(--accent);
+  --color-ochre-light: #FF7A47;
+  --color-ochre-dark: #CC4A18;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-display: var(--font-display);
+  --font-sans: var(--font-sans);
+  --font-mono: var(--font-mono);
 }
 
 body {
@@ -60,7 +75,7 @@ body {
 
 /* Arrow-compressed stat — Vercel's killer pattern. "800ms → 120ms" */
 .stat-arrow {
-  font-family: var(--font-geist-mono);
+  font-family: var(--font-mono);
   font-feature-settings: "tnum";
   letter-spacing: -0.01em;
 }
@@ -251,7 +266,7 @@ body {
   background: var(--color-surface);
   border: 1px solid var(--color-border);
   border-radius: 12px;
-  font-family: var(--font-geist-mono);
+  font-family: var(--font-mono);
   font-size: 0.8125rem;
   line-height: 1.7;
   overflow-x: auto;

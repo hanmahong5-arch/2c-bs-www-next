@@ -22,10 +22,12 @@ const footerLinks = [
     ],
   },
   {
-    title: "企业",
+    title: "About LurusTech",
     links: [
+      { name: "About LurusTech", href: "/about" },
+      { name: "Contact", href: "mailto:contact@lurus.cn" },
+      { name: "Careers", href: "/careers" },
       { name: "解决方案", href: "/solutions" },
-      { name: "关于我们", href: "/about" },
       { name: "联系销售", href: "mailto:sales@lurus.cn" },
     ],
   },
@@ -84,7 +86,7 @@ export function Footer() {
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
           {/* Brand */}
           <div className="col-span-2 md:col-span-1">
-            <span className="text-xl font-bold text-gradient-gold">Lurus</span>
+            <span className="text-xl font-bold text-gradient-gold">LurusTech</span>
             <p className="mt-3 text-sm text-[var(--color-text-muted)] leading-relaxed max-w-xs">
               企业 AI 基础设施套件。
               <br />
@@ -181,23 +183,32 @@ export function Footer() {
           ))}
         </div>
 
-        <div className="mt-12 pt-8 border-t border-[var(--color-border)] flex flex-col md:flex-row justify-between items-center gap-4">
-          <p className="text-xs text-[var(--color-text-muted)]">
-            &copy; {new Date().getFullYear()} Lurus. All rights reserved.
-          </p>
+        <div className="mt-12 pt-8 border-t border-[var(--color-border)] flex flex-col gap-4">
+          <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+            <p className="text-xs text-[var(--color-text-muted)]">
+              &copy; {new Date().getFullYear()} LurusTech. All rights reserved.
+            </p>
+            {/* Legal column */}
+            <div className="flex flex-wrap gap-x-6 gap-y-2 text-xs text-[var(--color-text-muted)]">
+              <Link href="/terms" className="hover:text-[var(--color-text-secondary)] transition-colors">
+                Terms of Service
+              </Link>
+              <Link href="/privacy" className="hover:text-[var(--color-text-secondary)] transition-colors">
+                Privacy Policy
+              </Link>
+              <Link href="/security" className="hover:text-[var(--color-text-secondary)] transition-colors">
+                Security &amp; DPA
+              </Link>
+              <Link href="/terms" className="hover:text-[var(--color-text-secondary)] transition-colors">
+                用户协议
+              </Link>
+              <Link href="/privacy" className="hover:text-[var(--color-text-secondary)] transition-colors">
+                隐私政策
+              </Link>
+            </div>
+          </div>
+          {/* ICP / Algo filing row */}
           <div className="flex flex-wrap gap-x-6 gap-y-2 text-xs text-[var(--color-text-muted)]">
-            <Link
-              href="/privacy"
-              className="hover:text-[var(--color-text-secondary)] transition-colors"
-            >
-              隐私政策
-            </Link>
-            <Link
-              href="/terms"
-              className="hover:text-[var(--color-text-secondary)] transition-colors"
-            >
-              服务条款
-            </Link>
             <a
               href="https://beian.miit.gov.cn/"
               target="_blank"
@@ -205,6 +216,14 @@ export function Footer() {
               className="hover:text-[var(--color-text-secondary)] transition-colors"
             >
               鲁ICP备2026000242号
+            </a>
+            <a
+              href="https://beian.cac.gov.cn/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-[var(--color-text-secondary)] transition-colors"
+            >
+              算法备案（待取得）
             </a>
             <a
               href="https://www.beian.gov.cn/portal/registerSystemInfo?recordcode=37060002001239"
@@ -217,6 +236,7 @@ export function Footer() {
               </svg>
               鲁公网安备37060002001239号
             </a>
+            <span className="text-[var(--color-text-muted)]">硅知睿智能科技（烟台）有限公司</span>
           </div>
         </div>
       </div>
