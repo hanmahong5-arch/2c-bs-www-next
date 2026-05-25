@@ -1,21 +1,23 @@
 import type { Metadata } from "next";
 import { PageHero } from "@/components/page-hero";
 import { DownloadCards } from "./cards";
+import { LutuAndroidSection } from "./lutu-android";
 
 export const metadata: Metadata = {
   title: "下载",
   description:
-    "Lurus 桌面工具：Switch AI 网关 + Creator 内容工厂。Windows / macOS 一键安装。",
+    "Lurus 全家桶下载：路途 APP（Android）+ Switch AI 网关 + Creator 内容工厂。",
 };
 
 export default function DownloadPage() {
   return (
     <>
       <PageHero
-        highlight="桌面工具"
+        highlight="全平台"
         title="AI 装进口袋，离线也能用"
-        description="密钥不离开你的电脑，断网照常工作。申请内测，第一时间体验。"
+        description="路途 APP 把 Lurus 全家桶装进手机；Switch / Creator 桌面工具内测申请中。"
       />
+      <LutuAndroidSection />
       <DownloadCards />
       <SystemRequirements />
     </>
