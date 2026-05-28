@@ -44,7 +44,7 @@ const GROUPS: Group[] = [
     section: "外部",
     items: [
       { label: "API 文档", href: "https://docs.lurus.cn", external: true, Icon: DocumentTextIcon, hint: "docs.lurus.cn" },
-      { label: "API Console — 获取 Key", href: "https://api.lurus.cn", external: true, Icon: KeyIcon, hint: "api.lurus.cn" },
+      { label: "API Console — 获取 Key", href: "https://hub.lurus.cn", external: true, Icon: KeyIcon, hint: "hub.lurus.cn" },
       { label: "GitHub", href: "https://github.com/hanmahong5-arch", external: true, Icon: CodeBracketIcon },
       { label: "联系我们", href: "/about#contact", Icon: EnvelopeIcon },
     ],

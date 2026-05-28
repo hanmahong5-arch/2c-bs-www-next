@@ -25,7 +25,7 @@ const LANG_CODE = {
 import OpenAI from "openai"
 
 const client = new OpenAI({
-  baseURL: "https://api.lurus.cn/v1",
+  baseURL: "https://hub.lurus.cn/v1",
   apiKey: "sk-your-lurus-key"
 })
 
@@ -38,7 +38,7 @@ const res = await client.chat.completions.create({
       '<span class="keyword">import</span> <span class="punctuation">OpenAI</span> <span class="keyword">from</span> <span class="string">"openai"</span>',
       "",
       '<span class="keyword">const</span> <span class="punctuation">client = </span><span class="keyword">new</span> <span class="function">OpenAI</span><span class="punctuation">({</span>',
-      '  <span class="property">baseURL</span><span class="punctuation">: </span><span class="string">"https://api.lurus.cn/v1"</span><span class="punctuation">,</span>',
+      '  <span class="property">baseURL</span><span class="punctuation">: </span><span class="string">"https://hub.lurus.cn/v1"</span><span class="punctuation">,</span>',
       '  <span class="property">apiKey</span><span class="punctuation">: </span><span class="string">"sk-your-lurus-key"</span>',
       '<span class="punctuation">})</span>',
       "",
@@ -54,7 +54,7 @@ const res = await client.chat.completions.create({
 from openai import OpenAI
 
 client = OpenAI(
-    base_url="https://api.lurus.cn/v1",
+    base_url="https://hub.lurus.cn/v1",
     api_key="sk-your-lurus-key"
 )
 
@@ -67,7 +67,7 @@ res = client.chat.completions.create(
       '<span class="keyword">from</span> <span class="punctuation">openai </span><span class="keyword">import</span> <span class="punctuation">OpenAI</span>',
       "",
       '<span class="punctuation">client = </span><span class="function">OpenAI</span><span class="punctuation">(</span>',
-      '  <span class="property">base_url</span><span class="punctuation">=</span><span class="string">"https://api.lurus.cn/v1"</span><span class="punctuation">,</span>',
+      '  <span class="property">base_url</span><span class="punctuation">=</span><span class="string">"https://hub.lurus.cn/v1"</span><span class="punctuation">,</span>',
       '  <span class="property">api_key</span><span class="punctuation">=</span><span class="string">"sk-your-lurus-key"</span>',
       '<span class="punctuation">)</span>',
       "",
@@ -80,7 +80,7 @@ res = client.chat.completions.create(
   sh: {
     filename: "request.sh",
     plain: `# OpenAI-compatible, works immediately
-curl https://api.lurus.cn/v1/chat/completions \\
+curl https://hub.lurus.cn/v1/chat/completions \\
   -H "Authorization: Bearer sk-your-lurus-key" \\
   -H "Content-Type: application/json" \\
   -d '{
@@ -89,7 +89,7 @@ curl https://api.lurus.cn/v1/chat/completions \\
   }'`,
     lines: [
       '<span class="comment"># OpenAI-compatible, works immediately</span>',
-      '<span class="function">curl</span> <span class="string">https://api.lurus.cn/v1/chat/completions</span> <span class="punctuation">\\</span>',
+      '<span class="function">curl</span> <span class="string">https://hub.lurus.cn/v1/chat/completions</span> <span class="punctuation">\\</span>',
       '  <span class="property">-H</span> <span class="string">"Authorization: Bearer sk-your-lurus-key"</span> <span class="punctuation">\\</span>',
       '  <span class="property">-H</span> <span class="string">"Content-Type: application/json"</span> <span class="punctuation">\\</span>',
       "  <span class=\"property\">-d</span> <span class=\"string\">'&#123;</span>",
@@ -104,7 +104,7 @@ curl https://api.lurus.cn/v1/chat/completions \\
     filename: "main.go",
     plain: `// OpenAI SDK for Go, 5 min to integrate
 client := openai.NewClient(
-  option.WithBaseURL("https://api.lurus.cn/v1"),
+  option.WithBaseURL("https://hub.lurus.cn/v1"),
   option.WithAPIKey("sk-your-lurus-key"),
 )
 
@@ -119,7 +119,7 @@ resp, _ := client.Chat.Completions.New(ctx,
     lines: [
       '<span class="comment">// OpenAI SDK for Go, 5 min to integrate</span>',
       '<span class="punctuation">client := openai.</span><span class="function">NewClient</span><span class="punctuation">(</span>',
-      '  <span class="punctuation">option.</span><span class="function">WithBaseURL</span><span class="punctuation">(</span><span class="string">"https://api.lurus.cn/v1"</span><span class="punctuation">),</span>',
+      '  <span class="punctuation">option.</span><span class="function">WithBaseURL</span><span class="punctuation">(</span><span class="string">"https://hub.lurus.cn/v1"</span><span class="punctuation">),</span>',
       '  <span class="punctuation">option.</span><span class="function">WithAPIKey</span><span class="punctuation">(</span><span class="string">"sk-your-lurus-key"</span><span class="punctuation">),</span>',
       '<span class="punctuation">)</span>',
       "",
@@ -240,12 +240,12 @@ export function Hero() {
               {/* Developer-oriented monospace hint */}
               <p className="eyebrow mb-3 font-mono normal-case tracking-[0.05em] text-[0.7rem]">
                 <span className="text-[var(--color-ochre)]/70">$</span>{" "}
-                <span className="text-[var(--color-text-muted)]">curl https://api.lurus.cn/v1/chat/completions</span>
+                <span className="text-[var(--color-text-muted)]">curl https://hub.lurus.cn/v1/chat/completions</span>
               </p>
 
               <div className="flex flex-wrap gap-3">
                 <a
-                  href="https://api.lurus.cn"
+                  href="https://hub.lurus.cn"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="group relative px-7 py-3.5 rounded-xl bg-gradient-gold text-black font-semibold text-base overflow-hidden transition-all hover:shadow-[0_0_30px_rgba(200,162,78,0.3)] flex items-center gap-2"

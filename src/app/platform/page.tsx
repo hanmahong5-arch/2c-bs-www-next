@@ -20,7 +20,7 @@ export default function PlatformPage() {
         highlight="Lurus Platform"
         title="一座完整的 AI 城市"
         description="Hub 是中央车站，Billing 是银行，Memorus 是图书馆。你只需「入住」，一切就绪。30+ 模型、金融级计费、持久化记忆——无需自建。"
-        primaryAction={{ label: "免费试用", href: "https://api.lurus.cn" }}
+        primaryAction={{ label: "免费试用", href: "https://hub.lurus.cn" }}
         secondaryAction={{ label: "阅读文档", href: "https://docs.lurus.cn" }}
       />
 

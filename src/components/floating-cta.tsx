@@ -42,7 +42,7 @@ export function FloatingCTA() {
 
             {/* Primary CTA */}
             <a
-              href="https://api.lurus.cn"
+              href="https://hub.lurus.cn"
               target="_blank"
               rel="noopener noreferrer"
               className="group flex items-center gap-1.5 px-4 py-2 rounded-xl bg-gradient-gold text-black text-sm font-semibold hover:shadow-[0_0_24px_rgba(200,162,78,0.35)] transition-all duration-300 shrink-0"

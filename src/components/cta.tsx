@@ -86,7 +86,7 @@ export function CTA() {
                 </ul>
 
                 <a
-                  href="https://api.lurus.cn"
+                  href="https://hub.lurus.cn"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="group flex items-center justify-center gap-2 w-full px-6 py-3.5 rounded-xl bg-gradient-gold text-black font-semibold hover:shadow-[0_0_30px_rgba(200,162,78,0.3)] transition-all duration-300"
