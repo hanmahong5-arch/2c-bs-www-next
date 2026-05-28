@@ -16,7 +16,7 @@ const tiers = [
       "社区支持",
     ],
     cta: "免费开始",
-    href: "https://api.lurus.cn",
+    href: "https://hub.lurus.cn",
     highlight: false,
   },
   {
@@ -32,7 +32,7 @@ const tiers = [
       "邮件支持（24h 内响应）",
     ],
     cta: "开始试用",
-    href: "https://api.lurus.cn",
+    href: "https://hub.lurus.cn",
     highlight: true,
   },
   {

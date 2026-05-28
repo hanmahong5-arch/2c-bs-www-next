@@ -39,7 +39,7 @@ function DiffWidget() {
         <span className="text-green-400 shrink-0 select-none">+</span>
         <span className="text-[var(--color-text-muted)] break-all">
           baseURL:{" "}
-          <span className="text-emerald-400">&quot;api.lurus.cn/v1&quot;</span>
+          <span className="text-emerald-400">&quot;hub.lurus.cn/v1&quot;</span>
         </span>
       </div>
       <div className="flex gap-2 items-start bg-green-500/5 rounded px-1 -mx-1">
