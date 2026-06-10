@@ -21,7 +21,7 @@ src/
 │   └── not-found.tsx     # Custom 404
 ├── components/
 │   ├── primitives/       # SmartLink, Section
-│   ├── persona-router.tsx    # User journey selector
+│   ├── product-grid.tsx      # 产品矩阵 + persona 筛选 + 关系图谱 (EcosystemMap)
 │   └── related-products.tsx  # Graph-driven cross-product links
 └── lib/
     ├── ecosystem.ts      # Product graph (7 products, 8 relations, 4 personas)
