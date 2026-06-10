@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
 import { PageHero } from "@/components/page-hero";
+import { Timeline } from "./timeline";
 
 export const metadata: Metadata = {
   title: "关于我们",
-  description: "Lurus 团队致力于让每家企业都能拥有世界级的 AI 基础设施。",
+  description: "Lurus 把 AI 基础设施的自建周期从数月压缩到几分钟，让团队的时间回到业务本身。",
 };
 
 export default function AboutPage() {
@@ -11,8 +12,8 @@ export default function AboutPage() {
     <>
       <PageHero
         highlight="关于 Lurus"
-        title="让 AI 基础设施触手可及"
-        description="我们相信，企业 AI 转型不应该被基础设施的复杂性所阻碍。Lurus 提供开箱即用的全栈 AI 后端，让团队聚焦于业务创新。"
+        title="把基础设施的时间，还给产品"
+        description="自建 LLM 网关、计费、记忆系统，通常吃掉一个团队几个月。这几个月本可以用来打磨业务本身——这是真正的成本。"
       />
 
       <section className="py-24">
@@ -23,8 +24,8 @@ export default function AboutPage() {
                 使命
               </h2>
               <p className="text-[var(--color-text-secondary)] leading-relaxed">
-                降低企业 AI 基础设施的门槛。从 LLM 网关到计费引擎，从记忆系统到通知管道，
-                用一套标准化的产品矩阵替代数月的自建投入。
+                消除 AI 基础设施的机会成本。网关、计费、记忆、通知——这些每家公司都要重复造的轮子，
+                我们造好一次，你接入一次。省下的工程师时间，去做只有你能做的事。
               </p>
             </div>
 
@@ -33,7 +34,8 @@ export default function AboutPage() {
                 愿景
               </h2>
               <p className="text-[var(--color-text-secondary)] leading-relaxed">
-                成为企业 AI 转型的基础设施标准。当企业决定拥抱 AI 时，Lurus 是他们首先接入的一层。
+                成为企业接入 AI 的第一层。当团队决定拥抱 AI 时，不再问「基础设施怎么建」，
+                只问「业务怎么做」。
               </p>
             </div>
           </div>
@@ -42,9 +44,9 @@ export default function AboutPage() {
 
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
             {[
-              { value: "5", label: "产品线" },
-              { value: "30+", label: "AI 模型集成" },
-              { value: "99.9%", label: "SLA 目标" },
+              { value: "13", label: "产品" },
+              { value: "38", label: "AI 模型集成" },
+              { value: "99.99%", label: "SLA 目标" },
               { value: "24/7", label: "监控覆盖" },
             ].map((s) => (
               <div key={s.label}>
@@ -57,6 +59,10 @@ export default function AboutPage() {
               </div>
             ))}
           </div>
+
+          <div className="section-divider my-16" />
+
+          <Timeline />
         </div>
       </section>
     </>

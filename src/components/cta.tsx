@@ -34,7 +34,7 @@ export function CTA() {
           viewport={{ once: true }}
           className="text-center mb-12"
         >
-          <h2 className="headline-tight text-3xl md:text-4xl font-bold text-shimmer">
+          <h2 className="headline-tight text-3xl md:text-4xl font-bold text-[var(--color-text-primary)]">
             今晚接入，明天上线
           </h2>
           <p className="mt-4 text-[var(--color-text-secondary)] max-w-lg mx-auto">
@@ -51,7 +51,7 @@ export function CTA() {
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
           >
-            <div className="relative rounded-2xl overflow-hidden border-beam h-full">
+            <div className="relative rounded-2xl overflow-hidden h-full border border-[var(--color-accent)]/40">
               <div className="absolute inset-0 bg-[var(--color-surface)]" />
               <div className="absolute inset-0 bg-gradient-to-br from-[var(--color-ochre)]/8 via-transparent to-transparent" />
               <div className="absolute inset-0 grid-bg opacity-30" />
@@ -89,7 +89,7 @@ export function CTA() {
                   href="https://hub.lurus.cn"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="group flex items-center justify-center gap-2 w-full px-6 py-3.5 rounded-xl bg-gradient-gold text-black font-semibold hover:shadow-[0_0_30px_rgba(200,162,78,0.3)] transition-all duration-300"
+                  className="group btn-primary w-full"
                 >
                   免费注册
                   <ArrowRightIcon className="w-4 h-4 transition-transform group-hover:translate-x-0.5" />
@@ -144,7 +144,7 @@ export function CTA() {
 
                 <a
                   href="mailto:sales@lurus.cn?subject=Lurus%20%E4%BC%81%E4%B8%9A%E6%96%B9%E6%A1%88%E5%92%A8%E8%AF%A2"
-                  className="group flex items-center justify-center gap-2 w-full px-6 py-3.5 rounded-xl border border-[var(--color-accent)]/40 text-[var(--color-text-primary)] font-semibold hover:border-[var(--color-accent)]/70 hover:bg-[var(--color-accent)]/5 transition-all duration-300"
+                  className="group btn-secondary w-full"
                 >
                   联系销售
                   <ArrowRightIcon className="w-4 h-4 transition-transform group-hover:translate-x-0.5" />

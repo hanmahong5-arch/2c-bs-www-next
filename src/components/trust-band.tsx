@@ -3,8 +3,8 @@
 import { useRef, useEffect, useState } from "react";
 import { motion, useInView, animate } from "framer-motion";
 
-// Logo with hover-revealed precision detail — Stripe's "real logo + real data" pattern.
-// Label is the provider; meta appears on hover with the specific models served.
+// Provider name + the specific models served, revealed on hover.
+// Static list — 事实自己说话，不需要无限滚动假装热闹。
 const providers = [
   { name: "OpenAI", meta: "GPT-5 · GPT-4o · o3" },
   { name: "Anthropic", meta: "Claude Opus 4.6 · Sonnet 4.5" },
@@ -61,7 +61,7 @@ function AnimatedMetric({ value }: { value: string }) {
 
 export function TrustBand() {
   return (
-    <section className="py-16 relative overflow-hidden">
+    <section className="py-16 relative">
       <div className="section-divider" />
 
       {/* Platform key metrics — monospace terminal aesthetic */}
@@ -78,7 +78,7 @@ export function TrustBand() {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ delay: 0.1 }}
-        className="flex flex-wrap items-center justify-center gap-x-8 gap-y-2 pb-6 text-xs font-mono"
+        className="flex flex-wrap items-center justify-center gap-x-8 gap-y-2 pb-10 text-xs font-mono"
       >
         {[
           { value: "38", unit: "个模型" },
@@ -90,7 +90,7 @@ export function TrustBand() {
           <div key={s.unit} className="flex items-center gap-3">
             {i > 0 && <span className="w-px h-3 bg-[var(--color-border)] hidden sm:block" />}
             <span>
-              <span className="text-[var(--color-ochre)] font-bold">
+              <span className="text-[var(--color-accent)] font-bold">
                 <AnimatedMetric value={s.value} />
               </span>
               {" "}
@@ -100,32 +100,29 @@ export function TrustBand() {
         ))}
       </motion.div>
 
-      {/* Provider marquee — confidence doesn't announce itself */}
-      <div className="pb-10 relative">
-        <div className="absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-[var(--background)] to-transparent z-10" />
-        <div className="absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-[var(--background)] to-transparent z-10" />
-
-        <div className="flex overflow-hidden">
-          <div className="flex shrink-0 scroll-x items-center">
-            {[...providers, ...providers].map((p, i) => (
-              <motion.div
-                key={`${p.name}-${i}`}
-                whileHover={{ scale: 1.05 }}
-                transition={{ duration: 0.2 }}
-                className="group relative flex flex-col items-center justify-center mx-6 sm:mx-10 shrink-0 min-w-[6rem] sm:min-w-[8rem]"
-              >
-                <span className="text-[0.95rem] font-medium text-[var(--color-text-muted)] whitespace-nowrap opacity-55 group-hover:opacity-100 group-hover:text-[var(--color-ochre)] transition-all duration-300">
-                  {p.name}
-                </span>
-                {/* Meta reveal — the logo speaks, then the detail appears */}
-                <span className="absolute top-full mt-1 text-[0.65rem] font-mono text-[var(--color-text-muted)] whitespace-nowrap opacity-0 group-hover:opacity-60 transition-opacity duration-300 tracking-wide">
-                  {p.meta}
-                </span>
-              </motion.div>
-            ))}
+      {/* Provider list — static flex-wrap, hover reveals the models served */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true }}
+        transition={{ delay: 0.15 }}
+        className="mx-auto max-w-4xl px-6 pb-12 flex flex-wrap items-start justify-center gap-x-8 gap-y-6"
+      >
+        {providers.map((p) => (
+          <div
+            key={p.name}
+            className="group relative flex flex-col items-center"
+          >
+            <span className="text-[0.95rem] font-medium text-[var(--color-text-muted)] whitespace-nowrap opacity-70 group-hover:opacity-100 group-hover:text-[var(--color-text-primary)] transition-all duration-300">
+              {p.name}
+            </span>
+            {/* Meta reveal — the name speaks, then the detail appears */}
+            <span className="absolute top-full mt-1 text-[0.65rem] font-mono text-[var(--color-text-muted)] whitespace-nowrap opacity-0 group-hover:opacity-70 transition-opacity duration-300 tracking-wide pointer-events-none">
+              {p.meta}
+            </span>
           </div>
-        </div>
-      </div>
+        ))}
+      </motion.div>
 
       <div className="section-divider" />
     </section>

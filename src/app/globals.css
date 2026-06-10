@@ -16,6 +16,26 @@ html {
   --err: #B3392B;
   --info: #2D4A8A;
   --accent: #FF5D1F;
+  --accent-2: #2D4A8A; /* brand-spec 第二强调色（蓝）— 图谱 integrates 关系等语义岗位 */
+
+  /* Spacing scale — 4px 网格 (TODO: 回写 brand-spec) */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.25rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-10: 2.5rem;
+  --space-12: 3rem;
+  --space-14: 3.5rem;
+  --space-16: 4rem;
+  --space-20: 5rem;
+  --space-24: 6rem;
+
+  /* Font stacks — Latin 主字体 + Noto SC 中文回退 (next/font 注入具体 var) */
+  --font-display: var(--font-fraunces), var(--font-noto-serif-sc), serif;
+  --font-sans: var(--font-inter-tight), var(--font-noto-sans-sc), system-ui, sans-serif;
 
   /* Semantic aliases (used across components) */
   --background: var(--paper);
@@ -27,7 +47,7 @@ html {
   --color-border-hover: #C4C0B0;
   --color-text-primary: var(--ink);
   --color-text-secondary: #3D3B33;
-  --color-text-muted: #7A7769;
+  --color-text-muted: #6B6860; /* #E8E4D6 底上 ≥4.5:1 (WCAG AA); 原 #7A7769 不达标 */
   --color-accent: var(--accent);
   --color-success: var(--ok);
   --color-error: var(--err);
@@ -44,6 +64,8 @@ html {
   --font-display: var(--font-display);
   --font-sans: var(--font-sans);
   --font-mono: var(--font-mono);
+  /* Fraunces 只到 600 — 覆写 bold 杜绝 faux-bold，现有 font-bold 调用零改动收敛 */
+  --font-weight-bold: 600;
 }
 
 body {
@@ -80,69 +102,46 @@ body {
   letter-spacing: -0.01em;
 }
 
-/* ── Premium Text Effects ── */
-
-/* Shimmer / shine sweep on brand text */
-.text-shimmer {
-  background: linear-gradient(
-    110deg,
-    var(--color-ochre-dark) 0%,
-    var(--color-ochre-light) 35%,
-    #fff 50%,
-    var(--color-ochre-light) 65%,
-    var(--color-ochre-dark) 100%
-  );
-  background-size: 250% 100%;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  animation: shimmer 4s ease-in-out infinite;
+/* ── Type Scale（六级，H3 以下也有规范）── */
+.type-h1 {
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 6vw, 4rem);
+  line-height: 1.05;
+  letter-spacing: -0.035em;
+  font-weight: 600;
+  text-wrap: balance;
 }
-
-@keyframes shimmer {
-  0%, 100% { background-position: 150% center; }
-  50% { background-position: -50% center; }
+.type-h2 {
+  font-family: var(--font-display);
+  font-size: clamp(1.875rem, 4vw, 2.5rem);
+  line-height: 1.12;
+  letter-spacing: -0.025em;
+  font-weight: 600;
+  text-wrap: balance;
 }
-
-/* Border beam — light point traveling along card border */
-.border-beam {
-  position: relative;
-  overflow: hidden;
+.type-h3 {
+  font-family: var(--font-sans);
+  font-size: 1.25rem;
+  line-height: 1.35;
+  letter-spacing: -0.015em;
+  font-weight: 600;
 }
-.border-beam::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  padding: 1px;
-  background: conic-gradient(
-    from var(--beam-angle, 0deg),
-    transparent 0%,
-    var(--color-ochre) 10%,
-    transparent 20%
-  );
-  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-  mask-composite: exclude;
-  -webkit-mask-composite: xor;
-  animation: beam-rotate 4s linear infinite;
-  pointer-events: none;
+.type-body {
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  line-height: 1.7;
 }
-
-@keyframes beam-rotate {
-  from { --beam-angle: 0deg; }
-  to { --beam-angle: 360deg; }
+.type-label {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  font-weight: 500;
 }
-
-@property --beam-angle {
-  syntax: "<angle>";
-  initial-value: 0deg;
-  inherits: false;
-}
-
-/* Icon glow — gold radiance behind icon containers */
-.icon-glow {
-  filter: drop-shadow(0 0 8px rgba(200, 162, 78, 0.4))
-          drop-shadow(0 0 20px rgba(200, 162, 78, 0.15));
+.type-code {
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  line-height: 1.7;
 }
 
 /* Brand gradient */
@@ -175,8 +174,59 @@ body {
 }
 .card:hover {
   border-color: var(--color-border-hover);
-  box-shadow: 0 0 30px rgba(200, 162, 78, 0.06), 0 8px 32px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 8px 24px color-mix(in srgb, var(--ink) 8%, transparent);
   transform: translateY(-2px);
+}
+
+/* Card variants */
+.card-elevated {
+  background: var(--color-surface-elevated);
+  border: 1px solid var(--color-border);
+  border-radius: 16px;
+  box-shadow: 0 2px 12px color-mix(in srgb, var(--ink) 6%, transparent);
+}
+.card-flat {
+  background: transparent;
+  border: 1px solid var(--color-border);
+  border-radius: 16px;
+}
+
+/* ── Button variants（全站统一，杜绝散装按钮样式）── */
+.btn-primary,
+.btn-secondary,
+.btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-height: 2.75rem; /* 44px touch target */
+  padding: 0.625rem 1.5rem;
+  border-radius: 0.75rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+.btn-primary {
+  background: var(--accent);
+  color: #fff;
+}
+.btn-primary:hover {
+  background: var(--color-ochre-dark);
+}
+.btn-secondary {
+  border: 1px solid var(--color-border);
+  color: var(--color-text-primary);
+}
+.btn-secondary:hover {
+  border-color: var(--color-border-hover);
+  background: var(--color-surface);
+}
+.btn-ghost {
+  color: var(--color-text-secondary);
+}
+.btn-ghost:hover {
+  color: var(--color-text-primary);
+  background: var(--color-surface);
 }
 
 /* ── Spotlight cursor effect (Aceternity / Vercel signature) ──
@@ -196,7 +246,7 @@ body {
   transition: opacity 0.3s ease;
   background: radial-gradient(
     520px circle at var(--mx, 50%) var(--my, 50%),
-    rgba(200, 162, 78, 0.10),
+    color-mix(in srgb, var(--accent) 8%, transparent),
     transparent 42%
   );
   z-index: 1;
@@ -209,29 +259,20 @@ body {
   z-index: 2;
 }
 
-/* Glow effects */
-.glow-ochre {
-  box-shadow: 0 0 60px rgba(200, 162, 78, 0.12), 0 0 120px rgba(200, 162, 78, 0.04);
-}
-
-.glow-soft {
-  box-shadow: 0 0 40px rgba(200, 162, 78, 0.08);
-}
-
-/* Animated grid background */
+/* Static grid background */
 .grid-bg {
   background-image:
-    linear-gradient(rgba(200, 162, 78, 0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(200, 162, 78, 0.03) 1px, transparent 1px);
+    linear-gradient(color-mix(in srgb, var(--ink) 4%, transparent) 1px, transparent 1px),
+    linear-gradient(90deg, color-mix(in srgb, var(--ink) 4%, transparent) 1px, transparent 1px);
   background-size: 60px 60px;
 }
 
 /* Gradient mesh for hero backgrounds */
 .gradient-mesh {
   background:
-    radial-gradient(ellipse 80% 50% at 50% -20%, rgba(200, 162, 78, 0.08) 0%, transparent 60%),
-    radial-gradient(ellipse 60% 40% at 80% 50%, rgba(74, 144, 226, 0.04) 0%, transparent 50%),
-    radial-gradient(ellipse 60% 40% at 20% 60%, rgba(200, 162, 78, 0.03) 0%, transparent 50%);
+    radial-gradient(ellipse 80% 50% at 50% -20%, color-mix(in srgb, var(--accent) 6%, transparent) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 40% at 80% 50%, color-mix(in srgb, var(--accent-2) 4%, transparent) 0%, transparent 50%),
+    radial-gradient(ellipse 60% 40% at 20% 60%, color-mix(in srgb, var(--accent) 3%, transparent) 0%, transparent 50%);
 }
 
 /* Noise texture overlay */
@@ -289,16 +330,6 @@ body {
 .code-block .punctuation { color: #abb2bf; }
 .code-block .number { color: #d19a66; }
 
-/* Trust band scroll */
-@keyframes scroll-x {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
-}
-
-.scroll-x {
-  animation: scroll-x 30s linear infinite;
-}
-
 /* Fade in up for sections */
 @keyframes fade-in-up {
   from {
@@ -318,9 +349,9 @@ body {
   gap: 0.5rem;
   padding: 0.375rem 1rem;
   border-radius: 9999px;
-  border: 1px solid rgba(200, 162, 78, 0.2);
-  background: rgba(200, 162, 78, 0.05);
-  color: var(--color-ochre);
+  border: 1px solid color-mix(in srgb, var(--accent) 25%, transparent);
+  background: color-mix(in srgb, var(--accent) 6%, transparent);
+  color: var(--color-ochre-dark);
   font-size: 0.8125rem;
   font-weight: 500;
 }
@@ -379,8 +410,5 @@ header {
   ::view-transition-old(root),
   ::view-transition-new(root) {
     animation-duration: 0s;
-  }
-  .scroll-x {
-    animation: none;
   }
 }

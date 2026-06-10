@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { PageHero } from "@/components/page-hero";
-import { PricingTiers, UsagePricing } from "./tiers";
+import { PricingTiers, TierMatrix, UsagePricing } from "./tiers";
 import { FAQ } from "./faq";
 
 export const metadata: Metadata = {
@@ -18,6 +18,7 @@ export default function PricingPage() {
         description="免费额度起步，按量计费。没有隐藏费用，没有长期合约。"
       />
       <PricingTiers />
+      <TierMatrix />
       <UsagePricing />
       <FAQ />
     </>

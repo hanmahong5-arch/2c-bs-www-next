@@ -76,7 +76,7 @@ export function Footer() {
                 href="https://hub.lurus.cn"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-gradient-gold text-black font-semibold text-sm hover:shadow-[0_0_30px_rgba(200,162,78,0.3)] transition-all duration-300"
+                className="group btn-primary"
               >
                 免费注册
                 <ArrowRightIcon className="w-4 h-4 transition-transform group-hover:translate-x-0.5" />
