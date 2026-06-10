@@ -17,7 +17,8 @@ import {
 } from "@heroicons/react/24/outline";
 import type { ComponentType, SVGProps } from "react";
 import { productGroups } from "@/lib/products";
-import { personas, getProduct } from "@/lib/ecosystem";
+import { personas, relations, getProduct } from "@/lib/ecosystem";
+import type { RelationType } from "@/lib/ecosystem";
 
 type HeroIcon = ComponentType<SVGProps<SVGSVGElement>>;
 
@@ -45,56 +46,58 @@ const priorityStyle: Record<string, string> = {
   P2: "bg-[var(--color-text-muted)]/10 text-[var(--color-text-muted)] border-[var(--color-text-muted)]/20",
 };
 
-// Three-tier architecture map: P0 foundation → P1 verticals → P2 desktop clients
-// Connection lines show "built on" dependency direction.
+// ── Ecosystem relation map ──
+// 消费 lib/ecosystem.ts 的 8 条 ProductRelation:
+//   powers → 实线橙 + 实心箭头 / enhances → 虚线橙 / integrates → 点划线蓝 (--accent-2)
+// 7 节点静态手工布局。TODO: 节点 >12 再考虑布局算法。
+
+const NODE_W = 92;
+const NODE_H = 34;
+
+// 节点中心坐标 (viewBox 0 0 820 310)，P0 底层 / P1 中层 / P2 顶层
+const mapNodes: Record<
+  string,
+  { x: number; y: number; label: string; tier: "P0" | "P1" | "P2" }
+> = {
+  hub: { x: 230, y: 240, label: "Hub", tier: "P0" },
+  billing: { x: 410, y: 240, label: "Billing", tier: "P0" },
+  memorus: { x: 590, y: 240, label: "Memorus", tier: "P0" },
+  kova: { x: 320, y: 140, label: "Kova", tier: "P1" },
+  lucrum: { x: 520, y: 140, label: "Lucrum", tier: "P1" },
+  switch: { x: 150, y: 50, label: "Switch", tier: "P2" },
+  creator: { x: 640, y: 50, label: "Creator", tier: "P2" },
+};
+
+// 每条边: ecosystem.ts relations 数组的下标 + 手工 path + tooltip 锚点
+const mapEdges: { rel: number; d: string; mid: { x: number; y: number } }[] = [
+  { rel: 0, d: "M 280 240 L 360 240", mid: { x: 320, y: 240 } }, // hub→billing powers
+  { rel: 1, d: "M 590 261 Q 410 300 234 259", mid: { x: 410, y: 285 } }, // memorus→hub enhances
+  { rel: 2, d: "M 244 222 L 312 160", mid: { x: 278, y: 191 } }, // hub→kova integrates
+  { rel: 3, d: "M 258 224 L 496 158", mid: { x: 377, y: 196 } }, // hub→lucrum integrates
+  { rel: 4, d: "M 424 222 L 510 160", mid: { x: 467, y: 191 } }, // billing→lucrum powers
+  { rel: 5, d: "M 396 222 L 332 160", mid: { x: 364, y: 191 } }, // billing→kova powers
+  { rel: 6, d: "M 576 222 Q 470 200 372 152", mid: { x: 472, y: 192 } }, // memorus→kova enhances
+  { rel: 7, d: "M 152 67 L 224 221", mid: { x: 188, y: 144 } }, // switch→hub integrates
+];
+
+const edgeStyle: Record<
+  RelationType,
+  { stroke: string; dash?: string; width: number; opacity: number; marker?: string }
+> = {
+  powers: { stroke: "var(--color-accent)", width: 1.5, opacity: 0.7, marker: "url(#arrow-powers)" },
+  enhances: { stroke: "var(--color-accent)", dash: "5 4", width: 1.2, opacity: 0.55 },
+  integrates: { stroke: "var(--accent-2)", dash: "2 3 7 3", width: 1.2, opacity: 0.6 },
+};
+
+const tierNodeStyle: Record<string, { fill: string; stroke: string; text: string }> = {
+  P0: { fill: "var(--color-surface-elevated)", stroke: "var(--color-accent)", text: "var(--ink)" },
+  P1: { fill: "var(--color-surface-elevated)", stroke: "var(--accent-2)", text: "var(--ink)" },
+  P2: { fill: "var(--color-surface-elevated)", stroke: "var(--color-border-hover)", text: "var(--color-text-secondary)" },
+};
+
 function EcosystemMap() {
-  // P0 (foundation row) — y=138
-  const p0 = [
-    { id: "hub",     label: "Hub",     sub: "P0", x: 120, cx: 160, cy: 148 },
-    { id: "billing", label: "Billing", sub: "P0", x: 272, cx: 312, cy: 148 },
-    { id: "memory",  label: "Memory",  sub: "P0", x: 478, cx: 518, cy: 148 },
-    { id: "auth",    label: "Auth",    sub: "P0", x: 660, cx: 700, cy: 148 },
-  ];
-  // P1 (vertical solutions) — y=80
-  const p1 = [
-    { id: "kova",   label: "Kova",   sub: "P1", x: 196, cx: 240, cy: 93 },
-    { id: "lucrum", label: "Lucrum", sub: "P1", x: 574, cx: 618, cy: 93 },
-  ];
-  // P2 (desktop clients) — y=22
-  const p2 = [
-    { id: "switch",  label: "Switch",  sub: "P2", x: 110, cx: 154, cy: 35 },
-    { id: "creator", label: "Creator", sub: "P2", x: 666, cx: 710, cy: 35 },
-  ];
-
-  // P0 horizontal backbone connections
-  const p0Backbone = [
-    `M 200 148 L 272 148`,  // Hub → Billing
-    `M 352 148 L 478 148`,  // Billing → Memory
-    `M 558 148 L 660 148`,  // Memory → Auth
-  ];
-  // P0 → P1 upward connections
-  const p0ToP1 = [
-    `M 160 138 L 240 106`,   // Hub → Kova
-    `M 518 138 L 618 106`,   // Memory → Lucrum
-  ];
-  // P1 → P2 upward connections
-  const p1ToP2 = [
-    `M 240 80 L 154 48`,   // Kova → Switch
-    `M 618 80 L 710 48`,   // Lucrum → Creator
-  ];
-
-  // Animated pulse positions along backbone (data flowing rightward through P0)
-  const pulses = [
-    { path: "M 200 148 L 272 148", delay: 0 },
-    { path: "M 352 148 L 478 148", delay: 0.4 },
-    { path: "M 558 148 L 660 148", delay: 0.8 },
-  ];
-
-  const tierLabel = (x: number, y: number, text: string) => (
-    <text x={x} y={y} textAnchor="middle"
-      fill="rgba(200,162,78,0.22)" fontSize="6.5"
-      fontFamily="var(--font-geist-mono)" letterSpacing="2">{text}</text>
-  );
+  const [hoveredEdge, setHoveredEdge] = useState<number | null>(null);
+  const hovered = hoveredEdge != null ? relations[mapEdges[hoveredEdge].rel] : null;
 
   return (
     <motion.div
@@ -114,142 +117,149 @@ function EcosystemMap() {
             ))}
           </div>
         </div>
-        <div className="text-[var(--color-ochre)]/30 text-center text-[10px] font-mono">↑ 构建于</div>
+        <div className="text-[var(--color-text-muted)] text-center text-[10px] font-mono">↑ 构建于</div>
         <div>
-          <p className="text-[10px] font-mono uppercase tracking-[0.2em] text-[var(--color-accent)]/60 mb-2">P1 · 垂直产品</p>
+          <p className="text-[10px] font-mono uppercase tracking-[0.2em] text-[var(--accent-2)]/70 mb-2">P1 · 垂直产品</p>
           <div className="flex flex-wrap gap-2">
             {["Kova", "Lucrum"].map((n) => (
-              <span key={n} className="px-3 py-1 rounded-md bg-[var(--color-accent)]/10 border border-[var(--color-accent)]/25 text-xs text-[var(--color-accent)]">{n}</span>
+              <span key={n} className="px-3 py-1 rounded-md bg-[var(--accent-2)]/8 border border-[var(--accent-2)]/25 text-xs text-[var(--accent-2)]">{n}</span>
             ))}
           </div>
         </div>
-        <div className="text-[var(--color-ochre)]/30 text-center text-[10px] font-mono">↑ 构建于</div>
+        <div className="text-[var(--color-text-muted)] text-center text-[10px] font-mono">↑ 构建于</div>
         <div>
-          <p className="text-[10px] font-mono uppercase tracking-[0.2em] text-[var(--color-ochre)]/70 mb-2">P0 · 核心基础设施</p>
+          <p className="text-[10px] font-mono uppercase tracking-[0.2em] text-[var(--color-accent)]/80 mb-2">P0 · 核心基础设施</p>
           <div className="flex flex-wrap gap-2">
-            {["Hub", "Billing", "Memory", "Auth"].map((n) => (
-              <span key={n} className="px-3 py-1 rounded-md bg-[var(--color-ochre)]/12 border border-[var(--color-ochre)]/25 text-xs text-[var(--color-ochre)] font-medium">{n}</span>
+            {["Hub", "Billing", "Memorus"].map((n) => (
+              <span key={n} className="px-3 py-1 rounded-md bg-[var(--color-accent)]/8 border border-[var(--color-accent)]/25 text-xs text-[var(--color-ochre-dark)] font-medium">{n}</span>
             ))}
           </div>
         </div>
       </div>
-      <svg viewBox="0 0 820 178" className="hidden md:block w-full" aria-hidden="true">
-        <defs>
-          <linearGradient id="p0BgGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-            <stop offset="0%" stopColor="rgba(200,162,78,0.06)" />
-            <stop offset="100%" stopColor="rgba(200,162,78,0.02)" />
-          </linearGradient>
-        </defs>
 
-        {/* P0 foundation band */}
-        <rect x="100" y="128" width="620" height="36" rx="8"
-          fill="rgba(200,162,78,0.04)" stroke="rgba(200,162,78,0.1)" strokeWidth="0.5" />
+      <div className="hidden md:block relative">
+        <svg viewBox="0 0 820 310" className="w-full" role="img" aria-label="Lurus 产品关系图谱：7 个产品与 8 条依赖/增强/集成关系">
+          <defs>
+            <marker id="arrow-powers" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+              <path d="M 0 0 L 8 4 L 0 8 z" fill="var(--color-accent)" fillOpacity="0.8" />
+            </marker>
+          </defs>
 
-        {/* Tier labels on the right */}
-        {tierLabel(800, 150, "P0")}
-        {tierLabel(800, 93,  "P1")}
-        {tierLabel(800, 35,  "P2")}
+          {/* Edges first (nodes drawn on top) */}
+          {mapEdges.map((e, i) => {
+            const rel = relations[e.rel];
+            const s = edgeStyle[rel.type];
+            const dimOthers = hoveredEdge != null && hoveredEdge !== i;
+            return (
+              <g key={`edge-${i}`}>
+                <motion.path
+                  d={e.d}
+                  fill="none"
+                  stroke={s.stroke}
+                  strokeWidth={hoveredEdge === i ? s.width + 0.6 : s.width}
+                  strokeDasharray={s.dash}
+                  strokeOpacity={dimOthers ? s.opacity * 0.35 : s.opacity}
+                  markerEnd={s.marker}
+                  initial={{ pathLength: 0 }}
+                  whileInView={{ pathLength: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.2 + i * 0.08, duration: 0.5 }}
+                />
+                {/* 不可见宽命中区 — 细线 hover 命中率 */}
+                <path
+                  d={e.d}
+                  fill="none"
+                  stroke="transparent"
+                  strokeWidth={14}
+                  className="cursor-pointer"
+                  onMouseEnter={() => setHoveredEdge(i)}
+                  onMouseLeave={() => setHoveredEdge(null)}
+                />
+              </g>
+            );
+          })}
 
-        {/* P0 backbone connections */}
-        {p0Backbone.map((d, i) => (
-          <motion.path key={`p0b-${i}`} d={d}
-            fill="none" stroke="rgba(200,162,78,0.3)" strokeWidth="1"
-            initial={{ pathLength: 0, opacity: 0 }}
-            whileInView={{ pathLength: 1, opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.2 + i * 0.1, duration: 0.5 }}
-          />
-        ))}
+          {/* Nodes */}
+          {Object.entries(mapNodes).map(([id, n], i) => {
+            const t = tierNodeStyle[n.tier];
+            return (
+              <motion.g
+                key={id}
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.1 + i * 0.06 }}
+              >
+                <rect
+                  x={n.x - NODE_W / 2}
+                  y={n.y - NODE_H / 2}
+                  width={NODE_W}
+                  height={NODE_H}
+                  rx="8"
+                  fill={t.fill}
+                  stroke={t.stroke}
+                  strokeOpacity="0.45"
+                  strokeWidth="1"
+                />
+                <text
+                  x={n.x}
+                  y={n.y + 3.5}
+                  textAnchor="middle"
+                  fill={t.text}
+                  fontSize="11"
+                  fontFamily="var(--font-sans)"
+                  fontWeight="600"
+                >
+                  {n.label}
+                </text>
+                <text
+                  x={n.x}
+                  y={n.y - NODE_H / 2 - 5}
+                  textAnchor="middle"
+                  fill="var(--color-text-muted)"
+                  fillOpacity="0.7"
+                  fontSize="7"
+                  fontFamily="var(--font-mono)"
+                  letterSpacing="1"
+                >
+                  {n.tier}
+                </text>
+              </motion.g>
+            );
+          })}
 
-        {/* Animated data packets on P0 backbone */}
-        {pulses.map((p, i) => {
-          // Extract start and end x from path string
-          const parts = p.path.match(/[\d.]+/g)!.map(Number);
-          return (
-            <motion.circle key={`pulse-${i}`} r="2" fill="rgba(200,162,78,0.8)" cy="148"
-              animate={{ cx: [parts[0], parts[2]], opacity: [0, 0.9, 0] }}
-              transition={{ duration: 1.2, delay: p.delay, repeat: Infinity, repeatDelay: 2.5, ease: "easeInOut" }}
-            />
-          );
-        })}
+          {/* Legend — 左下角 3 行 */}
+          <g fontFamily="var(--font-mono)" fontSize="8">
+            <line x1="24" y1="262" x2="52" y2="262" stroke="var(--color-accent)" strokeWidth="1.5" strokeOpacity="0.7" markerEnd="url(#arrow-powers)" />
+            <text x="60" y="265" fill="var(--color-text-muted)">powers · 核心能力供给</text>
+            <line x1="24" y1="278" x2="52" y2="278" stroke="var(--color-accent)" strokeWidth="1.2" strokeDasharray="5 4" strokeOpacity="0.55" />
+            <text x="60" y="281" fill="var(--color-text-muted)">enhances · 能力增强</text>
+            <line x1="24" y1="294" x2="52" y2="294" stroke="var(--accent-2)" strokeWidth="1.2" strokeDasharray="2 3 7 3" strokeOpacity="0.6" />
+            <text x="60" y="297" fill="var(--color-text-muted)">integrates · 数据集成</text>
+          </g>
+        </svg>
 
-        {/* P0 → P1 connections */}
-        {p0ToP1.map((d, i) => (
-          <motion.path key={`p01-${i}`} d={d}
-            fill="none" stroke="rgba(200,162,78,0.2)" strokeWidth="0.8" strokeDasharray="3 3"
-            initial={{ pathLength: 0, opacity: 0 }}
-            whileInView={{ pathLength: 1, opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.5 + i * 0.1, duration: 0.5 }}
-          />
-        ))}
-
-        {/* P1 → P2 connections */}
-        {p1ToP2.map((d, i) => (
-          <motion.path key={`p12-${i}`} d={d}
-            fill="none" stroke="rgba(200,162,78,0.15)" strokeWidth="0.7" strokeDasharray="3 4"
-            initial={{ pathLength: 0, opacity: 0 }}
-            whileInView={{ pathLength: 1, opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.7 + i * 0.1, duration: 0.5 }}
-          />
-        ))}
-
-        {/* P0 product nodes */}
-        {p0.map((node, i) => (
-          <motion.g key={node.id}
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.1 + i * 0.08 }}
-          >
-            <rect x={node.x} y="130" width="80" height="32" rx="6"
-              fill="rgba(200,162,78,0.1)" stroke="rgba(200,162,78,0.32)" strokeWidth="0.6" />
-            <text x={node.cx} y="150" textAnchor="middle"
-              fill="rgba(200,162,78,0.85)" fontSize="9" fontFamily="var(--font-geist-sans)" fontWeight="600">{node.label}</text>
-          </motion.g>
-        ))}
-
-        {/* P1 product nodes */}
-        {p1.map((node, i) => (
-          <motion.g key={node.id}
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.35 + i * 0.1 }}
-          >
-            <rect x={node.x} y="72" width="88" height="30" rx="6"
-              fill="rgba(74,144,226,0.08)" stroke="rgba(74,144,226,0.28)" strokeWidth="0.6" />
-            <text x={node.cx} y="91" textAnchor="middle"
-              fill="rgba(74,144,226,0.8)" fontSize="9" fontFamily="var(--font-geist-sans)" fontWeight="600">{node.label}</text>
-          </motion.g>
-        ))}
-
-        {/* P2 product nodes */}
-        {p2.map((node, i) => (
-          <motion.g key={node.id}
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.55 + i * 0.1 }}
-          >
-            <rect x={node.x} y="18" width="88" height="28" rx="6"
-              fill="rgba(90,90,110,0.14)" stroke="rgba(90,90,110,0.3)" strokeWidth="0.6" />
-            <text x={node.cx} y="36" textAnchor="middle"
-              fill="rgba(160,160,176,0.75)" fontSize="9" fontFamily="var(--font-geist-sans)" fontWeight="500">{node.label}</text>
-          </motion.g>
-        ))}
-
-        {/* Legend */}
-        <g>
-          <circle cx="32" cy="148" r="5" fill="rgba(200,162,78,0.15)" stroke="rgba(200,162,78,0.4)" strokeWidth="0.5" />
-          <text x="42" y="152" fill="rgba(200,162,78,0.45)" fontSize="7" fontFamily="var(--font-geist-mono)">核心基础设施</text>
-          <circle cx="32" cy="93" r="5" fill="rgba(74,144,226,0.1)" stroke="rgba(74,144,226,0.35)" strokeWidth="0.5" />
-          <text x="42" y="97" fill="rgba(74,144,226,0.45)" fontSize="7" fontFamily="var(--font-geist-mono)">垂直产品</text>
-          <circle cx="32" cy="35" r="5" fill="rgba(90,90,110,0.12)" stroke="rgba(90,90,110,0.3)" strokeWidth="0.5" />
-          <text x="42" y="39" fill="rgba(160,160,176,0.4)" fontSize="7" fontFamily="var(--font-geist-mono)">桌面工具</text>
-        </g>
-      </svg>
+        {/* Edge tooltip — relation.label */}
+        <AnimatePresence>
+          {hovered && hoveredEdge != null && (
+            <motion.div
+              key={hoveredEdge}
+              initial={{ opacity: 0, y: 4 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: 4 }}
+              transition={{ duration: 0.15 }}
+              className="absolute pointer-events-none z-10 px-3 py-1.5 rounded-lg bg-[var(--ink)] text-[var(--paper)] text-xs whitespace-nowrap shadow-lg"
+              style={{
+                left: `${(mapEdges[hoveredEdge].mid.x / 820) * 100}%`,
+                top: `${(mapEdges[hoveredEdge].mid.y / 310) * 100}%`,
+                transform: "translate(-50%, -135%)",
+              }}
+            >
+              {hovered.label}
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
     </motion.div>
   );
 }
