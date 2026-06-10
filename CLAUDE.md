@@ -42,7 +42,8 @@ docker build -t lurus-www .
 
 ## Design System
 
-- Dark theme: `--background: #0a0a0f`, `--color-ochre: #c8a24e` (brand gold)
-- Primitives: `.card`, `.pill`, `.text-gradient-gold`, `.section-divider`, `.code-block`
+- Light paper theme（brand-spec v1，真源 `doc/design/brand-spec.md`）: `--paper: #F5F2E8` / `--ink: #14130F` / `--accent: #FF5D1F`（橙）；`--color-ochre` 是 legacy alias → `var(--accent)`
+- Fonts: Fraunces (display) + Inter Tight (sans)，`next/font` 注入
+- Primitives: `.card`, `.pill`, `.text-gradient-gold`, `.section-divider`, `.code-block`, `.eyebrow`, `.headline-tight`
 - Backgrounds: `.grid-bg`, `.gradient-mesh`, `.noise`
 - Animations: `lib/motion.ts` presets + CSS View Transitions

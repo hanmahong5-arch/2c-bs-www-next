@@ -19,16 +19,24 @@ const footerLinks = [
       { name: "API 参考", href: "https://docs.lurus.cn/api", external: true },
       { name: "定价", href: "/pricing" },
       { name: "更新日志", href: "/blog" },
+      { name: "解决方案", href: "/solutions" },
     ],
   },
+  // brand-spec §4: 公司/法务两列文案 100% 固定，不可改
   {
-    title: "About LurusTech",
+    title: "公司",
     links: [
       { name: "About LurusTech", href: "/about" },
       { name: "Contact", href: "mailto:contact@lurus.cn" },
-      { name: "Careers", href: "/careers" },
-      { name: "解决方案", href: "/solutions" },
-      { name: "联系销售", href: "mailto:sales@lurus.cn" },
+      { name: "Careers", href: "mailto:contact@lurus.cn?subject=Careers" },
+    ],
+  },
+  {
+    title: "法务",
+    links: [
+      { name: "Terms of Service", href: "/terms" },
+      { name: "Privacy Policy", href: "/privacy" },
+      { name: "Security & DPA", href: "mailto:contact@lurus.cn?subject=Security%20%26%20DPA" },
     ],
   },
 ];
@@ -83,7 +91,7 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+        <div className="grid grid-cols-2 md:grid-cols-5 gap-8">
           {/* Brand */}
           <div className="col-span-2 md:col-span-1">
             <span className="text-xl font-bold text-gradient-gold">LurusTech</span>
@@ -94,20 +102,6 @@ export function Footer() {
               <br />
               金融级计费，开箱即用。
             </p>
-
-            {/* System status */}
-            <a
-              href="https://status.lurus.cn"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="mt-4 inline-flex items-center gap-2 text-xs text-[var(--color-text-muted)] hover:text-[var(--color-success)] transition-colors"
-            >
-              <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[var(--color-success)] opacity-75" />
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-[var(--color-success)]" />
-              </span>
-              全系统正常运行
-            </a>
 
             {/* Social links */}
             <div className="mt-4 flex gap-3">
@@ -136,7 +130,7 @@ export function Footer() {
 
           {footerLinks.map((group) => (
             <div key={group.title}>
-              <h3 className="text-sm font-semibold text-[var(--color-text-primary)] mb-4">
+              <h3 className="eyebrow font-mono mb-4">
                 {group.title}
               </h3>
               <ul className="space-y-2">
@@ -156,7 +150,7 @@ export function Footer() {
                                 rel: "noopener noreferrer",
                               }
                             : {})}
-                          className="text-sm text-[var(--color-text-muted)] hover:text-[var(--color-text-secondary)] transition-colors"
+                          className="text-sm text-[var(--color-text-muted)] hover:text-[var(--color-text-secondary)] hover:underline transition-colors"
                         >
                           {link.name}
                           {isExternal && (
@@ -171,7 +165,7 @@ export function Footer() {
                     <li key={link.name}>
                       <Link
                         href={link.href}
-                        className="text-sm text-[var(--color-text-muted)] hover:text-[var(--color-text-secondary)] transition-colors"
+                        className="text-sm text-[var(--color-text-muted)] hover:text-[var(--color-text-secondary)] hover:underline transition-colors"
                       >
                         {link.name}
                       </Link>
@@ -183,60 +177,59 @@ export function Footer() {
           ))}
         </div>
 
+        {/* brand-spec §4.5 境内合规五件套 — 顺序固定: 公司全称 · ICP · 算法备案 / 四个《》链接 */}
         <div className="mt-12 pt-8 border-t border-[var(--color-border)] flex flex-col gap-4">
-          <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
-            <p className="text-xs text-[var(--color-text-muted)]">
-              &copy; {new Date().getFullYear()} LurusTech. All rights reserved.
-            </p>
-            {/* Legal column */}
-            <div className="flex flex-wrap gap-x-6 gap-y-2 text-xs text-[var(--color-text-muted)]">
-              <Link href="/terms" className="hover:text-[var(--color-text-secondary)] transition-colors">
-                Terms of Service
-              </Link>
-              <Link href="/privacy" className="hover:text-[var(--color-text-secondary)] transition-colors">
-                Privacy Policy
-              </Link>
-              <Link href="/security" className="hover:text-[var(--color-text-secondary)] transition-colors">
-                Security &amp; DPA
-              </Link>
-              <Link href="/terms" className="hover:text-[var(--color-text-secondary)] transition-colors">
-                用户协议
-              </Link>
-              <Link href="/privacy" className="hover:text-[var(--color-text-secondary)] transition-colors">
-                隐私政策
-              </Link>
-            </div>
-          </div>
-          {/* ICP / Algo filing row */}
-          <div className="flex flex-wrap gap-x-6 gap-y-2 text-xs text-[var(--color-text-muted)]">
+          <p className="text-xs text-[var(--color-text-muted)]">
+            &copy; {new Date().getFullYear()} LurusTech. All rights reserved.
+          </p>
+          <div className="flex flex-wrap items-center gap-x-3 gap-y-2 text-xs text-[var(--color-text-muted)]">
+            <span>硅知睿智能科技（烟台）有限公司</span>
+            <span aria-hidden="true">·</span>
             <a
               href="https://beian.miit.gov.cn/"
               target="_blank"
               rel="noopener noreferrer"
-              className="hover:text-[var(--color-text-secondary)] transition-colors"
+              className="hover:text-[var(--color-text-secondary)] hover:underline transition-colors"
             >
               鲁ICP备2026000242号
             </a>
+            <span aria-hidden="true">·</span>
             <a
               href="https://beian.cac.gov.cn/"
               target="_blank"
               rel="noopener noreferrer"
-              className="hover:text-[var(--color-text-secondary)] transition-colors"
+              className="hover:text-[var(--color-text-secondary)] hover:underline transition-colors"
             >
               算法备案（待取得）
             </a>
+            <span aria-hidden="true">·</span>
             <a
               href="https://www.beian.gov.cn/portal/registerSystemInfo?recordcode=37060002001239"
               target="_blank"
               rel="noopener noreferrer"
-              className="hover:text-[var(--color-text-secondary)] transition-colors inline-flex items-center gap-1"
+              className="hover:text-[var(--color-text-secondary)] hover:underline transition-colors inline-flex items-center gap-1"
             >
               <svg className="w-3 h-3 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
               </svg>
               鲁公网安备37060002001239号
             </a>
-            <span className="text-[var(--color-text-muted)]">硅知睿智能科技（烟台）有限公司</span>
+          </div>
+          {/* 四个《》链接 — 占位 ≥32px (§4.5: design 阶段预留, 上线前补内容) */}
+          <div className="flex flex-wrap items-center gap-x-6 gap-y-2 min-h-8 text-xs text-[var(--color-text-muted)]">
+            <Link href="/terms" className="hover:text-[var(--color-text-secondary)] hover:underline transition-colors">
+              《用户协议》
+            </Link>
+            <Link href="/privacy" className="hover:text-[var(--color-text-secondary)] hover:underline transition-colors">
+              《隐私政策》
+            </Link>
+            <span className="opacity-60" title="内容上线前补充">《算法说明》</span>
+            <a
+              href="mailto:contact@lurus.cn?subject=侵权投诉"
+              className="hover:text-[var(--color-text-secondary)] hover:underline transition-colors"
+            >
+              《侵权投诉》
+            </a>
           </div>
         </div>
       </div>
