@@ -1,6 +1,7 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { useMemo, useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import {
   BoltIcon,
@@ -10,9 +11,13 @@ import {
   WrenchScrewdriverIcon,
   ArrowsRightLeftIcon,
   VideoCameraIcon,
+  ComputerDesktopIcon,
+  BuildingOffice2Icon,
+  CpuChipIcon,
 } from "@heroicons/react/24/outline";
 import type { ComponentType, SVGProps } from "react";
 import { productGroups } from "@/lib/products";
+import { personas, getProduct } from "@/lib/ecosystem";
 
 type HeroIcon = ComponentType<SVGProps<SVGSVGElement>>;
 
@@ -24,6 +29,13 @@ const productIcons: Record<string, HeroIcon> = {
   kova: WrenchScrewdriverIcon,
   switch: ArrowsRightLeftIcon,
   creator: VideoCameraIcon,
+};
+
+const personaIcons: Record<string, HeroIcon> = {
+  "saas-dev": ComputerDesktopIcon,
+  "enterprise-it": BuildingOffice2Icon,
+  "agent-builder": CpuChipIcon,
+  trader: ChartBarIcon,
 };
 
 // Priority badge colors
@@ -243,6 +255,14 @@ function EcosystemMap() {
 }
 
 export function ProductGrid() {
+  const [selectedPersona, setSelectedPersona] = useState<string | null>(null);
+  const persona = personas.find((p) => p.id === selectedPersona);
+  // recommendedPath 跨产品组 — 用 Set 做 O(1) 高亮判定
+  const highlighted = useMemo(
+    () => new Set<string>(persona?.recommendedPath ?? []),
+    [persona],
+  );
+
   return (
     <section className="py-24 relative">
       <div className="absolute inset-0 -z-10 grid-bg opacity-20" />
@@ -255,8 +275,8 @@ export function ProductGrid() {
           className="text-center mb-12"
         >
           <p className="eyebrow mb-4">ECOSYSTEM</p>
-          <h2 className="headline-tight text-3xl md:text-4xl font-bold">
-            <span className="text-gradient-gold">产品矩阵</span>
+          <h2 className="headline-tight text-3xl md:text-4xl font-bold text-[var(--color-text-primary)]">
+            产品矩阵
           </h2>
           <p className="mt-4 text-[var(--color-text-secondary)] max-w-xl mx-auto">
             从 LLM 接入到 AI 量化交易，每个产品独立完整，也可协同运转。
@@ -265,6 +285,74 @@ export function ProductGrid() {
 
         {/* Ecosystem architecture map */}
         <EcosystemMap />
+
+        {/* Persona filter — 浏览+导航双职能：点选高亮 recommendedPath 产品卡 */}
+        <div className="mb-10">
+          <p className="eyebrow text-center mb-4">按你的角色筛选</p>
+          <div className="flex flex-wrap justify-center gap-2">
+            {personas.map((p) => {
+              const Icon = personaIcons[p.id];
+              const isSelected = selectedPersona === p.id;
+              return (
+                <button
+                  key={p.id}
+                  onClick={() =>
+                    setSelectedPersona(isSelected ? null : p.id)
+                  }
+                  aria-pressed={isSelected}
+                  className={`flex items-center gap-2 px-4 py-2.5 min-h-11 rounded-full border text-sm transition-colors cursor-pointer ${
+                    isSelected
+                      ? "border-[var(--color-accent)] bg-[var(--color-accent)]/8 text-[var(--color-text-primary)] font-medium"
+                      : "border-[var(--color-border)] text-[var(--color-text-secondary)] hover:border-[var(--color-border-hover)] hover:bg-[var(--color-surface)]"
+                  }`}
+                >
+                  {Icon && (
+                    <Icon
+                      className={`w-4 h-4 ${
+                        isSelected
+                          ? "text-[var(--color-accent)]"
+                          : "text-[var(--color-text-muted)]"
+                      }`}
+                    />
+                  )}
+                  {p.title}
+                </button>
+              );
+            })}
+          </div>
+
+          {/* Selected persona context — 推荐路径一行收口 */}
+          <AnimatePresence>
+            {persona && (
+              <motion.div
+                key={persona.id}
+                initial={{ opacity: 0, height: 0 }}
+                animate={{ opacity: 1, height: "auto" }}
+                exit={{ opacity: 0, height: 0 }}
+                transition={{ duration: 0.25 }}
+                className="overflow-hidden"
+              >
+                <div className="mt-5 text-center text-sm text-[var(--color-text-secondary)]">
+                  <span className="text-[var(--color-text-muted)]">
+                    {persona.description} — 推荐路径：
+                  </span>{" "}
+                  {persona.recommendedPath.map((id, i) => (
+                    <span key={id}>
+                      {i > 0 && (
+                        <span className="text-[var(--color-text-muted)] mx-1">
+                          →
+                        </span>
+                      )}
+                      <span className="font-medium text-[var(--color-text-primary)]">
+                        {getProduct(id).name}
+                      </span>
+                    </span>
+                  ))}
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </div>
 
         <div className="space-y-14">
           {productGroups.map((group, gi) => (
@@ -291,6 +379,9 @@ export function ProductGrid() {
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
                 {group.products.map((product, pi) => {
                   const Icon = productIcons[product.id];
+                  const isDimmed =
+                    persona != null && !highlighted.has(product.id);
+                  const isHighlighted = highlighted.has(product.id);
                   return (
                     <motion.div
                       key={product.id}
@@ -298,10 +389,17 @@ export function ProductGrid() {
                       whileInView={{ opacity: 1, y: 0 }}
                       viewport={{ once: true }}
                       transition={{ delay: pi * 0.08 }}
+                      className={`transition-opacity duration-300 ${
+                        isDimmed ? "opacity-60" : ""
+                      }`}
                     >
                       <Link
                         href={product.href}
-                        className="group block card p-6 h-full hover:border-[var(--color-ochre)]/30 transition-all duration-300 relative overflow-hidden"
+                        className={`group block card p-6 h-full transition-all duration-300 relative overflow-hidden ${
+                          isHighlighted
+                            ? "border-[var(--color-accent)]/60"
+                            : "hover:border-[var(--color-accent)]/30"
+                        }`}
                       >
                         <div className="flex items-start justify-between mb-4">
                           <div className="flex items-center gap-3">

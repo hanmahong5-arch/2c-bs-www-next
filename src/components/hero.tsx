@@ -188,7 +188,7 @@ export function Hero() {
                 {"一行代码".split("").map((ch, i) => (
                   <motion.span
                     key={`l1-${i}`}
-                    className="text-gradient-gold inline-block"
+                    className="text-[var(--color-text-primary)] inline-block"
                     variants={{
                       hidden: { opacity: 0, y: 24 },
                       visible: {
@@ -248,20 +248,14 @@ export function Hero() {
                   href="https://hub.lurus.cn"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="group relative px-7 py-3.5 rounded-xl bg-gradient-gold text-black font-semibold text-base overflow-hidden transition-all hover:shadow-[0_0_30px_rgba(200,162,78,0.3)] flex items-center gap-2"
+                  className="group btn-primary px-7 text-base"
                 >
-                  <span className="relative z-10">立即接入</span>
-                  <ArrowRightIcon className="w-4 h-4 relative z-10 transition-transform group-hover:translate-x-0.5" />
-                  <motion.div
-                    className="absolute inset-0 bg-white/20"
-                    initial={{ x: "-100%" }}
-                    whileHover={{ x: "100%" }}
-                    transition={{ duration: 0.5 }}
-                  />
+                  立即接入
+                  <ArrowRightIcon className="w-4 h-4 transition-transform group-hover:translate-x-0.5" />
                 </a>
                 <Link
                   href="/platform"
-                  className="px-7 py-3.5 rounded-xl border border-[var(--color-border)] text-[var(--color-text-primary)] font-medium text-base hover:border-[var(--color-ochre)]/50 hover:bg-[var(--color-surface)] transition-all"
+                  className="btn-secondary px-7 text-base font-medium"
                 >
                   探索 Platform
                 </Link>
@@ -416,7 +410,8 @@ function CodeDemo() {
                   duration: 0.25,
                 }}
               >
-                <span className="line-number">{i + 1}</span>
+                {/* 行号 <640px 隐藏防代码块横向溢出 */}
+                <span className="line-number hidden sm:block">{i + 1}</span>
                 <span dangerouslySetInnerHTML={{ __html: line || "\u00A0" }} />
               </motion.div>
             ))}
