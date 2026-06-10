@@ -67,8 +67,8 @@ function ComparisonDiagram() {
       >
         <defs>
           <linearGradient id="lurusBoxGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor="rgba(200,162,78,0.16)" />
-            <stop offset="100%" stopColor="rgba(200,162,78,0.04)" />
+            <stop offset="0%" stopColor="color-mix(in srgb, var(--accent) 16%, transparent)" />
+            <stop offset="100%" stopColor="color-mix(in srgb, var(--accent) 4%, transparent)" />
           </linearGradient>
           <filter id="goldSoftGlow" x="-20%" y="-20%" width="140%" height="140%">
             <feGaussianBlur in="SourceGraphic" stdDeviation="4" result="blur" />
@@ -81,7 +81,7 @@ function ComparisonDiagram() {
 
         {/* Panel backgrounds */}
         <rect x="0"   y="0" width="400" height="258" fill="rgba(239,68,68,0.028)" />
-        <rect x="400" y="0" width="400" height="258" fill="rgba(200,162,78,0.022)" />
+        <rect x="400" y="0" width="400" height="258" fill="color-mix(in srgb, var(--accent) 2%, transparent)" />
 
         {/* Divider */}
         <line x1="400" y1="16" x2="400" y2="242"
@@ -92,18 +92,18 @@ function ComparisonDiagram() {
           fill="#111117" stroke="rgba(255,255,255,0.1)" strokeWidth="1" />
         <text x="400" y="134.5" textAnchor="middle"
           fill="rgba(255,255,255,0.25)" fontSize="8"
-          fontFamily="var(--font-geist-mono)" fontWeight="700">VS</text>
+          fontFamily="var(--font-mono)" fontWeight="700">VS</text>
 
         {/* ───────── LEFT: Chaos ───────── */}
         <text x="200" y="22" textAnchor="middle"
           fill="rgba(239,68,68,0.45)" fontSize="8"
-          fontFamily="var(--font-geist-mono)" letterSpacing="3">自行搭建</text>
+          fontFamily="var(--font-mono)" letterSpacing="3">自行搭建</text>
 
         {/* App box */}
         <rect x="147" y="40" width="96" height="28" rx="6"
           fill="rgba(90,90,110,0.18)" stroke="rgba(90,90,110,0.32)" strokeWidth="0.5" />
         <text x="195" y="58" textAnchor="middle"
-          fill="rgba(237,237,240,0.65)" fontSize="9" fontFamily="var(--font-geist-sans)">您的应用</text>
+          fill="rgba(237,237,240,0.65)" fontSize="9" fontFamily="var(--font-sans)">您的应用</text>
 
         {/* Lines: App → dependencies (chaotic cubic beziers) */}
         {appToDepPaths.map((d, i) => (
@@ -145,41 +145,41 @@ function ComparisonDiagram() {
             <rect x={b.x} y={b.y} width={b.w} height="26" rx="5"
               fill="rgba(239,68,68,0.07)" stroke="rgba(239,68,68,0.24)" strokeWidth="0.5" />
             <text x={b.cx} y={b.cy + 3} textAnchor="middle"
-              fill="rgba(239,68,68,0.65)" fontSize="7.5" fontFamily="var(--font-geist-sans)">{b.label}</text>
+              fill="rgba(239,68,68,0.65)" fontSize="7.5" fontFamily="var(--font-sans)">{b.label}</text>
           </motion.g>
         ))}
 
         {/* Cost annotation */}
         <motion.text x="200" y="198" textAnchor="middle"
-          fill="rgba(239,68,68,0.35)" fontSize="7.5" fontFamily="var(--font-geist-mono)"
+          fill="rgba(239,68,68,0.35)" fontSize="7.5" fontFamily="var(--font-mono)"
           initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} transition={{ delay: 1.05 }}
         >5,000+ 行代码 · 独立维护 · 持续告警</motion.text>
         <motion.text x="200" y="212" textAnchor="middle"
-          fill="rgba(239,68,68,0.22)" fontSize="7" fontFamily="var(--font-geist-mono)"
+          fill="rgba(239,68,68,0.22)" fontSize="7" fontFamily="var(--font-mono)"
           initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} transition={{ delay: 1.15 }}
         >接入周期 3–6 个月</motion.text>
 
         {/* ───────── RIGHT: Lurus ───────── */}
         <text x="602" y="22" textAnchor="middle"
-          fill="rgba(200,162,78,0.55)" fontSize="8"
-          fontFamily="var(--font-geist-mono)" letterSpacing="3">LURUS</text>
+          fill="color-mix(in srgb, var(--accent) 55%, transparent)" fontSize="8"
+          fontFamily="var(--font-mono)" letterSpacing="3">LURUS</text>
 
         {/* App box */}
         <rect x="554" y="40" width="96" height="28" rx="6"
           fill="rgba(90,90,110,0.18)" stroke="rgba(90,90,110,0.32)" strokeWidth="0.5" />
         <text x="602" y="58" textAnchor="middle"
-          fill="rgba(237,237,240,0.65)" fontSize="9" fontFamily="var(--font-geist-sans)">您的应用</text>
+          fill="rgba(237,237,240,0.65)" fontSize="9" fontFamily="var(--font-sans)">您的应用</text>
 
         {/* Single clean line: App → Lurus */}
         <motion.path d="M 602 68 L 602 110"
-          fill="none" stroke="rgba(200,162,78,0.72)" strokeWidth="1.5"
+          fill="none" stroke="color-mix(in srgb, var(--accent) 72%, transparent)" strokeWidth="1.5"
           initial={{ pathLength: 0, opacity: 0 }}
           whileInView={{ pathLength: 1, opacity: 1 }}
           viewport={{ once: true }}
           transition={{ delay: 0.3, duration: 0.3 }}
         />
         {/* Animated data packet */}
-        <motion.circle r="2.2" fill="rgba(200,162,78,0.9)" cx="602"
+        <motion.circle r="2.2" fill="color-mix(in srgb, var(--accent) 90%, transparent)" cx="602"
           animate={{ cy: [68, 110], opacity: [0, 1, 0] }}
           transition={{ duration: 1.4, repeat: Infinity, repeatDelay: 1.3, ease: "easeInOut" }}
         />
@@ -192,20 +192,20 @@ function ComparisonDiagram() {
           transition={{ delay: 0.42, duration: 0.4 }}
         >
           <rect x="468" y="110" width="268" height="80" rx="12"
-            fill="url(#lurusBoxGrad)" stroke="rgba(200,162,78,0.4)" strokeWidth="1" />
+            fill="url(#lurusBoxGrad)" stroke="color-mix(in srgb, var(--accent) 40%, transparent)" strokeWidth="1" />
           <text x="602" y="138" textAnchor="middle"
-            fill="rgba(200,162,78,1)" fontSize="13"
-            fontFamily="var(--font-geist-sans)" fontWeight="700"
+            fill="var(--color-accent)" fontSize="13"
+            fontFamily="var(--font-sans)" fontWeight="700"
             filter="url(#goldSoftGlow)">Lurus</text>
           <text x="602" y="157" textAnchor="middle"
-            fill="rgba(200,162,78,0.42)" fontSize="7" fontFamily="var(--font-geist-mono)" letterSpacing="0.3">
+            fill="color-mix(in srgb, var(--accent) 42%, transparent)" fontSize="7" fontFamily="var(--font-mono)" letterSpacing="0.3">
             路由 · 计费 · 记忆 · 认证 · 通知 · 可观测性
           </text>
           {/* "One line" badge */}
           <rect x="566" y="166" width="72" height="14" rx="7"
             fill="rgba(52,211,153,0.09)" stroke="rgba(52,211,153,0.22)" strokeWidth="0.5" />
           <text x="602" y="176" textAnchor="middle"
-            fill="rgba(52,211,153,0.65)" fontSize="6.5" fontFamily="var(--font-geist-mono)">一行配置</text>
+            fill="rgba(52,211,153,0.65)" fontSize="6.5" fontFamily="var(--font-mono)">一行配置</text>
         </motion.g>
 
         {/* Lines: Lurus → providers (clean fan) */}
@@ -213,7 +213,7 @@ function ComparisonDiagram() {
           <motion.path
             key={`pl-${p.label}`}
             d={`M 602 190 L ${p.cx} 226`}
-            fill="none" stroke="rgba(200,162,78,0.22)" strokeWidth="0.8"
+            fill="none" stroke="color-mix(in srgb, var(--accent) 22%, transparent)" strokeWidth="0.8"
             initial={{ pathLength: 0, opacity: 0 }}
             whileInView={{ pathLength: 1, opacity: 1 }}
             viewport={{ once: true }}
@@ -230,15 +230,15 @@ function ComparisonDiagram() {
             transition={{ delay: 0.64 + i * 0.08 }}
           >
             <rect x={p.x} y="226" width="54" height="20" rx="5"
-              fill="rgba(90,90,110,0.12)" stroke="rgba(200,162,78,0.2)" strokeWidth="0.5" />
+              fill="rgba(90,90,110,0.12)" stroke="color-mix(in srgb, var(--accent) 20%, transparent)" strokeWidth="0.5" />
             <text x={p.cx} y="239" textAnchor="middle"
-              fill="rgba(200,162,78,0.55)" fontSize="7.5" fontFamily="var(--font-geist-sans)">{p.label}</text>
+              fill="color-mix(in srgb, var(--accent) 55%, transparent)" fontSize="7.5" fontFamily="var(--font-sans)">{p.label}</text>
           </motion.g>
         ))}
 
         {/* Success annotation */}
         <motion.text x="602" y="254" textAnchor="middle"
-          fill="rgba(52,211,153,0.42)" fontSize="7.5" fontFamily="var(--font-geist-mono)"
+          fill="rgba(52,211,153,0.42)" fontSize="7.5" fontFamily="var(--font-mono)"
           initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} transition={{ delay: 1.1 }}
         >今晚接入 · 明天上线</motion.text>
       </svg>
@@ -328,7 +328,7 @@ export function Comparison() {
           viewport={{ once: true }}
           className="mt-12 text-center"
         >
-          <div className="inline-flex flex-wrap items-center justify-center gap-6 card border-beam px-8 py-6 glow-ochre">
+          <div className="inline-flex flex-wrap items-center justify-center gap-6 card border-[var(--color-accent)]/40 px-8 py-6">
             <div className="text-center">
               <div className="text-3xl font-bold font-mono text-gradient-gold">~90%</div>
               <div className="text-xs text-[var(--color-text-muted)] mt-0.5">开发时间节省</div>
