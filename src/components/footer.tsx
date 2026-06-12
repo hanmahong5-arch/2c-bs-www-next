@@ -59,13 +59,13 @@ export function Footer() {
                 今晚接入，明天上线
               </h2>
               <p className="mt-2 text-sm text-[var(--color-text-secondary)] max-w-md leading-relaxed">
-                38 个模型，一个端点。<br />
+                30+ 模型供应商，一个端点。<br />
                 你的产品不该等待基础设施。
               </p>
               <div className="mt-4 flex flex-wrap items-center gap-x-4 gap-y-1 text-xs font-mono text-[var(--color-text-muted)]">
                 <span><span className="text-[var(--color-ochre)]">38</span> 个模型</span>
                 <span className="w-px h-3 bg-[var(--color-border)] hidden sm:inline-block" />
-                <span>p50 <span className="text-[var(--color-ochre)]">&lt;80ms</span></span>
+                <span>路由 p50 <span className="text-[var(--color-ochre)]">&lt;100ms</span></span>
                 <span className="w-px h-3 bg-[var(--color-border)] hidden sm:inline-block" />
                 <span>免费额度 <span className="text-[var(--color-ochre)]">$5</span> · 无需信用卡</span>
               </div>
@@ -98,7 +98,7 @@ export function Footer() {
             <p className="mt-3 text-sm text-[var(--color-text-muted)] leading-relaxed max-w-xs">
               企业 AI 基础设施套件。
               <br />
-              一个 API Key，38 个模型，
+              一个 API Key，30+ 模型，
               <br />
               金融级计费，开箱即用。
             </p>

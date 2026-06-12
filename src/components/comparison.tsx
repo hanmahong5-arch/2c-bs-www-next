@@ -3,13 +3,14 @@
 import { motion } from "framer-motion";
 import { XCircleIcon, CheckCircleIcon } from "@heroicons/react/20/solid";
 
+// 人月量级为工程常识区间; "上线周期"行 = 前四行人月加总 (7–15 人月 ≈ 小团队 3–6 个月), 表内自洽
 const rows = [
-  { aspect: "LLM 接入", without: "逐个对接 API，各家格式不同，调试周期以周计", with: "一个 API Key，30+ 模型，OpenAI 兼容格式" },
-  { aspect: "计费系统", without: "自建钱包 + 订阅 + 支付对接，代码量 5,000+", with: "金融级精度，充值/扣款/退款开箱即用" },
-  { aspect: "用户认证", without: "自己搭 SSO / RBAC，安全漏洞风险自担", with: "Zitadel OIDC 一键集成，多租户隔离" },
-  { aspect: "AI 记忆", without: "无状态聊天，用户每次从零开始，留存差", with: "向量化持久记忆，个性化 AI 助手" },
+  { aspect: "LLM 接入", without: "逐个对接 API，路由 / failover / key 管理全要自己写，1–3 人月", with: "一个 API Key，30+ 模型，OpenAI 兼容格式" },
+  { aspect: "计费系统", without: "钱包 + 订阅 + 支付对接，金融精度坑多，3–6 人月", with: "DECIMAL(20,4) 钱包原子不透支，支付回调双重幂等" },
+  { aspect: "用户认证", without: "SSO / RBAC / 多租户自己搭，安全漏洞风险自担，2–4 人月", with: "Zitadel OIDC 一键集成，多租户隔离" },
+  { aspect: "AI 记忆", without: "向量存储 + 相似度检索 + 自动摘要，1–2 人月", with: "持久化记忆开箱即用，REST + MCP 双协议" },
   { aspect: "可观测性", without: "自建 Grafana + Prometheus，维护成本高", with: "全链路追踪，预配置仪表盘，零运维" },
-  { aspect: "上线周期", without: "3–6 个月工程投入", with: "5 分钟接入，当天上线" },
+  { aspect: "上线周期", without: "以上加总：一个小团队 3–6 个月", with: "5 分钟接入，当天上线" },
 ];
 
 // Paths from app box center (195, 70) to each dependency box — deliberately uneven
@@ -34,7 +35,7 @@ const providers = [
   { label: "OpenAI",   x: 479, cx: 506 },
   { label: "Claude",   x: 543, cx: 570 },
   { label: "DeepSeek", x: 607, cx: 634 },
-  { label: "+ 35",     x: 671, cx: 698 },
+  { label: "+ 27",     x: 671, cx: 698 },
 ];
 
 function ComparisonDiagram() {
@@ -330,23 +331,18 @@ export function Comparison() {
         >
           <div className="inline-flex flex-wrap items-center justify-center gap-6 card border-[var(--color-accent)]/40 px-8 py-6">
             <div className="text-center">
-              <div className="text-3xl font-bold font-mono text-gradient-gold">~90%</div>
-              <div className="text-xs text-[var(--color-text-muted)] mt-0.5">开发时间节省</div>
-            </div>
-            <div className="w-px h-10 bg-[var(--color-border)] hidden sm:block" />
-            <div className="text-center">
-              <div className="text-3xl font-bold font-mono text-gradient-gold">~70%</div>
-              <div className="text-xs text-[var(--color-text-muted)] mt-0.5">基础设施成本降低</div>
-            </div>
-            <div className="w-px h-10 bg-[var(--color-border)] hidden sm:block" />
-            <div className="text-center">
-              <div className="text-3xl font-bold font-mono text-gradient-gold">0</div>
-              <div className="text-xs text-[var(--color-text-muted)] mt-0.5">运维工程师需求</div>
+              <div className="text-3xl font-bold font-mono text-gradient-gold">7–15</div>
+              <div className="text-xs text-[var(--color-text-muted)] mt-0.5">自建人月（按上表加总）</div>
             </div>
             <div className="w-px h-10 bg-[var(--color-border)] hidden sm:block" />
             <div className="text-center">
               <div className="text-3xl font-bold font-mono text-gradient-gold">5 min</div>
               <div className="text-xs text-[var(--color-text-muted)] mt-0.5">从零到接入完成</div>
+            </div>
+            <div className="w-px h-10 bg-[var(--color-border)] hidden sm:block" />
+            <div className="text-center">
+              <div className="text-3xl font-bold font-mono text-gradient-gold">0</div>
+              <div className="text-xs text-[var(--color-text-muted)] mt-0.5">需要你维护的服务器</div>
             </div>
           </div>
         </motion.div>

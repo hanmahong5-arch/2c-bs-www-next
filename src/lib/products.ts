@@ -98,6 +98,7 @@ export const productGroups = [
         id: "kova",
         name: "Kova Engine",
         tagline: "Agent 的黑匣子",
+        badge: "研发中",
         description:
           "无论发生什么，WAL 记录了每一步。崩溃后精确恢复到最后安全点——像飞机黑匣子一样可靠。",
         features: [
@@ -150,8 +151,8 @@ export const productGroups = [
 ] as const;
 
 export const stats = [
-  { value: "38", label: "AI 模型供应商" },
-  { value: "99.99%", label: "可用率 SLA" },
+  { value: "30+", label: "AI 模型供应商" },
+  { value: "99.9%", label: "可用率 SLA" },
   { value: "¥0.0001", label: "最小计费粒度" },
-  { value: "<80ms", label: "路由 p50 延迟" },
+  { value: "<100ms", label: "路由 p50 延迟" },
 ];

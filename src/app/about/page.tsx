@@ -45,8 +45,8 @@ export default function AboutPage() {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
             {[
               { value: "13", label: "产品" },
-              { value: "38", label: "AI 模型集成" },
-              { value: "99.99%", label: "SLA 目标" },
+              { value: "30+", label: "AI 模型集成" },
+              { value: "99.9%", label: "SLA 目标" },
               { value: "24/7", label: "监控覆盖" },
             ].map((s) => (
               <div key={s.label}>

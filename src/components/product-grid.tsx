@@ -265,7 +265,8 @@ function EcosystemMap() {
 }
 
 export function ProductGrid() {
-  const [selectedPersona, setSelectedPersona] = useState<string | null>(null);
+  // 默认激活占比最大的 persona — 让筛选器自带示范态, 而非空态等点击
+  const [selectedPersona, setSelectedPersona] = useState<string | null>("saas-dev");
   const persona = personas.find((p) => p.id === selectedPersona);
   // recommendedPath 跨产品组 — 用 Set 做 O(1) 高亮判定
   const highlighted = useMemo(
@@ -298,7 +299,9 @@ export function ProductGrid() {
 
         {/* Persona filter — 浏览+导航双职能：点选高亮 recommendedPath 产品卡 */}
         <div className="mb-10">
-          <p className="eyebrow text-center mb-4">按你的角色筛选</p>
+          <p className="text-center text-sm text-[var(--color-text-secondary)] mb-4">
+            选择你的角色，高亮的就是和你有关的产品。
+          </p>
           <div className="flex flex-wrap justify-center gap-2">
             {personas.map((p) => {
               const Icon = personaIcons[p.id];

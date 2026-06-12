@@ -143,7 +143,7 @@ export function FeaturesShowcase() {
               <NotifyVisual />
             </div>
             <p className="text-sm text-[var(--color-text-muted)] leading-relaxed">
-              WebSocket · SMTP · FCM 三通道，NATS 事件总线驱动，触达用户无论身在何处。
+              额度告急、支付完成、任务结束——用户在网页、邮箱、手机上都能第一时间收到，你一行通知代码都不用写。
             </p>
             <p className="mt-3 text-xs text-[var(--color-text-muted)]">实时推送 · 邮件 · 移动通知</p>
           </motion.div>
