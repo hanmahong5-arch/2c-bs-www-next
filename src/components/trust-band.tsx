@@ -21,7 +21,7 @@ const providers = [
 ];
 
 // Animates a numeric string on scroll entry.
-// Handles prefix/suffix automatically ("38" → 0..38, "<80ms" → <0ms..<80ms, "99.99%" → 99.90%..99.99%).
+// Handles prefix/suffix automatically ("30+" → 0..30+, "<100ms" → <0ms..<100ms, "99.9%" → 99.0%..99.9%).
 function AnimatedMetric({ value }: { value: string }) {
   const ref = useRef<HTMLSpanElement>(null);
   const [display, setDisplay] = useState(value);
@@ -81,9 +81,9 @@ export function TrustBand() {
         className="flex flex-wrap items-center justify-center gap-x-8 gap-y-2 pb-10 text-xs font-mono"
       >
         {[
-          { value: "38", unit: "个模型" },
-          { value: "<80ms", unit: "p50 延迟" },
-          { value: "99.99%", unit: "SLA 可用性" },
+          { value: "30+", unit: "个模型供应商" },
+          { value: "<100ms", unit: "路由 p50 延迟" },
+          { value: "99.9%", unit: "SLA 可用性" },
           { value: "¥0.0001", unit: "计费精度" },
           { value: "5", unit: "分钟接入" },
         ].map((s, i) => (
@@ -99,6 +99,11 @@ export function TrustBand() {
           </div>
         ))}
       </motion.div>
+
+      {/* 数字的出处 — 不让指标浮空 */}
+      <p className="text-center text-[10px] font-mono text-[var(--color-text-muted)] opacity-70 pb-8 px-6">
+        以上为平台设计指标；计费精度由数据库层 DECIMAL(20,4) 约束保证，账单笔笔可审计。
+      </p>
 
       {/* Provider list — static flex-wrap, hover reveals the models served */}
       <motion.div

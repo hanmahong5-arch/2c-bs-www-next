@@ -146,6 +146,8 @@ function RequestTrace({ onCycle }: { onCycle: () => void }) {
             <span className="text-[var(--color-success)]">¥0.0002</span>
             <span className="w-px h-3 bg-[var(--color-border)]" />
             <span className="text-[var(--color-text-muted)]">节省 85%</span>
+            <span className="w-px h-3 bg-[var(--color-border)] hidden sm:block" />
+            <span className="text-[var(--color-text-muted)] hidden sm:inline">审计记录 ✓ 已留痕</span>
           </div>
         </motion.div>
       </div>

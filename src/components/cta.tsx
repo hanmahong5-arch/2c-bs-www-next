@@ -11,12 +11,12 @@ import {
 const devFeatures = [
   "OpenAI 兼容接口，5 分钟接入",
   "免费额度 $5 等值，无需信用卡",
-  "38 个模型，一个 API Key",
+  "30+ 模型，一个 API Key",
   "实时用量仪表盘",
 ];
 
 const enterpriseFeatures = [
-  "99.99% SLA 保障",
+  "99.9% SLA 保障",
   "专属私有化部署方案",
   "7×24 技术支持",
   "定制合同与发票",
@@ -167,8 +167,8 @@ export function CTA() {
           className="mt-10 flex flex-wrap items-center justify-center gap-6 text-xs text-[var(--color-text-muted)]"
         >
           {[
-            "99.99% SLA",
-            "金融级数据安全",
+            "99.9% SLA",
+            "DECIMAL(20,4) 计费精度",
             "ICP 备案合规",
             "OpenAI 兼容协议",
             "按用量付费",

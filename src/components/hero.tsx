@@ -228,7 +228,10 @@ export function Hero() {
               transition={{ delay: 0.85, duration: 0.6, ease: EDITORIAL_EASE }}
               className="mt-6 text-lg text-[var(--color-text-secondary)] max-w-lg leading-[1.65]"
             >
-              38 个模型，一个端点，p50 延迟 80ms 以内。你的团队只需对接一次，其余交给 Lurus。
+              30+ 模型供应商，一个端点，路由 p50 100ms 以内——你的团队只需对接一次。
+              <span className="block mt-1.5">
+                每个部门的用量、成本与调用日志，实时可查、笔笔可审计。
+              </span>
             </motion.p>
 
             <motion.div
@@ -278,6 +281,13 @@ export function Hero() {
                 >
                   阅读文档
                 </a>
+                <span className="w-px h-3 bg-[var(--color-border)]" />
+                <Link
+                  href="/kova"
+                  className="hover:text-[var(--color-text-secondary)] transition-colors"
+                >
+                  构建 Agent？Kova 引擎 WAL 崩溃恢复 →
+                </Link>
                 <span className="w-px h-3 bg-[var(--color-border)]" />
                 <span>免费额度 $5 · 无需信用卡</span>
               </div>
