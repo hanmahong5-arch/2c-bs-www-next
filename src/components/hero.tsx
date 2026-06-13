@@ -10,7 +10,6 @@ import {
 } from "@heroicons/react/24/outline";
 import { stats } from "@/lib/products";
 import { Aurora } from "./aurora";
-import { ParticleNetwork } from "./particle-network";
 import { AnimatedStat } from "./animated-counter";
 
 // Anthropic-style spring — fast attack, slow settle.
@@ -149,10 +148,9 @@ const LANGS: { id: LangKey; label: string }[] = [
 export function Hero() {
   return (
     <section className="relative overflow-hidden min-h-[90vh] flex flex-col justify-center noise">
-      {/* Background layers */}
+      {/* Background layers — quiet warm wash + faint editorial grid (restraint over spectacle) */}
       <Aurora />
-      <ParticleNetwork className="-z-5 opacity-60" />
-      <div className="absolute inset-0 -z-10 grid-bg" />
+      <div className="absolute inset-0 -z-10 grid-bg opacity-[0.55]" />
 
       <div className="mx-auto max-w-7xl px-6 pt-16 pb-20 md:pt-20 md:pb-28 relative">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
@@ -344,20 +342,20 @@ function CodeDemo() {
   };
 
   return (
-    <div className="code-block p-5 relative overflow-hidden shadow-2xl shadow-black/50">
-      {/* Glow border */}
-      <div className="absolute inset-0 rounded-xl opacity-30 pointer-events-none">
-        <div className="absolute -inset-[1px] rounded-xl bg-gradient-to-br from-[var(--color-ochre)]/20 via-transparent to-[var(--color-ochre)]/10" />
+    <div className="code-block p-5 relative overflow-hidden shadow-[var(--shadow-window)]">
+      {/* Orange edge glow — warm halo on the dark window */}
+      <div className="absolute inset-0 rounded-xl opacity-40 pointer-events-none">
+        <div className="absolute -inset-[1px] rounded-xl bg-gradient-to-br from-[var(--color-ochre)]/25 via-transparent to-[var(--color-ochre)]/10" />
       </div>
 
       {/* Window chrome */}
-      <div className="relative flex items-center gap-2 mb-4 pb-3 border-b border-[var(--color-border)]">
+      <div className="relative flex items-center gap-2 mb-4 pb-3 border-b border-white/10">
         <div className="flex gap-1.5 shrink-0">
           <div className="w-3 h-3 rounded-full bg-[#ff5f57]" />
           <div className="w-3 h-3 rounded-full bg-[#febc2e]" />
           <div className="w-3 h-3 rounded-full bg-[#28c840]" />
         </div>
-        <span className="text-xs text-[var(--color-text-muted)] ml-2 font-mono shrink-0">
+        <span className="text-xs text-[#8A8474] ml-2 font-mono shrink-0">
           {content.filename}
         </span>
 
@@ -369,8 +367,8 @@ function CodeDemo() {
               onClick={() => { setLang(l.id); setHasInteracted(true); }}
               className={`text-[10px] px-2 py-1 rounded font-mono transition-all cursor-pointer ${
                 lang === l.id
-                  ? "bg-[var(--color-ochre)]/15 text-[var(--color-ochre)] border border-[var(--color-ochre)]/20"
-                  : "text-[var(--color-text-muted)] hover:text-[var(--color-text-secondary)] hover:bg-[var(--color-surface)]"
+                  ? "bg-[var(--color-ochre)]/20 text-[var(--color-ochre-light)] border border-[var(--color-ochre)]/30"
+                  : "text-[#8A8474] hover:text-[#CBC4B4] hover:bg-white/5"
               }`}
             >
               {l.label}
@@ -381,13 +379,13 @@ function CodeDemo() {
         {/* Copy button */}
         <button
           onClick={handleCopy}
-          className="flex items-center gap-1.5 text-[10px] px-2 py-1 rounded-md ml-1 text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)] hover:bg-[var(--color-surface)] transition-all cursor-pointer shrink-0"
+          className="flex items-center gap-1.5 text-[10px] px-2 py-1 rounded-md ml-1 text-[#8A8474] hover:text-[#CBC4B4] hover:bg-white/5 transition-all cursor-pointer shrink-0"
           aria-label="Copy code"
         >
           {copied ? (
             <>
-              <CheckIcon className="w-3.5 h-3.5 text-[var(--color-success)]" />
-              <span className="text-[var(--color-success)] font-mono">copied</span>
+              <CheckIcon className="w-3.5 h-3.5 text-[#7FCBA0]" />
+              <span className="text-[#7FCBA0] font-mono">copied</span>
             </>
           ) : (
             <>
@@ -430,7 +428,7 @@ function CodeDemo() {
       </AnimatePresence>
 
       {/* Glow accent */}
-      <div className="absolute -bottom-10 -right-10 w-40 h-40 rounded-full bg-[var(--color-ochre)] opacity-[0.06] blur-[60px]" />
+      <div className="absolute -bottom-10 -right-10 w-40 h-40 rounded-full bg-[var(--color-ochre)] opacity-[0.10] blur-[60px]" />
     </div>
   );
 }
@@ -480,47 +478,47 @@ function ResponseDemo() {
   }, []);
 
   return (
-    <div ref={ref} className="code-block p-4 relative overflow-hidden">
+    <div ref={ref} className="code-block p-4 relative overflow-hidden shadow-[var(--shadow-lg)]">
       {/* Window chrome */}
-      <div className="flex items-center gap-2 mb-3 pb-2.5 border-b border-[var(--color-border)]">
+      <div className="flex items-center gap-2 mb-3 pb-2.5 border-b border-white/10">
         <div className="flex gap-1.5">
-          <div className="w-3 h-3 rounded-full bg-[var(--color-border)]" />
-          <div className="w-3 h-3 rounded-full bg-[var(--color-border)]" />
-          <div className="w-3 h-3 rounded-full bg-[var(--color-border)]" />
+          <div className="w-3 h-3 rounded-full bg-white/15" />
+          <div className="w-3 h-3 rounded-full bg-white/15" />
+          <div className="w-3 h-3 rounded-full bg-white/15" />
         </div>
-        <span className="text-xs text-[var(--color-text-muted)] ml-2 font-mono">response.json</span>
+        <span className="text-xs text-[#8A8474] ml-2 font-mono">response.json</span>
         <span className="ml-auto flex items-center gap-2">
-          <span className="text-[10px] font-mono font-semibold text-[var(--color-success)]">← 42ms</span>
-          <span className="text-[10px] px-2 py-0.5 rounded-full bg-[var(--color-success)]/10 text-[var(--color-success)] font-mono border border-[var(--color-success)]/20">
+          <span className="text-[10px] font-mono font-semibold text-[#7FCBA0]">← 42ms</span>
+          <span className="text-[10px] px-2 py-0.5 rounded-full bg-[#7FCBA0]/10 text-[#7FCBA0] font-mono border border-[#7FCBA0]/25">
             200 OK
           </span>
         </span>
       </div>
 
       {/* Routing metadata strip */}
-      <div className="flex items-center gap-3 mb-3 text-[10px] font-mono text-[var(--color-text-muted)]">
+      <div className="flex items-center gap-3 mb-3 text-[10px] font-mono text-[#8A8474]">
         <span>deepseek-v3</span>
-        <span className="w-px h-2.5 bg-[var(--color-border)]" />
+        <span className="w-px h-2.5 bg-white/10" />
         <span>20 tokens</span>
-        <span className="w-px h-2.5 bg-[var(--color-border)]" />
-        <span className="text-[var(--color-ochre)]">¥0.0002</span>
-        <span className="w-px h-2.5 bg-[var(--color-border)]" />
-        <span className="text-[var(--color-text-muted)]">↓ 较 GPT-4o 节省 85%</span>
+        <span className="w-px h-2.5 bg-white/10" />
+        <span className="text-[var(--color-ochre-light)]">¥0.0002</span>
+        <span className="w-px h-2.5 bg-white/10" />
+        <span className="text-[#8A8474]">↓ 较 GPT-4o 节省 85%</span>
       </div>
 
       {/* Streaming response text */}
-      <pre className="text-[0.7rem] leading-[1.7] text-[var(--color-success)]/65 font-mono overflow-hidden">
+      <pre className="text-[0.7rem] leading-[1.7] text-[#A6CE8A]/85 font-mono overflow-hidden">
         {RESPONSE_TEXT.slice(0, displayed)}
         {displayed < RESPONSE_TEXT.length && (
           <motion.span
-            className="inline-block w-[2px] h-[0.85em] bg-[var(--color-success)]/60 ml-0.5 align-middle"
+            className="inline-block w-[2px] h-[0.85em] bg-[#A6CE8A]/70 ml-0.5 align-middle"
             animate={{ opacity: [1, 0] }}
             transition={{ duration: 0.5, repeat: Infinity }}
           />
         )}
       </pre>
 
-      <div className="absolute -bottom-6 -right-6 w-24 h-24 rounded-full bg-[var(--color-success)] opacity-[0.04] blur-[40px] pointer-events-none" />
+      <div className="absolute -bottom-6 -right-6 w-24 h-24 rounded-full bg-[#7FCBA0] opacity-[0.05] blur-[40px] pointer-events-none" />
     </div>
   );
 }

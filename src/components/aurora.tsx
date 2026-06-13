@@ -3,80 +3,54 @@
 import { motion } from "framer-motion";
 
 /**
- * Aurora — layered mesh gradient.
- * Uses prime-number drift cycles (11s / 17s / 23s) to avoid synchronization
- * artifacts and produce an organic, breathing feel. Inspired by Stripe's
- * hero gradient mechanics, reinterpreted in Lurus's warm-gold palette.
+ * Aurora — a quiet warm wash for the paper hero.
+ *
+ * Editorial restraint over spectacle: two soft accent-tinted blobs breathing on
+ * prime-number cycles (19s / 27s) so they never visibly sync, plus a single
+ * white-hot focal that lifts the eye toward the headline. Normal blend (not
+ * screen) so the warmth actually settles into the paper like a watercolour
+ * stain rather than washing out. Brand orange only — no legacy gold.
  */
 export function Aurora() {
   return (
     <div className="absolute inset-0 -z-10 overflow-hidden">
-      {/* Primary warm-gold blob — upper-left */}
+      {/* Primary accent wash — upper-left, slow */}
       <motion.div
-        className="absolute w-[55vw] h-[55vw] -top-[18%] -left-[12%] rounded-full opacity-[0.09]"
+        className="absolute w-[52vw] h-[52vw] -top-[16%] -left-[10%] rounded-full"
         style={{
           background:
-            "radial-gradient(ellipse at center, #c8a24e 0%, transparent 62%)",
-          filter: "blur(90px)",
-          mixBlendMode: "screen",
+            "radial-gradient(ellipse at center, rgba(255,93,31,0.10) 0%, transparent 62%)",
+          filter: "blur(96px)",
         }}
         animate={{
-          x: [0, 70, -30, 0],
-          y: [0, -40, 25, 0],
-          scale: [1, 1.12, 0.94, 1],
+          x: [0, 56, -24, 0],
+          y: [0, -32, 20, 0],
+          scale: [1, 1.08, 0.96, 1],
         }}
-        transition={{
-          duration: 23,
-          repeat: Infinity,
-          ease: "easeInOut",
-        }}
+        transition={{ duration: 27, repeat: Infinity, ease: "easeInOut" }}
       />
-      {/* Deep-gold secondary — center-right */}
+      {/* Secondary warm wash — center-right, counter-drift */}
       <motion.div
-        className="absolute w-[45vw] h-[45vw] top-[5%] -right-[8%] rounded-full opacity-[0.06]"
+        className="absolute w-[44vw] h-[44vw] top-[6%] -right-[8%] rounded-full"
         style={{
           background:
-            "radial-gradient(ellipse at center, #8b6914 0%, transparent 58%)",
-          filter: "blur(110px)",
-          mixBlendMode: "screen",
+            "radial-gradient(ellipse at center, rgba(255,122,71,0.07) 0%, transparent 58%)",
+          filter: "blur(112px)",
         }}
         animate={{
-          x: [0, -55, 35, 0],
-          y: [0, 45, -25, 0],
-          scale: [1, 0.92, 1.15, 1],
+          x: [0, -44, 28, 0],
+          y: [0, 36, -20, 0],
+          scale: [1, 0.94, 1.1, 1],
         }}
-        transition={{
-          duration: 17,
-          repeat: Infinity,
-          ease: "easeInOut",
-        }}
+        transition={{ duration: 19, repeat: Infinity, ease: "easeInOut" }}
       />
-      {/* Warm tertiary — lower-left, slow */}
-      <motion.div
-        className="absolute w-[40vw] h-[40vw] bottom-0 left-[5%] rounded-full opacity-[0.04]"
-        style={{
-          background:
-            "radial-gradient(ellipse at center, #d4b76a 0%, transparent 55%)",
-          filter: "blur(130px)",
-          mixBlendMode: "screen",
-        }}
-        animate={{
-          x: [0, 45, -35, 0],
-          y: [0, -25, 35, 0],
-        }}
-        transition={{
-          duration: 29,
-          repeat: Infinity,
-          ease: "easeInOut",
-        }}
-      />
-      {/* White-hot focal point — top center, draws eye toward headline */}
+      {/* White-hot focal — top center, draws the eye toward the headline */}
       <div
-        className="absolute w-[30vw] h-[20vw] top-[-5%] left-1/2 -translate-x-1/2 rounded-full opacity-[0.05] pointer-events-none"
+        className="absolute w-[34vw] h-[22vw] top-[-6%] left-1/2 -translate-x-1/2 rounded-full pointer-events-none"
         style={{
           background:
-            "radial-gradient(ellipse at center, rgba(255,245,220,1) 0%, transparent 65%)",
-          filter: "blur(70px)",
+            "radial-gradient(ellipse at center, rgba(255,249,238,0.55) 0%, transparent 66%)",
+          filter: "blur(72px)",
         }}
       />
     </div>
