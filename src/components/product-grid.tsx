@@ -41,8 +41,8 @@ const personaIcons: Record<string, HeroIcon> = {
 
 // Priority badge colors
 const priorityStyle: Record<string, string> = {
-  P0: "bg-[var(--color-ochre)]/15 text-[var(--color-ochre)] border-[var(--color-ochre)]/25",
-  P1: "bg-[var(--color-accent)]/10 text-[var(--color-accent)] border-[var(--color-accent)]/20",
+  P0: "bg-[var(--color-accent)]/10 text-[var(--color-accent)] border-[var(--color-accent)]/20",
+  P1: "bg-[var(--accent-2)]/8 text-[var(--accent-2)] border-[var(--accent-2)]/20",
   P2: "bg-[var(--color-text-muted)]/10 text-[var(--color-text-muted)] border-[var(--color-text-muted)]/20",
 };
 
@@ -109,6 +109,7 @@ function EcosystemMap() {
     >
       {/* Mobile: compact tier outline (SVG too dense below md) */}
       <div className="md:hidden p-5 space-y-4">
+        <p className="text-[10px] font-mono uppercase tracking-[0.15em] text-[var(--color-text-muted)] mb-1">产品层级关系</p>
         <div>
           <p className="text-[10px] font-mono uppercase tracking-[0.2em] text-[var(--color-text-muted)]/60 mb-2">P2 · 桌面工具</p>
           <div className="flex flex-wrap gap-2">
@@ -131,14 +132,29 @@ function EcosystemMap() {
           <p className="text-[10px] font-mono uppercase tracking-[0.2em] text-[var(--color-accent)]/80 mb-2">P0 · 核心基础设施</p>
           <div className="flex flex-wrap gap-2">
             {["Hub", "Billing", "Memorus"].map((n) => (
-              <span key={n} className="px-3 py-1 rounded-md bg-[var(--color-accent)]/8 border border-[var(--color-accent)]/25 text-xs text-[var(--color-ochre-dark)] font-medium">{n}</span>
+              <span key={n} className="px-3 py-1 rounded-md bg-[var(--color-accent)]/8 border border-[var(--color-accent)]/25 text-xs text-[var(--color-accent)] font-medium">{n}</span>
             ))}
+          </div>
+        </div>
+        {/* Mobile legend */}
+        <div className="pt-2 border-t border-[var(--color-border)] space-y-1.5">
+          <div className="flex items-center gap-2">
+            <div className="w-6 h-[1.5px] bg-[var(--color-accent)] shrink-0" />
+            <span className="text-[10px] font-mono text-[var(--color-text-muted)]">powers · 核心能力供给</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <div className="w-6 shrink-0 border-t border-dashed border-[var(--color-accent)]" />
+            <span className="text-[10px] font-mono text-[var(--color-text-muted)]">enhances · 能力增强</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <div className="w-6 shrink-0 border-t border-[var(--accent-2)]" style={{ borderStyle: "dashed", borderSpacing: "2px" }} />
+            <span className="text-[10px] font-mono text-[var(--color-text-muted)]">integrates · 数据集成</span>
           </div>
         </div>
       </div>
 
       <div className="hidden md:block relative">
-        <svg viewBox="0 0 820 310" className="w-full" role="img" aria-label="Lurus 产品关系图谱：7 个产品与 8 条依赖/增强/集成关系">
+        <svg viewBox="0 0 820 330" className="w-full" role="img" aria-label="Lurus 产品关系图谱：7 个产品与 8 条依赖/增强/集成关系">
           <defs>
             <marker id="arrow-powers" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
               <path d="M 0 0 L 8 4 L 0 8 z" fill="var(--color-accent)" fillOpacity="0.8" />
@@ -228,14 +244,15 @@ function EcosystemMap() {
             );
           })}
 
-          {/* Legend — 左下角 3 行 */}
-          <g fontFamily="var(--font-mono)" fontSize="8">
-            <line x1="24" y1="262" x2="52" y2="262" stroke="var(--color-accent)" strokeWidth="1.5" strokeOpacity="0.7" markerEnd="url(#arrow-powers)" />
-            <text x="60" y="265" fill="var(--color-text-muted)">powers · 核心能力供给</text>
-            <line x1="24" y1="278" x2="52" y2="278" stroke="var(--color-accent)" strokeWidth="1.2" strokeDasharray="5 4" strokeOpacity="0.55" />
-            <text x="60" y="281" fill="var(--color-text-muted)">enhances · 能力增强</text>
-            <line x1="24" y1="294" x2="52" y2="294" stroke="var(--accent-2)" strokeWidth="1.2" strokeDasharray="2 3 7 3" strokeOpacity="0.6" />
-            <text x="60" y="297" fill="var(--color-text-muted)">integrates · 数据集成</text>
+          {/* Legend — 左下角 3 行，y 从 276 起确保在所有节点(max y=257)下方 */}
+          <g fontFamily="var(--font-mono)" fontSize="8.5">
+            <text x="24" y="273" fill="var(--color-text-muted)" fillOpacity="0.5" fontSize="7" letterSpacing="1">LEGEND</text>
+            <line x1="24" y1="284" x2="56" y2="284" stroke="var(--color-accent)" strokeWidth="1.5" strokeOpacity="0.8" markerEnd="url(#arrow-powers)" />
+            <text x="64" y="287.5" fill="var(--color-text-muted)">powers · 核心能力供给</text>
+            <line x1="24" y1="300" x2="56" y2="300" stroke="var(--color-accent)" strokeWidth="1.2" strokeDasharray="5 4" strokeOpacity="0.6" />
+            <text x="64" y="303.5" fill="var(--color-text-muted)">enhances · 能力增强</text>
+            <line x1="24" y1="316" x2="56" y2="316" stroke="var(--accent-2)" strokeWidth="1.2" strokeDasharray="2 3 7 3" strokeOpacity="0.65" />
+            <text x="64" y="319.5" fill="var(--color-text-muted)">integrates · 数据集成</text>
           </g>
         </svg>
 
@@ -251,7 +268,7 @@ function EcosystemMap() {
               className="absolute pointer-events-none z-10 px-3 py-1.5 rounded-lg bg-[var(--ink)] text-[var(--paper)] text-xs whitespace-nowrap shadow-lg"
               style={{
                 left: `${(mapEdges[hoveredEdge].mid.x / 820) * 100}%`,
-                top: `${(mapEdges[hoveredEdge].mid.y / 310) * 100}%`,
+                top: `${(mapEdges[hoveredEdge].mid.y / 330) * 100}%`,
                 transform: "translate(-50%, -135%)",
               }}
             >
@@ -416,13 +433,13 @@ export function ProductGrid() {
                       >
                         <div className="flex items-start justify-between mb-4">
                           <div className="flex items-center gap-3">
-                            <div className="w-10 h-10 rounded-xl bg-[var(--color-ochre)]/8 border border-[var(--color-ochre)]/15 flex items-center justify-center group-hover:bg-[var(--color-ochre)]/12 transition-colors">
+                            <div className="w-10 h-10 rounded-xl bg-[var(--color-accent)]/8 border border-[var(--color-accent)]/15 flex items-center justify-center group-hover:bg-[var(--color-accent)]/12 transition-colors">
                               {Icon ? (
-                                <Icon className="w-5 h-5 text-[var(--color-ochre)]" />
+                                <Icon className="w-5 h-5 text-[var(--color-accent)]" />
                               ) : null}
                             </div>
                             <div>
-                              <h4 className="font-semibold text-[var(--color-text-primary)] group-hover:text-[var(--color-ochre)] transition-colors">
+                              <h4 className="font-semibold text-[var(--color-text-primary)] group-hover:text-[var(--color-accent)] transition-colors">
                                 {product.name}
                               </h4>
                               <p className="text-xs text-[var(--color-text-muted)]">
@@ -431,7 +448,7 @@ export function ProductGrid() {
                             </div>
                           </div>
                           {"badge" in product && product.badge && (
-                            <span className="text-[10px] px-2 py-0.5 rounded-full bg-[var(--color-ochre)]/10 text-[var(--color-ochre)] font-medium border border-[var(--color-ochre)]/20 shrink-0">
+                            <span className="text-[10px] px-2 py-0.5 rounded-full bg-[var(--color-accent)]/8 text-[var(--color-accent)] font-medium border border-[var(--color-accent)]/20 shrink-0">
                               {product.badge}
                             </span>
                           )}
@@ -447,14 +464,14 @@ export function ProductGrid() {
                               key={f}
                               className="text-xs text-[var(--color-text-muted)] flex items-start gap-2"
                             >
-                              <span className="text-[var(--color-ochre)] mt-0.5 shrink-0 font-mono">›</span>
+                              <span className="text-[var(--color-accent)] mt-0.5 shrink-0 font-mono">›</span>
                               {f}
                             </li>
                           ))}
                         </ul>
 
                         {/* Hover glow */}
-                        <div className="absolute -bottom-8 -right-8 w-24 h-24 rounded-full bg-[var(--color-ochre)] opacity-0 group-hover:opacity-[0.06] blur-[40px] transition-opacity duration-500 pointer-events-none" />
+                        <div className="absolute -bottom-8 -right-8 w-24 h-24 rounded-full bg-[var(--color-accent)] opacity-0 group-hover:opacity-[0.06] blur-[40px] transition-opacity duration-500 pointer-events-none" />
                       </Link>
                     </motion.div>
                   );

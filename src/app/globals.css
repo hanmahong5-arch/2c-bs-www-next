@@ -56,6 +56,14 @@ html {
   --color-ochre: var(--accent);
   --color-ochre-light: #FF7A47;
   --color-ochre-dark: #CC4A18;
+
+  /* Craft tokens — warm-tinted elevation scale + editorial easing.
+     Shadows tint toward ink (not pure black) so they sit on warm paper. */
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --shadow-sm: 0 1px 2px color-mix(in srgb, var(--ink) 6%, transparent);
+  --shadow-md: 0 6px 20px color-mix(in srgb, var(--ink) 8%, transparent);
+  --shadow-lg: 0 16px 48px color-mix(in srgb, var(--ink) 12%, transparent);
+  --shadow-window: 0 28px 64px -16px color-mix(in srgb, var(--ink) 30%, transparent);
 }
 
 @theme inline {
@@ -267,6 +275,16 @@ body {
   background-size: 60px 60px;
 }
 
+/* Vercel-style dot grid — decorative texture, very low opacity.
+   Pairs with .grid-bg or stands alone for quieter sections. */
+.dot-grid {
+  background-image: radial-gradient(
+    color-mix(in srgb, var(--ink) 7%, transparent) 1px,
+    transparent 1px
+  );
+  background-size: 22px 22px;
+}
+
 /* Gradient mesh for hero backgrounds */
 .gradient-mesh {
   background:
@@ -303,10 +321,17 @@ body {
 }
 
 /* Code block style */
+/* Code window — warm-dark panel. Premium dev-platform convention: a dark
+   terminal on light paper gives maximal focal contrast and reads as "built by
+   engineers." Syntax palette is warm-shifted to harmonize with the paper
+   theme's amber/orange rather than cool One-Dark defaults.
+   NOTE: this panel is DARK — any raw text/icon placed inside must use
+   light-on-dark colors, not the page's dark ink tokens. */
 .code-block {
-  background: var(--color-surface);
-  border: 1px solid var(--color-border);
+  background: #1A1712;
+  border: 1px solid #2C271E;
   border-radius: 12px;
+  color: #CBC4B4;
   font-family: var(--font-mono);
   font-size: 0.8125rem;
   line-height: 1.7;
@@ -314,21 +339,20 @@ body {
 }
 
 .code-block .line-number {
-  color: var(--color-text-muted);
+  color: #6B6557;
   user-select: none;
   min-width: 2.5rem;
   text-align: right;
   padding-right: 1rem;
-  opacity: 0.5;
 }
 
-.code-block .keyword { color: #c678dd; }
-.code-block .string { color: #98c379; }
-.code-block .comment { color: #5c6370; font-style: italic; }
-.code-block .function { color: #61afef; }
-.code-block .property { color: #e5c07b; }
-.code-block .punctuation { color: #abb2bf; }
-.code-block .number { color: #d19a66; }
+.code-block .keyword { color: #E0A9E8; }     /* soft warm violet */
+.code-block .string { color: #A6CE8A; }      /* warm sage */
+.code-block .comment { color: #7C7565; font-style: italic; }
+.code-block .function { color: #82B9E6; }    /* soft blue */
+.code-block .property { color: #E8C27D; }    /* amber — harmonizes with accent */
+.code-block .punctuation { color: #B9B1A1; }
+.code-block .number { color: #ED9F62; }      /* warm orange */
 
 /* Fade in up for sections */
 @keyframes fade-in-up {

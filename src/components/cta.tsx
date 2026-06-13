@@ -22,6 +22,14 @@ const enterpriseFeatures = [
   "定制合同与发票",
 ];
 
+const trustItems = [
+  "99.9% SLA",
+  "DECIMAL(20,4) 计费精度",
+  "ICP 备案合规",
+  "OpenAI 兼容协议",
+  "按用量付费",
+];
+
 export function CTA() {
   return (
     <section className="py-24">
@@ -34,6 +42,7 @@ export function CTA() {
           viewport={{ once: true }}
           className="text-center mb-12"
         >
+          <p className="eyebrow mb-4">开始使用</p>
           <h2 className="headline-tight text-3xl md:text-4xl font-bold text-[var(--color-text-primary)]">
             今晚接入，明天上线
           </h2>
@@ -44,22 +53,37 @@ export function CTA() {
 
         <div className="grid md:grid-cols-2 gap-5">
 
-          {/* Developer panel */}
+          {/* Developer panel — primary CTA, accent orange */}
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
+            className="h-full"
           >
-            <div className="relative rounded-2xl overflow-hidden h-full border border-[var(--color-accent)]/40">
+            <div
+              className="relative rounded-2xl overflow-hidden h-full border"
+              style={{ borderColor: "rgba(255, 93, 31, 0.40)" }}
+            >
               <div className="absolute inset-0 bg-[var(--color-surface)]" />
-              <div className="absolute inset-0 bg-gradient-to-br from-[var(--color-ochre)]/8 via-transparent to-transparent" />
-              <div className="absolute inset-0 grid-bg opacity-30" />
-              <div className="absolute -top-16 -left-16 w-48 h-48 rounded-full bg-[var(--color-ochre)] opacity-[0.06] blur-[60px]" />
+              <div
+                className="absolute inset-0"
+                style={{
+                  background:
+                    "linear-gradient(135deg, rgba(255,93,31,0.07) 0%, transparent 60%)",
+                }}
+              />
+              <div className="absolute inset-0 grid-bg opacity-25" />
 
-              <div className="relative p-8">
-                <div className="w-10 h-10 rounded-xl bg-[var(--color-ochre)]/10 border border-[var(--color-ochre)]/20 flex items-center justify-center mb-5">
-                  <CodeBracketIcon className="w-5 h-5 text-[var(--color-ochre)]" />
+              <div className="relative p-8 flex flex-col h-full">
+                <div
+                  className="w-10 h-10 rounded-xl flex items-center justify-center mb-5"
+                  style={{
+                    background: "rgba(255, 93, 31, 0.10)",
+                    border: "1px solid rgba(255, 93, 31, 0.22)",
+                  }}
+                >
+                  <CodeBracketIcon className="w-5 h-5 text-[var(--color-accent)]" />
                 </div>
 
                 <div className="pill w-fit mb-4 text-xs">
@@ -71,13 +95,22 @@ export function CTA() {
                   开发者
                 </h3>
                 <p className="text-sm text-[var(--color-text-secondary)] mb-6 leading-relaxed">
-                  一行代码接入全球最强模型。免费额度够你把 MVP 跑起来。
+                  一行代码接入全球主流模型。免费额度够你把 MVP 跑起来。
                 </p>
 
                 <ul className="space-y-2.5 mb-8">
                   {devFeatures.map((f) => (
-                    <li key={f} className="flex items-center gap-2.5 text-sm text-[var(--color-text-secondary)]">
-                      <span className="w-4 h-4 rounded-full bg-[var(--color-success)]/15 border border-[var(--color-success)]/30 flex items-center justify-center shrink-0">
+                    <li
+                      key={f}
+                      className="flex items-center gap-2.5 text-sm text-[var(--color-text-secondary)]"
+                    >
+                      <span
+                        className="w-4 h-4 rounded-full flex items-center justify-center shrink-0"
+                        style={{
+                          background: "rgba(34, 197, 94, 0.12)",
+                          border: "1px solid rgba(34, 197, 94, 0.28)",
+                        }}
+                      >
                         <CheckIcon className="w-2.5 h-2.5 text-[var(--color-success)]" />
                       </span>
                       {f}
@@ -85,42 +118,65 @@ export function CTA() {
                   ))}
                 </ul>
 
-                <a
-                  href="https://hub.lurus.cn"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="group btn-primary w-full"
-                >
-                  免费注册
-                  <ArrowRightIcon className="w-4 h-4 transition-transform group-hover:translate-x-0.5" />
-                </a>
-                <p className="mt-3 text-center text-xs text-[var(--color-text-muted)]">
-                  免费额度 · 无需信用卡 · 随时取消
-                </p>
+                <div className="mt-auto">
+                  <a
+                    href="https://hub.lurus.cn"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group btn-primary w-full"
+                  >
+                    免费注册
+                    <ArrowRightIcon className="w-4 h-4 transition-transform group-hover:translate-x-0.5" />
+                  </a>
+                  <p className="mt-3 text-center text-xs text-[var(--color-text-muted)]">
+                    免费额度 · 无需信用卡 · 随时取消
+                  </p>
+                </div>
               </div>
             </div>
           </motion.div>
 
-          {/* Enterprise panel */}
+          {/* Enterprise panel — secondary, subdued */}
           <motion.div
             initial={{ opacity: 0, x: 20 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.2 }}
+            className="h-full"
           >
             <div className="relative rounded-2xl overflow-hidden h-full border border-[var(--color-border)]">
               <div className="absolute inset-0 bg-[var(--color-surface)]" />
-              <div className="absolute inset-0 bg-gradient-to-br from-[var(--color-accent)]/5 via-transparent to-transparent" />
-              <div className="absolute inset-0 grid-bg opacity-20" />
-              <div className="absolute -bottom-16 -right-16 w-48 h-48 rounded-full bg-[var(--color-accent)] opacity-[0.04] blur-[60px]" />
+              <div
+                className="absolute inset-0"
+                style={{
+                  background:
+                    "linear-gradient(135deg, rgba(45,74,138,0.05) 0%, transparent 60%)",
+                }}
+              />
+              <div className="absolute inset-0 grid-bg opacity-15" />
 
-              <div className="relative p-8">
-                <div className="w-10 h-10 rounded-xl bg-[var(--color-accent)]/10 border border-[var(--color-accent)]/20 flex items-center justify-center mb-5">
-                  <BuildingOffice2Icon className="w-5 h-5 text-[var(--color-accent)]" />
+              <div className="relative p-8 flex flex-col h-full">
+                <div
+                  className="w-10 h-10 rounded-xl flex items-center justify-center mb-5"
+                  style={{
+                    background: "rgba(45, 74, 138, 0.10)",
+                    border: "1px solid rgba(45, 74, 138, 0.20)",
+                  }}
+                >
+                  <BuildingOffice2Icon
+                    className="w-5 h-5"
+                    style={{ color: "var(--accent-2)" }}
+                  />
                 </div>
 
-                <div className="pill w-fit mb-4 text-xs border-[var(--color-accent)]/20">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[var(--color-accent)]" />
+                <div
+                  className="pill w-fit mb-4 text-xs"
+                  style={{ borderColor: "rgba(45, 74, 138, 0.22)" }}
+                >
+                  <span
+                    className="w-1.5 h-1.5 rounded-full"
+                    style={{ background: "var(--accent-2)" }}
+                  />
                   企业定制
                 </div>
 
@@ -133,25 +189,39 @@ export function CTA() {
 
                 <ul className="space-y-2.5 mb-8">
                   {enterpriseFeatures.map((f) => (
-                    <li key={f} className="flex items-center gap-2.5 text-sm text-[var(--color-text-secondary)]">
-                      <span className="w-4 h-4 rounded-full bg-[var(--color-accent)]/10 border border-[var(--color-accent)]/25 flex items-center justify-center shrink-0">
-                        <CheckIcon className="w-2.5 h-2.5 text-[var(--color-accent)]" />
+                    <li
+                      key={f}
+                      className="flex items-center gap-2.5 text-sm text-[var(--color-text-secondary)]"
+                    >
+                      <span
+                        className="w-4 h-4 rounded-full flex items-center justify-center shrink-0"
+                        style={{
+                          background: "rgba(45, 74, 138, 0.10)",
+                          border: "1px solid rgba(45, 74, 138, 0.22)",
+                        }}
+                      >
+                        <CheckIcon
+                          className="w-2.5 h-2.5"
+                          style={{ color: "var(--accent-2)" }}
+                        />
                       </span>
                       {f}
                     </li>
                   ))}
                 </ul>
 
-                <a
-                  href="mailto:sales@lurus.cn?subject=Lurus%20%E4%BC%81%E4%B8%9A%E6%96%B9%E6%A1%88%E5%92%A8%E8%AF%A2"
-                  className="group btn-secondary w-full"
-                >
-                  联系销售
-                  <ArrowRightIcon className="w-4 h-4 transition-transform group-hover:translate-x-0.5" />
-                </a>
-                <p className="mt-3 text-center text-xs text-[var(--color-text-muted)]">
-                  通常 24h 内回复 · 可预约 Demo
-                </p>
+                <div className="mt-auto">
+                  <a
+                    href="mailto:sales@lurus.cn?subject=Lurus%20%E4%BC%81%E4%B8%9A%E6%96%B9%E6%A1%88%E5%92%A8%E8%AF%A2"
+                    className="group btn-secondary w-full"
+                  >
+                    联系销售
+                    <ArrowRightIcon className="w-4 h-4 transition-transform group-hover:translate-x-0.5" />
+                  </a>
+                  <p className="mt-3 text-center text-xs text-[var(--color-text-muted)]">
+                    通常 24h 内回复 · 可预约 Demo
+                  </p>
+                </div>
               </div>
             </div>
           </motion.div>
@@ -164,18 +234,22 @@ export function CTA() {
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           transition={{ delay: 0.4 }}
-          className="mt-10 flex flex-wrap items-center justify-center gap-6 text-xs text-[var(--color-text-muted)]"
+          className="mt-10 flex flex-wrap items-center justify-center gap-x-6 gap-y-3"
         >
-          {[
-            "99.9% SLA",
-            "DECIMAL(20,4) 计费精度",
-            "ICP 备案合规",
-            "OpenAI 兼容协议",
-            "按用量付费",
-          ].map((item, i) => (
-            <span key={item} className="flex items-center gap-2">
-              {i > 0 && <span className="w-px h-3 bg-[var(--color-border)]" />}
-              <span className="text-[var(--color-success)] font-mono">›</span>
+          {trustItems.map((item, i) => (
+            <span
+              key={item}
+              className="flex items-center gap-2 text-xs text-[var(--color-text-muted)]"
+            >
+              {i > 0 && (
+                <span className="w-px h-3 bg-[var(--color-border)]" aria-hidden="true" />
+              )}
+              <span
+                className="font-mono text-[var(--color-success)]"
+                aria-hidden="true"
+              >
+                ✓
+              </span>
               {item}
             </span>
           ))}

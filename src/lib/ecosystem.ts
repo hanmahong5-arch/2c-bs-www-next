@@ -246,13 +246,13 @@ const personas: Persona[] = [
 // ── Presentation layer ──
 
 const presentation: Record<string, ProductPresentation> = {
-  hub: { icon: "⚡", href: "/platform#hub", color: "#c8a24e" },
-  billing: { icon: "🏦", href: "/platform#billing", color: "#c8a24e" },
-  memorus: { icon: "🧠", href: "/platform#memory", color: "#4a90e2" },
-  lucrum: { icon: "📈", href: "/lucrum", color: "#34d399" },
-  kova: { icon: "🔧", href: "/kova", color: "#c678dd" },
-  switch: { icon: "🔀", href: "/download#switch", color: "#d19a66" },
-  creator: { icon: "🎬", href: "/download#creator", color: "#e5c07b" },
+  hub: { icon: "⚡", href: "/platform#hub", color: "var(--color-accent)" },
+  billing: { icon: "🏦", href: "/platform#billing", color: "var(--color-accent)" },
+  memorus: { icon: "🧠", href: "/platform#memory", color: "var(--accent-2)" },
+  lucrum: { icon: "📈", href: "/lucrum", color: "var(--color-success)" },
+  kova: { icon: "🔧", href: "/kova", color: "var(--accent-2)" },
+  switch: { icon: "🔀", href: "/download#switch", color: "var(--color-accent)" },
+  creator: { icon: "🎬", href: "/download#creator", color: "var(--color-accent)" },
 };
 
 // ── Public API ──

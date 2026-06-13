@@ -3,21 +3,61 @@
 import { useRef, useEffect, useState } from "react";
 import { motion, useInView, animate } from "framer-motion";
 
-// Provider name + the specific models served, revealed on hover.
-// Static list — 事实自己说话，不需要无限滚动假装热闹。
-const providers = [
-  { name: "OpenAI", meta: "GPT-5 · GPT-4o · o3" },
-  { name: "Anthropic", meta: "Claude Opus 4.6 · Sonnet 4.5" },
-  { name: "Google Gemini", meta: "Gemini 2.5 Pro · Flash" },
-  { name: "DeepSeek", meta: "V3 · R1" },
-  { name: "Mistral", meta: "Large · Small 3" },
-  { name: "Meta Llama", meta: "4 · 3.3 · 3.1" },
-  { name: "Qwen", meta: "Qwen3 · QwQ" },
-  { name: "Zhipu GLM", meta: "GLM-4.6 · ChatGLM" },
-  { name: "Moonshot", meta: "Kimi k2" },
-  { name: "Baichuan", meta: "Baichuan4-Turbo" },
-  { name: "Yi", meta: "Yi-Large · Yi-Vision" },
-  { name: "MiniMax", meta: "abab7 · Speech-02" },
+// Provider list — static, honest. Hover reveals the specific models served.
+// 国际供应商 / 国内供应商 两组，不加假 logo，名字自己说话。
+const providerGroups = [
+  {
+    label: "国际",
+    providers: [
+      { name: "OpenAI", meta: "GPT-4o · o3 · o4-mini" },
+      { name: "Anthropic", meta: "Claude Opus 4 · Sonnet 4.5 · Haiku 3.5" },
+      { name: "Google Gemini", meta: "Gemini 2.5 Pro · Flash · Flash-8B" },
+      { name: "Mistral", meta: "Large · Small 3 · Codestral" },
+      { name: "Meta Llama", meta: "Llama 4 Scout · Llama 3.3 70B" },
+    ],
+  },
+  {
+    label: "国内",
+    providers: [
+      { name: "DeepSeek", meta: "V3 · R1 · R1-0528" },
+      { name: "Qwen", meta: "Qwen3-235B · QwQ-32B" },
+      { name: "Zhipu GLM", meta: "GLM-4-Plus · CogView-4" },
+      { name: "Moonshot", meta: "Kimi k2 · Moonshot-v1" },
+      { name: "MiniMax", meta: "abab7 · Speech-02-Turbo" },
+      { name: "Baichuan", meta: "Baichuan4-Turbo · AirX" },
+      { name: "Yi", meta: "Yi-Large-Turbo · Yi-Vision" },
+    ],
+  },
+];
+
+// Platform fact metrics — values are design targets.
+// DECIMAL(20,4) enforced at DB layer; audit trail per call.
+const metrics = [
+  {
+    value: "30+",
+    label: "模型供应商",
+    note: "持续接入中",
+  },
+  {
+    value: "<100ms",
+    label: "路由 p50 延迟",
+    note: "国内骨干链路",
+  },
+  {
+    value: "99.9%",
+    label: "SLA 可用性",
+    note: "滚动 30 日",
+  },
+  {
+    value: "¥0.0001",
+    label: "最小计费单位",
+    note: "DECIMAL(20,4)",
+  },
+  {
+    value: "5",
+    label: "分钟接入",
+    note: "改一行 baseURL",
+  },
 ];
 
 // Animates a numeric string on scroll entry.
@@ -32,14 +72,12 @@ function AnimatedMetric({ value }: { value: string }) {
     if (!inView || started.current) return;
     started.current = true;
 
-    // Parse: prefix (non-digit), numeric body, suffix
     const match = value.match(/^([^0-9]*)([0-9]+(?:\.[0-9]+)?)(.*)$/);
     if (!match) return;
 
     const [, prefix, numStr, suffix] = match;
     const target = parseFloat(numStr);
     const decimals = (numStr.split(".")[1] ?? "").length;
-    // Start from 0 for integers, from 90% for decimals (avoids long 0→99.99 crawl)
     const startFrom = decimals > 0 ? Math.max(target * 0.9, 0) : 0;
 
     const controls = animate(startFrom, target, {
@@ -49,7 +87,7 @@ function AnimatedMetric({ value }: { value: string }) {
         setDisplay(prefix + v.toFixed(decimals) + suffix);
       },
       onComplete() {
-        setDisplay(value); // snap to exact string
+        setDisplay(value);
       },
     });
 
@@ -64,69 +102,97 @@ export function TrustBand() {
     <section className="py-16 relative">
       <div className="section-divider" />
 
-      {/* Platform key metrics — monospace terminal aesthetic */}
+      {/* Section label */}
       <motion.div
         initial={{ opacity: 0, y: 10 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
-        className="pt-10 pb-2 text-center"
+        className="pt-12 pb-8 text-center"
       >
-        <p className="eyebrow mb-5">平台实时状态</p>
+        <p className="eyebrow mb-2">平台实况</p>
+        <p className="text-xs text-[var(--color-text-muted)] font-mono">
+          以下指标为平台设计目标，计费精度由数据库层约束保证
+        </p>
       </motion.div>
+
+      {/* Metrics — fact table layout, not a marketing strip */}
       <motion.div
         initial={{ opacity: 0, y: 10 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
-        transition={{ delay: 0.1 }}
-        className="flex flex-wrap items-center justify-center gap-x-8 gap-y-2 pb-10 text-xs font-mono"
+        transition={{ delay: 0.08 }}
+        className="mx-auto max-w-4xl px-6 pb-4"
       >
-        {[
-          { value: "30+", unit: "个模型供应商" },
-          { value: "<100ms", unit: "路由 p50 延迟" },
-          { value: "99.9%", unit: "SLA 可用性" },
-          { value: "¥0.0001", unit: "计费精度" },
-          { value: "5", unit: "分钟接入" },
-        ].map((s, i) => (
-          <div key={s.unit} className="flex items-center gap-3">
-            {i > 0 && <span className="w-px h-3 bg-[var(--color-border)] hidden sm:block" />}
-            <span>
-              <span className="text-[var(--color-accent)] font-bold">
-                <AnimatedMetric value={s.value} />
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-px bg-[var(--color-border)]">
+          {metrics.map((m) => (
+            <div
+              key={m.label}
+              className="bg-[var(--background)] px-4 py-5 flex flex-col gap-1.5"
+            >
+              <span
+                className="font-mono text-2xl font-bold text-[var(--color-accent)] tabular-nums leading-none"
+                style={{ fontVariantNumeric: "tabular-nums" }}
+              >
+                <AnimatedMetric value={m.value} />
               </span>
-              {" "}
-              <span className="text-[var(--color-text-muted)]">{s.unit}</span>
-            </span>
-          </div>
-        ))}
+              <span className="text-[0.78rem] font-medium text-[var(--color-text-primary)] leading-snug">
+                {m.label}
+              </span>
+              <span className="text-[0.65rem] font-mono text-[var(--color-text-muted)] leading-none tracking-wide">
+                {m.note}
+              </span>
+            </div>
+          ))}
+        </div>
+        {/* Honest footnote — 不让指标浮空 */}
+        <p className="mt-3 text-[10px] font-mono text-[var(--color-text-muted)] opacity-60 leading-relaxed">
+          * 设计指标，非 SLA 承诺。计费精度：数据库 DECIMAL(20,4) 约束，每笔账单可独立审计。
+        </p>
       </motion.div>
 
-      {/* 数字的出处 — 不让指标浮空 */}
-      <p className="text-center text-[10px] font-mono text-[var(--color-text-muted)] opacity-70 pb-8 px-6">
-        以上为平台设计指标；计费精度由数据库层 DECIMAL(20,4) 约束保证，账单笔笔可审计。
-      </p>
-
-      {/* Provider list — static flex-wrap, hover reveals the models served */}
+      {/* Provider grid — grouped by region, hover reveals model list */}
       <motion.div
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
         viewport={{ once: true }}
         transition={{ delay: 0.15 }}
-        className="mx-auto max-w-4xl px-6 pb-12 flex flex-wrap items-start justify-center gap-x-8 gap-y-6"
+        className="mx-auto max-w-4xl px-6 pt-8 pb-12 space-y-6"
       >
-        {providers.map((p) => (
-          <div
-            key={p.name}
-            className="group relative flex flex-col items-center"
-          >
-            <span className="text-[0.95rem] font-medium text-[var(--color-text-muted)] whitespace-nowrap opacity-70 group-hover:opacity-100 group-hover:text-[var(--color-text-primary)] transition-all duration-300">
-              {p.name}
-            </span>
-            {/* Meta reveal — the name speaks, then the detail appears */}
-            <span className="absolute top-full mt-1 text-[0.65rem] font-mono text-[var(--color-text-muted)] whitespace-nowrap opacity-0 group-hover:opacity-70 transition-opacity duration-300 tracking-wide pointer-events-none">
-              {p.meta}
-            </span>
+        {providerGroups.map((group) => (
+          <div key={group.label} className="flex items-start gap-5">
+            {/* Group label — vertical, small */}
+            <div className="flex-shrink-0 w-8 pt-0.5">
+              <span
+                className="text-[9px] font-mono text-[var(--color-text-muted)] tracking-widest opacity-60 uppercase"
+                style={{ writingMode: "vertical-rl", transform: "rotate(180deg)" }}
+              >
+                {group.label}
+              </span>
+            </div>
+            {/* Provider chips */}
+            <div className="flex flex-wrap gap-x-6 gap-y-4">
+              {group.providers.map((p) => (
+                <div
+                  key={p.name}
+                  className="group relative flex flex-col items-start"
+                >
+                  <span className="text-[0.9rem] font-medium text-[var(--color-text-muted)] whitespace-nowrap opacity-60 group-hover:opacity-100 group-hover:text-[var(--color-text-primary)] transition-all duration-200">
+                    {p.name}
+                  </span>
+                  {/* Model detail — appears on hover below the name */}
+                  <span className="text-[0.6rem] font-mono text-[var(--color-text-muted)] whitespace-nowrap opacity-0 group-hover:opacity-70 transition-opacity duration-200 tracking-wide pointer-events-none leading-tight mt-0.5">
+                    {p.meta}
+                  </span>
+                </div>
+              ))}
+            </div>
           </div>
         ))}
+
+        {/* Trailing count note */}
+        <p className="text-[10px] font-mono text-[var(--color-text-muted)] opacity-50 pl-13">
+          30+ 供应商持续接入中 — 列表不代表全量
+        </p>
       </motion.div>
 
       <div className="section-divider" />

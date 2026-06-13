@@ -3,17 +3,42 @@
 import { motion } from "framer-motion";
 import { XCircleIcon, CheckCircleIcon } from "@heroicons/react/20/solid";
 
-// 人月量级为工程常识区间; "上线周期"行 = 前四行人月加总 (7–15 人月 ≈ 小团队 3–6 个月), 表内自洽
+// 工程清单基于真实 LLM 接入工程量；人月为工程常识区间。
+// "上线周期"行 = 前五行人月加总 (9–17 人月 ≈ 小团队 4–8 个月)，表内自洽
 const rows = [
-  { aspect: "LLM 接入", without: "逐个对接 API，路由 / failover / key 管理全要自己写，1–3 人月", with: "一个 API Key，30+ 模型，OpenAI 兼容格式" },
-  { aspect: "计费系统", without: "钱包 + 订阅 + 支付对接，金融精度坑多，3–6 人月", with: "DECIMAL(20,4) 钱包原子不透支，支付回调双重幂等" },
-  { aspect: "用户认证", without: "SSO / RBAC / 多租户自己搭，安全漏洞风险自担，2–4 人月", with: "Zitadel OIDC 一键集成，多租户隔离" },
-  { aspect: "AI 记忆", without: "向量存储 + 相似度检索 + 自动摘要，1–2 人月", with: "持久化记忆开箱即用，REST + MCP 双协议" },
-  { aspect: "可观测性", without: "自建 Grafana + Prometheus，维护成本高", with: "全链路追踪，预配置仪表盘，零运维" },
-  { aspect: "上线周期", without: "以上加总：一个小团队 3–6 个月", with: "5 分钟接入，当天上线" },
+  {
+    aspect: "LLM 接入",
+    without: "逐家 SDK 适配（OpenAI / 通义 / 文心 / DeepSeek …），限流 / 重试退避 / key 轮转 / failover 全要自己写，1–3 人月",
+    with: "一个 API Key，OpenAI 兼容格式，30+ 模型开箱可用，自动 failover 与 key 轮转",
+  },
+  {
+    aspect: "计费对账",
+    without: "钱包 + 订阅 + 支付回调，DECIMAL 精度坑、幂等去重、逐供应商 token 用量对账——3–6 人月，金融漏洞一旦上线极难回滚",
+    with: "DECIMAL(20,4) 原子钱包，不透支保证，支付回调双重幂等，token 用量自动对账",
+  },
+  {
+    aspect: "用户认证",
+    without: "SSO / RBAC / 多租户权限矩阵，JWT 签发与轮换，安全漏洞风险完全自担——2–4 人月",
+    with: "Zitadel OIDC 一键集成，多租户严格隔离，RBAC 开箱即用，零安全债务",
+  },
+  {
+    aspect: "AI 记忆",
+    without: "向量数据库选型 + embedding 接入 + 相似度检索调参 + 自动摘要策略——1–2 人月",
+    with: "持久化记忆开箱即用，向量检索 + ACE 摘要，REST + MCP 双协议",
+  },
+  {
+    aspect: "合规与审计",
+    without: "结构化审计日志、请求全链路追踪、合规存证——独立模块，常被低估，1–2 人月",
+    with: "每条请求模型 / 延迟 / token / 状态码全量追踪，OTel 兼容，预配置仪表盘",
+  },
+  {
+    aspect: "上线周期",
+    without: "以上加总：小团队 4–8 个月，期间竞品已迭代两个版本",
+    with: "5 分钟接入，当天上线，专注产品本身",
+  },
 ];
 
-// Paths from app box center (195, 70) to each dependency box — deliberately uneven
+// Paths from app box center (195, 70) to each dependency box
 const appToDepPaths = [
   "M 195 70 C 155 95, 90 108, 60 125",
   "M 185 70 C 172 102, 158 128, 148 145",
@@ -46,17 +71,17 @@ function ComparisonDiagram() {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
     >
-      {/* Compact text alternative for narrow screens — SVG labels become unreadable below 640px */}
+      {/* Compact text alternative for narrow screens */}
       <div className="sm:hidden grid grid-cols-2 divide-x divide-[var(--color-border)]">
         <div className="p-5 text-center">
           <p className="text-[10px] font-mono text-[var(--color-error)]/55 tracking-[0.2em] mb-2">自行搭建</p>
-          <p className="text-2xl font-bold font-mono text-[var(--color-error)]/70">5+</p>
+          <p className="text-2xl font-bold font-mono text-[var(--color-error)]/70" style={{ fontVariantNumeric: "tabular-nums" }}>5+</p>
           <p className="text-[11px] text-[var(--color-text-muted)] mt-1">供应商 · 套接口</p>
-          <p className="text-[10px] text-[var(--color-text-muted)]/60 mt-2">3–6 个月接入</p>
+          <p className="text-[10px] text-[var(--color-text-muted)]/60 mt-2">4–8 个月接入</p>
         </div>
         <div className="p-5 text-center">
-          <p className="text-[10px] font-mono text-[var(--color-ochre)]/70 tracking-[0.2em] mb-2">LURUS</p>
-          <p className="text-2xl font-bold font-mono text-gradient-gold">1</p>
+          <p className="text-[10px] font-mono text-[var(--color-accent)]/70 tracking-[0.2em] mb-2">LURUS</p>
+          <p className="text-2xl font-bold font-mono text-gradient-gold" style={{ fontVariantNumeric: "tabular-nums" }}>1</p>
           <p className="text-[11px] text-[var(--color-text-muted)] mt-1">端点 · 一套接口</p>
           <p className="text-[10px] text-[var(--color-success)]/65 mt-2">今晚接入 · 明天上线</p>
         </div>
@@ -68,10 +93,10 @@ function ComparisonDiagram() {
       >
         <defs>
           <linearGradient id="lurusBoxGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor="color-mix(in srgb, var(--accent) 16%, transparent)" />
-            <stop offset="100%" stopColor="color-mix(in srgb, var(--accent) 4%, transparent)" />
+            <stop offset="0%" stopColor="rgba(255,93,31,0.16)" />
+            <stop offset="100%" stopColor="rgba(255,93,31,0.04)" />
           </linearGradient>
-          <filter id="goldSoftGlow" x="-20%" y="-20%" width="140%" height="140%">
+          <filter id="accentSoftGlow" x="-20%" y="-20%" width="140%" height="140%">
             <feGaussianBlur in="SourceGraphic" stdDeviation="4" result="blur" />
             <feMerge>
               <feMergeNode in="blur" />
@@ -82,35 +107,35 @@ function ComparisonDiagram() {
 
         {/* Panel backgrounds */}
         <rect x="0"   y="0" width="400" height="258" fill="rgba(239,68,68,0.028)" />
-        <rect x="400" y="0" width="400" height="258" fill="color-mix(in srgb, var(--accent) 2%, transparent)" />
+        <rect x="400" y="0" width="400" height="258" fill="rgba(255,93,31,0.02)" />
 
         {/* Divider */}
         <line x1="400" y1="16" x2="400" y2="242"
-          stroke="rgba(255,255,255,0.07)" strokeWidth="1" strokeDasharray="5 5" />
+          stroke="rgba(20,19,15,0.07)" strokeWidth="1" strokeDasharray="5 5" />
 
         {/* VS badge */}
         <circle cx="400" cy="130" r="15"
-          fill="#111117" stroke="rgba(255,255,255,0.1)" strokeWidth="1" />
+          fill="var(--color-surface)" stroke="var(--color-border)" strokeWidth="1" />
         <text x="400" y="134.5" textAnchor="middle"
-          fill="rgba(255,255,255,0.25)" fontSize="8"
+          fill="var(--color-text-muted)" fontSize="8"
           fontFamily="var(--font-mono)" fontWeight="700">VS</text>
 
         {/* ───────── LEFT: Chaos ───────── */}
         <text x="200" y="22" textAnchor="middle"
-          fill="rgba(239,68,68,0.45)" fontSize="8"
+          fill="rgba(179,57,43,0.5)" fontSize="8"
           fontFamily="var(--font-mono)" letterSpacing="3">自行搭建</text>
 
         {/* App box */}
         <rect x="147" y="40" width="96" height="28" rx="6"
           fill="rgba(90,90,110,0.18)" stroke="rgba(90,90,110,0.32)" strokeWidth="0.5" />
         <text x="195" y="58" textAnchor="middle"
-          fill="rgba(237,237,240,0.65)" fontSize="9" fontFamily="var(--font-sans)">您的应用</text>
+          fill="rgba(61,59,51,0.75)" fontSize="9" fontFamily="var(--font-sans)">您的应用</text>
 
         {/* Lines: App → dependencies (chaotic cubic beziers) */}
         {appToDepPaths.map((d, i) => (
           <motion.path
             key={`ap-${i}`} d={d}
-            fill="none" stroke="rgba(239,68,68,0.38)" strokeWidth="0.8" strokeDasharray="5 3"
+            fill="none" stroke="rgba(179,57,43,0.38)" strokeWidth="0.8" strokeDasharray="5 3"
             initial={{ pathLength: 0, opacity: 0 }}
             whileInView={{ pathLength: 1, opacity: 1 }}
             viewport={{ once: true }}
@@ -122,7 +147,7 @@ function ComparisonDiagram() {
         {crossWirePaths.map((d, i) => (
           <motion.path
             key={`cw-${i}`} d={d}
-            fill="none" stroke="rgba(239,68,68,0.17)" strokeWidth="0.55" strokeDasharray="2 4"
+            fill="none" stroke="rgba(179,57,43,0.17)" strokeWidth="0.55" strokeDasharray="2 4"
             initial={{ pathLength: 0, opacity: 0 }}
             whileInView={{ pathLength: 1, opacity: 1 }}
             viewport={{ once: true }}
@@ -132,10 +157,10 @@ function ComparisonDiagram() {
 
         {/* Dependency boxes (deliberately scattered heights) */}
         {[
-          { label: "LLM API ×3", x: 20,  y: 125, w: 80, cx: 60,  cy: 138 },
-          { label: "计费系统",    x: 110, y: 143, w: 76, cx: 148, cy: 156 },
+          { label: "LLM ×5 SDK", x: 20,  y: 125, w: 80, cx: 60,  cy: 138 },
+          { label: "计费对账",    x: 110, y: 143, w: 76, cx: 148, cy: 156 },
           { label: "身份认证",    x: 226, y: 128, w: 72, cx: 262, cy: 141 },
-          { label: "监控告警",    x: 329, y: 138, w: 72, cx: 365, cy: 151 },
+          { label: "审计日志",    x: 329, y: 138, w: 72, cx: 365, cy: 151 },
         ].map((b, i) => (
           <motion.g key={b.label}
             initial={{ opacity: 0 }}
@@ -144,43 +169,43 @@ function ComparisonDiagram() {
             transition={{ delay: 0.1 + i * 0.12 }}
           >
             <rect x={b.x} y={b.y} width={b.w} height="26" rx="5"
-              fill="rgba(239,68,68,0.07)" stroke="rgba(239,68,68,0.24)" strokeWidth="0.5" />
+              fill="rgba(179,57,43,0.07)" stroke="rgba(179,57,43,0.24)" strokeWidth="0.5" />
             <text x={b.cx} y={b.cy + 3} textAnchor="middle"
-              fill="rgba(239,68,68,0.65)" fontSize="7.5" fontFamily="var(--font-sans)">{b.label}</text>
+              fill="rgba(179,57,43,0.65)" fontSize="7.5" fontFamily="var(--font-sans)">{b.label}</text>
           </motion.g>
         ))}
 
         {/* Cost annotation */}
         <motion.text x="200" y="198" textAnchor="middle"
-          fill="rgba(239,68,68,0.35)" fontSize="7.5" fontFamily="var(--font-mono)"
+          fill="rgba(179,57,43,0.4)" fontSize="7.5" fontFamily="var(--font-mono)"
           initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} transition={{ delay: 1.05 }}
-        >5,000+ 行代码 · 独立维护 · 持续告警</motion.text>
+        >逐家对接 · 重试退避 · 账期对账 · 持续告警</motion.text>
         <motion.text x="200" y="212" textAnchor="middle"
-          fill="rgba(239,68,68,0.22)" fontSize="7" fontFamily="var(--font-mono)"
+          fill="rgba(179,57,43,0.25)" fontSize="7" fontFamily="var(--font-mono)"
           initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} transition={{ delay: 1.15 }}
-        >接入周期 3–6 个月</motion.text>
+        >接入周期 4–8 个月</motion.text>
 
         {/* ───────── RIGHT: Lurus ───────── */}
         <text x="602" y="22" textAnchor="middle"
-          fill="color-mix(in srgb, var(--accent) 55%, transparent)" fontSize="8"
+          fill="rgba(255,93,31,0.6)" fontSize="8"
           fontFamily="var(--font-mono)" letterSpacing="3">LURUS</text>
 
         {/* App box */}
         <rect x="554" y="40" width="96" height="28" rx="6"
           fill="rgba(90,90,110,0.18)" stroke="rgba(90,90,110,0.32)" strokeWidth="0.5" />
         <text x="602" y="58" textAnchor="middle"
-          fill="rgba(237,237,240,0.65)" fontSize="9" fontFamily="var(--font-sans)">您的应用</text>
+          fill="rgba(61,59,51,0.75)" fontSize="9" fontFamily="var(--font-sans)">您的应用</text>
 
         {/* Single clean line: App → Lurus */}
         <motion.path d="M 602 68 L 602 110"
-          fill="none" stroke="color-mix(in srgb, var(--accent) 72%, transparent)" strokeWidth="1.5"
+          fill="none" stroke="rgba(255,93,31,0.72)" strokeWidth="1.5"
           initial={{ pathLength: 0, opacity: 0 }}
           whileInView={{ pathLength: 1, opacity: 1 }}
           viewport={{ once: true }}
           transition={{ delay: 0.3, duration: 0.3 }}
         />
         {/* Animated data packet */}
-        <motion.circle r="2.2" fill="color-mix(in srgb, var(--accent) 90%, transparent)" cx="602"
+        <motion.circle r="2.2" fill="rgba(255,93,31,0.9)" cx="602"
           animate={{ cy: [68, 110], opacity: [0, 1, 0] }}
           transition={{ duration: 1.4, repeat: Infinity, repeatDelay: 1.3, ease: "easeInOut" }}
         />
@@ -193,20 +218,20 @@ function ComparisonDiagram() {
           transition={{ delay: 0.42, duration: 0.4 }}
         >
           <rect x="468" y="110" width="268" height="80" rx="12"
-            fill="url(#lurusBoxGrad)" stroke="color-mix(in srgb, var(--accent) 40%, transparent)" strokeWidth="1" />
+            fill="url(#lurusBoxGrad)" stroke="rgba(255,93,31,0.4)" strokeWidth="1" />
           <text x="602" y="138" textAnchor="middle"
             fill="var(--color-accent)" fontSize="13"
             fontFamily="var(--font-sans)" fontWeight="700"
-            filter="url(#goldSoftGlow)">Lurus</text>
+            filter="url(#accentSoftGlow)">Lurus</text>
           <text x="602" y="157" textAnchor="middle"
-            fill="color-mix(in srgb, var(--accent) 42%, transparent)" fontSize="7" fontFamily="var(--font-mono)" letterSpacing="0.3">
-            路由 · 计费 · 记忆 · 认证 · 通知 · 可观测性
+            fill="rgba(255,93,31,0.45)" fontSize="7" fontFamily="var(--font-mono)" letterSpacing="0.3">
+            路由 · 计费 · 记忆 · 认证 · 审计 · 可观测性
           </text>
           {/* "One line" badge */}
           <rect x="566" y="166" width="72" height="14" rx="7"
-            fill="rgba(52,211,153,0.09)" stroke="rgba(52,211,153,0.22)" strokeWidth="0.5" />
+            fill="rgba(31,122,79,0.09)" stroke="rgba(31,122,79,0.22)" strokeWidth="0.5" />
           <text x="602" y="176" textAnchor="middle"
-            fill="rgba(52,211,153,0.65)" fontSize="6.5" fontFamily="var(--font-mono)">一行配置</text>
+            fill="rgba(31,122,79,0.65)" fontSize="6.5" fontFamily="var(--font-mono)">一行配置</text>
         </motion.g>
 
         {/* Lines: Lurus → providers (clean fan) */}
@@ -214,7 +239,7 @@ function ComparisonDiagram() {
           <motion.path
             key={`pl-${p.label}`}
             d={`M 602 190 L ${p.cx} 226`}
-            fill="none" stroke="color-mix(in srgb, var(--accent) 22%, transparent)" strokeWidth="0.8"
+            fill="none" stroke="rgba(255,93,31,0.22)" strokeWidth="0.8"
             initial={{ pathLength: 0, opacity: 0 }}
             whileInView={{ pathLength: 1, opacity: 1 }}
             viewport={{ once: true }}
@@ -231,15 +256,15 @@ function ComparisonDiagram() {
             transition={{ delay: 0.64 + i * 0.08 }}
           >
             <rect x={p.x} y="226" width="54" height="20" rx="5"
-              fill="rgba(90,90,110,0.12)" stroke="color-mix(in srgb, var(--accent) 20%, transparent)" strokeWidth="0.5" />
+              fill="rgba(90,90,110,0.12)" stroke="rgba(255,93,31,0.2)" strokeWidth="0.5" />
             <text x={p.cx} y="239" textAnchor="middle"
-              fill="color-mix(in srgb, var(--accent) 55%, transparent)" fontSize="7.5" fontFamily="var(--font-sans)">{p.label}</text>
+              fill="rgba(255,93,31,0.55)" fontSize="7.5" fontFamily="var(--font-sans)">{p.label}</text>
           </motion.g>
         ))}
 
         {/* Success annotation */}
         <motion.text x="602" y="254" textAnchor="middle"
-          fill="rgba(52,211,153,0.42)" fontSize="7.5" fontFamily="var(--font-mono)"
+          fill="rgba(31,122,79,0.5)" fontSize="7.5" fontFamily="var(--font-mono)"
           initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} transition={{ delay: 1.1 }}
         >今晚接入 · 明天上线</motion.text>
       </svg>
@@ -265,14 +290,14 @@ export function Comparison() {
             <span className="text-gradient-gold">，正在用这三个月开发功能</span>
           </h2>
           <p className="mt-4 text-[var(--color-text-secondary)] max-w-lg mx-auto">
-            LLM 对接、计费系统、身份认证、可观测性——每一层都要写代码，每一层都要维护。这些时间，本可以花在产品上。
+            LLM 对接、计费对账、身份认证、合规审计——每一层都要写代码，每一层都要维护。这些时间，本可以花在产品上。
           </p>
         </motion.div>
 
         {/* Visual diagram: chaos vs clarity */}
         <ComparisonDiagram />
 
-        {/* Column headers — desktop only (mobile uses inline labels per cell) */}
+        {/* Column headers — desktop only */}
         <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
@@ -281,12 +306,12 @@ export function Comparison() {
         >
           <div />
           <div className="flex items-center gap-2 px-4">
-            <XCircleIcon className="w-4 h-4 text-[var(--color-error)]/60 shrink-0" />
+            <XCircleIcon className="w-4 h-4 text-[var(--color-error)]/60 shrink-0" aria-hidden="true" />
             <span className="text-xs font-medium text-[var(--color-text-muted)] uppercase tracking-wider">自己搭建</span>
           </div>
           <div className="flex items-center gap-2 px-4">
-            <CheckCircleIcon className="w-4 h-4 text-[var(--color-success)] shrink-0" />
-            <span className="text-xs font-semibold text-[var(--color-ochre)] uppercase tracking-wider">用 Lurus</span>
+            <CheckCircleIcon className="w-4 h-4 text-[var(--color-success)] shrink-0" aria-hidden="true" />
+            <span className="text-xs font-semibold text-[var(--color-accent)] uppercase tracking-wider">用 Lurus</span>
           </div>
         </motion.div>
 
@@ -307,14 +332,14 @@ export function Comparison() {
                 {/* Mobile-only inline label */}
                 <div className="md:hidden text-[10px] font-mono uppercase tracking-wider text-[var(--color-error)]/55 mb-1">自己搭建</div>
                 <div className="flex items-start gap-2">
-                  <XCircleIcon className="w-4 h-4 text-[var(--color-error)]/60 mt-0.5 shrink-0" />
+                  <XCircleIcon className="w-4 h-4 text-[var(--color-error)]/60 mt-0.5 shrink-0" aria-hidden="true" />
                   <span className="text-sm text-[var(--color-text-muted)]">{row.without}</span>
                 </div>
               </div>
               <div className="rounded-lg md:rounded-xl px-3 md:px-4 py-2.5 md:py-3 bg-[var(--color-success)]/5 border border-[var(--color-success)]/10">
-                <div className="md:hidden text-[10px] font-mono uppercase tracking-wider text-[var(--color-ochre)]/70 mb-1">用 Lurus</div>
+                <div className="md:hidden text-[10px] font-mono uppercase tracking-wider text-[var(--color-accent)]/70 mb-1">用 Lurus</div>
                 <div className="flex items-start gap-2">
-                  <CheckCircleIcon className="w-4 h-4 text-[var(--color-success)] mt-0.5 shrink-0" />
+                  <CheckCircleIcon className="w-4 h-4 text-[var(--color-success)] mt-0.5 shrink-0" aria-hidden="true" />
                   <span className="text-sm text-[var(--color-text-secondary)]">{row.with}</span>
                 </div>
               </div>
@@ -331,17 +356,17 @@ export function Comparison() {
         >
           <div className="inline-flex flex-wrap items-center justify-center gap-6 card border-[var(--color-accent)]/40 px-8 py-6">
             <div className="text-center">
-              <div className="text-3xl font-bold font-mono text-gradient-gold">7–15</div>
+              <div className="text-3xl font-bold font-mono text-gradient-gold" style={{ fontVariantNumeric: "tabular-nums" }}>9–17</div>
               <div className="text-xs text-[var(--color-text-muted)] mt-0.5">自建人月（按上表加总）</div>
             </div>
             <div className="w-px h-10 bg-[var(--color-border)] hidden sm:block" />
             <div className="text-center">
-              <div className="text-3xl font-bold font-mono text-gradient-gold">5 min</div>
+              <div className="text-3xl font-bold font-mono text-gradient-gold" style={{ fontVariantNumeric: "tabular-nums" }}>5 min</div>
               <div className="text-xs text-[var(--color-text-muted)] mt-0.5">从零到接入完成</div>
             </div>
             <div className="w-px h-10 bg-[var(--color-border)] hidden sm:block" />
             <div className="text-center">
-              <div className="text-3xl font-bold font-mono text-gradient-gold">0</div>
+              <div className="text-3xl font-bold font-mono text-gradient-gold" style={{ fontVariantNumeric: "tabular-nums" }}>0</div>
               <div className="text-xs text-[var(--color-text-muted)] mt-0.5">需要你维护的服务器</div>
             </div>
           </div>

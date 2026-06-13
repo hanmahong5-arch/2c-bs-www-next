@@ -56,14 +56,14 @@ export function Footer() {
             <div>
               <p className="eyebrow mb-3">START NOW</p>
               <h2 className="text-2xl md:text-3xl font-bold text-[var(--color-text-primary)] headline-tight">
-                今晚接入，明天上线
+                省下的人月，花在产品上
               </h2>
               <p className="mt-2 text-sm text-[var(--color-text-secondary)] max-w-md leading-relaxed">
                 30+ 模型供应商，一个端点。<br />
                 你的产品不该等待基础设施。
               </p>
               <div className="mt-4 flex flex-wrap items-center gap-x-4 gap-y-1 text-xs font-mono text-[var(--color-text-muted)]">
-                <span><span className="text-[var(--color-ochre)]">38</span> 个模型</span>
+                <span><span className="text-[var(--color-ochre)]">30+</span> 个模型</span>
                 <span className="w-px h-3 bg-[var(--color-border)] hidden sm:inline-block" />
                 <span>路由 p50 <span className="text-[var(--color-ochre)]">&lt;100ms</span></span>
                 <span className="w-px h-3 bg-[var(--color-border)] hidden sm:inline-block" />
