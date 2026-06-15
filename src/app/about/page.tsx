@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { PageHero } from "@/components/page-hero";
 import { Timeline } from "./timeline";
+import { CostSection } from "./cost-section";
 
 export const metadata: Metadata = {
   title: "关于我们",
@@ -39,6 +40,10 @@ export default function AboutPage() {
               </p>
             </div>
           </div>
+
+          <div className="section-divider my-16" />
+
+          <CostSection />
 
           <div className="section-divider my-16" />
 
