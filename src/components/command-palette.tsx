@@ -139,7 +139,7 @@ export function CommandPalette() {
             transition={{ duration: 0.18, ease: [0.16, 1, 0.3, 1] }}
             onClick={(e) => e.stopPropagation()}
             className="w-full max-w-[600px] bg-[var(--color-surface)] border border-[var(--color-border)] rounded-2xl overflow-hidden"
-            style={{ boxShadow: "0 24px 60px rgba(0,0,0,0.6), 0 0 60px rgba(200,162,78,0.06)" }}
+            style={{ boxShadow: "var(--shadow-window)" }}
           >
             {/* Search input */}
             <div className="flex items-center gap-3 px-5 py-4 border-b border-[var(--color-border)]">

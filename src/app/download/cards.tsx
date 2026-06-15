@@ -123,7 +123,7 @@ function BetaSignup({ appName, email }: { appName: string; email: string }) {
     <a
       href={`mailto:${email}?subject=${encodeURIComponent(`${appName} 内测申请`)}&body=${encodeURIComponent(`你好，我想申请 ${appName} 的内测资格。\n\n我的使用场景：\n\n`)}`}
       onClick={() => setTimeout(() => setSubmitted(true), 500)}
-      className="flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-gradient-gold text-black font-medium text-sm hover:shadow-[0_0_30px_rgba(200,162,78,0.3)] transition-all duration-300"
+      className="flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-[var(--accent)] text-white font-medium text-sm hover:bg-[var(--color-ochre-dark)] transition-all duration-300"
     >
       <EnvelopeIcon className="w-4 h-4" />
       申请内测

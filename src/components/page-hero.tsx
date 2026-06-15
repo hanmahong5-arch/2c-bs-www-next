@@ -3,7 +3,6 @@
 import { motion } from "framer-motion";
 import { SmartLink } from "./primitives/smart-link";
 import { Aurora } from "./aurora";
-import { FloatingShapes } from "./floating-shapes";
 import { heroEntry } from "@/lib/motion";
 
 interface PageHeroProps {
@@ -14,6 +13,15 @@ interface PageHeroProps {
   secondaryAction?: { label: string; href: string };
 }
 
+/**
+ * PageHero — the shared hero for every content/product page.
+ *
+ * Mirrors the homepage hero's discipline: a single restrained warm Aurora wash
+ * over the paper grid, no competing decorative layers. The accent is spent where
+ * a content page's focus actually lives — one highlighted word in the headline
+ * (these pages have no code window to carry it) — plus the primary CTA. System
+ * .btn-* variants and a warm craft shadow, so nothing is ad-hoc.
+ */
 export function PageHero({
   title,
   highlight,
@@ -24,15 +32,11 @@ export function PageHero({
   return (
     <section className="relative overflow-hidden">
       <Aurora />
-      <FloatingShapes />
-      <div className="absolute inset-0 -z-10 grid-bg" />
+      <div className="absolute inset-0 -z-10 grid-bg opacity-[0.55]" />
 
       <div className="mx-auto max-w-7xl px-6 pt-20 pb-16 md:pt-28 md:pb-24 relative">
-        <motion.div
-          {...heroEntry(0)}
-          className="text-center max-w-3xl mx-auto"
-        >
-          <h1 className="text-4xl md:text-6xl font-bold tracking-tight leading-[1.1]">
+        <motion.div {...heroEntry(0)} className="text-center max-w-3xl mx-auto">
+          <h1 className="text-4xl md:text-6xl font-bold headline-tight headline-balance">
             <motion.span
               className="text-gradient-gold inline-block"
               {...heroEntry(0.2)}
@@ -64,16 +68,13 @@ export function PageHero({
                 <SmartLink
                   href={primaryAction.href}
                   showExternalIndicator={false}
-                  className="px-8 py-3.5 rounded-xl bg-gradient-gold text-black font-semibold hover:opacity-90 hover:shadow-[0_0_30px_rgba(200,162,78,0.3)] transition-all"
+                  className="btn-primary shadow-[var(--shadow-md)]"
                 >
                   {primaryAction.label}
                 </SmartLink>
               )}
               {secondaryAction && (
-                <SmartLink
-                  href={secondaryAction.href}
-                  className="px-8 py-3.5 rounded-xl border border-[var(--color-border)] text-[var(--color-text-primary)] font-medium hover:border-[var(--color-ochre)]/50 hover:bg-[var(--color-surface)] transition-all"
-                >
+                <SmartLink href={secondaryAction.href} className="btn-secondary">
                   {secondaryAction.label}
                 </SmartLink>
               )}

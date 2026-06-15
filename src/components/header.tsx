@@ -79,7 +79,7 @@ export function Header() {
             href="https://hub.lurus.cn"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-sm px-5 py-2 rounded-lg bg-gradient-gold text-black font-semibold hover:shadow-[0_0_20px_rgba(200,162,78,0.25)] transition-all duration-300"
+            className="text-sm px-5 py-2 rounded-lg bg-[var(--accent)] text-white font-semibold hover:bg-[var(--color-ochre-dark)] transition-all duration-300"
           >
             免费开始
           </a>
