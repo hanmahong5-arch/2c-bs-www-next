@@ -4,6 +4,7 @@ import { PageHero } from "@/components/page-hero";
 import { ProductDetail } from "@/components/product-detail";
 import { CTA } from "@/components/cta";
 import { RelatedProducts } from "@/components/related-products";
+import { GatewayDemo } from "./gateway-demo";
 
 export const metadata: Metadata = {
   title: "Platform — 企业 AI 基础设施",
@@ -23,6 +24,8 @@ export default function PlatformPage() {
         primaryAction={{ label: "免费试用", href: "https://hub.lurus.cn" }}
         secondaryAction={{ label: "阅读文档", href: "https://docs.lurus.cn" }}
       />
+
+      <GatewayDemo />
 
       <section className="pb-24 border-t border-[var(--color-border)]">
         <div className="mx-auto max-w-7xl px-6 pt-16 space-y-12">
