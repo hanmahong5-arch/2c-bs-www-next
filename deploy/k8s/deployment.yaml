@@ -34,6 +34,8 @@ spec:
     spec:
       imagePullSecrets:
         - name: ghcr-pull-secret
+      # must exceed the preStop sleep (10s) so the drain finishes before SIGKILL
+      terminationGracePeriodSeconds: 30
       containers:
         - name: www
           image: ghcr.io/hanmahong5-arch/2c-bs-www-next:main-d7aa815
@@ -68,6 +70,14 @@ spec:
               path: /
               port: http
             periodSeconds: 10
+          # preStop drain: SIGTERM removes the pod from Service endpoints
+          # asynchronously, so for a beat Traefik still routes to a terminating
+          # pod (→ 502/reset). Sleeping before the app exits keeps it serving
+          # until de-registration propagates, closing the last rollout gap.
+          lifecycle:
+            preStop:
+              exec:
+                command: ["/bin/sleep", "10"]
           securityContext:
             allowPrivilegeEscalation: false
             readOnlyRootFilesystem: true
