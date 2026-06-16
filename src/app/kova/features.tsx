@@ -104,6 +104,7 @@ const WAL_LOG_LINES = [
 ];
 
 // PyO3 Python 示意用法
+// SAFE for dangerouslySetInnerHTML: 编译期静态常量，无用户/外部输入。
 const PYTHON_LINES = [
   '<span class="comment"># 示例 — PyO3 绑定，在 Python 中驱动 Kova 引擎</span>',
   '<span class="keyword">import</span> <span class="punctuation">kova</span>',

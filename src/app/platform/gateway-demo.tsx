@@ -7,6 +7,7 @@ import { motion } from "framer-motion";
 
 // ── cURL request lines ────────────────────────────────────────────────────────
 // Grounded in hero.tsx LANG_CODE.sh — same endpoint, same auth header, same body shape.
+// SAFE for dangerouslySetInnerHTML: REQUEST_LINES/RESPONSE_LINES 均为编译期静态常量，无用户输入。
 const REQUEST_LINES = [
   '<span class="comment"># OpenAI-compatible — 换一行 base_url 即可</span>',
   '<span class="function">curl</span> <span class="string">https://hub.lurus.cn/v1/chat/completions</span> <span class="punctuation">\\</span>',

@@ -45,6 +45,7 @@ const features = [
 
 // 策略代码窗内容行 — 暖色深窗语法着色，与 hero.tsx / quickstart.tsx 保持一致
 // 调色板：主体文字 #CBC4B4 | 注释 #7A7168 | 关键字 var(--color-ochre) | 字符串 #A6CE8A | 属性 #C8B07A
+// SAFE for dangerouslySetInnerHTML: 编译期静态常量，无用户/外部输入，无 XSS 面。
 const STRATEGY_LINES = [
   // 用户输入部分
   '<span style="color:#7A7168">// 示例 — 不代表真实可运行接口</span>',
@@ -131,10 +132,7 @@ function StrategyCodeWindow() {
                 viewport={{ once: true }}
                 transition={{ delay: 0.1 + i * 0.04, duration: 0.22 }}
               >
-                <span
-                  className="line-number hidden sm:block select-none shrink-0"
-                  style={{ color: "#4A4640" }}
-                >
+                <span className="line-number hidden sm:block select-none shrink-0">
                   {i + 1}
                 </span>
                 <span dangerouslySetInnerHTML={{ __html: line || " " }} />

@@ -39,14 +39,12 @@ Products = **directed graph**: 7 products / 4 groups (Platform P0, Lucrum P1, Ko
 
 | Component | Effect | Purpose |
 |-----------|--------|---------|
-| `Aurora` | 3-layer floating gradient blobs | tech atmosphere |
-| `ParticleNetwork` | Canvas gold particles + auto-connecting lines | "AI infra interconnection" |
-| `FloatingShapes` | SVG circles/hexagons/rings/diamonds | spatial depth |
+| `Aurora` | 2 warm accent blobs + white-hot focal wash | quiet paper atmosphere |
 | `AnimatedCounter` | numbers roll 0→target | data-driven impact |
 | `ArchitectureVisual` | SVG node graph + data-flow pulses | "one API, reaches everything" |
 | Feature SVGs | per-capability animated diagrams | tangible product understanding |
 
-Other components: `hero.tsx` (code demo + particle network), `page-hero.tsx` (Aurora + FloatingShapes), `persona-router.tsx`, `related-products.tsx` (graph-driven), `comparison.tsx` (before/after table). Primitives: `smart-link.tsx` (auto internal/external/mailto), `section.tsx`.
+Other components: `hero.tsx` (warm dark code window + streaming response demo), `page-hero.tsx` (shared Aurora hero for content pages), `related-products.tsx` (graph-driven), `comparison.tsx` (before/after table). Product/content pages reuse the `.code-block` warm-dark window for live API/log demos (`platform/gateway-demo.tsx`, `kova/features.tsx`, `lucrum/features.tsx`). Primitives: `smart-link.tsx` (auto internal/external/mailto), `section.tsx`.
 
 ## Deployment
 
