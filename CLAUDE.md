@@ -1,49 +1,15 @@
 # lurus-www (2c-bs-www-next)
 
-公司官网。当前活跃版本（Next.js），2026-04 迭代中。
-
-- Tech: Next.js 16 + TypeScript + Tailwind CSS 4 + Framer Motion 12 + Bun
-- Namespace/Port: `lurus-www` / `3000`
-- Domain: `www.lurus.cn` (`lurus.cn` 301 redirect)
-- Image: `ghcr.io/hanmahong5-arch/2c-bs-www-next:main-<sha7>`
-- Node: cloud-ali-4-2c2g (www-gateway, ICP 备案节点)
-- Product Group: Web (P2)
-
-> 历史：早期 Vue → 2026-04 Phoenix（现转为 webgame，见 `2c-bs-www-phoenix/`）→ 当前回归 Next.js。
-
-## Directory
-
-```
-src/
-├── app/                  # App Router (12 routes)
-│   ├── template.tsx      # ViewTransition page transitions
-│   ├── loading.tsx       # Loading skeleton
-│   └── not-found.tsx     # Custom 404
-├── components/
-│   ├── primitives/       # SmartLink, Section
-│   ├── product-grid.tsx      # 产品矩阵 + persona 筛选 + 关系图谱 (EcosystemMap)
-│   └── related-products.tsx  # Graph-driven cross-product links
-└── lib/
-    ├── ecosystem.ts      # Product graph (7 products, 8 relations, 4 personas)
-    ├── products.ts       # Legacy flat product data
-    └── motion.ts         # Animation presets
-deploy/k8s/               # K8s manifests (ArgoCD)
-```
+公司官网（当前活跃版本）。Lurus Web 产品组 (P2)。domain `www.lurus.cn`（`lurus.cn` 301 redirect），ns/port `lurus-www`/3000，ICP 备案节点。Next.js 16 / React 19 / Tailwind 4 / Framer Motion 12 / Bun。
 
 ## Commands
 
 ```bash
 bun install
-bun run dev           # http://localhost:3000
-bun run build         # Production build
-bun run lint          # ESLint
+bun run dev           # :3000
+bun run build
+bun run lint
 docker build -t lurus-www .
 ```
 
-## Design System
-
-- Light paper theme（brand-spec v1，真源 `doc/design/brand-spec.md`）: `--paper: #F5F2E8` / `--ink: #14130F` / `--accent: #FF5D1F`（橙）；`--color-ochre` 是 legacy alias → `var(--accent)`
-- Fonts: Fraunces (display) + Inter Tight (sans)，`next/font` 注入
-- Primitives: `.card`, `.pill`, `.text-gradient-gold`, `.section-divider`, `.code-block`, `.eyebrow`, `.headline-tight`
-- Backgrounds: `.grid-bg`, `.gradient-mesh`, `.noise`
-- Animations: `lib/motion.ts` presets + CSS View Transitions
+> 真源/细节: 设计系统真源 `doc/design/brand-spec.md` · 项目上下文 / 组件 / 动效 / 文案哲学 `/lurus-www-next` `/frontend-design` skill · ecosystem 数据 `src/lib/ecosystem.ts`。
