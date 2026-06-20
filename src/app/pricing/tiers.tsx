@@ -1,7 +1,6 @@
 "use client";
 
 import { motion } from "framer-motion";
-import Link from "next/link";
 import { HUB_CONSOLE_URL, TALLY_TRIAL_URL } from "@/lib/links";
 
 const tiers = [
@@ -110,14 +109,16 @@ export function PricingTiers() {
                 ))}
               </ul>
 
-              <Link
+              <a
                 href={tier.href}
+                target="_blank"
+                rel="noopener noreferrer"
                 className={`mt-8 w-full ${
                   tier.highlight ? "btn-primary" : "btn-secondary"
                 }`}
               >
                 {tier.cta}
-              </Link>
+              </a>
             </motion.div>
           ))}
         </div>
@@ -130,7 +131,7 @@ export function PricingTiers() {
 // 文案取自 lurus.yaml lurus-tally 真源, 不引入新功能声明; stage 环境如实标注。
 export function TallyTrialCallout() {
   return (
-    <section className="py-20 border-t border-[var(--color-border)]">
+    <section className="py-24 border-t border-[var(--color-border)]">
       <div className="mx-auto max-w-4xl px-6">
         <div className="card p-8 md:p-10 flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
           <div>
@@ -149,10 +150,11 @@ export function TallyTrialCallout() {
             href={TALLY_TRIAL_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="group btn-primary px-7 text-base shrink-0"
+            aria-label="免费试用 Lurus Tally（Stage 环境）"
+            className="btn-primary px-7 text-base w-full md:w-auto shrink-0"
           >
             免费试用 Tally
-            <span className="rounded bg-white/20 px-1.5 py-px text-[0.6rem] font-semibold uppercase tracking-wider">
+            <span className="rounded bg-white px-1.5 py-px text-[0.6rem] font-semibold uppercase tracking-wider text-[var(--color-ochre-dark)]">
               Stage
             </span>
           </a>

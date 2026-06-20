@@ -250,10 +250,11 @@ export function Hero() {
                   href={HUB_CONSOLE_URL}
                   target="_blank"
                   rel="noopener noreferrer"
+                  aria-label="立即接入（Beta 公测）"
                   className="group btn-primary px-7 text-base"
                 >
                   立即接入
-                  <span className="rounded bg-white/20 px-1.5 py-px text-[0.6rem] font-semibold uppercase tracking-wider">
+                  <span className="rounded bg-white px-1.5 py-px text-[0.6rem] font-semibold uppercase tracking-wider text-[var(--color-ochre-dark)]">
                     Beta
                   </span>
                   <ArrowRightIcon className="w-4 h-4 transition-transform group-hover:translate-x-0.5" />
