@@ -48,9 +48,51 @@ jobs:
               - 'tsconfig.json'
               - 'postcss.config.mjs'
 
+  e2e:
+    name: E2E smoke (CDP)
+    needs: check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v2
+      - run: bun install --frozen-lockfile
+      - run: bun run build
+      - name: Start server (:3000)
+        run: |
+          bun run start &
+          for _ in $(seq 1 30); do
+            curl -sf http://localhost:3000/ >/dev/null && break
+            sleep 2
+          done
+      - name: Start headless Chrome (:9222)
+        run: |
+          google-chrome --headless=new --remote-debugging-port=9222 --no-sandbox --disable-gpu &
+          for _ in $(seq 1 15); do
+            curl -sf http://127.0.0.1:9222/json/version >/dev/null && break
+            sleep 1
+          done
+      - name: Smoke — HTTP 200 + render markers
+        run: bun scripts/smoke.ts http://localhost:3000
+      - name: Mobile overflow audit (375px)
+        run: bun scripts/check-mobile.ts http://localhost:3000
+
+  lighthouse:
+    name: Lighthouse (informational)
+    needs: check
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    steps:
+      - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v2
+      - run: bun install --frozen-lockfile
+      - run: bun run build
+      - uses: treosh/lighthouse-ci-action@v12
+        with:
+          configPath: ./lighthouserc.json
+
   docker:
     name: Build & Push Image
-    needs: [check, changes]
+    needs: [check, changes, e2e]
     if: needs.changes.outputs.src == 'true' && github.event_name == 'push' && github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     permissions:

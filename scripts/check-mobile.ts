@@ -3,8 +3,9 @@
  * 前置: chrome --headless --remote-debugging-port=9222
  * 用法: bun scripts/check-mobile.ts [baseUrl]
  */
+import { ROUTES } from "./routes";
+
 const base = process.argv[2] ?? "http://localhost:3001";
-const routes = ["/", "/pricing", "/about", "/platform", "/kova", "/lucrum", "/download", "/solutions", "/blog"];
 
 interface CdpResult {
   result: { value: string };
@@ -30,7 +31,7 @@ async function cdp(ws: WebSocket, id: number, method: string, params: object = {
 
 async function main() {
   let failures = 0;
-  for (const route of routes) {
+  for (const route of ROUTES) {
     const target = await (await fetch(`http://127.0.0.1:9222/json/new?about:blank`, { method: "PUT" })).json();
     const ws = new WebSocket(target.webSocketDebuggerUrl);
     await new Promise((r) => ws.addEventListener("open", r, { once: true }));

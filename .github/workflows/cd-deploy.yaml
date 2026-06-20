@@ -1,0 +1,56 @@
+name: Deploy to R1 (manual, gated)
+
+# 打通 CD 最后一公里。背景: ArgoCD auto-sync 当前因国内网络对 GitHub 报 EOF 失效,
+# CI 已把目标 tag 写进 git (deploy/k8s/deployment.yaml) 但集群不自动同步。
+# 本 workflow 手动触发,SSH 到 R1 master 执行 set-image —— git==desired 时安全,
+# ArgoCD 网络恢复后会 sync 到同值,selfHeal 不回滚。
+#
+# 启用前提 (owner 决策): 在 repo secrets 配置 R1_SSH_HOST / R1_SSH_USER / R1_SSH_KEY。
+# 权衡: 这会把生产 master 凭证引入 CI 攻击面; 更彻底的正解是修复 ArgoCD 的 GitHub
+# 连通性 (修好后本 workflow 可删)。未配 secret 时本 job 直接 fail-fast,不暴露任何信息。
+on:
+  workflow_dispatch:
+    inputs:
+      image_tag:
+        description: "镜像 tag (形如 main-<sha7>); 留空则读 deploy/k8s/deployment.yaml"
+        required: false
+
+jobs:
+  set-image:
+    name: kubectl set image
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Resolve image tag
+        id: tag
+        run: |
+          TAG="${{ inputs.image_tag }}"
+          if [ -z "$TAG" ]; then
+            TAG=$(grep -oE 'main-[0-9a-f]{7}' deploy/k8s/deployment.yaml | head -1)
+          fi
+          if [ -z "$TAG" ]; then
+            echo "::error::无法解析 image tag (deployment.yaml 未匹配 main-<sha7>)"; exit 1
+          fi
+          echo "tag=${TAG}" >> "$GITHUB_OUTPUT"
+          echo "resolved tag: ${TAG}"
+
+      - name: Guard secrets
+        env:
+          KEY: ${{ secrets.R1_SSH_KEY }}
+        run: |
+          if [ -z "$KEY" ]; then
+            echo "::error::缺 R1_SSH_KEY 等 secret — CD 未启用 (见本文件头注释)。"; exit 1
+          fi
+
+      - name: SSH set image + wait rollout
+        uses: appleboy/ssh-action@v1
+        with:
+          host: ${{ secrets.R1_SSH_HOST }}
+          username: ${{ secrets.R1_SSH_USER }}
+          key: ${{ secrets.R1_SSH_KEY }}
+          script: |
+            kubectl set image deployment/lurus-www \
+              www=ghcr.io/hanmahong5-arch/2c-bs-www-next:${{ steps.tag.outputs.tag }} \
+              -n lurus-www
+            kubectl rollout status deployment/lurus-www -n lurus-www --timeout=180s
