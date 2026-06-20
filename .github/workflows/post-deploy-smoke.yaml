@@ -1,0 +1,38 @@
+name: Post-deploy smoke
+
+# 部署后线上验证闭环。CD 当前最后一公里靠人工 (ArgoCD auto-sync 国内网络失效),
+# 上线后手动触发本 workflow 对线上跑冒烟; 带重试容忍刚切流时的瞬时不可达。
+on:
+  workflow_dispatch:
+    inputs:
+      base_url:
+        description: "目标站点根 URL"
+        default: "https://www.lurus.cn"
+        required: false
+
+jobs:
+  smoke:
+    name: Smoke live
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v2
+
+      - name: Start headless Chrome (:9222)
+        run: |
+          google-chrome --headless=new --remote-debugging-port=9222 --no-sandbox --disable-gpu &
+          for _ in $(seq 1 15); do
+            curl -sf http://127.0.0.1:9222/json/version >/dev/null && break
+            sleep 1
+          done
+
+      - name: Smoke (retry x3)
+        run: |
+          BASE="${{ inputs.base_url }}"
+          for attempt in 1 2 3; do
+            echo "--- attempt ${attempt}: ${BASE} ---"
+            if bun scripts/smoke.ts "$BASE"; then exit 0; fi
+            echo "attempt ${attempt} failed; retry in 20s"
+            sleep 20
+          done
+          exit 1
