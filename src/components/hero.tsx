@@ -9,6 +9,7 @@ import {
   ArrowRightIcon,
 } from "@heroicons/react/24/outline";
 import { stats } from "@/lib/products";
+import { HUB_CONSOLE_URL, TALLY_TRIAL_URL } from "@/lib/links";
 import { Aurora } from "./aurora";
 import { AnimatedStat } from "./animated-counter";
 
@@ -246,13 +247,25 @@ export function Hero() {
 
               <div className="flex flex-wrap gap-3">
                 <a
-                  href="https://hub.lurus.cn"
+                  href={HUB_CONSOLE_URL}
                   target="_blank"
                   rel="noopener noreferrer"
+                  aria-label="立即接入（Beta 公测）"
                   className="group btn-primary px-7 text-base"
                 >
                   立即接入
+                  <span className="rounded bg-white px-1.5 py-px text-[0.6rem] font-semibold uppercase tracking-wider text-[var(--color-ochre-dark)]">
+                    Beta
+                  </span>
                   <ArrowRightIcon className="w-4 h-4 transition-transform group-hover:translate-x-0.5" />
+                </a>
+                <a
+                  href={TALLY_TRIAL_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn-secondary px-7 text-base font-medium"
+                >
+                  Tally 进销存 · 免费试用
                 </a>
                 <Link
                   href="/platform"

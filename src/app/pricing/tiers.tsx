@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import Link from "next/link";
+import { HUB_CONSOLE_URL, TALLY_TRIAL_URL } from "@/lib/links";
 
 const tiers = [
   {
@@ -16,7 +16,7 @@ const tiers = [
       "社区支持",
     ],
     cta: "免费开始",
-    href: "https://hub.lurus.cn",
+    href: HUB_CONSOLE_URL,
     highlight: false,
   },
   {
@@ -32,7 +32,7 @@ const tiers = [
       "邮件支持（24h 内响应）",
     ],
     cta: "开始试用",
-    href: "https://hub.lurus.cn",
+    href: HUB_CONSOLE_URL,
     highlight: true,
   },
   {
@@ -58,6 +58,9 @@ export function PricingTiers() {
   return (
     <section className="py-24 border-t border-[var(--color-border)]">
       <div className="mx-auto max-w-7xl px-6">
+        <p className="text-center text-xs text-[var(--color-text-muted)] mb-8 -mt-4">
+          Hub LLM 网关当前公测（Beta），免费额度即开即用。
+        </p>
         <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
           {tiers.map((tier, i) => (
             <motion.div
@@ -106,16 +109,55 @@ export function PricingTiers() {
                 ))}
               </ul>
 
-              <Link
+              <a
                 href={tier.href}
+                target="_blank"
+                rel="noopener noreferrer"
                 className={`mt-8 w-full ${
                   tier.highlight ? "btn-primary" : "btn-secondary"
                 }`}
               >
                 {tier.cta}
-              </Link>
+              </a>
             </motion.div>
           ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// ── Tally 试用入口 (独立产品线: 智能进销存, 非 Hub tier) ──
+// 文案取自 lurus.yaml lurus-tally 真源, 不引入新功能声明; stage 环境如实标注。
+export function TallyTrialCallout() {
+  return (
+    <section className="py-24 border-t border-[var(--color-border)]">
+      <div className="mx-auto max-w-4xl px-6">
+        <div className="card p-8 md:p-10 flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
+          <div>
+            <div className="text-xs font-medium text-[var(--color-accent)] mb-2">
+              另一条产品线 · 智能进销存
+            </div>
+            <h3 className="text-2xl font-bold text-[var(--color-text-primary)]">
+              Lurus Tally — AI-native 进销存 SaaS
+            </h3>
+            <p className="mt-3 max-w-xl text-sm text-[var(--color-text-secondary)] leading-relaxed">
+              面向中小企业的进销存：自然语言查库存、AI 补货建议、多渠道库存智能分配。
+              Web 端，stage 环境现已开放免费试用。
+            </p>
+          </div>
+          <a
+            href={TALLY_TRIAL_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="免费试用 Lurus Tally（Stage 环境）"
+            className="btn-primary px-7 text-base w-full md:w-auto shrink-0"
+          >
+            免费试用 Tally
+            <span className="rounded bg-white px-1.5 py-px text-[0.6rem] font-semibold uppercase tracking-wider text-[var(--color-ochre-dark)]">
+              Stage
+            </span>
+          </a>
         </div>
       </div>
     </section>

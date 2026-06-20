@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { PageHero } from "@/components/page-hero";
-import { PricingTiers, TierMatrix, UsagePricing } from "./tiers";
+import { PricingTiers, TierMatrix, UsagePricing, TallyTrialCallout } from "./tiers";
 import { FAQ } from "./faq";
 
 export const metadata: Metadata = {
@@ -20,6 +20,7 @@ export default function PricingPage() {
       <PricingTiers />
       <TierMatrix />
       <UsagePricing />
+      <TallyTrialCallout />
       <FAQ />
     </>
   );
