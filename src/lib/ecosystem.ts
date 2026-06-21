@@ -165,7 +165,7 @@ const productMap: Record<string, Product> = {
 const groups: ProductGroup[] = [
   {
     id: "platform",
-    name: "Lurus Platform",
+    name: "Lugo", // P0 平台品牌名 (ADR-0019); 服务标识/ns/域名不变
     priority: "P0",
     tagline: "企业 AI 基础设施套件",
     metaphor: "一座完整的 AI 城市 — Hub 是中央车站，Billing 是银行，Memorus 是图书馆。你只需「入住」，一切就绪。",

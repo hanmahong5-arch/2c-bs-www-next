@@ -32,7 +32,7 @@ const GROUPS: Group[] = [
     section: "导航",
     items: [
       { label: "首页", href: "/", Icon: HomeIcon },
-      { label: "Platform — 企业 AI 基础设施", href: "/platform", Icon: CubeTransparentIcon },
+      { label: "Lugo — 企业 AI 基础设施", href: "/platform", Icon: CubeTransparentIcon },
       { label: "Lucrum — AI 量化交易", href: "/lucrum", Icon: ChartBarIcon },
       { label: "Kova — Agent 执行引擎", href: "/kova", Icon: WrenchScrewdriverIcon },
       { label: "定价", href: "/pricing", Icon: CurrencyYenIcon },

@@ -7,9 +7,9 @@ import { RelatedProducts } from "@/components/related-products";
 import { GatewayDemo } from "./gateway-demo";
 
 export const metadata: Metadata = {
-  title: "Platform — 企业 AI 基础设施",
+  title: "Lugo — 企业 AI 基础设施",
   description:
-    "Lurus Platform：LLM 网关 · 账户计费 · AI 记忆引擎。开箱即用的企业 AI 后端套件。",
+    "Lugo（企业 AI 平台）：LLM 网关 · 账户计费 · AI 记忆引擎。开箱即用的企业 AI 后端套件。",
 };
 
 const platform = productGroups.find((g) => g.id === "platform")!;
@@ -18,7 +18,7 @@ export default function PlatformPage() {
   return (
     <>
       <PageHero
-        highlight="Lurus Platform"
+        highlight="Lugo"
         title="一座完整的 AI 城市"
         description="Hub 是中央车站，Billing 是银行，Memorus 是图书馆。你只需「入住」，一切就绪。30+ 模型、金融级计费、持久化记忆——无需自建。"
         primaryAction={{ label: "免费试用", href: "https://hub.lurus.cn" }}

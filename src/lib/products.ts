@@ -12,7 +12,7 @@ export interface Product {
 export const productGroups = [
   {
     id: "platform",
-    name: "Lurus Platform",
+    name: "Lugo", // P0 平台品牌名 (ADR-0019); 服务标识/ns/域名不变
     priority: "P0",
     tagline: "一座完整的 AI 城市",
     products: [
@@ -145,6 +145,53 @@ export const productGroups = [
         ],
         href: "/download#creator",
         icon: "🎬",
+      },
+    ],
+  },
+  {
+    id: "tally",
+    name: "Tally",
+    priority: "P0",
+    tagline: "AI 智能进销存",
+    products: [
+      {
+        id: "tally",
+        name: "Lurus Tally",
+        tagline: "会聊天的进销存",
+        description:
+          "面向中小企业的 AI-native 进销存。把库存、单据、补货从「填表」变成「对话」——你问，它答，它还提前提醒。",
+        features: [
+          "自然语言查询：「上月哪些货滞销」直接问",
+          "AI 补货 Agent：按销量预测自动建议",
+          "多渠道库存智能分配",
+          "金税四期 AI 巡检（规划中）",
+        ],
+        href: "https://tally-stage.lurus.cn",
+        badge: "Stage",
+        icon: "📦",
+      },
+    ],
+  },
+  {
+    id: "fable",
+    name: "Fable",
+    priority: "P2",
+    tagline: "AI 睡前故事",
+    products: [
+      {
+        id: "fable",
+        name: "寓言星球 Fable",
+        tagline: "床头的 AI 讲故事人",
+        description:
+          "AI 生成睡前故事 + 情感语音合成。每晚不重样，温柔的讲述声线，陪孩子安心入睡。",
+        features: [
+          "AI 故事生成：主题 / 角色 / 时长可定制",
+          "情感语音合成：温柔讲述声线",
+          "故事收藏与续讲",
+        ],
+        href: "https://fable.xin",
+        badge: "研发中",
+        icon: "🌙",
       },
     ],
   },
