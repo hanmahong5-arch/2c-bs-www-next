@@ -7,6 +7,7 @@ interface SmartLinkProps {
   children: React.ReactNode;
   className?: string;
   showExternalIndicator?: boolean;
+  onClick?: () => void;
 }
 
 /**
@@ -20,6 +21,7 @@ export function SmartLink({
   children,
   className = "",
   showExternalIndicator = true,
+  onClick,
 }: SmartLinkProps) {
   const isExternal = href.startsWith("http://") || href.startsWith("https://");
   const isMailto = href.startsWith("mailto:");
@@ -31,6 +33,7 @@ export function SmartLink({
         target="_blank"
         rel="noopener noreferrer"
         className={className}
+        onClick={onClick}
       >
         {children}
         {showExternalIndicator && (
@@ -42,14 +45,14 @@ export function SmartLink({
 
   if (isMailto) {
     return (
-      <a href={href} className={className}>
+      <a href={href} className={className} onClick={onClick}>
         {children}
       </a>
     );
   }
 
   return (
-    <Link href={href} className={className}>
+    <Link href={href} className={className} onClick={onClick}>
       {children}
     </Link>
   );

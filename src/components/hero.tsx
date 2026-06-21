@@ -10,6 +10,7 @@ import {
 } from "@heroicons/react/24/outline";
 import { stats } from "@/lib/products";
 import { HUB_CONSOLE_URL, TALLY_TRIAL_URL } from "@/lib/links";
+import { track } from "@/lib/track";
 import { Aurora } from "./aurora";
 import { AnimatedStat } from "./animated-counter";
 
@@ -251,6 +252,7 @@ export function Hero() {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="立即接入（Beta 公测）"
+                  onClick={() => track("cta_click", { id: "hero_hub" })}
                   className="group btn-primary px-7 text-base"
                 >
                   立即接入
@@ -263,6 +265,7 @@ export function Hero() {
                   href={TALLY_TRIAL_URL}
                   target="_blank"
                   rel="noopener noreferrer"
+                  onClick={() => track("cta_click", { id: "hero_tally" })}
                   className="btn-secondary px-7 text-base font-medium"
                 >
                   Tally 进销存 · 免费试用

@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { HUB_CONSOLE_URL, TALLY_TRIAL_URL } from "@/lib/links";
+import { track } from "@/lib/track";
 
 const tiers = [
   {
@@ -113,6 +114,7 @@ export function PricingTiers() {
                 href={tier.href}
                 target="_blank"
                 rel="noopener noreferrer"
+                onClick={() => track("cta_click", { id: "pricing_tier", tier: tier.name })}
                 className={`mt-8 w-full ${
                   tier.highlight ? "btn-primary" : "btn-secondary"
                 }`}
@@ -151,6 +153,7 @@ export function TallyTrialCallout() {
             target="_blank"
             rel="noopener noreferrer"
             aria-label="免费试用 Lurus Tally（Stage 环境）"
+            onClick={() => track("cta_click", { id: "pricing_tally" })}
             className="btn-primary px-7 text-base w-full md:w-auto shrink-0"
           >
             免费试用 Tally
@@ -197,7 +200,7 @@ export function TierMatrix() {
       <div className="mx-auto max-w-4xl px-6">
         <div className="text-center mb-12">
           <h2 className="text-3xl font-bold text-[var(--color-text-primary)]">
-            功能对比
+            功能<span className="sketch-underline">对比</span>
           </h2>
           <p className="mt-4 text-[var(--color-text-secondary)]">
             三个版本的完整差异，一张表说清。

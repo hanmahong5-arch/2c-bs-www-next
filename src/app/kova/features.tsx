@@ -291,7 +291,7 @@ export function KovaFeatures() {
             </p>
           </div>
 
-          <div className="grid lg:grid-cols-2 gap-6 items-start">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-start">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}

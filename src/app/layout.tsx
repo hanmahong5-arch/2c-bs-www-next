@@ -47,20 +47,51 @@ const jetbrainsMono = JetBrains_Mono({
   display: "swap",
 });
 
+const SITE_URL = "https://www.lurus.cn";
+const SITE_DESC =
+  "开箱即用的 AI 基础设施套件：LLM 网关 · 账户计费 · AI 记忆 · 智能路由。为企业 AI 转型提供全栈后端能力。";
+
 export const metadata: Metadata = {
   title: {
     default: "LurusTech — 企业AI基础设施套件",
     template: "%s — LurusTech",
   },
-  description:
-    "开箱即用的 AI 基础设施套件：LLM 网关 · 账户计费 · AI 记忆 · 智能路由。为企业 AI 转型提供全栈后端能力。",
-  metadataBase: new URL("https://www.lurus.cn"),
+  description: SITE_DESC,
+  metadataBase: new URL(SITE_URL),
+  alternates: { canonical: "/" },
   openGraph: {
     type: "website",
     locale: "zh_CN",
     siteName: "LurusTech",
-    images: ["/og-image.png"],
+    url: SITE_URL,
+    // og:image 由 app/opengraph-image.tsx 动态注入
   },
+  twitter: {
+    card: "summary_large_image",
+  },
+};
+
+// schema.org 结构化数据 — 让搜索引擎理解组织与站点，提升 rich results。
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": `${SITE_URL}/#org`,
+      name: "LurusTech",
+      url: SITE_URL,
+      logo: `${SITE_URL}/favicon.ico`,
+      description: SITE_DESC,
+    },
+    {
+      "@type": "WebSite",
+      "@id": `${SITE_URL}/#website`,
+      name: "LurusTech",
+      url: SITE_URL,
+      inLanguage: "zh-CN",
+      publisher: { "@id": `${SITE_URL}/#org` },
+    },
+  ],
 };
 
 export default function RootLayout({
@@ -74,6 +105,10 @@ export default function RootLayout({
       className={`${fraunces.variable} ${notoSerifSC.variable} ${interTight.variable} ${notoSansSC.variable} ${jetbrainsMono.variable} antialiased`}
     >
       <body className="min-h-screen flex flex-col bg-[var(--background)] text-[var(--foreground)]">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
         <Header />
         <main className="flex-1">{children}</main>
         <Footer />

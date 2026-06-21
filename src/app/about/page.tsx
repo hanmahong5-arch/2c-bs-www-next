@@ -41,11 +41,11 @@ export default function AboutPage() {
             </div>
           </div>
 
-          <div className="section-divider my-16" />
+          <div className="sketch-divider my-16" />
 
           <CostSection />
 
-          <div className="section-divider my-16" />
+          <div className="sketch-divider my-16" />
 
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
             {[
@@ -65,7 +65,7 @@ export default function AboutPage() {
             ))}
           </div>
 
-          <div className="section-divider my-16" />
+          <div className="sketch-divider my-16" />
 
           <Timeline />
         </div>

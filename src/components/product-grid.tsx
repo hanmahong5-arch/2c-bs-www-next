@@ -21,6 +21,7 @@ import { productGroups } from "@/lib/products";
 import { personas, relations, getProduct } from "@/lib/ecosystem";
 import type { RelationType } from "@/lib/ecosystem";
 import { SmartLink } from "@/components/primitives/smart-link";
+import { track } from "@/lib/track";
 
 type HeroIcon = ComponentType<SVGProps<SVGSVGElement>>;
 
@@ -430,6 +431,7 @@ export function ProductGrid() {
                       <SmartLink
                         href={product.href}
                         showExternalIndicator={false}
+                        onClick={() => track("cta_click", { id: "product", product: product.id })}
                         className={`group block card p-6 h-full transition-all duration-300 relative overflow-hidden ${
                           isHighlighted
                             ? "border-[var(--color-accent)]/60"
