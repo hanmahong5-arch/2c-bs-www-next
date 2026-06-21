@@ -2,7 +2,6 @@
 
 import { useMemo, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import Link from "next/link";
 import {
   BoltIcon,
   BanknotesIcon,
@@ -14,11 +13,14 @@ import {
   ComputerDesktopIcon,
   BuildingOffice2Icon,
   CpuChipIcon,
+  ArchiveBoxIcon,
+  MoonIcon,
 } from "@heroicons/react/24/outline";
 import type { ComponentType, SVGProps } from "react";
 import { productGroups } from "@/lib/products";
 import { personas, relations, getProduct } from "@/lib/ecosystem";
 import type { RelationType } from "@/lib/ecosystem";
+import { SmartLink } from "@/components/primitives/smart-link";
 
 type HeroIcon = ComponentType<SVGProps<SVGSVGElement>>;
 
@@ -30,6 +32,8 @@ const productIcons: Record<string, HeroIcon> = {
   kova: WrenchScrewdriverIcon,
   switch: ArrowsRightLeftIcon,
   creator: VideoCameraIcon,
+  tally: ArchiveBoxIcon,
+  fable: MoonIcon,
 };
 
 const personaIcons: Record<string, HeroIcon> = {
@@ -423,8 +427,9 @@ export function ProductGrid() {
                         isDimmed ? "opacity-60" : ""
                       }`}
                     >
-                      <Link
+                      <SmartLink
                         href={product.href}
+                        showExternalIndicator={false}
                         className={`group block card p-6 h-full transition-all duration-300 relative overflow-hidden ${
                           isHighlighted
                             ? "border-[var(--color-accent)]/60"
@@ -472,7 +477,7 @@ export function ProductGrid() {
 
                         {/* Hover glow */}
                         <div className="absolute -bottom-8 -right-8 w-24 h-24 rounded-full bg-[var(--color-accent)] opacity-0 group-hover:opacity-[0.06] blur-[40px] transition-opacity duration-500 pointer-events-none" />
-                      </Link>
+                      </SmartLink>
                     </motion.div>
                   );
                 })}

@@ -12,7 +12,7 @@ import {
 import { CommandPaletteTrigger } from "./command-palette";
 
 const nav = [
-  { name: "Platform", href: "/platform" },
+  { name: "Lugo", href: "/platform" },
   { name: "Lucrum", href: "/lucrum" },
   { name: "Kova", href: "/kova" },
   { name: "定价", href: "/pricing" },

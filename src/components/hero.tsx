@@ -271,7 +271,7 @@ export function Hero() {
                   href="/platform"
                   className="btn-secondary px-7 text-base font-medium"
                 >
-                  探索 Platform
+                  探索 Lugo
                 </Link>
               </div>
 

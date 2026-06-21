@@ -14,7 +14,7 @@ const solutions = [
     pain: "想给产品加 AI 功能，但自建 LLM 网关 + 计费太重",
     solution:
       "接入 Lurus Hub API → 用户按量计费自动走通 → AI 记忆让助手有上下文。3 个 API 即可上线。",
-    cta: { label: "了解 Platform", href: "/platform" },
+    cta: { label: "了解 Lugo", href: "/platform" },
   },
   {
     title: "企业内部 AI 中台",

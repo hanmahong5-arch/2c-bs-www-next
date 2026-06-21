@@ -2,7 +2,7 @@ import Link from "next/link";
 
 const suggestions = [
   { name: "首页", href: "/", desc: "回到起点" },
-  { name: "Platform", href: "/platform", desc: "企业 AI 基础设施" },
+  { name: "Lugo", href: "/platform", desc: "企业 AI 基础设施" },
   { name: "定价", href: "/pricing", desc: "查看方案与价格" },
   { name: "文档", href: "https://docs.lurus.cn", desc: "开发者文档" },
 ];
