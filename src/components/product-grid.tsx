@@ -308,7 +308,7 @@ export function ProductGrid() {
         >
           <p className="eyebrow mb-4">ECOSYSTEM</p>
           <h2 className="headline-tight text-3xl md:text-4xl font-bold text-[var(--color-text-primary)]">
-            产品矩阵
+            <span className="sketch-underline">产品矩阵</span>
           </h2>
           <p className="mt-4 text-[var(--color-text-secondary)] max-w-xl mx-auto">
             从 LLM 接入到 AI 量化交易，每个产品独立完整，也可协同运转。

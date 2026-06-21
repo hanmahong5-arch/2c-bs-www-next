@@ -201,7 +201,7 @@ export function Hero() {
                   </motion.span>
                 ))}
               </span>
-              <span className="block text-[var(--color-text-primary)]">
+              <span className="inline-block text-[var(--color-text-primary)] sketch-underline">
                 {"接入所有 AI".split("").map((ch, i) => (
                   <motion.span
                     key={`l2-${i}`}

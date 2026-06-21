@@ -33,7 +33,7 @@ const trustItems = [
 export function CTA() {
   return (
     <section className="py-24">
-      <div className="section-divider mb-24" />
+      <div className="sketch-divider mb-24" />
       <div className="mx-auto max-w-5xl px-6">
 
         <motion.div
@@ -44,7 +44,7 @@ export function CTA() {
         >
           <p className="eyebrow mb-4">开始使用</p>
           <h2 className="headline-tight text-3xl md:text-4xl font-bold text-[var(--color-text-primary)]">
-            今晚接入，明天上线
+            今晚接入，<span className="sketch-underline">明天上线</span>
           </h2>
           <p className="mt-4 text-[var(--color-text-secondary)] max-w-lg mx-auto">
             你的第一次 API 调用，距现在不超过五分钟。
@@ -62,7 +62,7 @@ export function CTA() {
             className="h-full"
           >
             <div
-              className="relative rounded-2xl overflow-hidden h-full border"
+              className="relative rounded-2xl overflow-hidden h-full border sketch-shadow-accent"
               style={{ borderColor: "rgba(255, 93, 31, 0.40)" }}
             >
               <div className="absolute inset-0 bg-[var(--color-surface)]" />

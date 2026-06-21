@@ -388,6 +388,47 @@ body {
   background: linear-gradient(to bottom, var(--color-border), transparent);
 }
 
+/* ── Hand-drawn / sketch layer ──
+   叠加在纸感编辑风之上的手作元素;全部基于既有 ink/accent token,不改配色/字体,
+   纯增量可逆。给编辑风注入温度与手绘感(贴 paper + Fraunces 的有机调性)。 */
+
+/* 不规则手绘边框 — 非对称 border-radius 模拟手画矩形 */
+.sketch-border {
+  border: 1.5px solid color-mix(in srgb, var(--ink) 78%, transparent);
+  border-radius: 14px 220px 18px 220px / 220px 16px 220px 18px;
+}
+
+/* hard offset 阴影 — 手作贴纸感,配 sketch-border 用 */
+.sketch-shadow {
+  box-shadow: 4px 4px 0 color-mix(in srgb, var(--ink) 82%, transparent);
+}
+.sketch-shadow-accent {
+  box-shadow: 4px 4px 0 color-mix(in srgb, var(--accent) 70%, transparent);
+}
+
+/* 微旋转 — 手随意摆放感(成对交替;注意:有 hover transform 的元素会在 hover 时摆正) */
+.sketch-tilt-l { transform: rotate(-0.7deg); }
+.sketch-tilt-r { transform: rotate(0.7deg); }
+
+/* 手绘波浪下划线 — 橙,强调关键词(套在 inline 元素上) */
+.sketch-underline {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='12' viewBox='0 0 120 12' preserveAspectRatio='none'%3E%3Cpath d='M3 7 Q 18 2 33 6 T 63 6 T 93 6 T 117 6' fill='none' stroke='%23FF5D1F' stroke-width='2.6' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: center 100%;
+  background-size: 100% 0.42em;
+  padding-bottom: 0.16em;
+}
+
+/* 手绘波浪分隔线 — 替代直线 section-divider 的有机版 */
+.sketch-divider {
+  height: 12px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='12' viewBox='0 0 240 12'%3E%3Cpath d='M2 6 Q 30 1 60 6 T 120 6 T 180 6 T 238 6' fill='none' stroke='%2314130F' stroke-width='1.4' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 240px 12px;
+  opacity: 0.45;
+}
+
 /* ── View Transitions ── */
 
 /* Keep header fixed during page transitions */
