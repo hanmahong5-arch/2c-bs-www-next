@@ -7,6 +7,8 @@ import {
   CheckIcon,
   ArrowRightIcon,
 } from "@heroicons/react/24/outline";
+import { track } from "@/lib/track";
+import { HUB_CONSOLE_URL } from "@/lib/links";
 
 const devFeatures = [
   "OpenAI 兼容接口，5 分钟接入",
@@ -120,9 +122,10 @@ export function CTA() {
 
                 <div className="mt-auto">
                   <a
-                    href="https://hub.lurus.cn"
+                    href={HUB_CONSOLE_URL}
                     target="_blank"
                     rel="noopener noreferrer"
+                    onClick={() => track("cta_click", { id: "cta_dev_hub" })}
                     className="group btn-primary w-full"
                   >
                     免费注册
@@ -213,6 +216,7 @@ export function CTA() {
                 <div className="mt-auto">
                   <a
                     href="mailto:sales@lurus.cn?subject=Lurus%20%E4%BC%81%E4%B8%9A%E6%96%B9%E6%A1%88%E5%92%A8%E8%AF%A2"
+                    onClick={() => track("cta_click", { id: "cta_enterprise_sales" })}
                     className="group btn-secondary w-full"
                   >
                     联系销售
