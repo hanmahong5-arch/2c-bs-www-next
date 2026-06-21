@@ -172,7 +172,7 @@ export function QuickStart() {
           </h2>
         </motion.div>
 
-        <div className="relative grid md:grid-cols-3 gap-6">
+        <div className="relative grid grid-cols-1 md:grid-cols-3 gap-6">
           {/* Step connector lines (desktop only) */}
           <div
             aria-hidden="true"

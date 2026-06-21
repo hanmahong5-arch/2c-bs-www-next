@@ -336,6 +336,7 @@ body {
   font-size: 0.8125rem;
   line-height: 1.7;
   overflow-x: auto;
+  max-width: 100%; /* grid/flex 子项中防 nowrap 代码撑破容器 (移动端横向溢出) */
 }
 
 .code-block .line-number {
