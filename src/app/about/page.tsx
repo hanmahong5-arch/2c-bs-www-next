@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { PageHero } from "@/components/page-hero";
 import { Timeline } from "./timeline";
 import { CostSection } from "./cost-section";
+import { VisionMap } from "./vision-map";
 
 export const metadata: Metadata = {
   title: "关于我们",
@@ -40,6 +41,10 @@ export default function AboutPage() {
               </p>
             </div>
           </div>
+
+          <div className="sketch-divider my-16" />
+
+          <VisionMap />
 
           <div className="sketch-divider my-16" />
 
