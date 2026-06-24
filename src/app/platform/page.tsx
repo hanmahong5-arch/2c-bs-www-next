@@ -27,6 +27,8 @@ export default function PlatformPage() {
 
       <GatewayDemo />
 
+      <CapabilityStrip />
+
       <section className="pb-24 border-t border-[var(--color-border)]">
         <div className="mx-auto max-w-7xl px-6 pt-16 space-y-12">
           {platform.products.map((product, i) => (
@@ -39,6 +41,44 @@ export default function PlatformPage() {
       <RelatedProducts productId="hub" />
       <CTA />
     </>
+  );
+}
+
+// Lugo 五项能力标签条 — 统领下方 3 个 ProductDetail，真源 lurus.yaml capabilities。
+// 精简标签条而非整块 FeaturesShowcase，避免与 ProductDetail 内容重叠 + 页面过长。
+function CapabilityStrip() {
+  const caps = [
+    { name: "账户认证", desc: "OIDC · RBAC · 多租户" },
+    { name: "计费钱包", desc: "DECIMAL(20,4) 原子事务" },
+    { name: "LLM 网关", desc: "30+ 模型 · 智能路由" },
+    { name: "AI 记忆", desc: "向量检索 · REST + MCP" },
+    { name: "多通道通知", desc: "WebSocket · SMTP · FCM" },
+  ];
+
+  return (
+    <section className="py-14 border-t border-[var(--color-border)]">
+      <div className="mx-auto max-w-7xl px-6">
+        <div className="text-center mb-8">
+          <p className="eyebrow mb-3">LUGO PLATFORM</p>
+          <h2 className="headline-tight text-2xl md:text-3xl font-bold">
+            <span className="text-[var(--color-text-primary)]">一套后端，</span>
+            <span className="text-gradient-gold">五项能力</span>
+          </h2>
+        </div>
+        <div className="grid grid-cols-2 md:grid-cols-5 gap-3">
+          {caps.map((c) => (
+            <div key={c.name} className="card p-4 text-center">
+              <p className="text-sm font-semibold text-[var(--color-text-primary)] mb-1">
+                {c.name}
+              </p>
+              <p className="text-[11px] font-mono text-[var(--color-text-muted)] leading-relaxed">
+                {c.desc}
+              </p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
   );
 }
 

@@ -255,7 +255,7 @@ export function CostCalculator() {
             }}
           >
             <div className="flex items-center justify-between mb-4">
-              <p className="eyebrow text-[var(--color-accent)]">Lurus 智能路由</p>
+              <p className="eyebrow text-[var(--color-accent)]">Lugo 智能路由</p>
               <span className="flex items-center gap-1.5 text-[10px] font-mono text-[var(--color-success)]">
                 <motion.span
                   className="w-1.5 h-1.5 rounded-full bg-[var(--color-success)]"

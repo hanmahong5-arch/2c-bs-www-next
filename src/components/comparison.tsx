@@ -80,7 +80,7 @@ function ComparisonDiagram() {
           <p className="text-[10px] text-[var(--color-text-muted)]/60 mt-2">4–8 个月接入</p>
         </div>
         <div className="p-5 text-center">
-          <p className="text-[10px] font-mono text-[var(--color-accent)]/70 tracking-[0.2em] mb-2">LURUS</p>
+          <p className="text-[10px] font-mono text-[var(--color-accent)]/70 tracking-[0.2em] mb-2">LUGO</p>
           <p className="text-2xl font-bold font-mono text-gradient-gold" style={{ fontVariantNumeric: "tabular-nums" }}>1</p>
           <p className="text-[11px] text-[var(--color-text-muted)] mt-1">端点 · 一套接口</p>
           <p className="text-[10px] text-[var(--color-success)]/65 mt-2">今晚接入 · 明天上线</p>
@@ -188,7 +188,7 @@ function ComparisonDiagram() {
         {/* ───────── RIGHT: Lurus ───────── */}
         <text x="602" y="22" textAnchor="middle"
           fill="rgba(255,93,31,0.6)" fontSize="8"
-          fontFamily="var(--font-mono)" letterSpacing="3">LURUS</text>
+          fontFamily="var(--font-mono)" letterSpacing="3">LUGO</text>
 
         {/* App box */}
         <rect x="554" y="40" width="96" height="28" rx="6"
@@ -222,7 +222,7 @@ function ComparisonDiagram() {
           <text x="602" y="138" textAnchor="middle"
             fill="var(--color-accent)" fontSize="13"
             fontFamily="var(--font-sans)" fontWeight="700"
-            filter="url(#accentSoftGlow)">Lurus</text>
+            filter="url(#accentSoftGlow)">Lugo</text>
           <text x="602" y="157" textAnchor="middle"
             fill="rgba(255,93,31,0.45)" fontSize="7" fontFamily="var(--font-mono)" letterSpacing="0.3">
             路由 · 计费 · 记忆 · 认证 · 审计 · 可观测性
@@ -311,7 +311,7 @@ export function Comparison() {
           </div>
           <div className="flex items-center gap-2 px-4">
             <CheckCircleIcon className="w-4 h-4 text-[var(--color-success)] shrink-0" aria-hidden="true" />
-            <span className="text-xs font-semibold text-[var(--color-accent)] uppercase tracking-wider">用 Lurus</span>
+            <span className="text-xs font-semibold text-[var(--color-accent)] uppercase tracking-wider">用 Lugo</span>
           </div>
         </motion.div>
 
@@ -337,7 +337,7 @@ export function Comparison() {
                 </div>
               </div>
               <div className="rounded-lg md:rounded-xl px-3 md:px-4 py-2.5 md:py-3 bg-[var(--color-success)]/5 border border-[var(--color-success)]/10">
-                <div className="md:hidden text-[10px] font-mono uppercase tracking-wider text-[var(--color-accent)]/70 mb-1">用 Lurus</div>
+                <div className="md:hidden text-[10px] font-mono uppercase tracking-wider text-[var(--color-accent)]/70 mb-1">用 Lugo</div>
                 <div className="flex items-start gap-2">
                   <CheckCircleIcon className="w-4 h-4 text-[var(--color-success)] mt-0.5 shrink-0" aria-hidden="true" />
                   <span className="text-sm text-[var(--color-text-secondary)]">{row.with}</span>

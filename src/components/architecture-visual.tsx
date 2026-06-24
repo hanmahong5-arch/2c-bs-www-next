@@ -422,7 +422,7 @@ export function ArchitectureVisual() {
             <span className="text-[var(--color-text-primary)]">的完整生命周期</span>
           </h2>
           <p className="mt-4 max-w-lg mx-auto" style={{ color: "var(--color-text-secondary)" }}>
-            鉴权、路由决策、计费扣款、记忆写入——Lurus 在响应返回前，静默地处理了这一切。
+            鉴权、路由决策、计费扣款、记忆写入——Lugo 在响应返回前，静默地处理了这一切。
           </p>
         </motion.div>
 
@@ -447,7 +447,7 @@ export function ArchitectureVisual() {
               <svg viewBox="0 0 100 95" className="w-full" style={{ maxHeight: 320 }}>
                 {/* Layer labels */}
                 <text x="2" y="16" fill="rgba(45,74,138,0.35)"  fontSize="1.8" fontFamily="var(--font-geist-mono)">YOUR APP</text>
-                <text x="2" y="36" fill="rgba(255,93,31,0.3)"   fontSize="1.8" fontFamily="var(--font-geist-mono)">LURUS PLATFORM</text>
+                <text x="2" y="36" fill="rgba(255,93,31,0.3)"   fontSize="1.8" fontFamily="var(--font-geist-mono)">LUGO PLATFORM</text>
                 <text x="2" y="81" fill="rgba(100,95,115,0.4)"  fontSize="1.8" fontFamily="var(--font-geist-mono)">PROVIDERS</text>
 
                 {/* Connections */}

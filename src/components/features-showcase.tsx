@@ -31,13 +31,13 @@ export function FeaturesShowcase() {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <p className="eyebrow mb-4">CAPABILITIES</p>
+          <p className="eyebrow mb-4">LUGO PLATFORM</p>
           <h2 className="headline-tight text-3xl md:text-4xl font-bold">
-            <span className="text-[var(--color-text-primary)]">不止于网关，</span>
-            <span className="text-gradient-gold">全栈 AI 后端</span>
+            <span className="text-[var(--color-text-primary)]">一套后端，</span>
+            <span className="text-gradient-gold">五项能力</span>
           </h2>
           <p className="mt-4 text-[var(--color-text-secondary)] max-w-xl mx-auto">
-            接入只是开始。路由、计费、记忆、认证、通知、可观测性——你本该自建的每一层，Lurus 都已经做好了。
+            Lugo 是企业 AI 基础设施核心：账户认证、计费、LLM 网关、AI 记忆、多通道通知——五项能力同源同栈，接入一次，全链路可观测。
           </p>
         </motion.div>
 
