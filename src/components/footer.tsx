@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowTopRightOnSquareIcon, ArrowRightIcon } from "@heroicons/react/24/outline";
+import { ArrowTopRightOnSquareIcon } from "@heroicons/react/24/outline";
 
 const footerLinks = [
   {
@@ -46,51 +46,7 @@ export function Footer() {
     <footer className="border-t border-[var(--color-border)] bg-[var(--color-surface)]">
       <div className="mx-auto max-w-7xl px-6 py-16">
 
-        {/* Pre-footer CTA — last conversion moment before the visitor leaves */}
-        <div className="relative rounded-2xl overflow-hidden mb-16 p-8 md:p-12 border border-[var(--color-border)]">
-          <div className="absolute inset-0 bg-gradient-to-br from-[var(--color-ochre)]/6 via-transparent to-transparent" />
-          <div className="absolute inset-0 grid-bg opacity-20" />
-          <div className="absolute -top-24 -left-24 w-72 h-72 rounded-full bg-[var(--color-ochre)] opacity-[0.05] blur-[90px] pointer-events-none" />
-
-          <div className="relative flex flex-col md:flex-row md:items-center md:justify-between gap-8">
-            <div>
-              <p className="eyebrow mb-3">START NOW</p>
-              <h2 className="text-2xl md:text-3xl font-bold text-[var(--color-text-primary)] headline-tight">
-                省下的人月，花在产品上
-              </h2>
-              <p className="mt-2 text-sm text-[var(--color-text-secondary)] max-w-md leading-relaxed">
-                30+ 模型供应商，一个端点。<br />
-                你的产品不该等待基础设施。
-              </p>
-              <div className="mt-4 flex flex-wrap items-center gap-x-4 gap-y-1 text-xs font-mono text-[var(--color-text-muted)]">
-                <span><span className="text-[var(--color-ochre)]">30+</span> 个模型</span>
-                <span className="w-px h-3 bg-[var(--color-border)] hidden sm:inline-block" />
-                <span>路由 p50 <span className="text-[var(--color-ochre)]">&lt;100ms</span></span>
-                <span className="w-px h-3 bg-[var(--color-border)] hidden sm:inline-block" />
-                <span>免费额度 <span className="text-[var(--color-ochre)]">$5</span> · 无需信用卡</span>
-              </div>
-            </div>
-
-            <div className="flex flex-col sm:flex-row gap-3 shrink-0">
-              <a
-                href="https://hub.lurus.cn"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group btn-primary"
-              >
-                免费注册
-                <ArrowRightIcon className="w-4 h-4 transition-transform group-hover:translate-x-0.5" />
-              </a>
-              <a
-                href="mailto:sales@lurus.cn?subject=Lurus%20企业方案咨询"
-                className="flex items-center justify-center gap-2 px-6 py-3 rounded-xl border border-[var(--color-border)] text-[var(--color-text-primary)] font-medium text-sm hover:border-[var(--color-border-hover)] hover:bg-[var(--color-surface)] transition-all duration-300"
-              >
-                联系销售
-              </a>
-            </div>
-          </div>
-        </div>
-
+        {/* pre-footer CTA 块已删 — 与紧邻的 CTA section 重复, footer 回归导航/合规 */}
         <div className="grid grid-cols-2 md:grid-cols-5 gap-8">
           {/* Brand */}
           <div className="col-span-2 md:col-span-1">

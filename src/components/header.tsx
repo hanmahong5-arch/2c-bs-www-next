@@ -10,6 +10,8 @@ import {
   ArrowTopRightOnSquareIcon,
 } from "@heroicons/react/24/outline";
 import { CommandPaletteTrigger } from "./command-palette";
+import { HUB_CONSOLE_URL } from "@/lib/links";
+import { track } from "@/lib/track";
 
 const nav = [
   { name: "Lugo", href: "/platform" },
@@ -76,9 +78,10 @@ export function Header() {
             登录
           </a>
           <a
-            href="https://hub.lurus.cn"
+            href={HUB_CONSOLE_URL}
             target="_blank"
             rel="noopener noreferrer"
+            onClick={() => track("cta_click", { id: "header" })}
             className="text-sm px-5 py-2 rounded-lg bg-[var(--accent)] text-white font-semibold hover:bg-[var(--color-ochre-dark)] transition-all duration-300"
           >
             免费开始

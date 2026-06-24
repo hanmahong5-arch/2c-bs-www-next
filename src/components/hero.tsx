@@ -9,7 +9,7 @@ import {
   ArrowRightIcon,
 } from "@heroicons/react/24/outline";
 import { stats } from "@/lib/products";
-import { HUB_CONSOLE_URL, TALLY_TRIAL_URL } from "@/lib/links";
+import { HUB_CONSOLE_URL } from "@/lib/links";
 import { track } from "@/lib/track";
 import { Aurora } from "./aurora";
 import { AnimatedStat } from "./animated-counter";
@@ -246,6 +246,7 @@ export function Hero() {
                 <span className="text-[var(--color-text-muted)]">curl https://hub.lurus.cn/v1/chat/completions</span>
               </p>
 
+              {/* 单一主 CTA — Hick's law: 主路径收敛到一处, 减少选择过载 */}
               <div className="flex flex-wrap gap-3">
                 <a
                   href={HUB_CONSOLE_URL}
@@ -261,25 +262,17 @@ export function Hero() {
                   </span>
                   <ArrowRightIcon className="w-4 h-4 transition-transform group-hover:translate-x-0.5" />
                 </a>
-                <a
-                  href={TALLY_TRIAL_URL}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  onClick={() => track("cta_click", { id: "hero_tally" })}
-                  className="btn-secondary px-7 text-base font-medium"
-                >
-                  Tally 进销存 · 免费试用
-                </a>
-                <Link
-                  href="/platform"
-                  className="btn-secondary px-7 text-base font-medium"
-                >
-                  探索 Lugo
-                </Link>
               </div>
 
-              {/* Tertiary — clean navigation, no pressure */}
+              {/* Tertiary — clean navigation, no pressure (探索 Lugo 降权至此) */}
               <div className="mt-5 flex flex-wrap items-center gap-5 text-xs text-[var(--color-text-muted)]">
+                <Link
+                  href="/platform"
+                  className="hover:text-[var(--color-text-secondary)] transition-colors"
+                >
+                  探索 Lugo →
+                </Link>
+                <span className="w-px h-3 bg-[var(--color-border)]" />
                 <a
                   href="mailto:sales@lurus.cn?subject=Lurus%20%E6%BC%94%E7%A4%BA%E9%A2%84%E7%BA%A6"
                   className="hover:text-[var(--color-text-secondary)] transition-colors"

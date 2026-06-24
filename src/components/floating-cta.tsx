@@ -3,6 +3,8 @@
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowRightIcon, XMarkIcon } from "@heroicons/react/24/outline";
+import { HUB_CONSOLE_URL } from "@/lib/links";
+import { track } from "@/lib/track";
 
 export function FloatingCTA() {
   const [visible, setVisible] = useState(false);
@@ -42,9 +44,10 @@ export function FloatingCTA() {
 
             {/* Primary CTA */}
             <a
-              href="https://hub.lurus.cn"
+              href={HUB_CONSOLE_URL}
               target="_blank"
               rel="noopener noreferrer"
+              onClick={() => track("cta_click", { id: "floating" })}
               className="group flex items-center gap-1.5 px-4 py-2 rounded-xl bg-[var(--accent)] text-white text-sm font-semibold hover:bg-[var(--color-ochre-dark)] transition-all duration-300 shrink-0"
             >
               开始
