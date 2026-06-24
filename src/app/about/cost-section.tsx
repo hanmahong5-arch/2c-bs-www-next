@@ -27,7 +27,7 @@ const costItems: { label: string; body: string }[] = [
   {
     label: "运维与可观测性",
     body:
-      "多供应商 SLA 监控、智能路由切换、用量告警——这些在 Lurus 平台里是默认开启的，" +
+      "多供应商 SLA 监控、智能路由切换、用量告警——这些在 Lugo 里是默认开启的，" +
       "自建团队则需要单独搭建并长期维护。",
   },
 ];
