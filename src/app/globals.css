@@ -33,9 +33,11 @@ html {
   --space-20: 5rem;
   --space-24: 6rem;
 
-  /* Font stacks — Latin 主字体 + Noto SC 中文回退 (next/font 注入具体 var) */
-  --font-display: var(--font-fraunces), var(--font-noto-serif-sc), serif;
-  --font-sans: var(--font-inter-tight), var(--font-noto-sans-sc), system-ui, sans-serif;
+  /* Font stacks — 自托管 Latin 主字体 + 系统 CJK 字体回退。
+     不再自托管 Noto SC webfont（~1MB woff2 拖垮 LCP；且 latin 子集本就不含中文）。 */
+  --font-display: var(--font-fraunces), "Songti SC", "Noto Serif CJK SC", serif;
+  --font-sans: var(--font-inter-tight), "PingFang SC", "Microsoft YaHei",
+    "Noto Sans CJK SC", system-ui, sans-serif;
 
   /* Semantic aliases (used across components) */
   --background: var(--paper);
