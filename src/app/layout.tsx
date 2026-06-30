@@ -3,15 +3,15 @@ import {
   Fraunces,
   Inter_Tight,
   JetBrains_Mono,
-  Noto_Sans_SC,
-  Noto_Serif_SC,
 } from "next/font/google";
 import "./globals.css";
 import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
 import { CommandPalette } from "@/components/command-palette";
 
-// 字体栈在 globals.css 组合: --font-display = Fraunces → Noto Serif SC → serif
+// 仅自托管 Latin 主字体；中文走系统 CJK 字体回退（见 globals.css 字体栈）。
+// 原 Noto Sans/Serif SC webfont 用 subsets:["latin"] 加载——不含中文字形（中文本就
+// 回退系统字体），却带来 ~1MB woff2 拖垮首屏 LCP/FCP，故移除，中文渲染不变。
 const fraunces = Fraunces({
   variable: "--font-fraunces",
   subsets: ["latin"],
@@ -19,24 +19,10 @@ const fraunces = Fraunces({
   display: "swap",
 });
 
-const notoSerifSC = Noto_Serif_SC({
-  variable: "--font-noto-serif-sc",
-  subsets: ["latin"],
-  weight: ["600"],
-  display: "swap",
-});
-
 const interTight = Inter_Tight({
   variable: "--font-inter-tight",
   subsets: ["latin"],
   weight: ["400", "500", "600"],
-  display: "swap",
-});
-
-const notoSansSC = Noto_Sans_SC({
-  variable: "--font-noto-sans-sc",
-  subsets: ["latin"],
-  weight: ["400", "500", "700"],
   display: "swap",
 });
 
@@ -102,7 +88,7 @@ export default function RootLayout({
   return (
     <html
       lang="zh-CN"
-      className={`${fraunces.variable} ${notoSerifSC.variable} ${interTight.variable} ${notoSansSC.variable} ${jetbrainsMono.variable} antialiased`}
+      className={`${fraunces.variable} ${interTight.variable} ${jetbrainsMono.variable} antialiased`}
     >
       <body className="min-h-screen flex flex-col bg-[var(--background)] text-[var(--foreground)]">
         <script

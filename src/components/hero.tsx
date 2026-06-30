@@ -515,16 +515,20 @@ function ResponseDemo() {
         <span className="text-[#8A8474]">↓ 较 GPT-4o 节省 85%</span>
       </div>
 
-      {/* Streaming response text */}
-      <pre className="text-[0.7rem] leading-[1.7] text-[#A6CE8A]/85 font-mono overflow-hidden">
-        {RESPONSE_TEXT.slice(0, displayed)}
-        {displayed < RESPONSE_TEXT.length && (
-          <motion.span
-            className="inline-block w-[2px] h-[0.85em] bg-[#A6CE8A]/70 ml-0.5 align-middle"
-            animate={{ opacity: [1, 0] }}
-            transition={{ duration: 0.5, repeat: Infinity }}
-          />
-        )}
+      {/* Streaming response text — 不可见占位层撑满最终高度，杜绝打字机流式增长造成的 CLS（布局抖动）。
+          可见文本绝对叠加其上，逐字揭示时容器高度恒定。 */}
+      <pre className="relative text-[0.7rem] leading-[1.7] text-[#A6CE8A]/85 font-mono overflow-hidden">
+        <span aria-hidden className="invisible select-none">{RESPONSE_TEXT}</span>
+        <span className="absolute inset-0">
+          {RESPONSE_TEXT.slice(0, displayed)}
+          {displayed < RESPONSE_TEXT.length && (
+            <motion.span
+              className="inline-block w-[2px] h-[0.85em] bg-[#A6CE8A]/70 ml-0.5 align-middle"
+              animate={{ opacity: [1, 0] }}
+              transition={{ duration: 0.5, repeat: Infinity }}
+            />
+          )}
+        </span>
       </pre>
 
       <div className="absolute -bottom-6 -right-6 w-24 h-24 rounded-full bg-[#7FCBA0] opacity-[0.05] blur-[40px] pointer-events-none" />
