@@ -1,0 +1,26 @@
+# LurusTech
+
+> LurusTech 提供 Lugo——企业 AI 基础设施平台：一个 OpenAI 兼容的 LLM 网关接入 30+ 模型（智能路由），配套账户认证（OIDC/RBAC/多租户）、计费钱包（DECIMAL 精度）、AI 记忆（Memorus，向量检索，REST + MCP）与多通道通知（WebSocket/SMTP/FCM）。平台目前公测（Beta），注册即送 $5 免费额度，无需信用卡。
+
+## 核心产品
+
+- [Lugo 平台](https://www.lurus.cn/platform): LLM 网关 + 账户计费 + AI 记忆的企业 AI 基础设施套件
+- [定价](https://www.lurus.cn/pricing): 免费版 / 专业版 / 企业版三档，按量计费，透明无隐藏费用
+- [Hub 控制台](https://hub.lurus.cn): LLM 网关注册与 API Key 管理（OpenAI 兼容）
+- [文档](https://docs.lurus.cn): API 参考与集成指南
+
+## 生态产品
+
+- [Kova](https://www.lurus.cn/kova): Rust 构建的 AI Agent 执行引擎，WAL 崩溃恢复，DAG 任务编排，<1ms P99 延迟
+- [Lucrum](https://www.lurus.cn/lucrum): AI 量化交易，自然语言生成策略，回测到实盘执行
+- [解决方案](https://www.lurus.cn/solutions): SaaS 接入 AI / 企业内部 AI 中台 / AI Agent 开发 / 量化交易场景
+
+## 公司
+
+- [关于我们](https://www.lurus.cn/about)
+- [更新日志](https://www.lurus.cn/blog)
+- [下载](https://www.lurus.cn/download)
+
+## 认证与账户
+
+- [认证中心](https://auth.lurus.cn): OIDC 登录，多租户账户管理

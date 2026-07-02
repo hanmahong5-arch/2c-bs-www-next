@@ -38,6 +38,7 @@ export default function PlatformPage() {
       </section>
 
       <ArchitectureOverview />
+      <Boundaries />
       <RelatedProducts productId="hub" />
       <CTA />
     </>
@@ -73,6 +74,54 @@ function CapabilityStrip() {
               </p>
               <p className="text-[11px] font-mono text-[var(--color-text-muted)] leading-relaxed">
                 {c.desc}
+              </p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// 诚实边界 — 明确 Lugo 不做什么，用克制的技术受众语言建立信任，非营销免责声明。
+function Boundaries() {
+  const items = [
+    {
+      title: "不做模型训练与微调托管",
+      desc: "Lugo 是接入与运营层，训练平台不是我们的战场。",
+    },
+    {
+      title: "Memorus 是应用级 AI 记忆",
+      desc: "不替代超大规模场景下的专业向量数据库集群。",
+    },
+    {
+      title: "不做低代码 / 无代码搭建",
+      desc: "面向工程团队，以 API 与 SDK 交付。",
+    },
+    {
+      title: "BETA 阶段按目标口径承诺",
+      desc: "99.9% 可用性为目标，合同级 SLA 待正式版。",
+    },
+  ];
+
+  return (
+    <section className="py-24 border-t border-[var(--color-border)]">
+      <div className="mx-auto max-w-7xl px-6">
+        <div className="text-center mb-12">
+          <p className="eyebrow mb-3">边界</p>
+          <h2 className="text-3xl font-bold text-[var(--color-text-primary)]">
+            Lugo 不做什么
+          </h2>
+        </div>
+
+        <div className="grid md:grid-cols-2 gap-4">
+          {items.map((item) => (
+            <div key={item.title} className="card p-6">
+              <h3 className="text-base font-semibold text-[var(--color-text-primary)] mb-2">
+                {item.title}
+              </h3>
+              <p className="text-sm text-[var(--color-text-muted)] leading-relaxed">
+                {item.desc}
               </p>
             </div>
           ))}
