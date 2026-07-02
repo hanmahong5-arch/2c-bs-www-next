@@ -14,9 +14,6 @@ import { track } from "@/lib/track";
 import { Aurora } from "./aurora";
 import { AnimatedStat } from "./animated-counter";
 
-// Anthropic-style spring — fast attack, slow settle.
-const EDITORIAL_EASE = [0.16, 1, 0.3, 1] as const;
-
 // ── Multi-language code content ──────────────────────────────────────────────
 
 const LANG_CODE = {
@@ -157,88 +154,57 @@ export function Hero() {
       <div className="mx-auto max-w-7xl px-6 pt-16 pb-20 md:pt-20 md:pb-28 relative">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
           {/* Left: Copy */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7 }}
-          >
-            <motion.div
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 0.2, ease: EDITORIAL_EASE }}
-              className="pill mb-8 w-fit"
+          <div className="hero-enter-up">
+            <div
+              className="pill mb-8 w-fit hero-enter-up"
+              style={{ animationDelay: "0.15s" }}
             >
               <span className="relative flex h-2 w-2">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[var(--color-success)] opacity-75" />
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-[var(--color-success)]" />
               </span>
               企业 AI 基础设施套件
-            </motion.div>
+            </div>
 
-            {/* Headline — word-level staggered reveal */}
-            <motion.h1
-              initial="hidden"
-              animate="visible"
-              variants={{
-                visible: { transition: { staggerChildren: 0.06, delayChildren: 0.25 } },
-              }}
-              className="headline-tight headline-balance text-4xl md:text-5xl lg:text-[4.25rem] font-bold"
-            >
+            {/* Headline — 逐字入场，CSS 驱动(paint 时即动，不等水合)，使 LCP 文本首屏即绘制 */}
+            <h1 className="headline-tight headline-balance text-4xl md:text-5xl lg:text-[4.25rem] font-bold">
               <span className="block">
                 {"一行代码".split("").map((ch, i) => (
-                  <motion.span
+                  <span
                     key={`l1-${i}`}
-                    className="text-[var(--color-text-primary)] inline-block"
-                    variants={{
-                      hidden: { opacity: 0, y: 24 },
-                      visible: {
-                        opacity: 1,
-                        y: 0,
-                        transition: { duration: 0.7, ease: EDITORIAL_EASE },
-                      },
-                    }}
+                    className="text-[var(--color-text-primary)] hero-char"
+                    style={{ animationDelay: `${0.25 + i * 0.06}s` }}
                   >
                     {ch}
-                  </motion.span>
+                  </span>
                 ))}
               </span>
               <span className="inline-block text-[var(--color-text-primary)] sketch-underline">
                 {"接入所有 AI".split("").map((ch, i) => (
-                  <motion.span
+                  <span
                     key={`l2-${i}`}
-                    className="inline-block"
-                    variants={{
-                      hidden: { opacity: 0, y: 24 },
-                      visible: {
-                        opacity: 1,
-                        y: 0,
-                        transition: { duration: 0.7, ease: EDITORIAL_EASE },
-                      },
-                    }}
+                    className="hero-char"
+                    style={{ animationDelay: `${0.25 + (4 + i) * 0.06}s` }}
                   >
                     {ch === " " ? "\u00A0" : ch}
-                  </motion.span>
+                  </span>
                 ))}
               </span>
-            </motion.h1>
+            </h1>
 
-            <motion.p
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.85, duration: 0.6, ease: EDITORIAL_EASE }}
-              className="mt-6 text-lg text-[var(--color-text-secondary)] max-w-lg leading-[1.65]"
+            <p
+              className="mt-6 text-lg text-[var(--color-text-secondary)] max-w-lg leading-[1.65] hero-enter-up"
+              style={{ animationDelay: "0.85s" }}
             >
               30+ 模型供应商，一个端点，路由 p50 100ms 以内——你的团队只需对接一次。
               <span className="block mt-1.5">
                 每个部门的用量、成本与调用日志，实时可查、笔笔可审计。
               </span>
-            </motion.p>
+            </p>
 
-            <motion.div
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 1.0, ease: EDITORIAL_EASE }}
-              className="mt-8"
+            <div
+              className="mt-8 hero-enter-up"
+              style={{ animationDelay: "1s" }}
             >
               {/* Developer-oriented monospace hint */}
               <p className="eyebrow mb-3 font-mono normal-case tracking-[0.05em] text-[0.7rem]">
@@ -298,8 +264,8 @@ export function Hero() {
                 <span className="w-px h-3 bg-[var(--color-border)]" />
                 <span>免费额度 $5 · 无需信用卡</span>
               </div>
-            </motion.div>
-          </motion.div>
+            </div>
+          </div>
 
           {/* Right: Code demo + streaming response */}
           <motion.div

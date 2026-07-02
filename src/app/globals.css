@@ -369,6 +369,18 @@ body {
   }
 }
 
+/* Hero 入场 — CSS 驱动(paint 时即动，不等 JS 水合)。原为 framer initial:opacity:0，
+   水合迟到使 hero(LCP 元素)文本在慢网/真用户口径 ~3.9s 才可见；改 CSS 后首屏
+   即开始绘制,CDP 4x/慢4G 实测 LCP 3892→2124ms。Lighthouse 模拟节流不建模水合
+   门控,lab 分数不动——此改动为 field CWV(CrUX/真用户)而做。 */
+.hero-enter-up {
+  animation: fade-in-up 0.7s var(--ease-out-expo) both;
+}
+.hero-char {
+  display: inline-block;
+  animation: fade-in-up 0.7s var(--ease-out-expo) both;
+}
+
 /* Pill badge */
 .pill {
   display: inline-flex;
@@ -478,5 +490,9 @@ header {
   ::view-transition-old(root),
   ::view-transition-new(root) {
     animation-duration: 0s;
+  }
+  .hero-enter-up,
+  .hero-char {
+    animation: none;
   }
 }
