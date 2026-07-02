@@ -8,6 +8,36 @@ export const metadata: Metadata = {
 
 const updates = [
   {
+    date: "2026-06",
+    title: "hub.lurus.cn BETA 公测",
+    desc: "OpenAI 兼容网关开放注册，30+ 模型智能路由，注册即送 $5 免费额度，无需信用卡。",
+    tags: ["Hub", "Beta"],
+  },
+  {
+    date: "2026-06",
+    title: "官网首屏性能优化",
+    desc: "字体负载 1.2MB → 111KB，布局抖动（CLS）清零，移动端加载体验大幅提升。",
+    tags: ["Web"],
+  },
+  {
+    date: "2026-06",
+    title: "Lugo 平台品牌发布",
+    desc: "网关 / 账户认证 / 计费钱包 / AI 记忆 / 多通道通知五项能力统一为 Lugo 平台口径，官网信息架构同步重构，对比与成本计算前置。",
+    tags: ["Platform", "Brand"],
+  },
+  {
+    date: "2026-06",
+    title: "Lutu Android 版开放下载",
+    desc: "移动端消费者应用 Lutu 正式可下载，接入 Hub 统一 API，同一账户体系管理所有 AI 用量与计费。",
+    tags: ["Lutu"],
+  },
+  {
+    date: "2026-05",
+    title: "多租户 LLM Hub 进入预生产",
+    desc: "Lurus Hub（lurus-newhub）上线预生产：OpenAI 兼容接口、多租户隔离、智能渠道路由、实时用量分析。",
+    tags: ["Hub", "Platform"],
+  },
+  {
     date: "2026-04",
     title: "Lurus Hub 数据处理层上线",
     desc: "ChannelScorer 智能渠道评分 + UsageAggregator 用量聚合管道，实时优化 API 路由决策。",
