@@ -57,7 +57,8 @@ export const metadata: Metadata = {
   },
 };
 
-// schema.org 结构化数据 — 让搜索引擎理解组织与站点，提升 rich results。
+// schema.org 结构化数据 — 让搜索引擎与 AI 检索理解组织/站点/核心产品实体图谱。
+// 字段全部取自已验证真源（products.ts / footer 备案实体），不含臆造 offers/评分/可用性。
 const jsonLd = {
   "@context": "https://schema.org",
   "@graph": [
@@ -65,9 +66,11 @@ const jsonLd = {
       "@type": "Organization",
       "@id": `${SITE_URL}/#org`,
       name: "LurusTech",
+      legalName: "硅知睿智能科技（烟台）有限公司",
       url: SITE_URL,
       logo: `${SITE_URL}/favicon.ico`,
       description: SITE_DESC,
+      sameAs: ["https://github.com/hanmahong5-arch"],
     },
     {
       "@type": "WebSite",
@@ -75,6 +78,39 @@ const jsonLd = {
       name: "LurusTech",
       url: SITE_URL,
       inLanguage: "zh-CN",
+      publisher: { "@id": `${SITE_URL}/#org` },
+    },
+    {
+      "@type": "SoftwareApplication",
+      "@id": `${SITE_URL}/platform#lugo`,
+      name: "Lugo",
+      applicationCategory: "DeveloperApplication",
+      operatingSystem: "Web, API",
+      url: `${SITE_URL}/platform`,
+      description:
+        "企业 AI 基础设施平台：OpenAI 兼容 LLM 网关（30+ 模型智能路由）+ 账户认证（OIDC/RBAC/多租户）+ 计费钱包 + AI 记忆（向量检索，REST/MCP）+ 多通道通知。",
+      publisher: { "@id": `${SITE_URL}/#org` },
+    },
+    {
+      "@type": "SoftwareApplication",
+      "@id": `${SITE_URL}/kova#app`,
+      name: "Kova",
+      applicationCategory: "DeveloperApplication",
+      operatingSystem: "Linux, Web",
+      url: `${SITE_URL}/kova`,
+      description:
+        "AI Agent 执行引擎：WAL 持久化崩溃恢复、DAG 拓扑调度、gRPC/REST/MCP 多协议、单二进制嵌入式部署。",
+      publisher: { "@id": `${SITE_URL}/#org` },
+    },
+    {
+      "@type": "SoftwareApplication",
+      "@id": `${SITE_URL}/lucrum#app`,
+      name: "Lucrum",
+      applicationCategory: "FinanceApplication",
+      operatingSystem: "Web",
+      url: `${SITE_URL}/lucrum`,
+      description:
+        "AI 量化交易：自然语言生成策略、历史回测、实盘执行、策略市场。",
       publisher: { "@id": `${SITE_URL}/#org` },
     },
   ],
