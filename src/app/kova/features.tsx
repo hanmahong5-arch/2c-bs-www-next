@@ -4,50 +4,71 @@ import { motion } from "framer-motion";
 import {
   CircleStackIcon,
   ArrowPathRoundedSquareIcon,
-  BoltIcon,
+  ShieldCheckIcon,
+  ClipboardDocumentCheckIcon,
   CubeIcon,
-  PuzzlePieceIcon,
-  CodeBracketIcon,
+  LockClosedIcon,
 } from "@heroicons/react/24/outline";
 import type { ComponentType, SVGProps } from "react";
+import { METRICS } from "./metrics";
 
 type HeroIcon = ComponentType<SVGProps<SVGSVGElement>>;
 
-const features: { icon: HeroIcon; title: string; desc: string; accent?: boolean }[] = [
+/* ── 问题节:崩溃重跑的三重代价 ── */
+
+const costs = [
   {
-    icon: CircleStackIcon,
-    title: "WAL 崩溃恢复",
-    desc: "Write-Ahead Log 持久化每一步执行状态，Agent 崩溃后精确恢复到最后检查点，零数据丢失。",
-    accent: true,
+    title: "重复烧推理费",
+    desc: "从头重跑,意味着已经付过钱的每一次 LLM 调用再付一遍。流程越长、模型越贵,崩一次的账单越难看。",
   },
   {
-    icon: ArrowPathRoundedSquareIcon,
-    title: "DAG 拓扑调度",
-    desc: "复杂工作流用有向无环图建模，自动并行执行无依赖节点，最大化吞吐。",
+    title: "副作用重放",
+    desc: "邮件重发、工单重开、下游接口重打——重跑不是无害的重试,是新的事故。",
   },
   {
-    icon: BoltIcon,
-    title: "微秒级延迟",
-    desc: "Rust 零成本抽象 + 异步运行时，调度延迟 <1ms P99，适合实时 Agent 场景。",
-  },
-  {
-    icon: CubeIcon,
-    title: "零外部依赖",
-    desc: "不需要 Redis、PostgreSQL 或消息队列。单个二进制文件包含一切，嵌入式部署。",
-  },
-  {
-    icon: PuzzlePieceIcon,
-    title: "多协议支持",
-    desc: "原生 gRPC + REST API，兼容 MCP (Model Context Protocol) 和 A2A (Agent-to-Agent)。",
-  },
-  {
-    icon: CodeBracketIcon,
-    title: "Python 集成",
-    desc: "PyO3 绑定，在 Python 中直接使用 Kova 引擎，兼容 LangChain / AutoGen 等框架。",
+    title: "审计断链",
+    desc: "崩溃点前后的执行记录接不上。客户、内控或审计方问起时,只剩日志碎片和口头解释。",
   },
 ];
 
-// WAL 崩溃恢复演示日志行 — 所有内容均为示意，注释已标注
+function ProblemSection() {
+  return (
+    <section className="py-24 border-t border-[var(--color-border)]">
+      <div className="mx-auto max-w-7xl px-6">
+        <div className="text-center mb-12">
+          <p className="eyebrow text-[var(--accent)] mb-3">为什么值得较真</p>
+          <h2 className="text-3xl font-bold text-[var(--color-text-primary)]">
+            Agent 崩溃重跑,烧的不只是钱
+          </h2>
+        </div>
+
+        <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+          {costs.map((c, i) => (
+            <motion.div
+              key={c.title}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: i * 0.08 }}
+              className="card p-6"
+            >
+              <h3 className="text-lg font-semibold text-[var(--color-text-primary)]">
+                {c.title}
+              </h3>
+              <p className="mt-3 text-sm text-[var(--color-text-muted)] leading-relaxed">
+                {c.desc}
+              </p>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ── 崩溃自愈节 ── */
+
+// WAL 崩溃恢复演示日志行 — 所有内容均为示意,窗口 badge 已标注
 const WAL_LOG_LINES = [
   // 正常 checkpoint 阶段
   {
@@ -101,20 +122,6 @@ const WAL_LOG_LINES = [
     detail: "next_step=write_response",
     kind: "ok",
   },
-];
-
-// PyO3 Python 示意用法
-// SAFE for dangerouslySetInnerHTML: 编译期静态常量，无用户/外部输入。
-const PYTHON_LINES = [
-  '<span class="comment"># 示例 — PyO3 绑定，在 Python 中驱动 Kova 引擎</span>',
-  '<span class="keyword">import</span> <span class="punctuation">kova</span>',
-  "",
-  '<span class="punctuation">engine = kova.</span><span class="function">Engine</span><span class="punctuation">(</span><span class="property">wal_dir</span><span class="punctuation">=</span><span class="string">"/data/kova-wal"</span><span class="punctuation">)</span>  <span class="comment"># 示例</span>',
-  '<span class="punctuation">session = engine.</span><span class="function">new_session</span><span class="punctuation">()</span>',
-  "",
-  '<span class="comment"># 示例 — 运行 DAG 工作流，崩溃后可从最后检查点恢复</span>',
-  '<span class="punctuation">result = session.</span><span class="function">run</span><span class="punctuation">(</span><span class="property">workflow</span><span class="punctuation">=</span><span class="string">"my_agent_dag"</span><span class="punctuation">)</span>',
-  '<span class="function">print</span><span class="punctuation">(result.</span><span class="property">last_checkpoint</span><span class="punctuation">)  </span><span class="comment"># seq, step, elapsed_ms</span>',
 ];
 
 function WalLogDemo() {
@@ -194,55 +201,144 @@ function WalLogDemo() {
   );
 }
 
-function PythonDemo() {
-  return (
-    <div className="code-block p-5 relative overflow-hidden shadow-[var(--shadow-lg)]">
-      {/* 窗口 chrome */}
-      <div className="flex items-center gap-2 mb-4 pb-3 border-b border-white/10">
-        <div className="flex gap-1.5 shrink-0">
-          <div className="w-3 h-3 rounded-full bg-white/15" />
-          <div className="w-3 h-3 rounded-full bg-white/15" />
-          <div className="w-3 h-3 rounded-full bg-white/15" />
-        </div>
-        <span className="text-xs text-[#8A8474] ml-2 font-mono">agent.py</span>
-        <span className="ml-auto text-[10px] font-mono text-[#7C7565] italic">
-          PyO3 绑定 · 示例
-        </span>
-      </div>
+/* ── 有源能力卡(每张卡的主张都有实测/文档出处,见 metrics.ts 注释) ── */
 
-      <pre className="text-[0.8125rem] leading-[1.8]">
-        <code>
-          {PYTHON_LINES.map((line, i) => (
-            <motion.div
-              key={i}
-              className="flex"
-              initial={{ opacity: 0, x: -6 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.05 + i * 0.07, duration: 0.25 }}
-            >
-              <span className="line-number hidden sm:block">{i + 1}</span>
-              <span dangerouslySetInnerHTML={{ __html: line || " " }} />
-            </motion.div>
-          ))}
-        </code>
-      </pre>
-    </div>
-  );
-}
+const features: { icon: HeroIcon; title: string; desc: string; accent?: boolean }[] = [
+  {
+    icon: CircleStackIcon,
+    title: "WAL 逐步落盘",
+    desc: `每一步执行前先写 WAL 再执行。进程被杀、断电、OOM——重启后从最后安全点续跑,kill -9 实测 p50 ${METRICS.rto.p50Ms}ms 恢复服务。`,
+    accent: true,
+  },
+  {
+    icon: ArrowPathRoundedSquareIcon,
+    title: "已完成的 LLM 调用不重发",
+    desc: "调用指令与结果逐条持久化,崩溃恢复时直接复用已落盘的结果。零重发由网络边界独立抓包作证,不是运行时自说自话。",
+    accent: true,
+  },
+  {
+    icon: ShieldCheckIcon,
+    title: "防篡改执行记录",
+    desc: "WAL 逐条 HMAC,支持国密 SM3(GB/T 32905-2016)。被改过一个字节的记录,读取时当场响亮拒绝,不静默降级。",
+  },
+  {
+    icon: ClipboardDocumentCheckIcon,
+    title: "一条命令出证",
+    desc: "导出执行证据包,审计方在自己的机器上离线核验——不访问你的服务、不需要任何密钥。",
+  },
+  {
+    icon: CubeIcon,
+    title: "零外部依赖",
+    desc: "单二进制 + 单 WAL 文件。不需要 PG、Redis 或消息队列,部署在你自己的服务器上,数据不出内网。",
+  },
+  {
+    icon: LockClosedIcon,
+    title: "字节级兼容承诺",
+    desc: "WAL v1 磁盘格式受黄金文件 CI 门禁保护:今天写下的执行记录,版本升级后仍逐字节可读。",
+  },
+];
 
 export function KovaFeatures() {
   return (
     <>
-      {/* ── 核心特性网格 ── */}
+      <ProblemSection />
+
+      {/* ── WAL 崩溃恢复装置 ── */}
+      <section className="py-24 border-t border-[var(--color-border)]">
+        <div className="mx-auto max-w-7xl px-6">
+          <div className="mb-12">
+            <p className="eyebrow text-[var(--accent)] mb-3">实测,不是承诺</p>
+            <h2 className="text-3xl font-bold text-[var(--color-text-primary)]">
+              kill -9 之后,{METRICS.rto.p50Ms} 毫秒回到工作状态
+            </h2>
+            <p className="mt-4 text-[var(--color-text-secondary)] max-w-xl leading-relaxed">
+              WAL(Write-Ahead Log)在每一步执行前先落盘。进程被杀、机器断电——
+              重启后从最后一个安全点精确续跑,已完成的步骤不重放,已完成的 LLM
+              调用不重发。
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-start">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5 }}
+            >
+              <WalLogDemo />
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.15, duration: 0.5 }}
+              className="space-y-4"
+            >
+              {/* 说明卡片 */}
+              <div className="card p-5 space-y-3">
+                <div className="flex items-start gap-3">
+                  <span
+                    className="mt-0.5 w-2 h-2 rounded-full shrink-0"
+                    style={{ background: "#A6CE8A", marginTop: "0.4rem" }}
+                  />
+                  <div>
+                    <p className="text-sm font-medium text-[var(--color-text-primary)]">
+                      正常执行:逐步写入 WAL
+                    </p>
+                    <p className="mt-1 text-xs text-[var(--color-text-muted)] leading-relaxed">
+                      每完成一个 step,引擎先将状态序列化写入 WAL 文件,
+                      再继续下一步。checkpoint 序号单调递增。
+                    </p>
+                  </div>
+                </div>
+                <div className="flex items-start gap-3">
+                  <span
+                    className="w-2 h-2 rounded-full shrink-0"
+                    style={{ background: "#F08080", marginTop: "0.4rem" }}
+                  />
+                  <div>
+                    <p className="text-sm font-medium text-[var(--color-text-primary)]">
+                      崩溃:进程中止,内存全部丢失
+                    </p>
+                    <p className="mt-1 text-xs text-[var(--color-text-muted)] leading-relaxed">
+                      SIGKILL / OOM / 机器掉电——所有堆内状态消失。
+                      但 WAL 文件完好,落盘的最后 seq 被保留。
+                    </p>
+                  </div>
+                </div>
+                <div className="flex items-start gap-3">
+                  <span
+                    className="w-2 h-2 rounded-full shrink-0"
+                    style={{ background: "#ED9F62", marginTop: "0.4rem" }}
+                  />
+                  <div>
+                    <p className="text-sm font-medium text-[var(--color-text-primary)]">
+                      恢复:从最后安全点续跑,已完成调用不重发
+                    </p>
+                    <p className="mt-1 text-xs text-[var(--color-text-muted)] leading-relaxed">
+                      引擎重启后 replay WAL,跳过已完成步骤;已落盘结果的 LLM
+                      调用直接复用,不再向上游重发。崩溃续跑演练中,该行为由
+                      网络边界抓包逐请求核对({METRICS.zeroDuplicate.crashTrials}{" "}
+                      零重发,{METRICS.zeroDuplicate.date})。
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── 能力网格 ── */}
       <section className="py-24 border-t border-[var(--color-border)]">
         <div className="mx-auto max-w-7xl px-6">
           <div className="text-center mb-16">
             <h2 className="text-3xl font-bold">
-              <span className="text-gradient-gold">核心特性</span>
+              <span className="text-gradient-gold">拿得出证据的能力</span>
             </h2>
             <p className="mt-4 text-[var(--color-text-secondary)]">
-              为 AI Agent 运行时而生
+              每一条主张,都对应一份可交付的实测记录或客户文档
             </p>
           </div>
 
@@ -273,93 +369,6 @@ export function KovaFeatures() {
                 </motion.div>
               );
             })}
-          </div>
-        </div>
-      </section>
-
-      {/* ── WAL 崩溃恢复装置 ── */}
-      <section className="py-24 border-t border-[var(--color-border)]">
-        <div className="mx-auto max-w-7xl px-6">
-          <div className="mb-12">
-            <p className="eyebrow text-[var(--accent)] mb-3">核心保障</p>
-            <h2 className="text-3xl font-bold text-[var(--color-text-primary)]">
-              崩溃？精确恢复到最后安全点
-            </h2>
-            <p className="mt-4 text-[var(--color-text-secondary)] max-w-xl leading-relaxed">
-              WAL（Write-Ahead Log）在每一步执行前先落盘。进程被杀、机器断电——
-              重启后从最后一个 checkpoint 精确续跑，已完成的步骤不会重放。
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-start">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5 }}
-            >
-              <WalLogDemo />
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.15, duration: 0.5 }}
-              className="space-y-4"
-            >
-              {/* 说明卡片 */}
-              <div className="card p-5 space-y-3">
-                <div className="flex items-start gap-3">
-                  <span
-                    className="mt-0.5 w-2 h-2 rounded-full shrink-0"
-                    style={{ background: "#A6CE8A", marginTop: "0.4rem" }}
-                  />
-                  <div>
-                    <p className="text-sm font-medium text-[var(--color-text-primary)]">
-                      正常执行：逐步写入 WAL
-                    </p>
-                    <p className="mt-1 text-xs text-[var(--color-text-muted)] leading-relaxed">
-                      每完成一个 step，引擎先将状态序列化写入 WAL 文件，
-                      再继续下一步。checkpoint 序号单调递增。
-                    </p>
-                  </div>
-                </div>
-                <div className="flex items-start gap-3">
-                  <span
-                    className="w-2 h-2 rounded-full shrink-0"
-                    style={{ background: "#F08080", marginTop: "0.4rem" }}
-                  />
-                  <div>
-                    <p className="text-sm font-medium text-[var(--color-text-primary)]">
-                      崩溃：进程中止，内存全部丢失
-                    </p>
-                    <p className="mt-1 text-xs text-[var(--color-text-muted)] leading-relaxed">
-                      SIGKILL / OOM / 机器掉电——所有堆内状态消失。
-                      但 WAL 文件完好，落盘的最后 seq 被保留。
-                    </p>
-                  </div>
-                </div>
-                <div className="flex items-start gap-3">
-                  <span
-                    className="w-2 h-2 rounded-full shrink-0"
-                    style={{ background: "#ED9F62", marginTop: "0.4rem" }}
-                  />
-                  <div>
-                    <p className="text-sm font-medium text-[var(--color-text-primary)]">
-                      恢复：从最后安全 checkpoint 续跑
-                    </p>
-                    <p className="mt-1 text-xs text-[var(--color-text-muted)] leading-relaxed">
-                      引擎重启后 replay WAL，跳过已完成步骤，
-                      从最后写入的 step 之后继续，无需人工介入。
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-              {/* Python 绑定示意 */}
-              <PythonDemo />
-            </motion.div>
           </div>
         </div>
       </section>
