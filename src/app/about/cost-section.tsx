@@ -73,7 +73,7 @@ export function CostSection() {
               {/* 强调色左边框 */}
               <div
                 className="w-0.5 h-5 mb-4 rounded-full"
-                style={{ background: "var(--accent)" }}
+                style={{ background: "var(--lt-accent)" }}
                 aria-hidden="true"
               />
               <p className="type-h3 text-[var(--color-text-primary)] mb-2">

@@ -57,6 +57,7 @@ export function CommandPalette() {
   const [activeIdx, setActiveIdx] = useState(0);
   const router = useRouter();
   const inputRef = useRef<HTMLInputElement>(null);
+  const panelRef = useRef<HTMLDivElement>(null);
 
   // Single close path: reset query + active index alongside open=false.
   const closePalette = useCallback(() => {
@@ -121,6 +122,30 @@ export function CommandPalette() {
     return () => window.removeEventListener("keydown", onKey);
   }, [open, filteredFlat, activeIdx, router, closePalette]);
 
+  // Focus trap: keep Tab/Shift+Tab cycling within the panel while open, so
+  // keyboard users can't tab out onto the dimmed background page.
+  useEffect(() => {
+    if (!open) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key !== "Tab" || !panelRef.current) return;
+      const focusable = panelRef.current.querySelectorAll<HTMLElement>(
+        'a[href], button:not([disabled]), input, [tabindex]:not([tabindex="-1"])'
+      );
+      if (focusable.length === 0) return;
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [open]);
+
   return (
     <AnimatePresence>
       {open && (
@@ -133,6 +158,10 @@ export function CommandPalette() {
           onClick={closePalette}
         >
           <motion.div
+            ref={panelRef}
+            role="dialog"
+            aria-modal="true"
+            aria-label="命令面板"
             initial={{ y: -16, scale: 0.97, opacity: 0 }}
             animate={{ y: 0, scale: 1, opacity: 1 }}
             exit={{ y: -8, scale: 0.98, opacity: 0 }}

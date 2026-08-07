@@ -1,7 +1,8 @@
+import { Suspense } from "react";
 import type { Metadata } from "next";
 import { PageHero } from "@/components/page-hero";
 import { DownloadCards } from "./cards";
-import { LutuAndroidSection } from "./lutu-android";
+import { LutuAndroidSection, LutuAndroidSkeleton } from "./lutu-android";
 
 export const metadata: Metadata = {
   title: "下载",
@@ -17,7 +18,11 @@ export default function DownloadPage() {
         title="AI 装进口袋，离线也能用"
         description="路途 APP 把 Lurus 全家桶装进手机；Switch / Creator 桌面工具内测申请中。"
       />
-      <LutuAndroidSection />
+      {/* 只有这一段依赖外部 releases.lurus.cn 的 manifest；用 Suspense 圈住，
+          releases 慢/挂时页面其余部分照常先出，不被一个外部依赖拖成整页白屏。 */}
+      <Suspense fallback={<LutuAndroidSkeleton />}>
+        <LutuAndroidSection />
+      </Suspense>
       <DownloadCards />
       <SystemRequirements />
     </>

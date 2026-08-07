@@ -180,7 +180,7 @@ export function LucrumFeatures() {
               className="card p-6"
             >
               <f.Icon
-                className="w-7 h-7 text-[var(--accent)]"
+                className="w-7 h-7 text-[var(--lt-accent)]"
                 strokeWidth={1.5}
               />
               <h3 className="mt-4 text-lg font-semibold text-[var(--color-text-primary)]">

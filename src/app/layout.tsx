@@ -1,13 +1,19 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import {
   Fraunces,
   Inter_Tight,
   JetBrains_Mono,
 } from "next/font/google";
+import Script from "next/script";
+import { MotionConfig } from "framer-motion";
 import "./globals.css";
 import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
 import { CommandPalette } from "@/components/command-palette";
+
+// 暗色模式先于 hydration 应用，避免浅色→深色的闪烁（FOUC）。
+// 读取失败（隐私模式等）时静默回退浅色，不影响页面渲染。
+const THEME_INIT_SCRIPT = `(function(){try{var t=localStorage.getItem('theme');if(t==='dark'||(!t&&window.matchMedia('(prefers-color-scheme: dark)').matches)){document.documentElement.classList.add('dark');}}catch(e){}})();`;
 
 // 仅自托管 Latin 主字体；中文走系统 CJK 字体回退（见 globals.css 字体栈）。
 // 原 Noto Sans/Serif SC webfont 用 subsets:["latin"] 加载——不含中文字形（中文本就
@@ -55,6 +61,14 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
   },
+};
+
+// 显式声明 viewport（Next 的 metadata/viewport 已分家；此处写的正是 Next 的默认
+// 值，落地 meta 与改动前逐字符相同 —— 显式化是为了把它变成可 review 的约定，
+// 而不是靠框架默认值“碰巧对”）。
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
 };
 
 // schema.org 结构化数据 — 让搜索引擎与 AI 检索理解组织/站点/核心产品实体图谱。
@@ -124,17 +138,25 @@ export default function RootLayout({
   return (
     <html
       lang="zh-CN"
+      suppressHydrationWarning
       className={`${fraunces.variable} ${interTight.variable} ${jetbrainsMono.variable} antialiased`}
     >
       <body className="min-h-screen flex flex-col bg-[var(--background)] text-[var(--foreground)]">
+        <Script id="theme-init" strategy="beforeInteractive">
+          {THEME_INIT_SCRIPT}
+        </Script>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
-        <Header />
-        <main className="flex-1">{children}</main>
-        <Footer />
-        <CommandPalette />
+        {/* reducedMotion="user" 让全站 framer-motion 动画（含 repeat:Infinity 的呼吸/漂移效果）
+            自动尊重系统"减弱动态效果"偏好，无需逐组件改造。 */}
+        <MotionConfig reducedMotion="user">
+          <Header />
+          <main className="flex-1">{children}</main>
+          <Footer />
+          <CommandPalette />
+        </MotionConfig>
       </body>
     </html>
   );

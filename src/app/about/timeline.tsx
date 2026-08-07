@@ -62,7 +62,7 @@ export function Timeline() {
           >
             {/* 轴上圆点 */}
             <span
-              className="absolute -left-[39px] top-2 w-3 h-3 rounded-full bg-[var(--accent)] border-2 border-[var(--paper)]"
+              className="absolute -left-[39px] top-2 w-3 h-3 rounded-full bg-[var(--lt-accent)] border-2 border-[var(--lt-paper)]"
               aria-hidden="true"
             />
 
@@ -71,7 +71,7 @@ export function Timeline() {
               <span className="font-mono text-xs text-[var(--color-text-muted)] tabular-nums">
                 {m.date}
               </span>
-              <span className="eyebrow" style={{ color: "var(--accent)" }}>
+              <span className="eyebrow" style={{ color: "var(--lt-accent)" }}>
                 {m.tag}
               </span>
             </div>

@@ -53,25 +53,63 @@ async function fetchManifest(): Promise<LutuManifest | null> {
   }
 }
 
+// 段落抬头是纯静态的，骨架态照样能出 —— 抽出来给 Section 和 Skeleton 共用，
+// 保证 fallback 与最终态的版式完全对齐（只有卡片区在变）。
+function SectionHeader() {
+  return (
+    <div className="text-center mb-12">
+      <div className="inline-flex items-center gap-2 mb-4 px-3 py-1 rounded-full border border-[var(--color-border)] text-xs text-[var(--color-text-muted)]">
+        <DevicePhoneMobileIcon className="w-3.5 h-3.5" />
+        移动端
+      </div>
+      <h2 className="text-3xl font-bold mb-3">
+        路途 Lutu · <span className="text-gradient-gold">Android</span>
+      </h2>
+      <p className="text-[var(--color-text-muted)] max-w-2xl mx-auto">
+        一个 APP 把 Lurus 全家桶装进口袋：AI 对话、量化看盘、钱包、签到。
+        支持联网搜索、AI 记忆、5 槽自定义底栏。
+      </p>
+    </div>
+  );
+}
+
+// Suspense fallback：manifest 走的是外部 releases.lurus.cn 的服务端 fetch，
+// 不该让 /download 的其余内容陪着一起等。见 page.tsx 的 <Suspense>。
+export function LutuAndroidSkeleton() {
+  return (
+    <section className="py-24 border-t border-[var(--color-border)]">
+      <div className="mx-auto max-w-5xl px-6">
+        <SectionHeader />
+        <div
+          role="status"
+          aria-label="正在获取安装包信息"
+          className="card p-8 animate-pulse motion-reduce:animate-none"
+        >
+          <div className="flex items-baseline justify-between mb-6 gap-4">
+            <div className="flex-1 min-w-0">
+              <div className="h-7 w-28 rounded-lg bg-[var(--color-surface)]" />
+              <div className="h-3 w-40 max-w-full mt-2 rounded-full bg-[var(--color-surface)]" />
+            </div>
+            <div className="h-10 w-36 shrink-0 rounded-xl bg-[var(--color-surface)]" />
+          </div>
+          <div className="grid sm:grid-cols-3 gap-3">
+            <div className="h-[86px] rounded-xl bg-[var(--color-surface)]" />
+            <div className="h-[86px] rounded-xl bg-[var(--color-surface)]" />
+            <div className="h-[86px] rounded-xl bg-[var(--color-surface)]" />
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 export async function LutuAndroidSection() {
   const manifest = await fetchManifest();
 
   return (
     <section className="py-24 border-t border-[var(--color-border)]">
       <div className="mx-auto max-w-5xl px-6">
-        <div className="text-center mb-12">
-          <div className="inline-flex items-center gap-2 mb-4 px-3 py-1 rounded-full border border-[var(--color-border)] text-xs text-[var(--color-text-muted)]">
-            <DevicePhoneMobileIcon className="w-3.5 h-3.5" />
-            移动端
-          </div>
-          <h2 className="text-3xl font-bold mb-3">
-            路途 Lutu · <span className="text-gradient-gold">Android</span>
-          </h2>
-          <p className="text-[var(--color-text-muted)] max-w-2xl mx-auto">
-            一个 APP 把 Lurus 全家桶装进口袋：AI 对话、量化看盘、钱包、签到。
-            支持联网搜索、AI 记忆、5 槽自定义底栏。
-          </p>
-        </div>
+        <SectionHeader />
 
         {manifest ? (
           <div className="card p-8">

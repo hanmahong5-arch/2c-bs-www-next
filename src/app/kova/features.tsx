@@ -36,7 +36,7 @@ function ProblemSection() {
     <section className="py-24 border-t border-[var(--color-border)]">
       <div className="mx-auto max-w-7xl px-6">
         <div className="text-center mb-12">
-          <p className="eyebrow text-[var(--accent)] mb-3">为什么值得较真</p>
+          <p className="eyebrow text-[var(--lt-accent)] mb-3">为什么值得较真</p>
           <h2 className="text-3xl font-bold text-[var(--color-text-primary)]">
             Agent 崩溃重跑,烧的不只是钱
           </h2>
@@ -129,7 +129,7 @@ function WalLogDemo() {
     <div className="code-block p-5 relative overflow-hidden shadow-[var(--shadow-window)]">
       {/* 橙色边缘光晕 */}
       <div className="absolute inset-0 rounded-xl opacity-30 pointer-events-none">
-        <div className="absolute -inset-[1px] rounded-xl bg-gradient-to-br from-[var(--accent)]/20 via-transparent to-[var(--accent)]/8" />
+        <div className="absolute -inset-[1px] rounded-xl bg-gradient-to-br from-[var(--lt-accent)]/20 via-transparent to-[var(--lt-accent)]/8" />
       </div>
 
       {/* 窗口 chrome */}
@@ -140,7 +140,7 @@ function WalLogDemo() {
           <div className="w-3 h-3 rounded-full bg-[#28c840]" />
         </div>
         <span className="text-xs text-[#8A8474] ml-2 font-mono">kova-runtime.log</span>
-        <span className="ml-auto text-[10px] font-mono px-2 py-0.5 rounded-full bg-[var(--accent)]/10 text-[var(--accent)] border border-[var(--accent)]/25">
+        <span className="ml-auto text-[10px] font-mono px-2 py-0.5 rounded-full bg-[var(--lt-accent)]/10 text-[var(--lt-accent)] border border-[var(--lt-accent)]/25">
           WAL 崩溃恢复 · 示例
         </span>
       </div>
@@ -196,7 +196,7 @@ function WalLogDemo() {
       </pre>
 
       {/* 底部辉光 */}
-      <div className="absolute -bottom-8 -right-8 w-32 h-32 rounded-full bg-[var(--accent)] opacity-[0.07] blur-[50px] pointer-events-none" />
+      <div className="absolute -bottom-8 -right-8 w-32 h-32 rounded-full bg-[var(--lt-accent)] opacity-[0.07] blur-[50px] pointer-events-none" />
     </div>
   );
 }
@@ -247,7 +247,7 @@ export function KovaFeatures() {
       <section className="py-24 border-t border-[var(--color-border)]">
         <div className="mx-auto max-w-7xl px-6">
           <div className="mb-12">
-            <p className="eyebrow text-[var(--accent)] mb-3">实测,不是承诺</p>
+            <p className="eyebrow text-[var(--lt-accent)] mb-3">实测,不是承诺</p>
             <h2 className="text-3xl font-bold text-[var(--color-text-primary)]">
               kill -9 之后,{METRICS.rto.p50Ms} 毫秒回到工作状态
             </h2>
@@ -357,7 +357,7 @@ export function KovaFeatures() {
                   <Icon
                     className="w-6 h-6"
                     style={{
-                      color: f.accent ? "var(--accent)" : "var(--color-text-secondary)",
+                      color: f.accent ? "var(--lt-accent)" : "var(--color-text-secondary)",
                     }}
                   />
                   <h3 className="mt-4 text-lg font-semibold text-[var(--color-text-primary)]">

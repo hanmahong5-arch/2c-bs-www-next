@@ -47,13 +47,13 @@ const personaIcons: Record<string, HeroIcon> = {
 // Priority badge colors
 const priorityStyle: Record<string, string> = {
   P0: "bg-[var(--color-accent)]/10 text-[var(--color-accent)] border-[var(--color-accent)]/20",
-  P1: "bg-[var(--accent-2)]/8 text-[var(--accent-2)] border-[var(--accent-2)]/20",
+  P1: "bg-[var(--lt-accent-2)]/8 text-[var(--lt-accent-2)] border-[var(--lt-accent-2)]/20",
   P2: "bg-[var(--color-text-muted)]/10 text-[var(--color-text-muted)] border-[var(--color-text-muted)]/20",
 };
 
 // ── Ecosystem relation map ──
 // 消费 lib/ecosystem.ts 的 8 条 ProductRelation:
-//   powers → 实线橙 + 实心箭头 / enhances → 虚线橙 / integrates → 点划线蓝 (--accent-2)
+//   powers → 实线橙 + 实心箭头 / enhances → 虚线橙 / integrates → 点划线蓝 (--lt-accent-2)
 // 7 节点静态手工布局。TODO: 节点 >12 再考虑布局算法。
 
 const NODE_W = 92;
@@ -91,12 +91,12 @@ const edgeStyle: Record<
 > = {
   powers: { stroke: "var(--color-accent)", width: 1.5, opacity: 0.7, marker: "url(#arrow-powers)" },
   enhances: { stroke: "var(--color-accent)", dash: "5 4", width: 1.2, opacity: 0.55 },
-  integrates: { stroke: "var(--accent-2)", dash: "2 3 7 3", width: 1.2, opacity: 0.6 },
+  integrates: { stroke: "var(--lt-accent-2)", dash: "2 3 7 3", width: 1.2, opacity: 0.6 },
 };
 
 const tierNodeStyle: Record<string, { fill: string; stroke: string; text: string }> = {
-  P0: { fill: "var(--color-surface-elevated)", stroke: "var(--color-accent)", text: "var(--ink)" },
-  P1: { fill: "var(--color-surface-elevated)", stroke: "var(--accent-2)", text: "var(--ink)" },
+  P0: { fill: "var(--color-surface-elevated)", stroke: "var(--color-accent)", text: "var(--lt-ink)" },
+  P1: { fill: "var(--color-surface-elevated)", stroke: "var(--lt-accent-2)", text: "var(--lt-ink)" },
   P2: { fill: "var(--color-surface-elevated)", stroke: "var(--color-border-hover)", text: "var(--color-text-secondary)" },
 };
 
@@ -125,10 +125,10 @@ function EcosystemMap() {
         </div>
         <div className="text-[var(--color-text-muted)] text-center text-[10px] font-mono">↑ 构建于</div>
         <div>
-          <p className="text-[10px] font-mono uppercase tracking-[0.2em] text-[var(--accent-2)]/70 mb-2">P1 · 垂直产品</p>
+          <p className="text-[10px] font-mono uppercase tracking-[0.2em] text-[var(--lt-accent-2)]/70 mb-2">P1 · 垂直产品</p>
           <div className="flex flex-wrap gap-2">
             {["Kova", "Lucrum"].map((n) => (
-              <span key={n} className="px-3 py-1 rounded-md bg-[var(--accent-2)]/8 border border-[var(--accent-2)]/25 text-xs text-[var(--accent-2)]">{n}</span>
+              <span key={n} className="px-3 py-1 rounded-md bg-[var(--lt-accent-2)]/8 border border-[var(--lt-accent-2)]/25 text-xs text-[var(--lt-accent-2)]">{n}</span>
             ))}
           </div>
         </div>
@@ -152,7 +152,7 @@ function EcosystemMap() {
             <span className="text-[10px] font-mono text-[var(--color-text-muted)]">enhances · 能力增强</span>
           </div>
           <div className="flex items-center gap-2">
-            <div className="w-6 shrink-0 border-t border-[var(--accent-2)]" style={{ borderStyle: "dashed", borderSpacing: "2px" }} />
+            <div className="w-6 shrink-0 border-t border-[var(--lt-accent-2)]" style={{ borderStyle: "dashed", borderSpacing: "2px" }} />
             <span className="text-[10px] font-mono text-[var(--color-text-muted)]">integrates · 数据集成</span>
           </div>
         </div>
@@ -186,7 +186,7 @@ function EcosystemMap() {
                   viewport={{ once: true }}
                   transition={{ delay: 0.2 + i * 0.08, duration: 0.5 }}
                 />
-                {/* 不可见宽命中区 — 细线 hover 命中率 */}
+                {/* 不可见宽命中区 — 细线 hover 命中率；触屏设备无 hover，点击切换同一 tooltip */}
                 <path
                   d={e.d}
                   fill="none"
@@ -195,6 +195,7 @@ function EcosystemMap() {
                   className="cursor-pointer"
                   onMouseEnter={() => setHoveredEdge(i)}
                   onMouseLeave={() => setHoveredEdge(null)}
+                  onClick={() => setHoveredEdge((cur) => (cur === i ? null : i))}
                 />
               </g>
             );
@@ -256,7 +257,7 @@ function EcosystemMap() {
             <text x="64" y="287.5" fill="var(--color-text-muted)">powers · 核心能力供给</text>
             <line x1="24" y1="300" x2="56" y2="300" stroke="var(--color-accent)" strokeWidth="1.2" strokeDasharray="5 4" strokeOpacity="0.6" />
             <text x="64" y="303.5" fill="var(--color-text-muted)">enhances · 能力增强</text>
-            <line x1="24" y1="316" x2="56" y2="316" stroke="var(--accent-2)" strokeWidth="1.2" strokeDasharray="2 3 7 3" strokeOpacity="0.65" />
+            <line x1="24" y1="316" x2="56" y2="316" stroke="var(--lt-accent-2)" strokeWidth="1.2" strokeDasharray="2 3 7 3" strokeOpacity="0.65" />
             <text x="64" y="319.5" fill="var(--color-text-muted)">integrates · 数据集成</text>
           </g>
         </svg>
@@ -270,7 +271,7 @@ function EcosystemMap() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: 4 }}
               transition={{ duration: 0.15 }}
-              className="absolute pointer-events-none z-10 px-3 py-1.5 rounded-lg bg-[var(--ink)] text-[var(--paper)] text-xs whitespace-nowrap shadow-lg"
+              className="absolute pointer-events-none z-10 px-3 py-1.5 rounded-lg bg-[var(--lt-ink)] text-[var(--lt-paper)] text-xs whitespace-nowrap shadow-lg"
               style={{
                 left: `${(mapEdges[hoveredEdge].mid.x / 820) * 100}%`,
                 top: `${(mapEdges[hoveredEdge].mid.y / 330) * 100}%`,

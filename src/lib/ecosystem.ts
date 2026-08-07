@@ -248,9 +248,9 @@ const personas: Persona[] = [
 const presentation: Record<string, ProductPresentation> = {
   hub: { icon: "⚡", href: "/platform#hub", color: "var(--color-accent)" },
   billing: { icon: "🏦", href: "/platform#billing", color: "var(--color-accent)" },
-  memorus: { icon: "🧠", href: "/platform#memory", color: "var(--accent-2)" },
+  memorus: { icon: "🧠", href: "/platform#memory", color: "var(--lt-accent-2)" },
   lucrum: { icon: "📈", href: "/lucrum", color: "var(--color-success)" },
-  kova: { icon: "🔧", href: "/kova", color: "var(--accent-2)" },
+  kova: { icon: "🔧", href: "/kova", color: "var(--lt-accent-2)" },
   switch: { icon: "🔀", href: "/download#switch", color: "var(--color-accent)" },
   creator: { icon: "🎬", href: "/download#creator", color: "var(--color-accent)" },
 };

@@ -2,16 +2,56 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
+import { useState, useSyncExternalStore } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   Bars3Icon,
   XMarkIcon,
   ArrowTopRightOnSquareIcon,
+  SunIcon,
+  MoonIcon,
 } from "@heroicons/react/24/outline";
 import { CommandPaletteTrigger } from "./command-palette";
 import { HUB_CONSOLE_URL } from "@/lib/links";
 import { track } from "@/lib/track";
+
+// 深色模式切换 — 初始态由 layout.tsx 的 beforeInteractive script 同步应用在 <html>
+// 上。用 useSyncExternalStore（而非 effect 里 setState）读回当前值，SSR 快照固定为
+// false（浅色），避免 hydration 期间的多余渲染与 mismatch 警告。
+const themeListeners = new Set<() => void>();
+function getDarkSnapshot() {
+  return document.documentElement.classList.contains("dark");
+}
+function getServerDarkSnapshot() {
+  return false;
+}
+function subscribeTheme(listener: () => void) {
+  themeListeners.add(listener);
+  return () => themeListeners.delete(listener);
+}
+function setDarkMode(next: boolean) {
+  document.documentElement.classList.toggle("dark", next);
+  try {
+    localStorage.setItem("theme", next ? "dark" : "light");
+  } catch {
+    // 隐私模式等场景下 localStorage 不可用，静默降级为仅本次会话生效
+  }
+  themeListeners.forEach((l) => l());
+}
+
+function ThemeToggle() {
+  const dark = useSyncExternalStore(subscribeTheme, getDarkSnapshot, getServerDarkSnapshot);
+
+  return (
+    <button
+      onClick={() => setDarkMode(!dark)}
+      aria-label={dark ? "切换到浅色模式" : "切换到深色模式"}
+      className="p-2 rounded-lg hover:bg-[var(--color-surface)] transition-colors text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)]"
+    >
+      {dark ? <SunIcon className="w-4 h-4" /> : <MoonIcon className="w-4 h-4" />}
+    </button>
+  );
+}
 
 const nav = [
   { name: "Lugo", href: "/platform" },
@@ -68,6 +108,7 @@ export function Header() {
         </nav>
 
         <div className="hidden md:flex items-center gap-3">
+          <ThemeToggle />
           <CommandPaletteTrigger />
           <a
             href="https://auth.lurus.cn"
@@ -82,7 +123,7 @@ export function Header() {
             target="_blank"
             rel="noopener noreferrer"
             onClick={() => track("cta_click", { id: "header" })}
-            className="text-sm px-5 py-2 rounded-lg bg-[var(--accent)] text-white font-semibold hover:bg-[var(--color-ochre-dark)] transition-all duration-300"
+            className="text-sm px-5 py-2 rounded-lg bg-[var(--lt-accent)] text-white font-semibold hover:bg-[var(--color-ochre-dark)] transition-all duration-300"
           >
             免费开始
           </a>
@@ -142,7 +183,7 @@ export function Header() {
                   </motion.div>
                 );
               })}
-              <div className="pt-3 border-t border-[var(--color-border)] mt-3 flex gap-3">
+              <div className="pt-3 border-t border-[var(--color-border)] mt-3 flex items-center gap-3">
                 <a
                   href="https://auth.lurus.cn"
                   target="_blank"
@@ -151,6 +192,7 @@ export function Header() {
                 >
                   登录
                 </a>
+                <ThemeToggle />
               </div>
             </div>
           </motion.nav>

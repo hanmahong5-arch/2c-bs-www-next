@@ -1,22 +1,27 @@
 @import "tailwindcss";
 
+/* 品牌 token 真源 = shared/lurus-design(平台 governance repo)。
+   本仓走 Docker standalone 构建，构建上下文里没有 shared/，`file:` 依赖必然
+   resolve 失败 —— 所以用 vendor 副本：根仓跑
+     bash scripts/design-sync.sh <本仓>/src/styles/lurus-design
+   生成，副本头部带 AUTO-GENERATED 横幅，`--check` 模式能把漂移打成 CI 红灯。
+   禁手改 src/styles/lurus-design/** —— 改真源后重跑上面的命令。
+
+   只 import tokens.css。同目录的 theme.css 是 vendor 分发面的一部分(留着才能让
+   design-sync --check 过)，但**故意不 import**：它的 @theme inline 会把
+   --font-display/--font-sans/--font-mono 覆写成通用字体栈，顶掉本仓 next/font
+   自托管的 Fraunces / Inter Tight / JetBrains Mono。tailwind-preset.cjs 同理
+   (那是 Tailwind v3 消费方用的，本仓是 v4 CSS-first)。 */
+@import "../styles/lurus-design/tokens.css";
+
 /* Smooth scroll for hash anchors */
 html {
   scroll-behavior: smooth;
 }
 
 :root {
-  /* Brand-spec light theme tokens */
-  --paper: #F5F2E8;
-  --bg: #E8E4D6;
-  --ink: #14130F;
-  --rule: #D6D2C2;
-  --ok: #1F7A4F;
-  --warn: #B8821F;
-  --err: #B3392B;
-  --info: #2D4A8A;
-  --accent: #FF5D1F;
-  --accent-2: #2D4A8A; /* brand-spec 第二强调色（蓝）— 图谱 integrates 关系等语义岗位 */
+  /* 品牌基色 token(--lt-paper/-bg/-ink/-rule/-ok/-warn/-err/-info/-accent/-accent-2)
+     现由上面 import 的 vendor tokens.css 提供，本文件不再手写第二份。 */
 
   /* Spacing scale — 4px 网格 (TODO: 回写 brand-spec) */
   --space-1: 0.25rem;
@@ -40,32 +45,81 @@ html {
     "Noto Sans CJK SC", system-ui, sans-serif;
 
   /* Semantic aliases (used across components) */
-  --background: var(--paper);
-  --foreground: var(--ink);
-  --color-surface: var(--bg);
+  --background: var(--lt-paper);
+  --foreground: var(--lt-ink);
+  --color-surface: var(--lt-bg);
   --color-surface-hover: #DDD9CB;
   --color-surface-elevated: #EAE7DC;
-  --color-border: var(--rule);
+  --color-border: var(--lt-rule);
   --color-border-hover: #C4C0B0;
-  --color-text-primary: var(--ink);
+  --color-text-primary: var(--lt-ink);
   --color-text-secondary: #3D3B33;
   --color-text-muted: #6B6860; /* #E8E4D6 底上 ≥4.5:1 (WCAG AA); 原 #7A7769 不达标 */
-  --color-accent: var(--accent);
-  --color-success: var(--ok);
-  --color-error: var(--err);
+  --color-accent: var(--lt-accent);
+  --color-success: var(--lt-ok);
+  --color-error: var(--lt-err);
 
   /* Legacy ochre aliases — kept so existing components don't break */
-  --color-ochre: var(--accent);
+  --color-ochre: var(--lt-accent);
   --color-ochre-light: #FF7A47;
   --color-ochre-dark: #CC4A18;
 
   /* Craft tokens — warm-tinted elevation scale + editorial easing.
      Shadows tint toward ink (not pure black) so they sit on warm paper. */
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
-  --shadow-sm: 0 1px 2px color-mix(in srgb, var(--ink) 6%, transparent);
-  --shadow-md: 0 6px 20px color-mix(in srgb, var(--ink) 8%, transparent);
-  --shadow-lg: 0 16px 48px color-mix(in srgb, var(--ink) 12%, transparent);
-  --shadow-window: 0 28px 64px -16px color-mix(in srgb, var(--ink) 30%, transparent);
+  --shadow-sm: 0 1px 2px color-mix(in srgb, var(--lt-ink) 6%, transparent);
+  --shadow-md: 0 6px 20px color-mix(in srgb, var(--lt-ink) 8%, transparent);
+  --shadow-lg: 0 16px 48px color-mix(in srgb, var(--lt-ink) 12%, transparent);
+  --shadow-window: 0 28px 64px -16px color-mix(in srgb, var(--lt-ink) 30%, transparent);
+}
+
+/* Dark mode — toggled via .dark class on <html> (see header.tsx ThemeToggle
+   + layout.tsx beforeInteractive init script). Overrides only the base
+   tokens; every --color-* alias above re-derives from these via var(). Text
+   colors picked to keep ≥4.5:1 contrast (WCAG AA) against --lt-paper/--lt-bg.
+
+   ⚠️ 已知漂移 — 本仓暗色值与 shared/lurus-design 的暗色值不一致(浅色十个值逐一
+   相同，漂移只在暗色)。vendor tokens.css 的 `.dark` 先落地，这里再逐个覆写回本仓
+   现值，是为了让"接线 token"这次改动保持视觉零变更 —— 不夹带一次没人审过的暗色
+   改版上 prod。左=本仓现值(生效)，右=真源值(待裁决):
+     --lt-paper    #16150F  ←→  #14130F
+     --lt-bg       #1E1C15  ←→  #0A0908
+     --lt-ink      #EFEBDD  ←→  #F0EDE4
+     --lt-rule     #35321F  ←→  #25221C
+     --lt-ok       #3FBE81  ←→  #3FA876
+     --lt-warn     #D9A03D  ←→  #E0A040
+     --lt-err      #E2584A  ←→  #EE6F5E
+     --lt-info     #6C8FE0  ←→  #5A7BC7
+     --lt-accent-2 #2D4A8A  ←→  #5A7BC7
+   收敛方向由品牌 owner 定：要么真源改成本仓值(本仓值是照 WCAG AA 对比度调过的)，
+   要么本仓接受真源值并重跑一次对比度走查。收敛后删掉整段覆写即可。 */
+.dark {
+  --lt-paper: #16150F;
+  --lt-bg: #1E1C15;
+  --lt-ink: #EFEBDD;
+  --lt-rule: #35321F;
+  --lt-ok: #3FBE81;
+  --lt-warn: #D9A03D;
+  --lt-err: #E2584A;
+  --lt-info: #6C8FE0;
+  /* 真源暗色把 accent-2 转成 #5A7BC7；本仓暗色历来不覆写 accent-2(沿用浅色
+     #2D4A8A，25 处引用)，故显式钉回，否则本次接线会静默改掉暗色图谱连线色。 */
+  --lt-accent-2: #2D4A8A;
+
+  --color-surface-hover: #262316;
+  --color-surface-elevated: #221F16;
+  --color-border-hover: #47422A;
+  --color-text-secondary: #D6D2C2;
+  --color-text-muted: #A19C89;
+
+  --color-ochre-light: #FF9A6B;
+  --color-ochre-dark: #E06B36;
+
+  /* Dark surfaces need real shadow, not an ink-tinted (near-white) wash. */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.35);
+  --shadow-md: 0 6px 20px rgba(0, 0, 0, 0.45);
+  --shadow-lg: 0 16px 48px rgba(0, 0, 0, 0.55);
+  --shadow-window: 0 28px 64px -16px rgba(0, 0, 0, 0.6);
 }
 
 @theme inline {
@@ -85,7 +139,7 @@ body {
 
 /* ── Editorial Typography ── */
 
-/* Tightened display type — Stripe/Anthropic-level restraint. Apply to H1/H2 ≥ 48px. */
+/* Tightened display type — editorial restraint. Apply to H1/H2 ≥ 48px. */
 .headline-tight {
   letter-spacing: -0.035em;
   line-height: 1.05;
@@ -184,7 +238,7 @@ body {
 }
 .card:hover {
   border-color: var(--color-border-hover);
-  box-shadow: 0 8px 24px color-mix(in srgb, var(--ink) 8%, transparent);
+  box-shadow: 0 8px 24px color-mix(in srgb, var(--lt-ink) 8%, transparent);
   transform: translateY(-2px);
 }
 
@@ -193,7 +247,7 @@ body {
   background: var(--color-surface-elevated);
   border: 1px solid var(--color-border);
   border-radius: 16px;
-  box-shadow: 0 2px 12px color-mix(in srgb, var(--ink) 6%, transparent);
+  box-shadow: 0 2px 12px color-mix(in srgb, var(--lt-ink) 6%, transparent);
 }
 .card-flat {
   background: transparent;
@@ -217,7 +271,7 @@ body {
   transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
 }
 .btn-primary {
-  background: var(--accent);
+  background: var(--lt-accent);
   color: #fff;
 }
 .btn-primary:hover {
@@ -256,7 +310,7 @@ body {
   transition: opacity 0.3s ease;
   background: radial-gradient(
     520px circle at var(--mx, 50%) var(--my, 50%),
-    color-mix(in srgb, var(--accent) 8%, transparent),
+    color-mix(in srgb, var(--lt-accent) 8%, transparent),
     transparent 42%
   );
   z-index: 1;
@@ -272,8 +326,8 @@ body {
 /* Static grid background */
 .grid-bg {
   background-image:
-    linear-gradient(color-mix(in srgb, var(--ink) 4%, transparent) 1px, transparent 1px),
-    linear-gradient(90deg, color-mix(in srgb, var(--ink) 4%, transparent) 1px, transparent 1px);
+    linear-gradient(color-mix(in srgb, var(--lt-ink) 4%, transparent) 1px, transparent 1px),
+    linear-gradient(90deg, color-mix(in srgb, var(--lt-ink) 4%, transparent) 1px, transparent 1px);
   background-size: 60px 60px;
 }
 
@@ -281,7 +335,7 @@ body {
    Pairs with .grid-bg or stands alone for quieter sections. */
 .dot-grid {
   background-image: radial-gradient(
-    color-mix(in srgb, var(--ink) 7%, transparent) 1px,
+    color-mix(in srgb, var(--lt-ink) 7%, transparent) 1px,
     transparent 1px
   );
   background-size: 22px 22px;
@@ -290,9 +344,9 @@ body {
 /* Gradient mesh for hero backgrounds */
 .gradient-mesh {
   background:
-    radial-gradient(ellipse 80% 50% at 50% -20%, color-mix(in srgb, var(--accent) 6%, transparent) 0%, transparent 60%),
-    radial-gradient(ellipse 60% 40% at 80% 50%, color-mix(in srgb, var(--accent-2) 4%, transparent) 0%, transparent 50%),
-    radial-gradient(ellipse 60% 40% at 20% 60%, color-mix(in srgb, var(--accent) 3%, transparent) 0%, transparent 50%);
+    radial-gradient(ellipse 80% 50% at 50% -20%, color-mix(in srgb, var(--lt-accent) 6%, transparent) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 40% at 80% 50%, color-mix(in srgb, var(--lt-accent-2) 4%, transparent) 0%, transparent 50%),
+    radial-gradient(ellipse 60% 40% at 20% 60%, color-mix(in srgb, var(--lt-accent) 3%, transparent) 0%, transparent 50%);
 }
 
 /* Noise texture overlay */
@@ -388,8 +442,8 @@ body {
   gap: 0.5rem;
   padding: 0.375rem 1rem;
   border-radius: 9999px;
-  border: 1px solid color-mix(in srgb, var(--accent) 25%, transparent);
-  background: color-mix(in srgb, var(--accent) 6%, transparent);
+  border: 1px solid color-mix(in srgb, var(--lt-accent) 25%, transparent);
+  background: color-mix(in srgb, var(--lt-accent) 6%, transparent);
   color: var(--color-ochre-dark);
   font-size: 0.8125rem;
   font-weight: 500;
@@ -409,16 +463,16 @@ body {
 
 /* 不规则手绘边框 — 非对称 border-radius 模拟手画矩形 */
 .sketch-border {
-  border: 1.5px solid color-mix(in srgb, var(--ink) 78%, transparent);
+  border: 1.5px solid color-mix(in srgb, var(--lt-ink) 78%, transparent);
   border-radius: 14px 220px 18px 220px / 220px 16px 220px 18px;
 }
 
 /* hard offset 阴影 — 手作贴纸感,配 sketch-border 用 */
 .sketch-shadow {
-  box-shadow: 4px 4px 0 color-mix(in srgb, var(--ink) 82%, transparent);
+  box-shadow: 4px 4px 0 color-mix(in srgb, var(--lt-ink) 82%, transparent);
 }
 .sketch-shadow-accent {
-  box-shadow: 4px 4px 0 color-mix(in srgb, var(--accent) 70%, transparent);
+  box-shadow: 4px 4px 0 color-mix(in srgb, var(--lt-accent) 70%, transparent);
 }
 
 /* 微旋转 — 手随意摆放感(成对交替;注意:有 hover transform 的元素会在 hover 时摆正) */

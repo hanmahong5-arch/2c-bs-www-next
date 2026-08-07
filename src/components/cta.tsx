@@ -168,7 +168,7 @@ export function CTA() {
                 >
                   <BuildingOffice2Icon
                     className="w-5 h-5"
-                    style={{ color: "var(--accent-2)" }}
+                    style={{ color: "var(--lt-accent-2)" }}
                   />
                 </div>
 
@@ -178,7 +178,7 @@ export function CTA() {
                 >
                   <span
                     className="w-1.5 h-1.5 rounded-full"
-                    style={{ background: "var(--accent-2)" }}
+                    style={{ background: "var(--lt-accent-2)" }}
                   />
                   企业定制
                 </div>
@@ -205,7 +205,7 @@ export function CTA() {
                       >
                         <CheckIcon
                           className="w-2.5 h-2.5"
-                          style={{ color: "var(--accent-2)" }}
+                          style={{ color: "var(--lt-accent-2)" }}
                         />
                       </span>
                       {f}

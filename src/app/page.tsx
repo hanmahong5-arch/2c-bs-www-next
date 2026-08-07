@@ -1,14 +1,26 @@
+import dynamic from "next/dynamic";
 import { Hero } from "@/components/hero";
 import { TrustBand } from "@/components/trust-band";
 import { Scenarios } from "@/components/scenarios";
 import { QuickStart } from "@/components/quickstart";
 import { CostCalculator } from "@/components/cost-calculator";
-import { ArchitectureVisual } from "@/components/architecture-visual";
-import { FeaturesShowcase } from "@/components/features-showcase";
-import { Comparison } from "@/components/comparison";
-import { ProductGrid } from "@/components/product-grid";
 import { CTA } from "@/components/cta";
 import { FloatingCTA } from "@/components/floating-cta";
+
+// 折叠线以下的重型 framer-motion/SVG 组件按需分包 — 仍 SSR 出首屏 HTML（利于 SEO/无 JS
+// 首绘），但客户端不再把它们和 Hero 一起打进首屏必执行 JS bundle。
+const ArchitectureVisual = dynamic(() =>
+  import("@/components/architecture-visual").then((m) => m.ArchitectureVisual)
+);
+const FeaturesShowcase = dynamic(() =>
+  import("@/components/features-showcase").then((m) => m.FeaturesShowcase)
+);
+const Comparison = dynamic(() =>
+  import("@/components/comparison").then((m) => m.Comparison)
+);
+const ProductGrid = dynamic(() =>
+  import("@/components/product-grid").then((m) => m.ProductGrid)
+);
 
 // Section narrative — attention arc (承诺→证据→认同→上手→对比→算账→原理→深度→生态→转化):
 //  1. Hero            — the promise: "一行代码，接入所有 AI" + 单一主 CTA

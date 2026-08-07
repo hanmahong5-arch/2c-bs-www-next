@@ -179,8 +179,8 @@ export function TrustBand() {
                   <span className="text-[0.9rem] font-medium text-[var(--color-text-muted)] whitespace-nowrap opacity-60 group-hover:opacity-100 group-hover:text-[var(--color-text-primary)] transition-all duration-200">
                     {p.name}
                   </span>
-                  {/* Model detail — appears on hover below the name */}
-                  <span className="text-[0.6rem] font-mono text-[var(--color-text-muted)] whitespace-nowrap opacity-0 group-hover:opacity-70 transition-opacity duration-200 tracking-wide pointer-events-none leading-tight mt-0.5">
+                  {/* Model detail — 常显小字，触屏设备无 hover 也能看到具体模型 */}
+                  <span className="text-[0.6rem] font-mono text-[var(--color-text-muted)] whitespace-nowrap opacity-50 group-hover:opacity-70 transition-opacity duration-200 tracking-wide leading-tight mt-0.5">
                     {p.meta}
                   </span>
                 </div>

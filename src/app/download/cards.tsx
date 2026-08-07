@@ -104,17 +104,21 @@ function ProgressBar({ progress }: { progress: { label: string; done: boolean }[
 }
 
 function BetaSignup({ appName, email }: { appName: string; email: string }) {
-  const [submitted, setSubmitted] = useState(false);
+  const [clicked, setClicked] = useState(false);
 
-  if (submitted) {
+  // 该按钮只是 mailto: 链接——是否真的弹出邮件客户端、用户是否真的发出邮件，
+  // 前端无法得知。因此不断言"已发送"，只反馈"已触发打开邮件客户端"这一确定事实。
+  if (clicked) {
     return (
       <motion.div
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
-        className="flex items-center gap-2 px-5 py-3 rounded-xl bg-[var(--color-success)]/10 border border-[var(--color-success)]/20"
+        className="flex items-center gap-2 px-5 py-3 rounded-xl bg-[var(--color-surface)] border border-[var(--color-border)]"
       >
-        <CheckCircleIcon className="w-5 h-5 text-[var(--color-success)]" />
-        <span className="text-sm text-[var(--color-success)]">已发送申请邮件</span>
+        <EnvelopeIcon className="w-5 h-5 text-[var(--color-text-muted)]" />
+        <span className="text-sm text-[var(--color-text-secondary)]">
+          已为你打开邮件客户端，请发送申请邮件
+        </span>
       </motion.div>
     );
   }
@@ -122,8 +126,8 @@ function BetaSignup({ appName, email }: { appName: string; email: string }) {
   return (
     <a
       href={`mailto:${email}?subject=${encodeURIComponent(`${appName} 内测申请`)}&body=${encodeURIComponent(`你好，我想申请 ${appName} 的内测资格。\n\n我的使用场景：\n\n`)}`}
-      onClick={() => setTimeout(() => setSubmitted(true), 500)}
-      className="flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-[var(--accent)] text-white font-medium text-sm hover:bg-[var(--color-ochre-dark)] transition-all duration-300"
+      onClick={() => setClicked(true)}
+      className="flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-[var(--lt-accent)] text-white font-medium text-sm hover:bg-[var(--color-ochre-dark)] transition-all duration-300"
     >
       <EnvelopeIcon className="w-4 h-4" />
       申请内测

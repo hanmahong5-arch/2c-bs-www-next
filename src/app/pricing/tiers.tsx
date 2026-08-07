@@ -290,8 +290,8 @@ export function UsagePricing() {
           </p>
         </div>
 
-        <div className="card overflow-hidden">
-          <table className="w-full text-sm">
+        <div className="card overflow-x-auto">
+          <table className="w-full text-sm min-w-[420px]">
             <thead>
               <tr className="border-b border-[var(--color-border)]">
                 <th className="text-left p-4 text-[var(--color-text-muted)] font-medium">

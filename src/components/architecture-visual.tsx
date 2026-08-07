@@ -6,7 +6,7 @@ import { motion, useScroll, useTransform, useInView } from "framer-motion";
 // Accent palette — no hardcoded gold. Use CSS variables or semantically exact values.
 const ACCENT   = "rgba(255, 93, 31, 0.5)";   // var(--color-accent) at 50%
 const ACCENT_DIM = "rgba(255, 93, 31, 0.18)"; // accent at 18%
-const BLUE     = "rgba(45, 74, 138, 0.45)";   // var(--accent-2) at 45%
+const BLUE     = "rgba(45, 74, 138, 0.45)";   // var(--lt-accent-2) at 45%
 const BLUE_DIM = "rgba(45, 74, 138, 0.18)";
 const PROVIDER = "rgba(100, 95, 115, 0.35)";
 const PROVIDER_TEXT = "#9090A0";
@@ -439,16 +439,16 @@ export function ArchitectureVisual() {
             {/* Left: System topology */}
             <div className="hidden sm:block">
               <p
-                className="text-[9px] font-mono uppercase tracking-widest mb-4"
+                className="type-label mb-4"
                 style={{ color: "var(--color-text-muted)", opacity: 0.5 }}
               >
                 SYSTEM TOPOLOGY
               </p>
               <svg viewBox="0 0 100 95" className="w-full" style={{ maxHeight: 320 }}>
                 {/* Layer labels */}
-                <text x="2" y="16" fill="rgba(45,74,138,0.35)"  fontSize="1.8" fontFamily="var(--font-geist-mono)">YOUR APP</text>
-                <text x="2" y="36" fill="rgba(255,93,31,0.3)"   fontSize="1.8" fontFamily="var(--font-geist-mono)">LUGO PLATFORM</text>
-                <text x="2" y="81" fill="rgba(100,95,115,0.4)"  fontSize="1.8" fontFamily="var(--font-geist-mono)">PROVIDERS</text>
+                <text x="2" y="16" fill="rgba(45,74,138,0.35)"  fontSize="1.8" fontFamily="var(--font-mono)">YOUR APP</text>
+                <text x="2" y="36" fill="rgba(255,93,31,0.3)"   fontSize="1.8" fontFamily="var(--font-mono)">LUGO PLATFORM</text>
+                <text x="2" y="81" fill="rgba(100,95,115,0.4)"  fontSize="1.8" fontFamily="var(--font-mono)">PROVIDERS</text>
 
                 {/* Connections */}
                 {connections.map(([from, to], i) => {
@@ -505,7 +505,7 @@ export function ArchitectureVisual() {
                         textAnchor="middle"
                         fill={style.text}
                         fontSize="2.2" fontWeight="500"
-                        fontFamily="var(--font-geist-sans)"
+                        fontFamily="var(--font-sans)"
                       >
                         {node.label}
                       </text>

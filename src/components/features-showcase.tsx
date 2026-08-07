@@ -138,15 +138,15 @@ export function FeaturesShowcase() {
             transition={{ delay: 0.16 }}
           >
             <div className="flex items-center gap-2 mb-3">
-              <ShieldCheckIcon className="w-4 h-4 text-[var(--accent-2)]" aria-hidden="true" />
-              <p className="eyebrow text-[var(--accent-2)]/70">IDENTITY</p>
+              <ShieldCheckIcon className="w-4 h-4 text-[var(--lt-accent-2)]" aria-hidden="true" />
+              <p className="eyebrow text-[var(--lt-accent-2)]/70">IDENTITY</p>
             </div>
             <h3 className="text-lg font-semibold text-[var(--color-text-primary)] mb-2">企业认证</h3>
             <div className="h-28 mb-4 flex items-center justify-center overflow-hidden rounded-lg bg-[var(--background)]/50">
               <AuthVisual />
             </div>
             <p className="text-sm text-[var(--color-text-muted)] leading-relaxed">
-              Zitadel OIDC 一键集成，多租户严格隔离。JWT 签发、RBAC 权限控制、跨产品单点登录，零安全债务。
+              标准 OIDC 一键集成，多租户严格隔离。JWT 签发、RBAC 权限控制、跨产品单点登录，零安全债务。
             </p>
             <p className="mt-3 text-xs text-[var(--color-text-muted)] font-mono">SSO · RBAC · 多租户 · JWT</p>
           </motion.div>

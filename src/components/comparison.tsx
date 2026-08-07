@@ -19,7 +19,7 @@ const rows = [
   {
     aspect: "用户认证",
     without: "SSO / RBAC / 多租户权限矩阵，JWT 签发与轮换，安全漏洞风险完全自担——2–4 人月",
-    with: "Zitadel OIDC 一键集成，多租户严格隔离，RBAC 开箱即用，零安全债务",
+    with: "标准 OIDC 一键集成，多租户严格隔离，RBAC 开箱即用，零安全债务",
   },
   {
     aspect: "AI 记忆",

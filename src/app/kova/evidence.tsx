@@ -42,7 +42,7 @@ export function EvidenceStats() {
               <div
                 className="text-4xl font-bold font-mono tracking-tight"
                 style={{
-                  color: s.accent ? "var(--accent)" : "var(--color-text-primary)",
+                  color: s.accent ? "var(--lt-accent)" : "var(--color-text-primary)",
                 }}
               >
                 {s.value}
@@ -112,7 +112,7 @@ export function EvidenceCompliance() {
     <section id="evidence" className="py-24 border-t border-[var(--color-border)] scroll-mt-20">
       <div className="mx-auto max-w-7xl px-6">
         <div className="mb-12">
-          <p className="eyebrow text-[var(--accent)] mb-3">Evidence Pack</p>
+          <p className="eyebrow text-[var(--lt-accent)] mb-3">Evidence Pack</p>
           <h2 className="text-3xl font-bold text-[var(--color-text-primary)]">
             一条命令,导出审计方能离线验证的证据包
           </h2>
@@ -135,7 +135,7 @@ export function EvidenceCompliance() {
                 <span className="text-xs text-[#8A8474] ml-2 font-mono">
                   evidence-flow
                 </span>
-                <span className="ml-auto text-[10px] font-mono px-2 py-0.5 rounded-full bg-[var(--accent)]/10 text-[var(--accent)] border border-[var(--accent)]/25">
+                <span className="ml-auto text-[10px] font-mono px-2 py-0.5 rounded-full bg-[var(--lt-accent)]/10 text-[var(--lt-accent)] border border-[var(--lt-accent)]/25">
                   证据流程 · 示意
                 </span>
               </div>
@@ -168,7 +168,7 @@ export function EvidenceCompliance() {
                 </code>
               </pre>
 
-              <div className="absolute -bottom-8 -right-8 w-32 h-32 rounded-full bg-[var(--accent)] opacity-[0.07] blur-[50px] pointer-events-none" />
+              <div className="absolute -bottom-8 -right-8 w-32 h-32 rounded-full bg-[var(--lt-accent)] opacity-[0.07] blur-[50px] pointer-events-none" />
             </div>
 
             <div className="card p-5 mt-5 space-y-3">
@@ -192,7 +192,7 @@ export function EvidenceCompliance() {
                 const Icon = item.icon;
                 return (
                   <div key={item.title} className="flex items-start gap-3">
-                    <Icon className="w-5 h-5 shrink-0 text-[var(--accent)] mt-0.5" />
+                    <Icon className="w-5 h-5 shrink-0 text-[var(--lt-accent)] mt-0.5" />
                     <div>
                       <p className="text-sm font-medium text-[var(--color-text-primary)]">
                         {item.title}
@@ -221,7 +221,7 @@ export function EvidenceCompliance() {
               <div className="mt-5 divide-y divide-[var(--color-border)]">
                 {complianceRows.map((row) => (
                   <div key={row.framework} className="py-3 flex items-start gap-3">
-                    <span className="mt-1.5 w-1.5 h-1.5 rounded-full shrink-0 bg-[var(--accent)]" />
+                    <span className="mt-1.5 w-1.5 h-1.5 rounded-full shrink-0 bg-[var(--lt-accent)]" />
                     <div>
                       <p className="text-sm font-medium text-[var(--color-text-primary)]">
                         {row.framework}
@@ -269,7 +269,7 @@ export function Boundaries() {
     <section className="py-24 border-t border-[var(--color-border)]">
       <div className="mx-auto max-w-7xl px-6">
         <div className="text-center mb-12">
-          <p className="eyebrow text-[var(--accent)] mb-3">诚实边界</p>
+          <p className="eyebrow text-[var(--lt-accent)] mb-3">诚实边界</p>
           <h2 className="text-3xl font-bold text-[var(--color-text-primary)]">
             三件我们不说的话
           </h2>

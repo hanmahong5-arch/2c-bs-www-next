@@ -48,7 +48,7 @@ export function FloatingCTA() {
               target="_blank"
               rel="noopener noreferrer"
               onClick={() => track("cta_click", { id: "floating" })}
-              className="group flex items-center gap-1.5 px-4 py-2 rounded-xl bg-[var(--accent)] text-white text-sm font-semibold hover:bg-[var(--color-ochre-dark)] transition-all duration-300 shrink-0"
+              className="group flex items-center gap-1.5 px-4 py-2 rounded-xl bg-[var(--lt-accent)] text-white text-sm font-semibold hover:bg-[var(--color-ochre-dark)] transition-all duration-300 shrink-0"
             >
               开始
               <ArrowRightIcon className="w-3.5 h-3.5 transition-transform group-hover:translate-x-0.5" />
