@@ -153,6 +153,8 @@ jobs:
   deploy:
     name: Update Deployment Tag
     needs: docker
+    # 同 docker:job 级 success() 会被链上 skipped 的 changes 毒化,显式只看 docker
+    if: ${{ !cancelled() && needs.docker.result == 'success' }}
     runs-on: ubuntu-latest
     permissions:
       contents: write
