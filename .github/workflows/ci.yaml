@@ -58,8 +58,12 @@ jobs:
       - run: bun install --frozen-lockfile
       - run: bun run build
       - name: Start server (:3000)
+        # output:standalone 下 `next start` 只打印 Ready 不服务(Next 16 自身警告
+        # 指明用 standalone server.js)。与 Dockerfile 生产起法保持同源。
         run: |
-          bun run start &
+          cp -r .next/static .next/standalone/.next/static
+          cp -r public .next/standalone/public
+          bun .next/standalone/server.js &
           for _ in $(seq 1 30); do
             curl -sf http://localhost:3000/ >/dev/null && break
             sleep 2
