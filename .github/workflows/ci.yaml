@@ -10,6 +10,9 @@ on:
       - 'LICENSE'
   pull_request:
     branches: [main]
+  # 手动补建通道:CI-only 改动(paths-ignore/workflow 文件)不触发 docker,
+  # 修完 CI 后 main 会出现"源码新但无对应镜像"的断档,dispatch 跑全链补建。
+  workflow_dispatch:
 
 env:
   REGISTRY: ghcr.io
@@ -28,6 +31,8 @@ jobs:
 
   changes:
     name: Detect Source Changes
+    # dispatch 走 docker 的显式白名单分支,paths-filter 在非 push 事件下行为不定,跳过
+    if: github.event_name != 'workflow_dispatch'
     runs-on: ubuntu-latest
     outputs:
       src: ${{ steps.filter.outputs.src }}
@@ -97,7 +102,14 @@ jobs:
   docker:
     name: Build & Push Image
     needs: [check, changes, e2e]
-    if: needs.changes.outputs.src == 'true' && github.event_name == 'push' && github.ref == 'refs/heads/main'
+    # !cancelled():dispatch 时 changes 被跳过,默认 needs 级联会把本 job 一起跳掉
+    if: >-
+      ${{ !cancelled() &&
+          needs.check.result == 'success' &&
+          needs.e2e.result == 'success' &&
+          github.ref == 'refs/heads/main' &&
+          (github.event_name == 'workflow_dispatch' ||
+           (github.event_name == 'push' && needs.changes.outputs.src == 'true')) }}
     runs-on: ubuntu-latest
     permissions:
       contents: read
