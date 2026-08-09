@@ -23,4 +23,4 @@
 
 ## 认证与账户
 
-- [认证中心](https://auth.lurus.cn): OIDC 登录，多租户账户管理
+- [认证中心](https://identity.lurus.cn): OIDC 登录，多租户账户管理

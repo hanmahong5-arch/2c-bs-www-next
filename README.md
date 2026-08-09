@@ -61,7 +61,7 @@ GitOps: **GitHub Actions → GHCR → ArgoCD → K3s**. Push to main → CI (lin
 | Port | 3000 (Next.js standalone) |
 | ArgoCD | `lurus-services` ApplicationSet |
 
-**Environment:** no env vars required. External links → `hub.lurus.cn` (Hub console), `auth.lurus.cn` (Zitadel SSO), `docs.lurus.cn` (VitePress docs).
+**Environment:** no env vars required. External links → `hub.lurus.cn` (Hub console), `identity.lurus.cn` (IdP / SSO), `docs.lurus.cn` (VitePress docs).
 
 ## Conventions
 

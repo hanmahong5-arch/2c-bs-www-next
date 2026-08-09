@@ -111,7 +111,7 @@ export function Header() {
           <ThemeToggle />
           <CommandPaletteTrigger />
           <a
-            href="https://auth.lurus.cn"
+            href="https://identity.lurus.cn"
             target="_blank"
             rel="noopener noreferrer"
             className="text-sm text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] transition-colors px-3 py-2"
@@ -185,7 +185,7 @@ export function Header() {
               })}
               <div className="pt-3 border-t border-[var(--color-border)] mt-3 flex items-center gap-3">
                 <a
-                  href="https://auth.lurus.cn"
+                  href="https://identity.lurus.cn"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex-1 text-center text-sm px-4 py-2.5 rounded-lg bg-gradient-gold text-black font-medium"
