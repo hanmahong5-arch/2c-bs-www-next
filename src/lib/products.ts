@@ -7,6 +7,8 @@ export interface Product {
   href: string;
   badge?: string;
   icon: string;
+  // 可在线体验的产品挂真实演示站入口(外链)。
+  demo?: { label: string; href: string };
 }
 
 export const productGroups = [
@@ -61,6 +63,7 @@ export const productGroups = [
         ],
         href: "/platform#memory",
         icon: "🧠",
+        demo: { label: "在线体验记忆引擎", href: "https://demo.lurus.cn" },
       },
     ],
   },

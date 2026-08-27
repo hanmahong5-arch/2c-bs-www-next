@@ -33,6 +33,14 @@ const solutions = [
     cta: { label: "了解 Kova", href: "/kova" },
   },
   {
+    title: "组织记忆与知识沉淀",
+    audience: "集成商 · 政企信息化团队",
+    pain: "客户偏好、工单结论、公文口径散落在群聊与交接文档里，全靠经办人脑子记",
+    solution:
+      "memorus 记忆引擎自动从对话与文档中抽取知识、语义去重、自然语言检索。上传一段样例数据，实时看效果；支持私有化部署与信创环境适配。",
+    cta: { label: "在线体验记忆引擎", href: "https://demo.lurus.cn" },
+  },
+  {
     title: "量化交易",
     audience: "个人和机构投资者",
     pain: "策略开发门槛高，回测工具碎片化，实盘对接复杂",
