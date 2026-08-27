@@ -66,6 +66,17 @@ export function ProductDetail({ product, index }: ProductDetailProps) {
               </motion.li>
             ))}
           </ul>
+
+          {product.demo && (
+            <a
+              href={product.demo.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn-primary inline-flex items-center gap-2 text-sm"
+            >
+              {product.demo.label} →
+            </a>
+          )}
         </div>
 
         <div className="flex-1 flex items-center justify-center">
