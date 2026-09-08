@@ -202,7 +202,7 @@ export const productGroups = [
 
 export const stats = [
   { value: "30+", label: "AI 模型供应商" },
-  { value: "99.9%", label: "可用率 SLA" },
+  { value: "99.9%", label: "可用率目标" },
   { value: "¥0.0001", label: "最小计费粒度" },
   { value: "<100ms", label: "路由 p50 延迟" },
 ];

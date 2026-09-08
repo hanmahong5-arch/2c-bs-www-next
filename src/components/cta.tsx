@@ -18,14 +18,14 @@ const devFeatures = [
 ];
 
 const enterpriseFeatures = [
-  "99.9% SLA 保障",
+  "可签约 SLA（条款以合同为准）",
   "专属私有化部署方案",
   "7×24 技术支持",
   "定制合同与发票",
 ];
 
 const trustItems = [
-  "99.9% SLA",
+  "99.9% 可用率目标",
   "DECIMAL(20,4) 计费精度",
   "ICP 备案合规",
   "OpenAI 兼容协议",
@@ -34,18 +34,18 @@ const trustItems = [
 
 export function CTA() {
   return (
-    <section className="py-24">
+    <section className="py-24" aria-labelledby="cta-heading">
       <div className="sketch-divider mb-24" />
       <div className="mx-auto max-w-5xl px-6">
 
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={{ y: 20 }}
+          whileInView={{ y: 0 }}
           viewport={{ once: true }}
           className="text-center mb-12"
         >
           <p className="eyebrow mb-4">开始使用</p>
-          <h2 className="headline-tight text-3xl md:text-4xl font-bold text-[var(--color-text-primary)]">
+          <h2 id="cta-heading" className="headline-tight text-3xl md:text-4xl font-bold text-[var(--color-text-primary)]">
             今晚接入，<span className="sketch-underline">明天上线</span>
           </h2>
           <p className="mt-4 text-[var(--color-text-secondary)] max-w-lg mx-auto">
@@ -57,8 +57,8 @@ export function CTA() {
 
           {/* Developer panel — primary CTA, accent orange */}
           <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            whileInView={{ opacity: 1, x: 0 }}
+            initial={{ x: -20 }}
+            whileInView={{ x: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
             className="h-full"
@@ -141,8 +141,8 @@ export function CTA() {
 
           {/* Enterprise panel — secondary, subdued */}
           <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            whileInView={{ opacity: 1, x: 0 }}
+            initial={{ x: 20 }}
+            whileInView={{ x: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.2 }}
             className="h-full"

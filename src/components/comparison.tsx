@@ -8,7 +8,7 @@ import { XCircleIcon, CheckCircleIcon } from "@heroicons/react/20/solid";
 const rows = [
   {
     aspect: "LLM 接入",
-    without: "逐家 SDK 适配（OpenAI / 通义 / 文心 / DeepSeek …），限流 / 重试退避 / key 轮转 / failover 全要自己写，1–3 人月",
+    without: "逐家 SDK 适配（各家协议、鉴权与错误码互不相同），限流 / 重试退避 / key 轮转 / failover 全要自己写，1–3 人月",
     with: "一个 API Key，OpenAI 兼容格式，30+ 模型开箱可用，自动 failover 与 key 轮转",
   },
   {
@@ -57,9 +57,9 @@ const crossWirePaths = [
 
 // Provider boxes in the right panel, centered around x=602
 const providers = [
-  { label: "OpenAI",   x: 479, cx: 506 },
-  { label: "Claude",   x: 543, cx: 570 },
-  { label: "DeepSeek", x: 607, cx: 634 },
+  { label: "旗舰档",   x: 479, cx: 506 },
+  { label: "推理档",   x: 543, cx: 570 },
+  { label: "高性价比", x: 607, cx: 634 },
   { label: "+ 27",     x: 671, cx: 698 },
 ];
 
@@ -67,12 +67,20 @@ function ComparisonDiagram() {
   return (
     <motion.div
       className="relative rounded-2xl border border-[var(--color-border)] overflow-hidden mb-14 bg-[var(--color-surface)]/40"
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
+      initial={{ y: 20 }}
+      whileInView={{ y: 0 }}
       viewport={{ once: true }}
     >
+      {/* 供屏幕阅读器的文字等价物 —— 下面那个 sm:hidden 的紧凑版是 display:none，
+          在桌面视口下连无障碍树都进不去，于是 SVG 图与文字替代在桌面端两头落空。
+          这一份 sr-only 无响应式变体，永远视觉隐藏但始终可被读屏读到。 */}
+      <p className="sr-only">
+        对比：自行搭建需要逐家对接 5+ 家供应商、约 4–8 个月接入；
+        接入 Lurus 后为一个 API Key、一套 OpenAI 兼容接口，约 5 分钟接入。
+      </p>
+
       {/* Compact text alternative for narrow screens */}
-      <div className="sm:hidden grid grid-cols-2 divide-x divide-[var(--color-border)]">
+      <div className="sm:hidden grid grid-cols-2 divide-x divide-[var(--color-border)]" aria-hidden="true">
         <div className="p-5 text-center">
           <p className="text-[10px] font-mono text-[var(--color-error)]/55 tracking-[0.2em] mb-2">自行搭建</p>
           <p className="text-2xl font-bold font-mono text-[var(--color-error)]/70" style={{ fontVariantNumeric: "tabular-nums" }}>5+</p>
@@ -136,8 +144,8 @@ function ComparisonDiagram() {
           <motion.path
             key={`ap-${i}`} d={d}
             fill="none" stroke="rgba(179,57,43,0.38)" strokeWidth="0.8" strokeDasharray="5 3"
-            initial={{ pathLength: 0, opacity: 0 }}
-            whileInView={{ pathLength: 1, opacity: 1 }}
+            initial={{ pathLength: 0, }}
+            whileInView={{ pathLength: 1, }}
             viewport={{ once: true }}
             transition={{ delay: 0.15 + i * 0.12, duration: 0.65 }}
           />
@@ -148,8 +156,8 @@ function ComparisonDiagram() {
           <motion.path
             key={`cw-${i}`} d={d}
             fill="none" stroke="rgba(179,57,43,0.17)" strokeWidth="0.55" strokeDasharray="2 4"
-            initial={{ pathLength: 0, opacity: 0 }}
-            whileInView={{ pathLength: 1, opacity: 1 }}
+            initial={{ pathLength: 0, }}
+            whileInView={{ pathLength: 1, }}
             viewport={{ once: true }}
             transition={{ delay: 0.72 + i * 0.07, duration: 0.45 }}
           />
@@ -199,8 +207,8 @@ function ComparisonDiagram() {
         {/* Single clean line: App → Lurus */}
         <motion.path d="M 602 68 L 602 110"
           fill="none" stroke="rgba(255,93,31,0.72)" strokeWidth="1.5"
-          initial={{ pathLength: 0, opacity: 0 }}
-          whileInView={{ pathLength: 1, opacity: 1 }}
+          initial={{ pathLength: 0, }}
+          whileInView={{ pathLength: 1, }}
           viewport={{ once: true }}
           transition={{ delay: 0.3, duration: 0.3 }}
         />
@@ -240,8 +248,8 @@ function ComparisonDiagram() {
             key={`pl-${p.label}`}
             d={`M 602 190 L ${p.cx} 226`}
             fill="none" stroke="rgba(255,93,31,0.22)" strokeWidth="0.8"
-            initial={{ pathLength: 0, opacity: 0 }}
-            whileInView={{ pathLength: 1, opacity: 1 }}
+            initial={{ pathLength: 0, }}
+            whileInView={{ pathLength: 1, }}
             viewport={{ once: true }}
             transition={{ delay: 0.62 + i * 0.08, duration: 0.36 }}
           />
@@ -274,18 +282,18 @@ function ComparisonDiagram() {
 
 export function Comparison() {
   return (
-    <section className="py-24 relative overflow-hidden">
+    <section className="py-24 relative overflow-hidden" aria-labelledby="comparison-heading">
       <div className="absolute inset-0 -z-10 grid-bg opacity-30" />
 
       <div className="mx-auto max-w-5xl px-6">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={{ y: 20 }}
+          whileInView={{ y: 0 }}
           viewport={{ once: true }}
           className="text-center mb-12"
         >
           <p className="eyebrow mb-4">BUILD VS BUY</p>
-          <h2 className="headline-tight text-3xl md:text-4xl font-bold">
+          <h2 id="comparison-heading" className="headline-tight text-3xl md:text-4xl font-bold">
             <span className="text-[var(--color-text-primary)]">你的竞争对手</span>
             <span className="text-gradient-gold">，正在用这三个月开发功能</span>
           </h2>
@@ -319,8 +327,8 @@ export function Comparison() {
           {rows.map((row, i) => (
             <motion.div
               key={row.aspect}
-              initial={{ opacity: 0, x: -20 }}
-              whileInView={{ opacity: 1, x: 0 }}
+              initial={{ x: -20 }}
+              whileInView={{ x: 0 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.06 }}
               className="grid grid-cols-1 md:grid-cols-[1fr_1.2fr_1.2fr] gap-2 md:gap-4 md:items-stretch rounded-xl md:rounded-none border border-[var(--color-border)]/40 md:border-0 p-3 md:p-0 bg-[var(--color-surface)]/30 md:bg-transparent"
@@ -349,8 +357,8 @@ export function Comparison() {
 
         {/* Savings callout */}
         <motion.div
-          initial={{ opacity: 0, scale: 0.95 }}
-          whileInView={{ opacity: 1, scale: 1 }}
+          initial={{ scale: 0.95 }}
+          whileInView={{ scale: 1 }}
           viewport={{ once: true }}
           className="mt-12 text-center"
         >

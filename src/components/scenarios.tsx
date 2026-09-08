@@ -81,16 +81,16 @@ function StepLabel({ children }: { children: string }) {
 
 export function Scenarios() {
   return (
-    <section className="py-24 relative">
+    <section className="py-24 relative" aria-labelledby="scenarios-heading">
       <div className="mx-auto max-w-7xl px-6">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={{ y: 20 }}
+          whileInView={{ y: 0 }}
           viewport={{ once: true }}
           className="text-center mb-14"
         >
           <p className="eyebrow mb-4">SCENARIOS</p>
-          <h2 className="headline-tight text-3xl md:text-4xl font-bold text-[var(--color-text-primary)]">
+          <h2 id="scenarios-heading" className="headline-tight text-3xl md:text-4xl font-bold text-[var(--color-text-primary)]">
             三种处境，同一个答案
           </h2>
           <p className="mt-4 text-[var(--color-text-secondary)] max-w-md mx-auto text-sm leading-relaxed">
@@ -104,8 +104,8 @@ export function Scenarios() {
             return (
               <motion.div
                 key={s.who}
-                initial={{ opacity: 0, y: 24 }}
-                whileInView={{ opacity: 1, y: 0 }}
+                initial={{ y: 24 }}
+                whileInView={{ y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.1, ease: [0.16, 1, 0.3, 1] }}
                 whileHover={{

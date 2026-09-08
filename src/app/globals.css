@@ -71,6 +71,9 @@ html {
   --shadow-md: 0 6px 20px color-mix(in srgb, var(--lt-ink) 8%, transparent);
   --shadow-lg: 0 16px 48px color-mix(in srgb, var(--lt-ink) 12%, transparent);
   --shadow-window: 0 28px 64px -16px color-mix(in srgb, var(--lt-ink) 30%, transparent);
+
+  /* Hero 顶部聚光。浅色下用近白提亮纸面；暗色见 .dark 覆写。 */
+  --aurora-focal: rgba(255, 249, 238, 0.55);
 }
 
 /* Dark mode — toggled via .dark class on <html> (see header.tsx ThemeToggle
@@ -120,6 +123,9 @@ html {
   --shadow-md: 0 6px 20px rgba(0, 0, 0, 0.45);
   --shadow-lg: 0 16px 48px rgba(0, 0, 0, 0.55);
   --shadow-window: 0 28px 64px -16px rgba(0, 0, 0, 0.6);
+
+  /* 暗色下近白聚光会变成一团灰雾，换成与品牌一致的暖橙微光。 */
+  --aurora-focal: rgba(255, 122, 71, 0.10);
 }
 
 @theme inline {
@@ -159,12 +165,6 @@ body {
   font-weight: 500;
 }
 
-/* Arrow-compressed stat — Vercel's killer pattern. "800ms → 120ms" */
-.stat-arrow {
-  font-family: var(--font-mono);
-  font-feature-settings: "tnum";
-  letter-spacing: -0.01em;
-}
 
 /* ── Type Scale（六级，H3 以下也有规范）── */
 .type-h1 {
@@ -331,23 +331,7 @@ body {
   background-size: 60px 60px;
 }
 
-/* Vercel-style dot grid — decorative texture, very low opacity.
-   Pairs with .grid-bg or stands alone for quieter sections. */
-.dot-grid {
-  background-image: radial-gradient(
-    color-mix(in srgb, var(--lt-ink) 7%, transparent) 1px,
-    transparent 1px
-  );
-  background-size: 22px 22px;
-}
 
-/* Gradient mesh for hero backgrounds */
-.gradient-mesh {
-  background:
-    radial-gradient(ellipse 80% 50% at 50% -20%, color-mix(in srgb, var(--lt-accent) 6%, transparent) 0%, transparent 60%),
-    radial-gradient(ellipse 60% 40% at 80% 50%, color-mix(in srgb, var(--lt-accent-2) 4%, transparent) 0%, transparent 50%),
-    radial-gradient(ellipse 60% 40% at 20% 60%, color-mix(in srgb, var(--lt-accent) 3%, transparent) 0%, transparent 50%);
-}
 
 /* Noise texture overlay */
 .noise::after {
@@ -393,6 +377,9 @@ body {
   line-height: 1.7;
   overflow-x: auto;
   max-width: 100%; /* grid/flex 子项中防 nowrap 代码撑破容器 (移动端横向溢出) */
+  /* 面板是暖深色，滚动条必须跟着深，否则浅灰滚动条横在窗底非常扎眼 */
+  scrollbar-width: thin;
+  scrollbar-color: #3A342A transparent;
 }
 
 .code-block .line-number {
@@ -430,9 +417,23 @@ body {
 .hero-enter-up {
   animation: fade-in-up 0.7s var(--ease-out-expo) both;
 }
-.hero-char {
-  display: inline-block;
-  animation: fade-in-up 0.7s var(--ease-out-expo) both;
+
+/* Hero 右列（代码窗 + 响应演示）的进场。原为 framer-motion 的 initial:opacity:0，
+   SSR 出的 inline opacity:0 要等水合才解除 —— 右列是首屏最重要的视觉证据，却在
+   慢网下长时间空白，而左列早已改成 CSS 驱动。此处补齐同一处理：CSS 动画在首次
+   绘制时即开始，不等 JS。语言切换的 AnimatePresence 仍走 framer-motion，两者不冲突。 */
+@keyframes fade-in-right {
+  from {
+    opacity: 0;
+    transform: translateX(30px) rotateY(-5deg);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0) rotateY(0deg);
+  }
+}
+.hero-enter-right {
+  animation: fade-in-right 0.8s var(--ease-out-expo) both;
 }
 
 /* Pill badge */
@@ -449,35 +450,16 @@ body {
   font-weight: 500;
 }
 
-/* Subtle line connector between sections */
-.connector-line {
-  width: 1px;
-  height: 80px;
-  margin: 0 auto;
-  background: linear-gradient(to bottom, var(--color-border), transparent);
-}
 
 /* ── Hand-drawn / sketch layer ──
    叠加在纸感编辑风之上的手作元素;全部基于既有 ink/accent token,不改配色/字体,
    纯增量可逆。给编辑风注入温度与手绘感(贴 paper + Fraunces 的有机调性)。 */
 
-/* 不规则手绘边框 — 非对称 border-radius 模拟手画矩形 */
-.sketch-border {
-  border: 1.5px solid color-mix(in srgb, var(--lt-ink) 78%, transparent);
-  border-radius: 14px 220px 18px 220px / 220px 16px 220px 18px;
-}
 
-/* hard offset 阴影 — 手作贴纸感,配 sketch-border 用 */
-.sketch-shadow {
-  box-shadow: 4px 4px 0 color-mix(in srgb, var(--lt-ink) 82%, transparent);
-}
 .sketch-shadow-accent {
   box-shadow: 4px 4px 0 color-mix(in srgb, var(--lt-accent) 70%, transparent);
 }
 
-/* 微旋转 — 手随意摆放感(成对交替;注意:有 hover transform 的元素会在 hover 时摆正) */
-.sketch-tilt-l { transform: rotate(-0.7deg); }
-.sketch-tilt-r { transform: rotate(0.7deg); }
 
 /* 手绘波浪下划线 — 橙,强调关键词(套在 inline 元素上) */
 .sketch-underline {
@@ -538,7 +520,11 @@ header {
   }
 }
 
-/* Respect reduced motion */
+/* Respect reduced motion.
+   ⚠️ 这里必须逐个列全所有 CSS 动画类：`animation: none` 会让 fill-mode:both 的
+   起始帧（opacity:0）失效从而正常显示，但**漏掉任何一个类，该元素就会永久停在
+   透明起始态**——对开了「减弱动态效果」的用户等于内容消失。新增 .hero-* 动画类时
+   务必同步加到下面的列表里。 */
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   ::view-transition-old(root),
@@ -546,7 +532,7 @@ header {
     animation-duration: 0s;
   }
   .hero-enter-up,
-  .hero-char {
+  .hero-enter-right {
     animation: none;
   }
 }

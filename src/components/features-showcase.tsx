@@ -21,18 +21,18 @@ function spotlight(e: ReactMouseEvent<HTMLDivElement>) {
 
 export function FeaturesShowcase() {
   return (
-    <section className="py-24 relative">
+    <section className="py-24 relative" aria-labelledby="features-heading">
       <div className="absolute inset-0 -z-10 grid-bg opacity-50" />
 
       <div className="mx-auto max-w-7xl px-6">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={{ y: 20 }}
+          whileInView={{ y: 0 }}
           viewport={{ once: true }}
           className="text-center mb-16"
         >
           <p className="eyebrow mb-4">LUGO PLATFORM</p>
-          <h2 className="headline-tight text-3xl md:text-4xl font-bold">
+          <h2 id="features-heading" className="headline-tight text-3xl md:text-4xl font-bold">
             <span className="text-[var(--color-text-primary)]">一套后端，</span>
             <span className="text-gradient-gold">五项能力</span>
           </h2>
@@ -48,16 +48,16 @@ export function FeaturesShowcase() {
           <motion.div
             onMouseMove={spotlight}
             className="md:col-span-2 card card-spotlight p-6 group relative overflow-hidden"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            initial={{ y: 20 }}
+            whileInView={{ y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0 }}
           >
             <div className="flex flex-col lg:flex-row gap-6 h-full">
               <div className="lg:w-[42%] shrink-0">
                 <div className="flex items-center gap-2 mb-3">
-                  <ArrowsRightLeftIcon className="w-4 h-4 text-[var(--color-accent)]" aria-hidden="true" />
-                  <p className="eyebrow text-[var(--color-accent)]/70">SMART ROUTING</p>
+                  <ArrowsRightLeftIcon className="w-4 h-4 text-[var(--color-text-secondary)]" aria-hidden="true" />
+                  <p className="eyebrow">SMART ROUTING</p>
                 </div>
                 <h3 className="text-xl font-semibold text-[var(--color-text-primary)] mb-3">智能路由</h3>
                 <p className="text-sm text-[var(--color-text-muted)] leading-relaxed mb-4">
@@ -82,14 +82,14 @@ export function FeaturesShowcase() {
           <motion.div
             onMouseMove={spotlight}
             className="card card-spotlight p-6 group relative overflow-hidden flex flex-col"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            initial={{ y: 20 }}
+            whileInView={{ y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.08 }}
           >
             <div className="flex items-center gap-2 mb-3">
-              <CurrencyYenIcon className="w-4 h-4 text-[var(--color-accent)]" aria-hidden="true" />
-              <p className="eyebrow text-[var(--color-accent)]/70">BILLING ENGINE</p>
+              <CurrencyYenIcon className="w-4 h-4 text-[var(--color-text-secondary)]" aria-hidden="true" />
+              <p className="eyebrow">BILLING ENGINE</p>
             </div>
             <h3 className="text-xl font-semibold text-[var(--color-text-primary)] mb-3">金融级计费</h3>
             <p className="text-sm text-[var(--color-text-muted)] leading-relaxed mb-4">
@@ -109,14 +109,14 @@ export function FeaturesShowcase() {
           <motion.div
             onMouseMove={spotlight}
             className="card card-spotlight p-6 group relative overflow-hidden"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            initial={{ y: 20 }}
+            whileInView={{ y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.12 }}
           >
             <div className="flex items-center gap-2 mb-3">
-              <CpuChipIcon className="w-4 h-4 text-[var(--color-accent)]" aria-hidden="true" />
-              <p className="eyebrow text-[var(--color-accent)]/70">MEMORY ENGINE</p>
+              <CpuChipIcon className="w-4 h-4 text-[var(--color-text-secondary)]" aria-hidden="true" />
+              <p className="eyebrow">MEMORY ENGINE</p>
             </div>
             <h3 className="text-lg font-semibold text-[var(--color-text-primary)] mb-2">AI 记忆</h3>
             <div className="h-28 mb-4 flex items-center justify-center overflow-hidden rounded-lg bg-[var(--background)]/50">
@@ -132,14 +132,14 @@ export function FeaturesShowcase() {
           <motion.div
             onMouseMove={spotlight}
             className="card card-spotlight p-6 group relative overflow-hidden"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            initial={{ y: 20 }}
+            whileInView={{ y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.16 }}
           >
             <div className="flex items-center gap-2 mb-3">
               <ShieldCheckIcon className="w-4 h-4 text-[var(--lt-accent-2)]" aria-hidden="true" />
-              <p className="eyebrow text-[var(--lt-accent-2)]/70">IDENTITY</p>
+              <p className="eyebrow">IDENTITY</p>
             </div>
             <h3 className="text-lg font-semibold text-[var(--color-text-primary)] mb-2">企业认证</h3>
             <div className="h-28 mb-4 flex items-center justify-center overflow-hidden rounded-lg bg-[var(--background)]/50">
@@ -155,14 +155,14 @@ export function FeaturesShowcase() {
           <motion.div
             onMouseMove={spotlight}
             className="card card-spotlight p-6 group relative overflow-hidden"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            initial={{ y: 20 }}
+            whileInView={{ y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.20 }}
           >
             <div className="flex items-center gap-2 mb-3">
-              <BellIcon className="w-4 h-4 text-[var(--color-accent)]" aria-hidden="true" />
-              <p className="eyebrow text-[var(--color-accent)]/70">NOTIFICATIONS</p>
+              <BellIcon className="w-4 h-4 text-[var(--color-text-secondary)]" aria-hidden="true" />
+              <p className="eyebrow">NOTIFICATIONS</p>
             </div>
             <h3 className="text-lg font-semibold text-[var(--color-text-primary)] mb-2">事件通知</h3>
             <div className="h-28 mb-4 flex items-center justify-center overflow-hidden rounded-lg bg-[var(--background)]/50">
@@ -178,16 +178,16 @@ export function FeaturesShowcase() {
           <motion.div
             onMouseMove={spotlight}
             className="md:col-span-3 card card-spotlight p-6 group relative overflow-hidden"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            initial={{ y: 20 }}
+            whileInView={{ y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.24 }}
           >
             <div className="flex flex-col md:flex-row gap-8 items-start">
               <div className="md:w-64 shrink-0">
                 <div className="flex items-center gap-2 mb-3">
-                  <ChartBarIcon className="w-4 h-4 text-[var(--color-accent)]" aria-hidden="true" />
-                  <p className="eyebrow text-[var(--color-accent)]/70">OBSERVABILITY</p>
+                  <ChartBarIcon className="w-4 h-4 text-[var(--color-text-secondary)]" aria-hidden="true" />
+                  <p className="eyebrow">OBSERVABILITY</p>
                 </div>
                 <h3 className="text-xl font-semibold text-[var(--color-text-primary)] mb-3">全链路可观测性</h3>
                 <p className="text-sm text-[var(--color-text-muted)] leading-relaxed mb-5">
@@ -228,10 +228,12 @@ export function FeaturesShowcase() {
 
 function RouterProviderTable() {
   const providers = [
-    { name: "OpenAI gpt-4o", latency: "89ms", cost: "¥0.14", score: 88, selected: false },
-    { name: "DeepSeek V3", latency: "42ms", cost: "¥0.02", score: 98, selected: true },
-    { name: "Claude Sonnet 4", latency: "95ms", cost: "¥0.12", score: 86, selected: false },
-    { name: "Gemini 2.5 Flash", latency: "120ms", cost: "¥0.08", score: 82, selected: false },
+    // 示意数据：用档位而非具体商品名表达路由结果 —— 智能路由的价值正是"你不必关心是哪家"。
+    // 延迟/单价/评分均为演示值，非实测；卡片底部已标注"示意"。
+    { name: "旗舰档 · 高价", latency: "89ms", cost: "¥0.14", score: 88, selected: false },
+    { name: "高性价比档", latency: "42ms", cost: "¥0.02", score: 98, selected: true },
+    { name: "旗舰档 · 均衡", latency: "95ms", cost: "¥0.12", score: 86, selected: false },
+    { name: "轻量快速档", latency: "120ms", cost: "¥0.08", score: 82, selected: false },
   ];
 
   return (
@@ -253,8 +255,8 @@ function RouterProviderTable() {
                   ? "bg-[var(--color-accent)]/8 border border-[var(--color-accent)]/20"
                   : ""
               }`}
-              initial={{ opacity: 0, x: -8 }}
-              whileInView={{ opacity: 1, x: 0 }}
+              initial={{ x: -8 }}
+              whileInView={{ x: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.3 + i * 0.12 }}
             >
@@ -300,8 +302,8 @@ function RouterProviderTable() {
                   {p.selected && (
                     <motion.span
                       className="text-[var(--color-success)]"
-                      initial={{ opacity: 0, scale: 0 }}
-                      whileInView={{ opacity: 1, scale: 1 }}
+                      initial={{ scale: 0 }}
+                      whileInView={{ scale: 1 }}
                       viewport={{ once: true }}
                       transition={{ delay: 0.7, type: "spring" }}
                     >
@@ -321,7 +323,7 @@ function RouterProviderTable() {
         transition={{ duration: 2.5, repeat: Infinity }}
       >
         <span className="w-1.5 h-1.5 rounded-full bg-[var(--color-success)] shrink-0" />
-        ROUTED → DeepSeek V3 · 较 OpenAI 节省 85% 成本
+        ROUTED → 高性价比档 · 示意数据
       </motion.div>
     </div>
   );
@@ -329,10 +331,11 @@ function RouterProviderTable() {
 
 function BillingLedgerVisual() {
   const txs = [
-    { label: "gpt-4o · 2,048 tok", amount: "-¥0.0364", debit: true },
-    { label: "deepseek · 8,192 tok", amount: "-¥0.0016", debit: true },
+    // 示意流水：用档位而非商品名，金额为演示值
+    { label: "旗舰档 · 2,048 tok", amount: "-¥0.0364", debit: true },
+    { label: "高性价比档 · 8,192 tok", amount: "-¥0.0016", debit: true },
     { label: "充值入账", amount: "+¥500.00", debit: false },
-    { label: "claude-4 · 1,024 tok", amount: "-¥0.0188", debit: true },
+    { label: "推理档 · 1,024 tok", amount: "-¥0.0188", debit: true },
   ];
 
   return (

@@ -66,8 +66,8 @@ export function PricingTiers() {
           {tiers.map((tier, i) => (
             <motion.div
               key={tier.name}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              initial={{ y: 20 }}
+              whileInView={{ y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.1 }}
               className={`card p-8 flex flex-col ${
@@ -326,16 +326,17 @@ export function UsagePricing() {
           </table>
         </div>
 
-        {/* 静态省钱 callout — 与首页 CostCalculator 同一套常量 (5M tokens, GPT-4o $10/M vs Hub blended $1.5/M, 汇率 7.2) */}
+        {/* 静态省钱 callout — 与首页 CostCalculator 同一套常量 (5M tokens, 旗舰档 $10/M vs 混合调度 $1.5/M, 汇率 7.2)。
+            这两个单价是基于公开定价的估算假设，不是实测路由统计 —— 改动时请同步 cost-calculator.tsx。 */}
         <div className="mt-8 card p-6 text-center">
           <p className="text-sm text-[var(--color-text-secondary)] leading-relaxed">
             以月用 <span className="font-mono font-semibold text-[var(--color-text-primary)]">500 万 tokens</span> 的通用场景为例：
-            GPT-4o 直连约 <span className="font-mono">¥360/月</span>，
+            通用旗舰模型直连约 <span className="font-mono">¥360/月</span>，
             经 Hub 智能路由混合调度约 <span className="font-mono">¥54/月</span> —
             同样的调用量，<span className="font-semibold text-[var(--color-accent)]">省 85%</span>。
           </p>
           <p className="mt-2 text-xs text-[var(--color-text-muted)]">
-            想按你的真实用量算账？首页的成本计算器支持 10 万到 1 亿 tokens 滑动估算。
+            估算口径基于公开定价与典型路由分布，非实测统计。想按你的真实用量算账？首页的成本计算器支持 10 万到 1 亿 tokens 滑动估算。
           </p>
         </div>
 

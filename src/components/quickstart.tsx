@@ -99,7 +99,7 @@ function ResponseWidget() {
         {/* model */}
         <div className="flex justify-between gap-4">
           <span style={{ color: "#7A7168" }}>model</span>
-          <span style={{ color: "var(--color-ochre)" }}>deepseek-v3-0324</span>
+          <span style={{ color: "var(--color-ochre)" }}>cost-optimized</span>
         </div>
         {/* status */}
         <div className="flex justify-between gap-4">
@@ -126,7 +126,7 @@ function ResponseWidget() {
           className="flex justify-between gap-4 mt-1 pt-2 border-t"
           style={{ borderColor: "rgba(255,255,255,0.06)" }}
         >
-          <span style={{ color: "#7A7168" }}>x-lurus-saved-vs-openai</span>
+          <span style={{ color: "#7A7168" }}>x-lurus-saved-vs-flagship</span>
           <span style={{ color: "#A6CE8A" }}>−85%</span>
         </div>
       </div>
@@ -157,16 +157,16 @@ const STEPS = [
 
 export function QuickStart() {
   return (
-    <section className="py-20 relative">
+    <section className="py-24 relative" aria-labelledby="quickstart-heading">
       <div className="mx-auto max-w-5xl px-6">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={{ y: 20 }}
+          whileInView={{ y: 0 }}
           viewport={{ once: true }}
           className="text-center mb-14"
         >
           <p className="eyebrow mb-4">QUICKSTART</p>
-          <h2 className="headline-tight text-3xl md:text-4xl font-bold">
+          <h2 id="quickstart-heading" className="headline-tight text-3xl md:text-4xl font-bold">
             <span className="text-[var(--color-text-primary)]">五分钟以内，</span>
             <span className="text-gradient-gold">进入生产</span>
           </h2>
@@ -203,8 +203,8 @@ export function QuickStart() {
           {STEPS.map(({ n, title, sub, Widget }, i) => (
             <motion.div
               key={n}
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              initial={{ y: 24 }}
+              whileInView={{ y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.13, duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
               className="card p-6 relative group transition-all duration-300"

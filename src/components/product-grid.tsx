@@ -107,8 +107,8 @@ function EcosystemMap() {
   return (
     <motion.div
       className="relative rounded-2xl border border-[var(--color-border)] overflow-hidden mb-14 bg-[var(--color-surface)]/40"
-      initial={{ opacity: 0, y: 16 }}
-      whileInView={{ opacity: 1, y: 0 }}
+      initial={{ y: 16 }}
+      whileInView={{ y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.5 }}
     >
@@ -298,18 +298,18 @@ export function ProductGrid() {
   );
 
   return (
-    <section className="py-24 relative">
+    <section className="py-24 relative" aria-labelledby="products-heading">
       <div className="absolute inset-0 -z-10 grid-bg opacity-20" />
       <div className="mx-auto max-w-7xl px-6">
 
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={{ y: 20 }}
+          whileInView={{ y: 0 }}
           viewport={{ once: true }}
           className="text-center mb-12"
         >
           <p className="eyebrow mb-4">ECOSYSTEM</p>
-          <h2 className="headline-tight text-3xl md:text-4xl font-bold text-[var(--color-text-primary)]">
+          <h2 id="products-heading" className="headline-tight text-3xl md:text-4xl font-bold text-[var(--color-text-primary)]">
             <span className="sketch-underline">产品矩阵</span>
           </h2>
           <p className="mt-4 text-[var(--color-text-secondary)] max-w-xl mx-auto">
@@ -394,8 +394,8 @@ export function ProductGrid() {
           {productGroups.map((group, gi) => (
             <motion.div
               key={group.id}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              initial={{ y: 30 }}
+              whileInView={{ y: 0 }}
               viewport={{ once: true, margin: "-100px" }}
               transition={{ delay: gi * 0.08 }}
             >
@@ -421,8 +421,8 @@ export function ProductGrid() {
                   return (
                     <motion.div
                       key={product.id}
-                      initial={{ opacity: 0, y: 20 }}
-                      whileInView={{ opacity: 1, y: 0 }}
+                      initial={{ y: 20 }}
+                      whileInView={{ y: 0 }}
                       viewport={{ once: true }}
                       transition={{ delay: pi * 0.08 }}
                       className={`transition-opacity duration-300 ${

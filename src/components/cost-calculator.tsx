@@ -16,14 +16,16 @@ import { motion, animate } from "framer-motion";
 import { fadeInUp } from "@/lib/motion";
 
 // Blended USD per 1M tokens. Mixed input/output, conservative averages.
+// 单价为按公开定价整理的**档位估算**，非某一具体商品的实时报价；
+// 改动时请同步 pricing/tiers.tsx 里那段静态 callout 的口径。
 const PROVIDERS = {
-  general: { label: "通用", model: "GPT-4o 直连", price: 10 },
-  reasoning: { label: "推理", model: "Claude Sonnet 4.5", price: 9 },
-  cost: { label: "成本敏感", model: "Gemini 2.5 Pro", price: 7 },
+  general: { label: "通用", model: "通用旗舰直连", price: 10 },
+  reasoning: { label: "推理", model: "推理旗舰直连", price: 9 },
+  cost: { label: "成本敏感", model: "轻量旗舰直连", price: 7 },
 } as const;
 type ProviderKey = keyof typeof PROVIDERS;
 
-// Lurus blended: ~80% routed to DeepSeek/Qwen-class ($0.5/1M), ~20% premium fallback.
+// Lurus blended: ~80% 路由到高性价比档 ($0.5/1M), ~20% 回落到旗舰档。这是估算假设，不是实测分布。
 const LURUS_PRICE_PER_M = 1.5;
 const USD_TO_CNY = 7.2;
 
@@ -123,13 +125,13 @@ export function CostCalculator() {
     directMonthlyCNY > 0 ? Math.round((savingsMonthly / directMonthlyCNY) * 100) : 0;
 
   return (
-    <section className="py-24 relative">
+    <section className="py-24 relative" aria-labelledby="cost-heading">
       <div className="absolute inset-0 -z-10 grid-bg opacity-30" />
 
       <div className="mx-auto max-w-5xl px-6">
         <motion.div {...fadeInUp} className="text-center mb-14">
           <p className="eyebrow mb-4">ROI</p>
-          <h2 className="headline-tight text-3xl md:text-4xl font-bold">
+          <h2 id="cost-heading" className="headline-tight text-3xl md:text-4xl font-bold">
             <span className="text-[var(--color-text-primary)]">省下来的钱，</span>
             <span className="text-[var(--color-accent)]">是另一条产品线</span>
           </h2>
@@ -255,7 +257,7 @@ export function CostCalculator() {
             }}
           >
             <div className="flex items-center justify-between mb-4">
-              <p className="eyebrow text-[var(--color-accent)]">Lugo 智能路由</p>
+              <p className="eyebrow">Lugo 智能路由</p>
               <span className="flex items-center gap-1.5 text-[10px] font-mono text-[var(--color-success)]">
                 <motion.span
                   className="w-1.5 h-1.5 rounded-full bg-[var(--color-success)]"
@@ -276,7 +278,7 @@ export function CostCalculator() {
             </p>
             {/* Routing breakdown — makes the price claim transparent */}
             <p className="mt-1.5 text-[10px] font-mono text-[var(--color-text-muted)] leading-relaxed">
-              ≈ 80% DeepSeek/Qwen 级 · 20% 高端回退 · 计费精度 DECIMAL(20,4)
+              ≈ 80% 高性价比档 · 20% 旗舰回退（估算假设）· 计费精度 DECIMAL(20,4)
             </p>
             <div className="absolute -bottom-12 -right-12 w-48 h-48 rounded-full bg-[var(--color-accent)] opacity-[0.06] blur-[70px] pointer-events-none" />
           </motion.div>
@@ -315,7 +317,7 @@ export function CostCalculator() {
             />
           </p>
           <p className="mt-5 text-[11px] text-[var(--color-text-muted)] max-w-md mx-auto leading-relaxed">
-            基于 30 天滚动平均路由数据，汇率 1 USD = {USD_TO_CNY} CNY，实际节省可能高于估算
+            基于本页公开定价与典型路由分布的估算（汇率 1 USD = {USD_TO_CNY} CNY），非实测统计；实际结果取决于你的模型组合与用量
           </p>
         </motion.div>
       </div>

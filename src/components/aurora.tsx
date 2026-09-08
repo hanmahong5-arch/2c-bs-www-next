@@ -44,12 +44,14 @@ export function Aurora() {
         }}
         transition={{ duration: 19, repeat: Infinity, ease: "easeInOut" }}
       />
-      {/* White-hot focal — top center, draws the eye toward the headline */}
+      {/* Focal wash — top center, draws the eye toward the headline.
+          颜色走 --aurora-focal：浅色下是近白提亮，暗色下必须换成暖橙微光，
+          否则同一团近白色在深底上会变成一片发灰的雾（实测暗色首屏可见）。 */}
       <div
         className="absolute w-[34vw] h-[22vw] top-[-6%] left-1/2 -translate-x-1/2 rounded-full pointer-events-none"
         style={{
           background:
-            "radial-gradient(ellipse at center, rgba(255,249,238,0.55) 0%, transparent 66%)",
+            "radial-gradient(ellipse at center, var(--aurora-focal) 0%, transparent 66%)",
           filter: "blur(72px)",
         }}
       />

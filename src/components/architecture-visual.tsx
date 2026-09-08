@@ -17,10 +17,10 @@ const nodes = [
   { id: "router",   label: "智能路由",  x: 22, y: 54, type: "core"     as const },
   { id: "billing",  label: "计费引擎",  x: 50, y: 54, type: "core"     as const },
   { id: "memory",   label: "记忆引擎",  x: 78, y: 54, type: "core"     as const },
-  { id: "openai",   label: "OpenAI",    x: 10, y: 80, type: "provider" as const },
-  { id: "claude",   label: "Claude",    x: 30, y: 80, type: "provider" as const },
-  { id: "deepseek", label: "DeepSeek",  x: 50, y: 80, type: "provider" as const },
-  { id: "gemini",   label: "Gemini",    x: 70, y: 80, type: "provider" as const },
+  { id: "flagship", label: "旗舰档",    x: 10, y: 80, type: "provider" as const },
+  { id: "reasoning",label: "推理档",    x: 30, y: 80, type: "provider" as const },
+  { id: "value",    label: "高性价比",  x: 50, y: 80, type: "provider" as const },
+  { id: "light",    label: "轻量档",    x: 70, y: 80, type: "provider" as const },
   { id: "more",     label: "30+",       x: 90, y: 80, type: "provider" as const },
 ];
 
@@ -29,10 +29,10 @@ const connections: [string, string][] = [
   ["gateway", "router"],
   ["gateway", "billing"],
   ["gateway", "memory"],
-  ["router",  "openai"],
-  ["router",  "claude"],
-  ["router",  "deepseek"],
-  ["router",  "gemini"],
+  ["router",  "flagship"],
+  ["router",  "reasoning"],
+  ["router",  "value"],
+  ["router",  "light"],
   ["router",  "more"],
 ];
 
@@ -64,7 +64,7 @@ const auditEntries = [
     ts: "2026-06-13T09:41:22.012Z",
     level: "INFO",
     event: "router.decision",
-    payload: '{"model":"deepseek-v3-0324","score":98,"cost_ratio":0.15}',
+    payload: '{"model":"cost-optimized","score":98,"cost_ratio":0.15}',
   },
   {
     ts: "2026-06-13T09:41:22.042Z",
@@ -119,7 +119,7 @@ const traceSteps = [
     time: "12ms",
     icon: "⊙",
     label: "路由决策",
-    detail: "deepseek-v3-0324  score 98  cost_ratio 0.15",
+    detail: "高性价比档  score 98  cost_ratio 0.15",
     stage: "router",
   },
   {
@@ -201,7 +201,7 @@ function AuditLog({ visible }: { visible: boolean }) {
           {auditEntries.map((entry, i) => (
             <motion.div
               key={i}
-              initial={{ opacity: 0, x: -6 }}
+              initial={{ x: -6 }}
               animate={{ opacity: visible ? 1 : 0, x: visible ? 0 : -6 }}
               transition={{ delay: i * 0.07, duration: 0.25 }}
               className="px-4 py-2 flex flex-col gap-0.5 md:flex-row md:gap-3 md:items-baseline"
@@ -316,7 +316,7 @@ function RequestTrace({ onCycle }: { onCycle: () => void }) {
                     ? "rgba(255, 93, 31, 0.04)"
                     : "transparent",
               }}
-              initial={{ opacity: 0, x: -10 }}
+              initial={{ x: -10 }}
               animate={i < visibleCount ? { opacity: 1, x: 0 } : { opacity: 0, x: -10 }}
               transition={{ duration: 0.2, ease: "easeOut" }}
             >
@@ -372,6 +372,8 @@ function RequestTrace({ onCycle }: { onCycle: () => void }) {
             <span style={{ color: "var(--color-success)" }}>¥0.0028</span>
             <span className="w-px h-3" style={{ background: "var(--color-border)" }} />
             <span style={{ color: "var(--color-text-muted)" }}>节省 85%</span>
+            <span className="w-px h-3" style={{ background: "var(--color-border)" }} />
+            <span style={{ color: "var(--color-text-muted)" }}>示意</span>
             <span className="w-px h-3 hidden sm:block" style={{ background: "var(--color-border)" }} />
             <span className="hidden sm:inline" style={{ color: "var(--color-text-muted)" }}>
               tx_id:tx_9f3a2c
@@ -408,16 +410,16 @@ export function ArchitectureVisual() {
   );
 
   return (
-    <section ref={sectionRef} className="py-24 relative overflow-hidden">
+    <section ref={sectionRef} className="py-24 relative overflow-hidden" aria-labelledby="architecture-heading">
       <div className="mx-auto max-w-7xl px-6">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={{ y: 20 }}
+          whileInView={{ y: 0 }}
           viewport={{ once: true }}
           className="text-center mb-12"
         >
           <p className="eyebrow mb-4">ARCHITECTURE</p>
-          <h2 className="headline-tight text-3xl md:text-4xl font-bold">
+          <h2 id="architecture-heading" className="headline-tight text-3xl md:text-4xl font-bold">
             <span className="text-gradient-gold">一个请求</span>
             <span className="text-[var(--color-text-primary)]">的完整生命周期</span>
           </h2>
@@ -427,8 +429,8 @@ export function ArchitectureVisual() {
         </motion.div>
 
         <motion.div
-          initial={{ opacity: 0, scale: 0.95 }}
-          whileInView={{ opacity: 1, scale: 1 }}
+          initial={{ scale: 0.95 }}
+          whileInView={{ scale: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
           style={{ maxWidth, borderRadius }}
@@ -444,7 +446,12 @@ export function ArchitectureVisual() {
               >
                 SYSTEM TOPOLOGY
               </p>
-              <svg viewBox="0 0 100 95" className="w-full" style={{ maxHeight: 320 }}>
+              <svg
+          viewBox="0 0 100 95"
+          className="w-full"
+          style={{ maxHeight: 320 }}
+          role="img"
+          aria-label="系统拓扑：你的应用经 API 网关进入，网关分别连接智能路由、计费引擎与记忆引擎；智能路由再按旗舰档、推理档、高性价比档、轻量档等能力档位分发到 30+ 家模型供应商。">
                 {/* Layer labels */}
                 <text x="2" y="16" fill="rgba(45,74,138,0.35)"  fontSize="1.8" fontFamily="var(--font-mono)">YOUR APP</text>
                 <text x="2" y="36" fill="rgba(255,93,31,0.3)"   fontSize="1.8" fontFamily="var(--font-mono)">LUGO PLATFORM</text>
@@ -461,8 +468,8 @@ export function ArchitectureVisual() {
                       stroke="rgba(255, 93, 31, 0.18)"
                       strokeWidth="0.3"
                       strokeDasharray="2 2"
-                      initial={{ pathLength: 0, opacity: 0 }}
-                      whileInView={{ pathLength: 1, opacity: 1 }}
+                      initial={{ pathLength: 0, }}
+                      whileInView={{ pathLength: 1, }}
                       viewport={{ once: true }}
                       transition={{ delay: 0.3 + i * 0.08, duration: 0.6 }}
                     />
@@ -490,8 +497,8 @@ export function ArchitectureVisual() {
                   return (
                     <motion.g
                       key={node.id}
-                      initial={{ opacity: 0, scale: 0 }}
-                      whileInView={{ opacity: 1, scale: 1 }}
+                      initial={{ scale: 0 }}
+                      whileInView={{ scale: 1 }}
                       viewport={{ once: true }}
                       transition={{ delay: 0.2 + i * 0.05, type: "spring" }}
                     >

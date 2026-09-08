@@ -67,8 +67,8 @@ export function VisionMap() {
             <motion.div
               className="card flex-1 p-6 rounded-2xl"
               style={{ borderColor: s.border }}
-              initial={{ opacity: 0, y: 16 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              initial={{ y: 16 }}
+              whileInView={{ y: 0 }}
               viewport={{ once: true, margin: "-40px" }}
               transition={{ delay: i * 0.12, duration: 0.45, ease: EASE }}
             >

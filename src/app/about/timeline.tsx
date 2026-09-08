@@ -54,8 +54,8 @@ export function Timeline() {
         {milestones.map((m, i) => (
           <motion.li
             key={m.date}
-            initial={{ opacity: 0, x: -12 }}
-            whileInView={{ opacity: 1, x: 0 }}
+            initial={{ x: -12 }}
+            whileInView={{ x: 0 }}
             viewport={{ once: true, margin: "-60px" }}
             transition={{ delay: i * 0.1, duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
             className="relative"

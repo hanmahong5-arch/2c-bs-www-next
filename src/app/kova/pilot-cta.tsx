@@ -42,8 +42,8 @@ export function PilotCTA() {
       <div className="sketch-divider mb-24" />
       <div className="mx-auto max-w-5xl px-6">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={{ y: 20 }}
+          whileInView={{ y: 0 }}
           viewport={{ once: true }}
           className="text-center mb-12"
         >
@@ -60,8 +60,8 @@ export function PilotCTA() {
         <div className="grid md:grid-cols-2 gap-5">
           {/* Pilot panel — primary, accent orange */}
           <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            whileInView={{ opacity: 1, x: 0 }}
+            initial={{ x: -20 }}
+            whileInView={{ x: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
             className="h-full"
@@ -143,8 +143,8 @@ export function PilotCTA() {
 
           {/* Acceptance panel — secondary */}
           <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            whileInView={{ opacity: 1, x: 0 }}
+            initial={{ x: 20 }}
+            whileInView={{ x: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.2 }}
             className="h-full"

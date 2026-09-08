@@ -46,8 +46,8 @@ function ProblemSection() {
           {costs.map((c, i) => (
             <motion.div
               key={c.title}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              initial={{ y: 20 }}
+              whileInView={{ y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.08 }}
               className="card p-6"
@@ -152,8 +152,8 @@ function WalLogDemo() {
             <motion.div
               key={i}
               className="flex gap-3 whitespace-nowrap"
-              initial={{ opacity: 0, x: -6 }}
-              whileInView={{ opacity: 1, x: 0 }}
+              initial={{ x: -6 }}
+              whileInView={{ x: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.1 + i * 0.09, duration: 0.28 }}
             >
@@ -260,8 +260,8 @@ export function KovaFeatures() {
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-start">
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              initial={{ y: 20 }}
+              whileInView={{ y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5 }}
             >
@@ -269,8 +269,8 @@ export function KovaFeatures() {
             </motion.div>
 
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              initial={{ y: 20 }}
+              whileInView={{ y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.15, duration: 0.5 }}
               className="space-y-4"
@@ -348,8 +348,8 @@ export function KovaFeatures() {
               return (
                 <motion.div
                   key={f.title}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
+                  initial={{ y: 20 }}
+                  whileInView={{ y: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: i * 0.08 }}
                   className="card p-6"

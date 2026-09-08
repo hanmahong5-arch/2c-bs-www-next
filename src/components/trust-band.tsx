@@ -98,14 +98,16 @@ function AnimatedMetric({ value }: { value: string }) {
 }
 
 export function TrustBand() {
+  // py-16 而非其余区块的 py-24 是有意的：这是紧跟 Hero 的证据条，
+  // 视觉上应贴着承诺、比主区块更紧凑。
   return (
-    <section className="py-16 relative">
+    <section aria-label="平台实况与已接入供应商" className="py-16 relative">
       <div className="section-divider" />
 
       {/* Section label */}
       <motion.div
-        initial={{ opacity: 0, y: 10 }}
-        whileInView={{ opacity: 1, y: 0 }}
+        initial={{ y: 10 }}
+        whileInView={{ y: 0 }}
         viewport={{ once: true }}
         className="pt-12 pb-8 text-center"
       >
@@ -117,8 +119,8 @@ export function TrustBand() {
 
       {/* Metrics — fact table layout, not a marketing strip */}
       <motion.div
-        initial={{ opacity: 0, y: 10 }}
-        whileInView={{ opacity: 1, y: 0 }}
+        initial={{ y: 10 }}
+        whileInView={{ y: 0 }}
         viewport={{ once: true }}
         transition={{ delay: 0.08 }}
         className="mx-auto max-w-4xl px-6 pb-4"

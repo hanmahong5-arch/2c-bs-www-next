@@ -111,8 +111,8 @@ function BetaSignup({ appName, email }: { appName: string; email: string }) {
   if (clicked) {
     return (
       <motion.div
-        initial={{ opacity: 0, scale: 0.95 }}
-        animate={{ opacity: 1, scale: 1 }}
+        initial={{ scale: 0.95 }}
+        animate={{ scale: 1 }}
         className="flex items-center gap-2 px-5 py-3 rounded-xl bg-[var(--color-surface)] border border-[var(--color-border)]"
       >
         <EnvelopeIcon className="w-5 h-5 text-[var(--color-text-muted)]" />
@@ -145,8 +145,8 @@ export function DownloadCards() {
           <motion.div
             key={app.id}
             id={app.id}
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            initial={{ y: 20 }}
+            whileInView={{ y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: i * 0.1 }}
             className="card p-8 md:p-10 scroll-mt-20"

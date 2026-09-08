@@ -14,8 +14,8 @@ export function ProductDetail({ product, index }: ProductDetailProps) {
   return (
     <motion.section
       id={product.id}
-      initial={{ opacity: 0, y: 30 }}
-      whileInView={{ opacity: 1, y: 0 }}
+      initial={{ y: 30 }}
+      whileInView={{ y: 0 }}
       viewport={{ once: true, margin: "-80px" }}
       transition={{ duration: 0.5, delay: index * 0.1 }}
       className="scroll-mt-20"
@@ -53,8 +53,8 @@ export function ProductDetail({ product, index }: ProductDetailProps) {
             {product.features.map((f, i) => (
               <motion.li
                 key={f}
-                initial={{ opacity: 0, x: -10 }}
-                whileInView={{ opacity: 1, x: 0 }}
+                initial={{ x: -10 }}
+                whileInView={{ x: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: 0.2 + i * 0.05 }}
                 className="flex items-start gap-3 text-sm text-[var(--color-text-secondary)]"

@@ -74,8 +74,8 @@ const STRATEGY_LINES = [
 function StrategyCodeWindow() {
   return (
     <motion.div
-      initial={{ opacity: 0, y: 24 }}
-      whileInView={{ opacity: 1, y: 0 }}
+      initial={{ y: 24 }}
+      whileInView={{ y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
       className="mt-20 max-w-3xl mx-auto"
@@ -127,8 +127,8 @@ function StrategyCodeWindow() {
               <motion.div
                 key={i}
                 className="flex min-h-[1.35em]"
-                initial={{ opacity: 0, x: -6 }}
-                whileInView={{ opacity: 1, x: 0 }}
+                initial={{ x: -6 }}
+                whileInView={{ x: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: 0.1 + i * 0.04, duration: 0.22 }}
               >
@@ -173,8 +173,8 @@ export function LucrumFeatures() {
           {features.map((f, i) => (
             <motion.div
               key={f.title}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              initial={{ y: 20 }}
+              whileInView={{ y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.08 }}
               className="card p-6"

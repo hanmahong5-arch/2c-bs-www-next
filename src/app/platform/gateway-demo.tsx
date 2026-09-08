@@ -58,8 +58,8 @@ export function GatewayDemo() {
       <div className="mx-auto max-w-7xl px-6">
         {/* Section header */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={{ y: 20 }}
+          whileInView={{ y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.55, ease: EASE }}
           className="mb-12"
@@ -80,8 +80,8 @@ export function GatewayDemo() {
         <div className="grid lg:grid-cols-2 gap-4 items-start">
           {/* ── Left: Request ───────────────────────────────────────────── */}
           <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            whileInView={{ opacity: 1, x: 0 }}
+            initial={{ x: -20 }}
+            whileInView={{ x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, ease: EASE }}
             className="code-block p-5 relative overflow-hidden shadow-[var(--shadow-window)]"
@@ -112,8 +112,8 @@ export function GatewayDemo() {
                   <motion.div
                     key={i}
                     className="flex"
-                    initial={{ opacity: 0, x: -8 }}
-                    whileInView={{ opacity: 1, x: 0 }}
+                    initial={{ x: -8 }}
+                    whileInView={{ x: 0 }}
                     viewport={{ once: true }}
                     transition={{ delay: i * 0.045, duration: 0.25, ease: EASE }}
                   >
@@ -129,8 +129,8 @@ export function GatewayDemo() {
 
           {/* ── Right: Response ─────────────────────────────────────────── */}
           <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            whileInView={{ opacity: 1, x: 0 }}
+            initial={{ x: 20 }}
+            whileInView={{ x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.1, ease: EASE }}
             className="code-block p-5 relative overflow-hidden shadow-[var(--shadow-window)]"
@@ -159,7 +159,7 @@ export function GatewayDemo() {
               <span className="w-px h-2.5 bg-white/10" />
               <span style={{ color: "var(--color-ochre)" }}>¥0.0024</span>
               <span className="w-px h-2.5 bg-white/10" />
-              <span>−85% vs GPT-4o</span>
+              <span>−85% vs 旗舰直连</span>
             </div>
 
             {/* JSON response lines */}
@@ -169,8 +169,8 @@ export function GatewayDemo() {
                   <motion.div
                     key={i}
                     className="flex"
-                    initial={{ opacity: 0, x: 8 }}
-                    whileInView={{ opacity: 1, x: 0 }}
+                    initial={{ x: 8 }}
+                    whileInView={{ x: 0 }}
                     viewport={{ once: true }}
                     transition={{ delay: 0.15 + i * 0.04, duration: 0.22, ease: EASE }}
                   >

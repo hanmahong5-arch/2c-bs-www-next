@@ -179,7 +179,7 @@ export function CommandPalette() {
                 value={query}
                 onChange={(e) => { setQuery(e.target.value); setActiveIdx(0); }}
                 placeholder="搜索页面、产品、文档..."
-                className="flex-1 bg-transparent outline-none text-[var(--color-text-primary)] placeholder:text-[var(--color-text-muted)] text-sm"
+                className="flex-1 bg-transparent outline-none rounded focus-visible:ring-2 focus-visible:ring-[var(--color-accent)]/50 text-[var(--color-text-primary)] placeholder:text-[var(--color-text-muted)] text-sm"
               />
               <kbd className="text-[10px] font-mono px-2 py-1 rounded bg-[var(--background)] border border-[var(--color-border)] text-[var(--color-text-muted)]">
                 ESC

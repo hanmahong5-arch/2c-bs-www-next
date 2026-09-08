@@ -145,8 +145,8 @@ export function EvidenceCompliance() {
                   {EVIDENCE_FLOW.map((line, i) => (
                     <motion.div
                       key={i}
-                      initial={{ opacity: 0, x: -6 }}
-                      whileInView={{ opacity: 1, x: 0 }}
+                      initial={{ x: -6 }}
+                      whileInView={{ x: 0 }}
                       viewport={{ once: true }}
                       transition={{ delay: 0.1 + i * 0.08, duration: 0.25 }}
                       style={{

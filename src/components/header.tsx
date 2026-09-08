@@ -82,7 +82,7 @@ export function Header() {
         </Link>
 
         {/* Desktop nav */}
-        <nav className="hidden md:flex items-center gap-1">
+        <nav className="hidden lg:flex items-center gap-1">
           {nav.map((item) => {
             const isActive =
               !item.external && pathname.startsWith(item.href) && item.href !== "/";
@@ -107,7 +107,7 @@ export function Header() {
           })}
         </nav>
 
-        <div className="hidden md:flex items-center gap-3">
+        <div className="hidden lg:flex items-center gap-3">
           <ThemeToggle />
           <CommandPaletteTrigger />
           <a
@@ -131,7 +131,7 @@ export function Header() {
 
         {/* Mobile toggle */}
         <button
-          className="md:hidden p-2 rounded-lg hover:bg-[var(--color-surface)] transition-colors"
+          className="lg:hidden p-2 rounded-lg hover:bg-[var(--color-surface)] transition-colors"
           onClick={() => setOpen(!open)}
           aria-label="Toggle menu"
         >
@@ -151,7 +151,7 @@ export function Header() {
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
             transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
-            className="md:hidden overflow-hidden border-t border-[var(--color-border)] bg-[var(--background)]"
+            className="lg:hidden overflow-hidden border-t border-[var(--color-border)] bg-[var(--background)]"
           >
             <div className="px-6 py-4 space-y-1">
               {nav.map((item, i) => {
@@ -161,8 +161,8 @@ export function Header() {
                 return (
                   <motion.div
                     key={item.name}
-                    initial={{ opacity: 0, x: -12 }}
-                    animate={{ opacity: 1, x: 0 }}
+                    initial={{ x: -12 }}
+                    animate={{ x: 0 }}
                     transition={{ delay: i * 0.04, duration: 0.3 }}
                   >
                     <Link
