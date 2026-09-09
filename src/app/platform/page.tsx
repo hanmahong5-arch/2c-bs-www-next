@@ -5,6 +5,7 @@ import { ProductDetail } from "@/components/product-detail";
 import { CTA } from "@/components/cta";
 import { RelatedProducts } from "@/components/related-products";
 import { GatewayDemo } from "./gateway-demo";
+import { LugoArchitecture } from "@/components/lugo-architecture";
 
 export const metadata: Metadata = {
   title: "Lugo — 企业 AI 基础设施",
@@ -161,6 +162,12 @@ function ArchitectureOverview() {
           <p className="mt-4 text-[var(--color-text-secondary)]">
             分层架构，每层独立可替换
           </p>
+        </div>
+
+        {/* 先给调用拓扑（谁调用谁），再给分层清单（每层有什么）—— 两者互补，
+            拓扑图回答"请求怎么流动"，下面的卡片回答"每层装了什么"。 */}
+        <div className="mb-14">
+          <LugoArchitecture />
         </div>
 
         <div className="grid md:grid-cols-4 gap-4">
