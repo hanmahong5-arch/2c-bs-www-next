@@ -9,23 +9,23 @@ const providerGroups = [
   {
     label: "国际",
     providers: [
-      { name: "OpenAI", meta: "GPT-4o · o3 · o4-mini" },
-      { name: "Anthropic", meta: "Claude Opus 4 · Sonnet 4.5 · Haiku 3.5" },
-      { name: "Google Gemini", meta: "Gemini 2.5 Pro · Flash · Flash-8B" },
-      { name: "Mistral", meta: "Large · Small 3 · Codestral" },
-      { name: "Meta Llama", meta: "Llama 4 Scout · Llama 3.3 70B" },
+      { name: "OpenAI" },
+      { name: "Anthropic" },
+      { name: "Google Gemini" },
+      { name: "Mistral" },
+      { name: "Meta Llama" },
     ],
   },
   {
     label: "国内",
     providers: [
-      { name: "DeepSeek", meta: "V3 · R1 · R1-0528" },
-      { name: "Qwen", meta: "Qwen3-235B · QwQ-32B" },
-      { name: "Zhipu GLM", meta: "GLM-4-Plus · CogView-4" },
-      { name: "Moonshot", meta: "Kimi k2 · Moonshot-v1" },
-      { name: "MiniMax", meta: "abab7 · Speech-02-Turbo" },
-      { name: "Baichuan", meta: "Baichuan4-Turbo · AirX" },
-      { name: "Yi", meta: "Yi-Large-Turbo · Yi-Vision" },
+      { name: "DeepSeek" },
+      { name: "Qwen" },
+      { name: "Zhipu GLM" },
+      { name: "Moonshot" },
+      { name: "MiniMax" },
+      { name: "Baichuan" },
+      { name: "Yi" },
     ],
   },
 ];
@@ -178,12 +178,10 @@ export function TrustBand() {
                   key={p.name}
                   className="group relative flex flex-col items-start"
                 >
+                  {/* 只列厂商，不列具体模型商品名：模型迭代太快，写死在站上必然过期，
+                      且具体可用型号以控制台为准。 */}
                   <span className="text-[0.9rem] font-medium text-[var(--color-text-muted)] whitespace-nowrap opacity-60 group-hover:opacity-100 group-hover:text-[var(--color-text-primary)] transition-all duration-200">
                     {p.name}
-                  </span>
-                  {/* Model detail — 常显小字，触屏设备无 hover 也能看到具体模型 */}
-                  <span className="text-[0.6rem] font-mono text-[var(--color-text-muted)] whitespace-nowrap opacity-50 group-hover:opacity-70 transition-opacity duration-200 tracking-wide leading-tight mt-0.5">
-                    {p.meta}
                   </span>
                 </div>
               ))}

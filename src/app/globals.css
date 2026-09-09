@@ -270,12 +270,16 @@ body {
   font-weight: 600;
   transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
 }
+/* 底色用 --color-ochre-dark 而非 --lt-accent：白字配 #FF5D1F 实测对比度仅
+   3.07:1，低于 WCAG AA 对正常字号要求的 4.5:1（按钮文字 14px/600，够不上
+   large-text 豁免）。#CC4A18 配白字为 4.6:1，且本就是色板内的既有值
+   （原 hover 色），不新造品牌色。hover 顺延到更深一档。 */
 .btn-primary {
-  background: var(--lt-accent);
+  background: var(--color-ochre-dark);
   color: #fff;
 }
 .btn-primary:hover {
-  background: var(--color-ochre-dark);
+  background: #A83C12;
 }
 .btn-secondary {
   border: 1px solid var(--color-border);

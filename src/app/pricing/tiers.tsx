@@ -234,44 +234,46 @@ export function TierMatrix() {
   );
 }
 
+// 按能力档位而非具体商品名列示：档位是稳定的（新模型上线不必改站），
+// 单价随控制台真实价目走。具体可用模型与实时价格以控制台为准。
 const usageItems = [
   {
-    model: "GPT-4o",
+    model: "旗舰通用 · 标准",
     input: "¥0.015 / 1K tokens",
     output: "¥0.060 / 1K tokens",
   },
   {
-    model: "GPT-4o mini",
+    model: "旗舰通用 · 轻量",
     input: "¥0.001 / 1K tokens",
     output: "¥0.004 / 1K tokens",
   },
   {
-    model: "Claude Sonnet",
+    model: "推理均衡 · 标准",
     input: "¥0.018 / 1K tokens",
     output: "¥0.090 / 1K tokens",
   },
   {
-    model: "Claude Haiku",
+    model: "推理均衡 · 轻量",
     input: "¥0.007 / 1K tokens",
     output: "¥0.036 / 1K tokens",
   },
   {
-    model: "DeepSeek V3",
+    model: "高性价比 · 通用",
     input: "¥0.001 / 1K tokens",
     output: "¥0.002 / 1K tokens",
   },
   {
-    model: "DeepSeek R1",
+    model: "高性价比 · 推理",
     input: "¥0.004 / 1K tokens",
     output: "¥0.016 / 1K tokens",
   },
   {
-    model: "Gemini 2.5 Pro",
+    model: "多模态旗舰",
     input: "¥0.008 / 1K tokens",
     output: "¥0.030 / 1K tokens",
   },
   {
-    model: "Qwen3-Max",
+    model: "国产旗舰",
     input: "¥0.002 / 1K tokens",
     output: "¥0.010 / 1K tokens",
   },
@@ -286,7 +288,7 @@ export function UsagePricing() {
             <span className="text-gradient-gold">模型定价</span>
           </h2>
           <p className="mt-4 text-[var(--color-text-secondary)]">
-            按实际用量计费，透明无隐藏费用
+            按实际用量计费，透明无隐藏费用。下表按能力档位列示，具体可用模型与实时单价以控制台为准。
           </p>
         </div>
 

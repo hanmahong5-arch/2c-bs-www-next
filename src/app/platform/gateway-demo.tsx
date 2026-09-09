@@ -14,7 +14,7 @@ const REQUEST_LINES = [
   '  <span class="property">-H</span> <span class="string">"Authorization: Bearer sk-your-lurus-key"</span> <span class="punctuation">\\</span>',
   '  <span class="property">-H</span> <span class="string">"Content-Type: application/json"</span> <span class="punctuation">\\</span>',
   "  <span class=\"property\">-d</span> <span class=\"string\">'&#123;</span>",
-  '    <span class="string">"model"</span><span class="punctuation">: </span><span class="string">"deepseek-v3"</span><span class="punctuation">,</span>',
+  '    <span class="string">"model"</span><span class="punctuation">: </span><span class="string">"cost-optimized"</span><span class="punctuation">,</span>',
   '    <span class="string">"messages"</span><span class="punctuation">: [{</span>',
   '      <span class="string">"role"</span><span class="punctuation">: </span><span class="string">"user"</span><span class="punctuation">,</span>',
   '      <span class="string">"content"</span><span class="punctuation">: </span><span class="string">"帮我写一份竞品分析框架"</span>',
@@ -29,7 +29,7 @@ const REQUEST_LINES = [
 const RESPONSE_LINES = [
   { indent: 0, text: '<span class="punctuation">{</span>' },
   { indent: 1, text: '<span class="property">"id"</span><span class="punctuation">: </span><span class="string">"lurus-x7k9m"</span><span class="punctuation">,</span>' },
-  { indent: 1, text: '<span class="property">"model"</span><span class="punctuation">: </span><span class="string">"deepseek-v3"</span><span class="punctuation">,</span>' },
+  { indent: 1, text: '<span class="property">"model"</span><span class="punctuation">: </span><span class="string">"cost-optimized"</span><span class="punctuation">,</span>' },
   { indent: 1, text: '<span class="property">"routed_via"</span><span class="punctuation">: </span><span class="string">"lurus-hub"</span><span class="punctuation">,</span>' },
   { indent: 1, text: '<span class="property">"choices"</span><span class="punctuation">: [{</span>' },
   { indent: 2, text: '<span class="property">"message"</span><span class="punctuation">: {</span>' },
@@ -153,7 +153,7 @@ export function GatewayDemo() {
 
             {/* Metadata strip — same pattern as hero.tsx ResponseDemo */}
             <div className="flex items-center gap-3 mb-4 text-[10px] font-mono text-[#8A8474]">
-              <span>deepseek-v3</span>
+              <span>cost-optimized</span>
               <span className="w-px h-2.5 bg-white/10" />
               <span>336 tokens</span>
               <span className="w-px h-2.5 bg-white/10" />
