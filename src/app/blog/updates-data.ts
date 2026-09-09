@@ -12,7 +12,7 @@ export const updates: ChangelogEntry[] = [
   {
     date: "2026-06",
     title: "hub.lurus.cn BETA 公测",
-    desc: "OpenAI 兼容网关开放注册，30+ 模型智能路由，注册即送 $5 免费额度，无需信用卡。",
+    desc: "OpenAI 兼容网关开放注册，30+ 模型智能路由，注册即送 ¥36 免费额度，无需信用卡。",
     tags: ["Hub", "Beta"],
   },
   {

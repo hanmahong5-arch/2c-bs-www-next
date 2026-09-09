@@ -65,7 +65,7 @@ export function GatewayDemo() {
           className="mb-12"
         >
           <p className="eyebrow mb-3">ONE ENDPOINT</p>
-          <h2 className="headline-tight text-3xl md:text-4xl font-bold">
+          <h2 className="headline-tight type-h2">
             <span className="text-[var(--color-text-primary)]">一个端点，OpenAI 兼容，</span>
             <span className="text-gradient-gold">响应自带成本</span>
           </h2>

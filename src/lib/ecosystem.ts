@@ -64,7 +64,7 @@ export interface ProductPresentation {
 const productMap: Record<string, Product> = {
   hub: {
     id: "hub",
-    name: "Lurus Hub",
+    name: "Lugo 网关",
     tagline: "AI 数据处理枢纽",
     description:
       "30+ LLM 模型统一接入，实时用量分析，智能路由优化，按产品个性化计费。一个 API Key 接入所有 AI 能力。",

@@ -293,7 +293,7 @@ export function Comparison() {
           className="text-center mb-12"
         >
           <p className="eyebrow mb-4">BUILD VS BUY</p>
-          <h2 id="comparison-heading" className="headline-tight text-3xl md:text-4xl font-bold">
+          <h2 id="comparison-heading" className="headline-tight type-h2">
             <span className="text-[var(--color-text-primary)]">你的竞争对手</span>
             <span className="text-gradient-gold">，正在用这三个月开发功能</span>
           </h2>

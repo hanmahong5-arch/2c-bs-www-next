@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { PageHero } from "@/components/page-hero";
+import { EcosystemMap } from "@/components/ecosystem-map";
 
 export const metadata: Metadata = {
   title: "解决方案",
@@ -13,7 +14,7 @@ const solutions = [
     audience: "SaaS 厂商",
     pain: "想给产品加 AI 功能，但自建 LLM 网关 + 计费太重",
     solution:
-      "接入 Lurus Hub API → 用户按量计费自动走通 → AI 记忆让助手有上下文。3 个 API 即可上线。",
+      "接入 Lugo 网关 API → 用户按量计费自动走通 → AI 记忆让助手有上下文。3 个 API 即可上线。",
     cta: { label: "了解 Lugo", href: "/platform" },
   },
   {
@@ -101,6 +102,16 @@ export default function SolutionsPage() {
               </div>
             </div>
           ))}
+        </div>
+      </section>
+
+      {/* 产品关系图谱 — 已看到具体场景后再展开协同细节, 不在首页目录里抢注意力 */}
+      <section className="py-8" aria-labelledby="ecosystem-map-heading">
+        <div className="mx-auto max-w-5xl px-6">
+          <h2 id="ecosystem-map-heading" className="text-xl font-bold text-[var(--color-text-primary)] mb-6 text-center">
+            产品如何协同
+          </h2>
+          <EcosystemMap />
         </div>
       </section>
 

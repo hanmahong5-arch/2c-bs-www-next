@@ -11,7 +11,7 @@ const tiers = [
     period: "/月",
     description: "个人开发者和小型项目",
     features: [
-      "每月 $5 等值免费额度",
+      "每月 ¥36 等值免费额度",
       "30+ 模型全量可用",
       "基础用量仪表盘",
       "社区支持",
@@ -172,7 +172,7 @@ export function TallyTrialCallout() {
 type MatrixCell = string | boolean;
 
 const matrixRows: { feature: string; free: MatrixCell; pro: MatrixCell; enterprise: MatrixCell }[] = [
-  { feature: "月度额度", free: "$5 等值", pro: "¥200 等值（含）", enterprise: "无上限" },
+  { feature: "月度额度", free: "¥36 等值", pro: "¥200 等值（含）", enterprise: "无上限" },
   { feature: "模型接入", free: "30+ 全量", pro: "30+ 全量", enterprise: "30+ 全量" },
   { feature: "智能路由 + 成本优化", free: false, pro: true, enterprise: true },
   { feature: "计费精度", free: "¥0.0001", pro: "¥0.0001", enterprise: "自定义计费规则" },

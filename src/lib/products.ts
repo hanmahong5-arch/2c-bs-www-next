@@ -20,7 +20,7 @@ export const productGroups = [
     products: [
       {
         id: "hub",
-        name: "Lurus Hub",
+        name: "Lugo 网关",
         tagline: "AI 中央车站",
         description:
           "所有列车（模型）在此调度，旅客（请求）总能坐上最快那班。一个 API Key，30+ 模型即刻接入。",

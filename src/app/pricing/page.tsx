@@ -7,7 +7,7 @@ import { faqs } from "./faq-data";
 export const metadata: Metadata = {
   title: "定价",
   description:
-    "透明定价，按量付费。注册即送 $5 免费额度，企业级无上限。",
+    "透明定价，按量付费。注册即送 ¥36 免费额度，企业级无上限。",
 };
 
 // FAQPage 结构化数据 — Q/A 文本与 faq.tsx 渲染内容一字不差，来自同一份 faqs 数组。
@@ -34,7 +34,7 @@ export default function PricingPage() {
       <PageHero
         highlight="简单透明"
         title="用多少，付多少"
-        description="注册即送 $5 免费额度，按量计费。没有隐藏费用，没有长期合约。"
+        description="注册即送 ¥36 免费额度，按量计费。没有隐藏费用，没有长期合约。"
       />
       <PricingTiers />
       <TierMatrix />

@@ -48,7 +48,7 @@ export function PilotCTA() {
           className="text-center mb-12"
         >
           <p className="eyebrow mb-4">Design-Partner Pilot</p>
-          <h2 className="headline-tight text-3xl md:text-4xl font-bold text-[var(--color-text-primary)]">
+          <h2 className="headline-tight type-h2 text-[var(--color-text-primary)]">
             2–4 周,把证据跑在<span className="sketch-underline">你自己的流程</span>上
           </h2>
           <p className="mt-4 text-[var(--color-text-secondary)] max-w-lg mx-auto">

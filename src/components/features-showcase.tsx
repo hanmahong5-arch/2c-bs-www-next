@@ -32,7 +32,7 @@ export function FeaturesShowcase() {
           className="text-center mb-16"
         >
           <p className="eyebrow mb-4">LUGO PLATFORM</p>
-          <h2 id="features-heading" className="headline-tight text-3xl md:text-4xl font-bold">
+          <h2 id="features-heading" className="headline-tight type-h2">
             <span className="text-[var(--color-text-primary)]">一套后端，</span>
             <span className="text-gradient-gold">五项能力</span>
           </h2>

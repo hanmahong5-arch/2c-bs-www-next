@@ -33,7 +33,7 @@ const scenarios: {
       "把 OpenAI SDK 的 baseURL 改成 hub.lurus.cn，其余代码零改动。",
     outcome:
       "路由、计费、重试、限速全部由网关托管。上线当天即可查看每个用户的 token 消耗与成本明细——不需要一行额外代码。",
-    facts: ["5 分钟接入", "OpenAI 兼容协议", "$5 免费额度"],
+    facts: ["5 分钟接入", "OpenAI 兼容协议", "¥36 免费额度"],
   },
   {
     icon: BuildingOffice2Icon,
@@ -90,7 +90,7 @@ export function Scenarios() {
           className="text-center mb-14"
         >
           <p className="eyebrow mb-4">SCENARIOS</p>
-          <h2 id="scenarios-heading" className="headline-tight text-3xl md:text-4xl font-bold text-[var(--color-text-primary)]">
+          <h2 id="scenarios-heading" className="headline-tight type-h2 text-[var(--color-text-primary)]">
             三种处境，同一个答案
           </h2>
           <p className="mt-4 text-[var(--color-text-secondary)] max-w-md mx-auto text-sm leading-relaxed">

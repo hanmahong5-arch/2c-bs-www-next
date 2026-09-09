@@ -12,7 +12,7 @@ import { HUB_CONSOLE_URL } from "@/lib/links";
 
 const devFeatures = [
   "OpenAI 兼容接口，5 分钟接入",
-  "免费额度 $5 等值，无需信用卡",
+  "免费额度 ¥36 等值，无需信用卡",
   "30+ 模型，一个 API Key",
   "实时用量仪表盘",
 ];
@@ -45,7 +45,7 @@ export function CTA() {
           className="text-center mb-12"
         >
           <p className="eyebrow mb-4">开始使用</p>
-          <h2 id="cta-heading" className="headline-tight text-3xl md:text-4xl font-bold text-[var(--color-text-primary)]">
+          <h2 id="cta-heading" className="headline-tight type-h2 text-[var(--color-text-primary)]">
             今晚接入，<span className="sketch-underline">明天上线</span>
           </h2>
           <p className="mt-4 text-[var(--color-text-secondary)] max-w-lg mx-auto">

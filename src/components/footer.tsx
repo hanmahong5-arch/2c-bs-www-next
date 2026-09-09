@@ -5,7 +5,7 @@ const footerLinks = [
   {
     title: "产品",
     links: [
-      { name: "Lurus Hub", href: "/platform#hub" },
+      { name: "Lugo 网关", href: "/platform#hub" },
       { name: "Lucrum", href: "/lucrum" },
       { name: "Kova", href: "/kova" },
       { name: "Switch", href: "/download#switch" },

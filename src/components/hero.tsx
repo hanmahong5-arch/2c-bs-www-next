@@ -257,7 +257,7 @@ export function Hero() {
                 </a>
 
                 <span className="w-px h-3 bg-[var(--color-border)]" />
-                <span>免费额度 $5 · 无需信用卡</span>
+                <span>免费额度 ¥36 · 无需信用卡</span>
               </div>
             </div>
           </div>

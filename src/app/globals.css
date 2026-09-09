@@ -39,8 +39,14 @@ html {
   --space-24: 6rem;
 
   /* Font stacks — 自托管 Latin 主字体 + 系统 CJK 字体回退。
-     不再自托管 Noto SC webfont（~1MB woff2 拖垮 LCP；且 latin 子集本就不含中文）。 */
-  --font-display: var(--font-fraunces), "Songti SC", "Noto Serif CJK SC", serif;
+     不再自托管 Noto SC webfont（~1MB woff2 拖垮 LCP；且 latin 子集本就不含中文）。
+     --font-display 的中文回退故意选无衬线而非衬线：Fraunces 只有 latin 子集
+     （layout.tsx 里 subsets: ["latin"]），中文字符必然落到这里的回退栈；之前
+     回退到宋体系，会让中文标题在全站无衬线的观感里显得突兀，结果是没人敢用
+     .type-h1/.type-h2（首页 8 个 h2 全绕开字阶系统自己写 class）。现在 Fraunces
+     只在 latin 字符上生效，中文继续走与 --font-sans 一致的黑体。 */
+  --font-display: var(--font-fraunces), "PingFang SC", "Microsoft YaHei",
+    "Noto Sans CJK SC", system-ui, sans-serif;
   --font-sans: var(--font-inter-tight), "PingFang SC", "Microsoft YaHei",
     "Noto Sans CJK SC", system-ui, sans-serif;
 
@@ -81,33 +87,21 @@ html {
    tokens; every --color-* alias above re-derives from these via var(). Text
    colors picked to keep ≥4.5:1 contrast (WCAG AA) against --lt-paper/--lt-bg.
 
-   ⚠️ 已知漂移 — 本仓暗色值与 shared/lurus-design 的暗色值不一致(浅色十个值逐一
-   相同，漂移只在暗色)。vendor tokens.css 的 `.dark` 先落地，这里再逐个覆写回本仓
-   现值，是为了让"接线 token"这次改动保持视觉零变更 —— 不夹带一次没人审过的暗色
-   改版上 prod。左=本仓现值(生效)，右=真源值(待裁决):
-     --lt-paper    #16150F  ←→  #14130F
-     --lt-bg       #1E1C15  ←→  #0A0908
-     --lt-ink      #EFEBDD  ←→  #F0EDE4
-     --lt-rule     #35321F  ←→  #25221C
-     --lt-ok       #3FBE81  ←→  #3FA876
-     --lt-warn     #D9A03D  ←→  #E0A040
-     --lt-err      #E2584A  ←→  #EE6F5E
-     --lt-info     #6C8FE0  ←→  #5A7BC7
-     --lt-accent-2 #2D4A8A  ←→  #5A7BC7
-   收敛方向由品牌 owner 定：要么真源改成本仓值(本仓值是照 WCAG AA 对比度调过的)，
-   要么本仓接受真源值并重跑一次对比度走查。收敛后删掉整段覆写即可。 */
+   已知漂移：本仓暗色值与 shared/lurus-design 暗色值曾有 9 项不一致，现按 WCAG
+   相对亮度实测逐项裁决，收敛到 5 项(paper/bg/rule/ok/info)。这 5 项继续覆写是
+   因为本仓值实测对比度更优或不承载文字(理由见下面各行注释)；ink/warn/err/
+   accent-2 四项本仓覆写已删除，改由上面 import 的 vendor tokens.css 的 `.dark`
+   值直接生效 —— 这是让漂移真正归零，不是抄一份同值再覆写一遍。
+   ⚠️ 上一版注释声称"本仓值是照 WCAG AA 对比度调过的"，这句话至少对 accent-2
+   不成立：本仓 #2D4A8A 对 --lt-paper 实测仅 2.14:1(FAIL)，真源 #5A7BC7 才是
+   4.51:1(AA)。改用真源值会让暗色下 accent-2 的 ~25 处引用点变亮 —— 这正是修复
+   目的(原值在暗底上几乎看不清)，是一次有意的暗色视觉变更，不是意外漂移。 */
 .dark {
-  --lt-paper: #16150F;
-  --lt-bg: #1E1C15;
-  --lt-ink: #EFEBDD;
-  --lt-rule: #35321F;
-  --lt-ok: #3FBE81;
-  --lt-warn: #D9A03D;
-  --lt-err: #E2584A;
-  --lt-info: #6C8FE0;
-  /* 真源暗色把 accent-2 转成 #5A7BC7；本仓暗色历来不覆写 accent-2(沿用浅色
-     #2D4A8A，25 处引用)，故显式钉回，否则本次接线会静默改掉暗色图谱连线色。 */
-  --lt-accent-2: #2D4A8A;
+  --lt-paper: #16150F; /* 表面色不承载文字对比度，保留本仓值 */
+  --lt-bg: #1E1C15; /* 同上 */
+  --lt-rule: #35321F; /* 分隔线对 --lt-paper 实测 1.42:1，优于真源 #25221C 的 1.17:1，保留 */
+  --lt-ok: #3FBE81; /* 对 --lt-paper 实测 7.75:1，优于真源 #3FA876 的 6.26:1，保留 */
+  --lt-info: #6C8FE0; /* 对 --lt-paper 实测 5.79:1，优于真源 #5A7BC7 的 4.51:1，保留 */
 
   --color-surface-hover: #262316;
   --color-surface-elevated: #221F16;

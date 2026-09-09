@@ -131,7 +131,7 @@ export function CostCalculator() {
       <div className="mx-auto max-w-5xl px-6">
         <motion.div {...fadeInUp} className="text-center mb-14">
           <p className="eyebrow mb-4">ROI</p>
-          <h2 id="cost-heading" className="headline-tight text-3xl md:text-4xl font-bold">
+          <h2 id="cost-heading" className="headline-tight type-h2">
             <span className="text-[var(--color-text-primary)]">省下来的钱，</span>
             <span className="text-[var(--color-accent)]">是另一条产品线</span>
           </h2>

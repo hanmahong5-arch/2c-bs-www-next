@@ -1,6 +1,6 @@
 # LurusTech
 
-> LurusTech 提供 Lugo——企业 AI 基础设施平台：一个 OpenAI 兼容的 LLM 网关接入 30+ 模型（智能路由），配套账户认证（OIDC/RBAC/多租户）、计费钱包（DECIMAL 精度）、AI 记忆（Memorus，向量检索，REST + MCP）与多通道通知（WebSocket/SMTP/FCM）。平台目前公测（Beta），注册即送 $5 免费额度，无需信用卡。
+> LurusTech 提供 Lugo——企业 AI 基础设施平台：一个 OpenAI 兼容的 LLM 网关接入 30+ 模型（智能路由），配套账户认证（OIDC/RBAC/多租户）、计费钱包（DECIMAL 精度）、AI 记忆（Memorus，向量检索，REST + MCP）与多通道通知（WebSocket/SMTP/FCM）。平台目前公测（Beta），注册即送 ¥36 等值免费额度，无需信用卡。
 
 ## 核心产品
 

@@ -38,7 +38,7 @@ function KeyWidget() {
           className="text-[9px] px-1.5 py-0.5 rounded"
           style={{ background: "rgba(255,93,31,0.12)", color: "var(--color-ochre)", border: "1px solid rgba(255,93,31,0.2)" }}
         >
-          FREE $5
+          FREE ¥36
         </span>
       </div>
     </div>
@@ -138,7 +138,7 @@ const STEPS = [
   {
     n: "01",
     title: "注册，获取 Key",
-    sub: "填一个邮箱，30 秒生成访问密钥。免费额度 $5，无需绑卡。",
+    sub: "填一个邮箱，30 秒生成访问密钥。免费额度 ¥36，无需绑卡。",
     Widget: KeyWidget,
   },
   {
@@ -166,7 +166,7 @@ export function QuickStart() {
           className="text-center mb-14"
         >
           <p className="eyebrow mb-4">QUICKSTART</p>
-          <h2 id="quickstart-heading" className="headline-tight text-3xl md:text-4xl font-bold">
+          <h2 id="quickstart-heading" className="headline-tight type-h2">
             <span className="text-[var(--color-text-primary)]">五分钟以内，</span>
             <span className="text-gradient-gold">进入生产</span>
           </h2>

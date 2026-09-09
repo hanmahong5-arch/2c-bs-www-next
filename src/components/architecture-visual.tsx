@@ -419,7 +419,7 @@ export function ArchitectureVisual() {
           className="text-center mb-12"
         >
           <p className="eyebrow mb-4">ARCHITECTURE</p>
-          <h2 id="architecture-heading" className="headline-tight text-3xl md:text-4xl font-bold">
+          <h2 id="architecture-heading" className="headline-tight type-h2">
             <span className="text-gradient-gold">一个请求</span>
             <span className="text-[var(--color-text-primary)]">的完整生命周期</span>
           </h2>
