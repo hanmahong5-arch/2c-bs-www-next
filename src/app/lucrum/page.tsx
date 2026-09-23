@@ -1,85 +1,54 @@
 import type { Metadata } from "next";
-import { PageHero } from "@/components/page-hero";
-import { CTA } from "@/components/cta";
-import { RelatedProducts } from "@/components/related-products";
-import { LucrumFeatures } from "./features";
+import { Eyebrow, Lead, Section } from "@/components/site";
+
+// Lucrum 不在主导航。这里只做极简说明与外链，不写收益、准确率、延迟等断言。
 
 export const metadata: Metadata = {
-  title: "Lucrum — AI 量化交易",
-  description:
-    "AI 策略生成 · 回测验证 · 实盘执行。机构级算法，个人投资者价格。",
+  title: "Lucrum",
+  description: "Lucrum：A 股策略描述与回测工具，仅支持模拟盘。当前不在主动开发中。",
 };
+
+const LUCRUM_URL = "https://lucrum.lurus.cn";
 
 export default function LucrumPage() {
   return (
     <>
-      <PageHero
-        highlight="Lucrum"
-        title="华尔街的武器，你的价格"
-        description="用自然语言描述你的交易直觉，AI 将其转化为可执行策略。从回测到实盘，机构级算法不再是少数人的特权。"
-        primaryAction={{ label: "开始交易", href: "https://lucrum.lurus.cn" }}
-        secondaryAction={{ label: "策略文档", href: "https://docs.lurus.cn/lucrum" }}
-      />
-      <LucrumFeatures />
-      <Workflow />
-      <RelatedProducts productId="lucrum" />
-      <CTA />
+      <section aria-labelledby="lucrum-title" className="px-6">
+        <div className="mx-auto max-w-5xl pb-16 pt-24 md:pt-32">
+          <div className="max-w-[44rem]">
+            <Eyebrow>Lucrum</Eyebrow>
+            <h1
+              id="lucrum-title"
+              className="mt-5 font-display text-[2.125rem] font-semibold leading-[1.2] tracking-[-0.025em] text-[var(--lt-ink)] md:text-[2.75rem] md:leading-[1.15]"
+            >
+              Lucrum
+            </h1>
+            <Lead className="mt-7">
+              一个面向 A 股的策略描述与回测工具。当前不在主动开发中，只做修复与运维。
+            </Lead>
+          </div>
+        </div>
+      </section>
+
+      <Section labelledBy="lucrum-scope-title">
+        <h2 id="lucrum-scope-title" className="sr-only">
+          范围与入口
+        </h2>
+        <ul className="space-y-4 text-base leading-[1.8] text-[var(--color-text-secondary)]">
+          <li>交易只支持模拟盘，没有接入真实券商账户。</li>
+          <li>页面上的回测结果是历史数据上的计算，不代表未来收益。</li>
+        </ul>
+        <p className="mt-8 text-base leading-[1.8]">
+          <a
+            href={LUCRUM_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-[var(--lt-ink)] underline decoration-[var(--lt-rule)] underline-offset-4 hover:decoration-[var(--lt-accent)]"
+          >
+            lucrum.lurus.cn ↗
+          </a>
+        </p>
+      </Section>
     </>
-  );
-}
-
-function Workflow() {
-  const steps = [
-    {
-      step: "01",
-      title: "描述策略",
-      desc: "用自然语言描述你的交易想法，AI 理解并转化为可执行逻辑",
-    },
-    {
-      step: "02",
-      title: "回测验证",
-      desc: "多品种、多周期历史数据回测，可视化收益曲线和风险指标",
-    },
-    {
-      step: "03",
-      title: "模拟运行",
-      desc: "接入实时行情模拟交易，验证策略在真实市场环境中的表现",
-    },
-    {
-      step: "04",
-      title: "实盘执行",
-      desc: "一键对接交易所账户，AI 实时监控并自动执行下单",
-    },
-  ];
-
-  return (
-    <section className="py-24 border-t border-[var(--color-border)]">
-      <div className="mx-auto max-w-7xl px-6">
-        <div className="text-center mb-16">
-          <h2 className="text-3xl font-bold">
-            <span className="text-gradient-gold">工作流程</span>
-          </h2>
-          <p className="mt-4 text-[var(--color-text-secondary)]">
-            从想法到实盘，四步完成
-          </p>
-        </div>
-
-        <div className="grid md:grid-cols-4 gap-6">
-          {steps.map((s) => (
-            <div key={s.step} className="card p-6 text-center">
-              <div className="text-3xl font-bold text-gradient-gold mb-3">
-                {s.step}
-              </div>
-              <h3 className="text-lg font-semibold text-[var(--color-text-primary)] mb-2">
-                {s.title}
-              </h3>
-              <p className="text-sm text-[var(--color-text-muted)] leading-relaxed">
-                {s.desc}
-              </p>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
   );
 }

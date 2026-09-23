@@ -41,14 +41,11 @@ App Router 相关：`layout.tsx`（页头页脚、JSON-LD、主题初始化）�
 
 ```
 src/
-├── app/               # 路由；globals.css 承载全部自定义类与设计 token 别名
-├── components/        # section 组件（首页每个区块一个）+ primitives/
-├── lib/
-│   ├── ecosystem.ts   # 产品有向图：7 个产品 / 4 个组 / 带类型的关系边
-│   ├── products.ts    # 首屏统计数字 + 产品卡片
-│   ├── links.ts       # 站外控制台 URL 的单一真源
-│   └── motion.ts      # 共享动画 preset  ← 改之前先读下面那条铁律
-└── styles/lurus-design/   # 设计 token 的 vendor 副本 —— 禁止手改（见下）
+├── app/               # 路由；globals.css 放全部自定义 class 与设计 token 别名
+├── components/
+│   ├── site/          # 共享页面组件：Section、EvidenceLine、Disclosure、MaturityChip、ProductHeader…
+│   ├── header.tsx · footer.tsx · command-palette.tsx
+└── styles/lurus-design/   # vendor 的设计 token —— 禁手改（见下）
 ```
 
 ## 代码里读不出来的约定
@@ -56,7 +53,7 @@ src/
 以下四条都是实打实踩出来的，改样式或动画前先看。
 
 **1. 动画 preset 里绝不能出现 `opacity: 0`。**
-`src/lib/motion.ts` 的 preset 会被 SSR 成 inline `style="opacity:0"`，而 inline style 是 CSS 覆盖不掉的。这样处理过的元素在水合前完全不可见 —— 慢网、JS 失败、截图型渲染下页面就是一片空白。这是量出来的：首页一度有 103 处 inline `opacity:0`。现在 preset 只动位移/缩放/模糊。确实需要淡入时，用 `globals.css` 里的 `.hero-enter-*` 纯 CSS 类 —— 它们在首次绘制时就开始播放，不等 JS。
+动画 preset 一旦写了 opacity，就会被 SSR 成 inline `style="opacity:0"`，而 inline style 是 CSS 覆盖不掉的。这样处理过的元素在水合前完全不可见 —— 慢网、JS 失败、截图型渲染下页面就是一片空白。这是量出来的：首页一度有 103 处 inline `opacity:0`。现在 preset 只动位移/缩放/模糊。确实需要淡入时，用 `globals.css` 里的 `.hero-enter-*` 纯 CSS 类 —— 它们在首次绘制时就开始播放，不等 JS。
 
 **2. 每个 CSS 动画类都必须登记进 `prefers-reduced-motion` 块。**
 这些类用 `animation-fill-mode: both`，起始帧（`opacity: 0`）会一直保持，靠 `animation: none` 才解除。漏掉任何一个类，开了「减弱动态效果」的用户就会永远看不到那个元素。
@@ -67,7 +64,7 @@ src/
 **4. `globals.css` 里的未分层规则优先级高于 Tailwind utility。**
 Tailwind v4 把 utility 放在 `@layer utilities` 里，而 `globals.css` 中的普通规则未分层，因此胜出。`.eyebrow` 设了 `text-transform: uppercase`，所以给同时带 `.eyebrow` 的元素加 `normal-case` 完全无效 —— 首页一个真实域名因此被静默渲染成全大写。两者冲突时，去掉语义类、直接用 utility。
 
-另外：演示数据（延迟、费用、账目、路由表）都是写死的，必须带可见的「示意」标注，不能让它读起来像实测遥测。站外控制台 URL 一律放 `lib/links.ts`，不要内联。外链走 `<SmartLink>`，它会自动设置 `target`/`rel`。
+另外：演示数据（延迟、费用、账目、路由表）都是写死的，必须带可见的「示意」标注，不能让它读起来像实测遥测。产品页上的示例（证据行）必须在说明里标注「示例」。
 
 ## 部署
 
@@ -85,4 +82,4 @@ GitOps：GitHub Actions → GHCR → ArgoCD → K3s。推 `main` 触发 lint + b
 
 ## 相关
 
-`lib/links.ts` 与页脚引用的站外目标：网关控制台、身份提供方（`identity.lurus.cn`，也是 `/login` 的跳转目标）、文档站（`docs.lurus.cn`）。本仓对它们没有构建期依赖。
+页头与页脚引用的站外目标：身份提供方（`identity.lurus.cn`，也是 `/login` 的跳转目标）、文档站（`docs.lurus.cn`）。本仓对它们没有构建期依赖。

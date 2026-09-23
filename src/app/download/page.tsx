@@ -1,69 +1,37 @@
 import { Suspense } from "react";
 import type { Metadata } from "next";
-import { PageHero } from "@/components/page-hero";
-import { DownloadCards } from "./cards";
+import { Eyebrow, Lead } from "@/components/site";
 import { LutuAndroidSection, LutuAndroidSkeleton } from "./lutu-android";
 
 export const metadata: Metadata = {
   title: "下载",
-  description:
-    "Lurus 全家桶下载：路途 APP（Android）+ Switch AI 网关 + Creator 内容工厂。",
+  description: "已发布的客户端安装包。这些客户端当前不在主动开发中。",
 };
 
 export default function DownloadPage() {
   return (
     <>
-      <PageHero
-        highlight="全平台"
-        title="AI 装进口袋，离线也能用"
-        description="路途 APP 把 Lurus 全家桶装进手机；Switch / Creator 桌面工具内测申请中。"
-      />
+      <section aria-labelledby="download-title" className="px-6">
+        <div className="mx-auto max-w-5xl pb-16 pt-24 md:pt-32">
+          <div className="max-w-[44rem]">
+            <Eyebrow>下载</Eyebrow>
+            <h1
+              id="download-title"
+              className="mt-5 font-display text-[2.125rem] font-semibold leading-[1.2] tracking-[-0.025em] text-[var(--lt-ink)] md:text-[2.75rem] md:leading-[1.15]"
+            >
+              已发布的客户端
+            </h1>
+            <Lead className="mt-7">
+              以下为已发布的客户端，当前不在主动开发中。
+            </Lead>
+          </div>
+        </div>
+      </section>
       {/* 只有这一段依赖外部 releases.lurus.cn 的 manifest；用 Suspense 圈住，
           releases 慢/挂时页面其余部分照常先出，不被一个外部依赖拖成整页白屏。 */}
       <Suspense fallback={<LutuAndroidSkeleton />}>
         <LutuAndroidSection />
       </Suspense>
-      <DownloadCards />
-      <SystemRequirements />
     </>
-  );
-}
-
-function SystemRequirements() {
-  return (
-    <section className="py-24 border-t border-[var(--color-border)]">
-      <div className="mx-auto max-w-3xl px-6">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl font-bold">
-            <span className="text-gradient-gold">系统要求</span>
-          </h2>
-        </div>
-
-        <div className="grid md:grid-cols-2 gap-6">
-          <div className="card p-6">
-            <h3 className="text-base font-semibold text-[var(--color-text-primary)] mb-4">
-              Windows
-            </h3>
-            <ul className="space-y-2 text-sm text-[var(--color-text-muted)]">
-              <li>Windows 10 / 11 (64-bit)</li>
-              <li>4 GB RAM</li>
-              <li>200 MB 磁盘空间</li>
-              <li>WebView2 Runtime</li>
-            </ul>
-          </div>
-          <div className="card p-6">
-            <h3 className="text-base font-semibold text-[var(--color-text-primary)] mb-4">
-              macOS
-            </h3>
-            <ul className="space-y-2 text-sm text-[var(--color-text-muted)]">
-              <li>macOS 12+ (Monterey)</li>
-              <li>4 GB RAM</li>
-              <li>200 MB 磁盘空间</li>
-              <li>Apple Silicon / Intel</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </section>
   );
 }

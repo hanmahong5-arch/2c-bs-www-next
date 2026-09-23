@@ -42,12 +42,9 @@ App Router specifics: `layout.tsx` (header/footer, JSON-LD, theme bootstrap), `t
 ```
 src/
 ├── app/               # routes; globals.css holds every custom class and design token alias
-├── components/        # section components (one per home-page block) + primitives/
-├── lib/
-│   ├── ecosystem.ts   # products as a directed graph: 7 products / 4 groups / typed edges
-│   ├── products.ts    # headline stats + product cards
-│   ├── links.ts       # single source of truth for outbound console URLs
-│   └── motion.ts      # shared Framer Motion presets  ← read the rule below before editing
+├── components/
+│   ├── site/          # shared page primitives: Section, EvidenceLine, Disclosure, MaturityChip, ProductHeader…
+│   ├── header.tsx · footer.tsx · command-palette.tsx
 └── styles/lurus-design/   # VENDORED design tokens — do not hand-edit (see below)
 ```
 
@@ -56,7 +53,7 @@ src/
 These four cost real debugging time. Read them before touching styling or animation.
 
 **1. Animation presets must never set `opacity: 0`.**
-`src/lib/motion.ts` presets are server-rendered into inline `style="opacity:0"`, and inline styles cannot be overridden by CSS. Anything animated that way is invisible until hydration — on a slow connection, with JS disabled, or to a screenshot-based renderer, the page is blank. This was measured: the home page once shipped 103 inline `opacity:0` declarations. Presets now animate position/scale/blur only. If you need a genuine fade, use the CSS-driven `.hero-enter-*` classes in `globals.css`, which start painting without waiting for JS.
+Framer-style presets get server-rendered into inline `style="opacity:0"`, and inline styles cannot be overridden by CSS. Anything animated that way is invisible until hydration — on a slow connection, with JS disabled, or to a screenshot-based renderer, the page is blank. This was measured: the home page once shipped 103 inline `opacity:0` declarations. Presets now animate position/scale/blur only. If you need a genuine fade, use the CSS-driven `.hero-enter-*` classes in `globals.css`, which start painting without waiting for JS.
 
 **2. Every CSS animation class must be listed in the `prefers-reduced-motion` block.**
 Those classes use `animation-fill-mode: both`, so their first keyframe (`opacity: 0`) sticks. `animation: none` releases it. Miss one class and that element stays permanently invisible for anyone who asked for reduced motion.
@@ -67,7 +64,7 @@ The source of truth lives in the platform governance repo. Regenerate with `bash
 **4. Unlayered classes in `globals.css` outrank Tailwind utilities.**
 Tailwind v4 puts utilities in `@layer utilities`; plain rules in `globals.css` are unlayered and therefore win. `.eyebrow` sets `text-transform: uppercase`, so adding `normal-case` to an element that also has `.eyebrow` does nothing — it silently shouted a domain name in all caps on the home page for a while. Drop the semantic class and use utilities directly when they conflict.
 
-Also worth knowing: demo data (latency, cost, ledger rows, routing tables) is hard-coded and must carry a visible "示意" / illustrative marker — do not let it read as measured telemetry. Outbound console URLs belong in `lib/links.ts`, not inline. External links go through `<SmartLink>`, which sets `target`/`rel` automatically.
+Also worth knowing: demo data (latency, cost, ledger rows, routing tables) is hard-coded and must carry a visible "示意" / illustrative marker — do not let it read as measured telemetry. Examples on product pages (evidence lines) must be labelled 「示例」 in their caption.
 
 ## Deployment
 
@@ -85,4 +82,4 @@ GitOps: GitHub Actions → GHCR → ArgoCD → K3s. Pushing to `main` runs lint 
 
 ## Related
 
-Outbound targets referenced in `lib/links.ts` and the footer: the gateway console, the identity provider (`identity.lurus.cn`, also the `/login` target), and the docs site (`docs.lurus.cn`). This repo has no build-time dependency on any of them.
+Outbound targets referenced in the header and footer: the identity provider (`identity.lurus.cn`, also the `/login` target), and the docs site (`docs.lurus.cn`). This repo has no build-time dependency on any of them.

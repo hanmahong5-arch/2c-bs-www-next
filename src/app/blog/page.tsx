@@ -1,10 +1,13 @@
 import type { Metadata } from "next";
-import { PageHero } from "@/components/page-hero";
+import { Eyebrow, Lead, Section } from "@/components/site";
 import { updates } from "./updates-data";
+
+// 更新日志是历史记录：条目内容（updates-data.ts）按当时的原文保留，不回改事实。
+// 这里只调整页面标题与导语。
 
 export const metadata: Metadata = {
   title: "更新日志",
-  description: "Lurus 产品更新日志 — 新功能、改进和修复。",
+  description: "LurusTech 过往的产品更新记录，按时间倒序。",
   alternates: {
     types: { "application/rss+xml": "/blog/rss.xml" },
   },
@@ -13,56 +16,58 @@ export const metadata: Metadata = {
 export default function BlogPage() {
   return (
     <>
-      <PageHero
-        highlight="更新日志"
-        title="产品动态"
-        description="了解 Lurus 最新的功能更新、改进和修复。"
-      />
-
-      <section className="py-24">
-        <div className="mx-auto max-w-3xl px-6">
-          <div className="space-y-8">
-            {updates.map((entry, i) => (
-              <article key={i} className="card p-6 relative">
-                <div className="flex items-center gap-3 mb-3">
-                  <time className="text-xs text-[var(--color-text-muted)] font-mono">
-                    {entry.date}
-                  </time>
-                  {entry.tags.map((tag) => (
-                    <span
-                      key={tag}
-                      className="text-[10px] px-2 py-0.5 rounded-full border border-[var(--color-ochre)]/20 text-[var(--color-ochre)]"
-                    >
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-                <h2 className="text-lg font-semibold text-[var(--color-text-primary)] mb-2">
-                  {entry.title}
-                </h2>
-                <p className="text-sm text-[var(--color-text-muted)] leading-relaxed">
-                  {entry.desc}
-                </p>
-              </article>
-            ))}
-          </div>
-
-          <div className="mt-12 text-center">
-            <p className="text-sm text-[var(--color-text-muted)]">
-              更多历史更新请查看{" "}
-              <a
-                href="https://docs.lurus.cn/changelog"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-[var(--color-ochre)] hover:underline"
-              >
-                文档站更新日志
-                <span className="inline-block ml-0.5 opacity-40 text-[10px]">↗</span>
-              </a>
-            </p>
+      <section aria-labelledby="blog-title" className="px-6">
+        <div className="mx-auto max-w-5xl pb-16 pt-24 md:pt-32">
+          <div className="max-w-[44rem]">
+            <Eyebrow>更新日志</Eyebrow>
+            <h1
+              id="blog-title"
+              className="mt-5 font-display text-[2.125rem] font-semibold leading-[1.2] tracking-[-0.025em] text-[var(--lt-ink)] md:text-[2.75rem] md:leading-[1.15]"
+            >
+              更新日志
+            </h1>
+            <Lead className="mt-7">
+              过往的更新记录，按时间倒序。条目保留当时的原文，
+              其中的活动与说法以当时为准，不代表现状。
+            </Lead>
           </div>
         </div>
       </section>
+
+      <Section labelledBy="blog-title">
+        <ol className="border-t border-[var(--lt-rule)]">
+          {updates.map((entry, i) => (
+            <li key={i} className="border-b border-[var(--lt-rule)] py-6">
+              <article>
+                <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1 font-mono text-xs text-[var(--color-text-muted)]">
+                  <time>{entry.date}</time>
+                  {entry.tags.map((tag) => (
+                    <span key={tag}>{tag}</span>
+                  ))}
+                </div>
+                <h2 className="mt-2 text-lg font-semibold text-[var(--lt-ink)]">
+                  {entry.title}
+                </h2>
+                <p className="mt-2 text-sm leading-[1.8] text-[var(--color-text-secondary)]">
+                  {entry.desc}
+                </p>
+              </article>
+            </li>
+          ))}
+        </ol>
+
+        <p className="mt-10 text-sm text-[var(--color-text-muted)]">
+          更早的记录见{" "}
+          <a
+            href="https://docs.lurus.cn/changelog"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-[var(--lt-ink)] underline decoration-[var(--lt-rule)] underline-offset-4 hover:decoration-[var(--lt-accent)]"
+          >
+            文档站更新日志 ↗
+          </a>
+        </p>
+      </Section>
     </>
   );
 }

@@ -1,4 +1,4 @@
-import { DevicePhoneMobileIcon, ArrowDownTrayIcon } from "@heroicons/react/24/outline";
+import { Section } from "@/components/site";
 
 const MANIFEST_URL =
   process.env.NEXT_PUBLIC_LUTU_MANIFEST_URL ??
@@ -54,52 +54,39 @@ async function fetchManifest(): Promise<LutuManifest | null> {
 }
 
 // 段落抬头是纯静态的，骨架态照样能出 —— 抽出来给 Section 和 Skeleton 共用，
-// 保证 fallback 与最终态的版式完全对齐（只有卡片区在变）。
+// 保证 fallback 与最终态的版式完全对齐（只有下方内容在变）。
 function SectionHeader() {
   return (
-    <div className="text-center mb-12">
-      <div className="inline-flex items-center gap-2 mb-4 px-3 py-1 rounded-full border border-[var(--color-border)] text-xs text-[var(--color-text-muted)]">
-        <DevicePhoneMobileIcon className="w-3.5 h-3.5" />
-        移动端
-      </div>
-      <h2 className="text-3xl font-bold mb-3">
-        路途 Lutu · <span className="text-gradient-gold">Android</span>
+    <>
+      <h2
+        id="lutu-title"
+        className="font-display text-[1.625rem] font-semibold leading-[1.25] tracking-[-0.02em] text-[var(--lt-ink)] md:text-[1.875rem]"
+      >
+        路途 Lutu · Android
       </h2>
-      <p className="text-[var(--color-text-muted)] max-w-2xl mx-auto">
-        一个 APP 把 Lurus 全家桶装进口袋：AI 对话、量化看盘、钱包、签到。
-        支持联网搜索、AI 记忆、5 槽自定义底栏。
+      <p className="mt-3 text-base leading-[1.8] text-[var(--color-text-secondary)]">
+        移动端客户端。安装包信息读取自 releases.lurus.cn 的发布清单。
       </p>
-    </div>
+    </>
   );
 }
+
+const rowClass =
+  "flex flex-wrap items-baseline gap-x-4 gap-y-1 border-b border-[var(--lt-rule)] py-3 font-mono text-sm";
 
 // Suspense fallback：manifest 走的是外部 releases.lurus.cn 的服务端 fetch，
 // 不该让 /download 的其余内容陪着一起等。见 page.tsx 的 <Suspense>。
 export function LutuAndroidSkeleton() {
   return (
-    <section className="py-24 border-t border-[var(--color-border)]">
-      <div className="mx-auto max-w-5xl px-6">
-        <SectionHeader />
-        <div
-          role="status"
-          aria-label="正在获取安装包信息"
-          className="card p-8 animate-pulse motion-reduce:animate-none"
-        >
-          <div className="flex items-baseline justify-between mb-6 gap-4">
-            <div className="flex-1 min-w-0">
-              <div className="h-7 w-28 rounded-lg bg-[var(--color-surface)]" />
-              <div className="h-3 w-40 max-w-full mt-2 rounded-full bg-[var(--color-surface)]" />
-            </div>
-            <div className="h-10 w-36 shrink-0 rounded-xl bg-[var(--color-surface)]" />
-          </div>
-          <div className="grid sm:grid-cols-3 gap-3">
-            <div className="h-[86px] rounded-xl bg-[var(--color-surface)]" />
-            <div className="h-[86px] rounded-xl bg-[var(--color-surface)]" />
-            <div className="h-[86px] rounded-xl bg-[var(--color-surface)]" />
-          </div>
-        </div>
-      </div>
-    </section>
+    <Section labelledBy="lutu-title">
+      <SectionHeader />
+      <p
+        role="status"
+        className="mt-8 font-mono text-sm text-[var(--color-text-muted)]"
+      >
+        正在获取安装包信息…
+      </p>
+    </Section>
   );
 }
 
@@ -107,87 +94,68 @@ export async function LutuAndroidSection() {
   const manifest = await fetchManifest();
 
   return (
-    <section className="py-24 border-t border-[var(--color-border)]">
-      <div className="mx-auto max-w-5xl px-6">
-        <SectionHeader />
+    <Section labelledBy="lutu-title">
+      <SectionHeader />
 
-        {manifest ? (
-          <div className="card p-8">
-            <div className="flex items-baseline justify-between mb-6">
-              <div>
-                <div className="text-2xl font-bold">v{manifest.version}</div>
-                <div className="text-xs text-[var(--color-text-muted)] mt-1">
-                  build {manifest.buildNumber} · {formatDate(manifest.buildDate)}
-                </div>
-              </div>
-              <a
-                href={`${manifest.baseUrl}${
-                  manifest.abis.find((a) => a.abi === manifest.primaryAbi)
-                    ?.filename ?? manifest.abis[0]?.filename
-                }`}
-                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-gold text-black text-sm font-semibold hover:opacity-90 transition"
-              >
-                <ArrowDownTrayIcon className="w-4 h-4" />
-                下载（{manifest.primaryAbi}）
-              </a>
-            </div>
+      {manifest ? (
+        <div className="mt-8">
+          <p className="font-mono text-sm text-[var(--lt-ink)]">
+            v{manifest.version}
+            <span className="text-[var(--color-text-muted)]">
+              {" "}
+              · build {manifest.buildNumber} · {formatDate(manifest.buildDate)}
+            </span>
+          </p>
 
-            <div className="grid sm:grid-cols-3 gap-3 mb-6">
-              {manifest.abis.map((a) => {
-                const isPrimary = a.abi === manifest.primaryAbi;
-                return (
+          <ul className="mt-6 border-t border-[var(--lt-rule)]">
+            {manifest.abis.map((a) => {
+              const isPrimary = a.abi === manifest.primaryAbi;
+              return (
+                <li key={a.abi} className={rowClass}>
                   <a
-                    key={a.abi}
                     href={`${manifest.baseUrl}${a.filename}`}
-                    className={`block p-4 rounded-xl border transition hover:border-[var(--color-ochre)]/50 ${
-                      isPrimary
-                        ? "border-[var(--color-ochre)]/30 bg-[var(--color-ochre)]/5"
-                        : "border-[var(--color-border)]"
-                    }`}
+                    className="text-[var(--lt-ink)] underline decoration-[var(--lt-rule)] underline-offset-4 hover:decoration-[var(--lt-accent)]"
                   >
-                    <div className="font-mono text-sm font-semibold">{a.abi}</div>
-                    <div className="text-[11px] text-[var(--color-text-muted)] mt-0.5">
-                      {ABI_NOTES[a.abi] ?? ""}
-                    </div>
-                    <div className="text-xs text-[var(--color-text-muted)] mt-2">
-                      {formatSize(a.size)}
-                    </div>
+                    {a.abi}
                   </a>
-                );
-              })}
-            </div>
+                  <span className="text-[var(--color-text-muted)]">
+                    {formatSize(a.size)}
+                  </span>
+                  <span className="font-sans text-[var(--color-text-secondary)]">
+                    {ABI_NOTES[a.abi] ?? ""}
+                    {isPrimary ? "（默认）" : ""}
+                  </span>
+                </li>
+              );
+            })}
+          </ul>
 
-            <details className="text-xs text-[var(--color-text-muted)]">
-              <summary className="cursor-pointer hover:text-[var(--color-text-primary)] transition">
-                SHA-256 校验
-              </summary>
-              <div className="mt-3 space-y-1.5 font-mono">
-                {manifest.abis.map((a) => (
-                  <div key={a.abi} className="break-all">
-                    <span className="text-[var(--color-text-primary)]">{a.abi}</span>
-                    <span className="mx-1">·</span>
-                    {a.sha256}
-                  </div>
-                ))}
-              </div>
-            </details>
-
-            <div className="mt-6 pt-5 border-t border-[var(--color-border)] text-xs text-[var(--color-text-muted)]">
-              <span className="font-semibold text-[var(--color-text-primary)]">
-                安装提示：
-              </span>{" "}
-              下载后在系统设置允许&ldquo;未知来源应用&rdquo;；首次安装可能弹安全警告，确认即可。
-              不确定 ABI？大多数手机选 arm64-v8a。
+          <details className="mt-6 text-xs text-[var(--color-text-muted)]">
+            <summary className="cursor-pointer hover:text-[var(--lt-ink)]">
+              SHA-256 校验
+            </summary>
+            <div className="mt-3 space-y-1.5 font-mono">
+              {manifest.abis.map((a) => (
+                <div key={a.abi} className="break-all">
+                  <span className="text-[var(--lt-ink)]">{a.abi}</span>
+                  <span className="mx-1">·</span>
+                  {a.sha256}
+                </div>
+              ))}
             </div>
-          </div>
-        ) : (
-          <div className="card p-8 text-center text-[var(--color-text-muted)]">
-            <DevicePhoneMobileIcon className="w-12 h-12 mx-auto mb-3 opacity-40" />
-            <p className="text-sm">Android APK 暂时无法获取，请稍后再试。</p>
-            <p className="text-xs mt-2 opacity-60">manifest: {MANIFEST_URL}</p>
-          </div>
-        )}
-      </div>
-    </section>
+          </details>
+
+          <p className="mt-6 text-sm leading-[1.8] text-[var(--color-text-secondary)]">
+            安装时需要在系统设置里允许安装未知来源的应用。不确定选哪个？多数手机选
+            arm64-v8a。
+          </p>
+        </div>
+      ) : (
+        <div className="mt-8 text-sm text-[var(--color-text-muted)]">
+          <p>安装包信息暂时无法获取，请稍后再试。</p>
+          <p className="mt-2 font-mono text-xs">manifest: {MANIFEST_URL}</p>
+        </div>
+      )}
+    </Section>
   );
 }
