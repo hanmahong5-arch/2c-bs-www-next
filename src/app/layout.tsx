@@ -15,7 +15,7 @@ import { CommandPalette } from "@/components/command-palette";
 // 读取失败（隐私模式等）时静默回退浅色，不影响页面渲染。
 const THEME_INIT_SCRIPT = `(function(){try{var t=localStorage.getItem('theme');if(t==='dark'||(!t&&window.matchMedia('(prefers-color-scheme: dark)').matches)){document.documentElement.classList.add('dark');}}catch(e){}})();`;
 
-// 仅自托管 Latin 主字体；中文走系统 CJK 字体回退（见 globals.css 字体栈）。
+// 仅由 next/font 本地打包 Latin 主字体；中文走系统 CJK 字体回退（见 globals.css 字体栈）。
 // 原 Noto Sans/Serif SC webfont 用 subsets:["latin"] 加载——不含中文字形（中文本就
 // 回退系统字体），却带来 ~1MB woff2 拖垮首屏 LCP/FCP，故移除，中文渲染不变。
 const fraunces = Fraunces({
@@ -41,11 +41,11 @@ const jetbrainsMono = JetBrains_Mono({
 
 const SITE_URL = "https://www.lurus.cn";
 const SITE_DESC =
-  "开箱即用的 AI 基础设施套件：LLM 网关 · 账户计费 · AI 记忆 · 智能路由。为企业 AI 转型提供全栈后端能力。";
+  "让客户自有环境里的 AI 系统，状态可核查、数据可恢复、改动有记录。企业 AI 交付工程：把 AI 系统在客户自己的环境里跑稳，并用证据说明它是稳的。";
 
 export const metadata: Metadata = {
   title: {
-    default: "LurusTech — 企业AI基础设施套件",
+    default: "LurusTech — 企业 AI 交付工程",
     template: "%s — LurusTech",
   },
   description: SITE_DESC,
@@ -72,7 +72,7 @@ export const viewport: Viewport = {
 };
 
 // schema.org 结构化数据 — 让搜索引擎与 AI 检索理解组织/站点/核心产品实体图谱。
-// 字段全部取自已验证真源（products.ts / footer 备案实体），不含臆造 offers/评分/可用性。
+// 字段取自共享简报的产品表与 footer 备案实体，不含 offers/评分/可用性；只列上主导航的构件中需要结构化声明的条目。
 const jsonLd = {
   "@context": "https://schema.org",
   "@graph": [
@@ -96,35 +96,13 @@ const jsonLd = {
     },
     {
       "@type": "SoftwareApplication",
-      "@id": `${SITE_URL}/platform#lugo`,
-      name: "Lugo",
-      applicationCategory: "DeveloperApplication",
-      operatingSystem: "Web, API",
-      url: `${SITE_URL}/platform`,
-      description:
-        "企业 AI 基础设施平台：OpenAI 兼容 LLM 网关（30+ 模型智能路由）+ 账户认证（OIDC/RBAC/多租户）+ 计费钱包 + AI 记忆（向量检索，REST/MCP）+ 多通道通知。",
-      publisher: { "@id": `${SITE_URL}/#org` },
-    },
-    {
-      "@type": "SoftwareApplication",
       "@id": `${SITE_URL}/kova#app`,
       name: "Kova",
       applicationCategory: "DeveloperApplication",
-      operatingSystem: "Linux, Web",
+      operatingSystem: "Linux",
       url: `${SITE_URL}/kova`,
       description:
-        "AI Agent 执行引擎：WAL 持久化崩溃恢复、DAG 拓扑调度、gRPC/REST/MCP 多协议、单二进制嵌入式部署。",
-      publisher: { "@id": `${SITE_URL}/#org` },
-    },
-    {
-      "@type": "SoftwareApplication",
-      "@id": `${SITE_URL}/lucrum#app`,
-      name: "Lucrum",
-      applicationCategory: "FinanceApplication",
-      operatingSystem: "Web",
-      url: `${SITE_URL}/lucrum`,
-      description:
-        "AI 量化交易：自然语言生成策略、历史回测、实盘执行、策略市场。",
+        "嵌入式持久执行引擎：WAL 崩溃恢复、执行留痕、可回放。成熟度：内部生产使用。",
       publisher: { "@id": `${SITE_URL}/#org` },
     },
   ],

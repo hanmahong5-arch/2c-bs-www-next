@@ -8,11 +8,12 @@ const ROUTES: ReadonlyArray<{
   priority: number;
 }> = [
   { path: "/", changeFrequency: "weekly", priority: 1.0 },
-  { path: "/platform", changeFrequency: "weekly", priority: 0.9 },
-  { path: "/kova", changeFrequency: "weekly", priority: 0.9 },
+  { path: "/witness", changeFrequency: "monthly", priority: 0.9 },
+  { path: "/kova", changeFrequency: "monthly", priority: 0.9 },
+  { path: "/memorus", changeFrequency: "monthly", priority: 0.9 },
+  { path: "/hub", changeFrequency: "monthly", priority: 0.9 },
+  { path: "/approach", changeFrequency: "monthly", priority: 0.9 },
   { path: "/lucrum", changeFrequency: "weekly", priority: 0.9 },
-  { path: "/pricing", changeFrequency: "weekly", priority: 0.9 },
-  { path: "/solutions", changeFrequency: "monthly", priority: 0.7 },
   { path: "/download", changeFrequency: "weekly", priority: 0.7 },
   { path: "/about", changeFrequency: "monthly", priority: 0.5 },
   { path: "/blog", changeFrequency: "weekly", priority: 0.6 },

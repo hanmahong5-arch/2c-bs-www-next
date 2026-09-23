@@ -12,7 +12,7 @@ export const updates: ChangelogEntry[] = [
   {
     date: "2026-06",
     title: "hub.lurus.cn BETA 公测",
-    desc: "OpenAI 兼容网关开放注册，30+ 模型智能路由，注册即送 ¥36 免费额度，无需信用卡。",
+    desc: "兼容主流 API 格式的网关开放注册，30+ 模型智能路由，注册即送 ¥36 免费额度，无需信用卡。",
     tags: ["Hub", "Beta"],
   },
   {
@@ -36,7 +36,7 @@ export const updates: ChangelogEntry[] = [
   {
     date: "2026-05",
     title: "多租户 LLM Hub 进入预生产",
-    desc: "Lurus Hub（lurus-newhub）上线预生产：OpenAI 兼容接口、多租户隔离、智能渠道路由、实时用量分析。",
+    desc: "Lurus Hub（lurus-newhub）上线预生产：兼容主流 API 格式的接口、多租户隔离、智能渠道路由、实时用量分析。",
     tags: ["Hub", "Platform"],
   },
   {

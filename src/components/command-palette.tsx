@@ -14,7 +14,6 @@ import {
   DocumentTextIcon,
   CodeBracketIcon,
   EnvelopeIcon,
-  KeyIcon,
 } from "@heroicons/react/24/outline";
 
 type Item = {
@@ -32,11 +31,11 @@ const GROUPS: Group[] = [
     section: "导航",
     items: [
       { label: "首页", href: "/", Icon: HomeIcon },
-      { label: "Lugo — 企业 AI 基础设施", href: "/platform", Icon: CubeTransparentIcon },
-      { label: "Lucrum — AI 量化交易", href: "/lucrum", Icon: ChartBarIcon },
-      { label: "Kova — Agent 执行引擎", href: "/kova", Icon: WrenchScrewdriverIcon },
-      { label: "定价", href: "/pricing", Icon: CurrencyYenIcon },
-      { label: "下载桌面端", href: "/download", Icon: CloudArrowDownIcon },
+      { label: "见证 — 状态可核查", href: "/witness", Icon: CubeTransparentIcon },
+      { label: "Kova — 持久执行引擎", href: "/kova", Icon: WrenchScrewdriverIcon },
+      { label: "Memorus — AI 记忆引擎", href: "/memorus", Icon: ChartBarIcon },
+      { label: "Hub — 私有 LLM 网关", href: "/hub", Icon: CloudArrowDownIcon },
+      { label: "方法", href: "/approach", Icon: CurrencyYenIcon },
       { label: "博客", href: "/blog", Icon: DocumentTextIcon },
     ],
   },
@@ -44,7 +43,6 @@ const GROUPS: Group[] = [
     section: "外部",
     items: [
       { label: "API 文档", href: "https://docs.lurus.cn", external: true, Icon: DocumentTextIcon, hint: "docs.lurus.cn" },
-      { label: "API Console — 获取 Key", href: "https://hub.lurus.cn", external: true, Icon: KeyIcon, hint: "hub.lurus.cn" },
       { label: "GitHub", href: "https://github.com/hanmahong5-arch", external: true, Icon: CodeBracketIcon },
       { label: "联系我们", href: "/about#contact", Icon: EnvelopeIcon },
     ],

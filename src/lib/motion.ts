@@ -1,7 +1,7 @@
 /**
  * Shared Framer Motion animation presets.
  *
- * Design reference: claude.ai spring easing, Linear stagger patterns.
+ * Design reference: spring easing and stagger patterns.
  *
  * Usage:
  *   <motion.div {...fadeInUp}>
@@ -24,7 +24,7 @@
  */
 import type { Variants } from "framer-motion";
 
-// Spring easing — fast in, gentle settle (claude.ai pattern)
+// Spring easing — fast in, gentle settle
 const spring = [0.16, 1, 0.3, 1] as const;
 
 export const fadeInUp = {

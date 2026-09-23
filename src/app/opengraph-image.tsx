@@ -2,7 +2,7 @@ import { ImageResponse } from "next/og";
 
 // 动态生成站点社交分享卡 — 替代此前引用却不存在的静态 /og-image.png (404)。
 // 文案保持拉丁字形，避免在 ImageResponse 中加载中文字体的复杂度；品牌词为主体。
-export const alt = "LurusTech — Enterprise AI Infrastructure Suite";
+export const alt = "LurusTech — AI delivery engineering in your own environment";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -45,7 +45,7 @@ export default function OpengraphImage() {
               color: MUTED,
             }}
           >
-            AI Infrastructure
+            AI Delivery Engineering
           </div>
         </div>
 
@@ -71,8 +71,8 @@ export default function OpengraphImage() {
               maxWidth: 900,
             }}
           >
-            LLM gateway · billing · memory · routing — ship AI in minutes, not
-            months.
+            AI systems in your own environment: state you can check, data you
+            can restore, changes on record.
           </div>
         </div>
 

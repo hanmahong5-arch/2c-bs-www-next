@@ -11,7 +11,7 @@ import { track } from "@/lib/track";
 import { HUB_CONSOLE_URL } from "@/lib/links";
 
 const devFeatures = [
-  "OpenAI 兼容接口，5 分钟接入",
+  "兼容主流 API 格式",
   "免费额度 ¥36 等值，无需信用卡",
   "30+ 模型，一个 API Key",
   "实时用量仪表盘",
@@ -28,7 +28,7 @@ const trustItems = [
   "99.9% 可用率目标",
   "DECIMAL(20,4) 计费精度",
   "ICP 备案合规",
-  "OpenAI 兼容协议",
+  "兼容主流 API 格式",
   "按用量付费",
 ];
 

@@ -18,7 +18,7 @@ const apps = [
     description:
       "像电视遥控器切换频道一样——一个界面切换 30+ AI 模型。本地加密，离线可用，OIDC 单点登录。",
     features: [
-      "OpenAI / Claude / Gemini / DeepSeek 一键切换",
+      "多家模型服务一键切换",
       "本地 AES-256 加密存储，密钥不离开你的电脑",
       "社区 System Prompt 预设库，开箱即用",
       "OIDC 单点登录，团队配置云端同步",

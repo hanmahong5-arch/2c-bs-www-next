@@ -69,7 +69,7 @@ const productMap: Record<string, Product> = {
     description:
       "30+ LLM 模型统一接入，实时用量分析，智能路由优化，按产品个性化计费。一个 API Key 接入所有 AI 能力。",
     features: [
-      "OpenAI 兼容接口，30+ 模型供应商",
+      "兼容主流 API 格式，接入多家模型服务",
       "实时数据处理管道：用量分析 · 成本优化 · 性能监控",
       "智能渠道路由：基于延迟/错误率/成本自动选择最优通道",
       "企业级多租户隔离",
@@ -141,7 +141,7 @@ const productMap: Record<string, Product> = {
     description:
       "一键切换 30+ AI 模型，本地加密存储，OIDC 单点登录。你的 AI 模型管理中心。",
     features: [
-      "模型切换：OpenAI/Claude/Gemini 一键切换",
+      "模型切换：多家模型服务一键切换",
       "本地优先：加密存储，离线可用",
       "预设库：社区共享的 system prompt 模板",
     ],
@@ -246,9 +246,9 @@ const personas: Persona[] = [
 // ── Presentation layer ──
 
 const presentation: Record<string, ProductPresentation> = {
-  hub: { icon: "⚡", href: "/platform#hub", color: "var(--color-accent)" },
-  billing: { icon: "🏦", href: "/platform#billing", color: "var(--color-accent)" },
-  memorus: { icon: "🧠", href: "/platform#memory", color: "var(--lt-accent-2)" },
+  hub: { icon: "⚡", href: "/hub", color: "var(--color-accent)" },
+  billing: { icon: "🏦", href: "/approach", color: "var(--color-accent)" },
+  memorus: { icon: "🧠", href: "/memorus", color: "var(--lt-accent-2)" },
   lucrum: { icon: "📈", href: "/lucrum", color: "var(--color-success)" },
   kova: { icon: "🔧", href: "/kova", color: "var(--lt-accent-2)" },
   switch: { icon: "🔀", href: "/download#switch", color: "var(--color-accent)" },

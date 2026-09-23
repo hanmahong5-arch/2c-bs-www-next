@@ -1,28 +1,27 @@
 import Link from "next/link";
-import { ArrowTopRightOnSquareIcon } from "@heroicons/react/24/outline";
 
-const footerLinks = [
+// brand-spec §4 长版：列顺序 产品 → 资源 → 公司 → 法务；
+// 「公司」「法务」两列文案按规范逐字固定，不可改。
+type FooterLink = { name: string; href: string };
+
+const footerLinks: ReadonlyArray<{ title: string; links: readonly FooterLink[] }> = [
   {
     title: "产品",
     links: [
-      { name: "Lugo 网关", href: "/platform#hub" },
-      { name: "Lucrum", href: "/lucrum" },
-      { name: "Kova", href: "/kova" },
-      { name: "Switch", href: "/download#switch" },
-      { name: "Creator", href: "/download#creator" },
+      { name: "见证 witness", href: "/witness" },
+      { name: "kova", href: "/kova" },
+      { name: "memorus", href: "/memorus" },
+      { name: "hub", href: "/hub" },
     ],
   },
   {
     title: "资源",
     links: [
-      { name: "文档", href: "https://docs.lurus.cn", external: true },
-      { name: "API 参考", href: "https://docs.lurus.cn/api", external: true },
-      { name: "定价", href: "/pricing" },
-      { name: "更新日志", href: "/blog" },
-      { name: "解决方案", href: "/solutions" },
+      { name: "docs", href: "https://docs.lurus.cn" },
+      { name: "方法 approach", href: "/approach" },
+      { name: "changelog", href: "/blog" },
     ],
   },
-  // brand-spec §4: 公司/法务两列文案 100% 固定，不可改
   {
     title: "公司",
     links: [
@@ -41,111 +40,78 @@ const footerLinks = [
   },
 ];
 
-export function Footer() {
+const linkClass =
+  "text-[13px] text-[var(--lt-ink)]/70 hover:text-[var(--lt-ink)] hover:underline underline-offset-4";
+
+function FooterAnchor({ link }: { link: FooterLink }) {
+  const external = link.href.startsWith("http");
+  if (external || link.href.startsWith("mailto:")) {
+    return (
+      <a
+        href={link.href}
+        {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+        className={linkClass}
+      >
+        {link.name}
+        {external && (
+          <span aria-hidden="true" className="ml-0.5">
+            ↗
+          </span>
+        )}
+      </a>
+    );
+  }
   return (
-    <footer className="border-t border-[var(--color-border)] bg-[var(--color-surface)]">
-      <div className="mx-auto max-w-7xl px-6 py-16">
+    <Link href={link.href} className={linkClass}>
+      {link.name}
+    </Link>
+  );
+}
 
-        {/* pre-footer CTA 块已删 — 与紧邻的 CTA section 重复, footer 回归导航/合规 */}
-        <div className="grid grid-cols-2 md:grid-cols-5 gap-8">
-          {/* Brand */}
+export function Footer() {
+  const year = new Date().getFullYear();
+  return (
+    <footer className="px-6">
+      <div className="mx-auto max-w-5xl border-t border-[var(--lt-rule)] py-14">
+        <div className="grid grid-cols-2 gap-x-8 gap-y-10 md:grid-cols-[1.4fr_repeat(4,1fr)]">
           <div className="col-span-2 md:col-span-1">
-            <span className="text-xl font-bold text-gradient-gold">LurusTech</span>
-            <p className="mt-3 text-sm text-[var(--color-text-muted)] leading-relaxed max-w-xs">
-              企业 AI 基础设施套件。
-              <br />
-              一个 API Key，30+ 模型，
-              <br />
-              金融级计费，开箱即用。
+            <p className="font-display text-base font-semibold text-[var(--lt-ink)]">
+              LurusTech
             </p>
-
-            {/* Social links */}
-            <div className="mt-4 flex gap-3">
-              <a
-                href="https://github.com/hanmahong5-arch"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-[var(--color-text-muted)] hover:text-[var(--color-ochre)] transition-colors"
-                aria-label="GitHub"
-              >
-                <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                  <path fillRule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clipRule="evenodd" />
-                </svg>
-              </a>
-              <a
-                href="mailto:contact@lurus.cn"
-                className="text-[var(--color-text-muted)] hover:text-[var(--color-ochre)] transition-colors"
-                aria-label="Email"
-              >
-                <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" aria-hidden="true">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" />
-                </svg>
-              </a>
-            </div>
+            <p className="mt-2 max-w-[22rem] text-[13px] leading-relaxed text-[var(--lt-ink)]/70">
+              让客户自有环境里的 AI 系统，状态可核查、数据可恢复、改动有记录。
+            </p>
           </div>
 
           {footerLinks.map((group) => (
             <div key={group.title}>
-              <h3 className="eyebrow font-mono mb-4">
+              <h2 className="mb-3 font-mono text-[10px] font-medium uppercase tracking-[0.16em] text-[var(--color-text-muted)]">
                 {group.title}
-              </h3>
+              </h2>
               <ul className="space-y-2">
-                {group.links.map((link) => {
-                  const isExternal =
-                    "external" in link && link.external;
-                  const isMailto = link.href.startsWith("mailto:");
-
-                  if (isExternal || isMailto) {
-                    return (
-                      <li key={link.name}>
-                        <a
-                          href={link.href}
-                          {...(isExternal
-                            ? {
-                                target: "_blank",
-                                rel: "noopener noreferrer",
-                              }
-                            : {})}
-                          className="text-sm text-[var(--color-text-muted)] hover:text-[var(--color-text-secondary)] hover:underline transition-colors"
-                        >
-                          {link.name}
-                          {isExternal && (
-                            <ArrowTopRightOnSquareIcon className="inline-block w-3 h-3 ml-1 opacity-40" />
-                          )}
-                        </a>
-                      </li>
-                    );
-                  }
-
-                  return (
-                    <li key={link.name}>
-                      <Link
-                        href={link.href}
-                        className="text-sm text-[var(--color-text-muted)] hover:text-[var(--color-text-secondary)] hover:underline transition-colors"
-                      >
-                        {link.name}
-                      </Link>
-                    </li>
-                  );
-                })}
+                {group.links.map((link) => (
+                  <li key={link.name}>
+                    <FooterAnchor link={link} />
+                  </li>
+                ))}
               </ul>
             </div>
           ))}
         </div>
 
-        {/* brand-spec §4.5 境内合规五件套 — 顺序固定: 公司全称 · ICP · 算法备案 / 四个《》链接 */}
-        <div className="mt-12 pt-8 border-t border-[var(--color-border)] flex flex-col gap-4">
-          <p className="text-xs text-[var(--color-text-muted)]">
-            &copy; {new Date().getFullYear()} LurusTech. All rights reserved.
-          </p>
-          <div className="flex flex-wrap items-center gap-x-3 gap-y-2 text-xs text-[var(--color-text-muted)]">
+        <div className="mt-12 flex flex-col gap-3 border-t border-[var(--lt-rule)] pt-6 text-xs text-[var(--lt-ink)]/70">
+          <p>&copy; {year} LurusTech. All rights reserved.</p>
+          <p>Lurus Hub: Built on New API · AGPL-3.0.</p>
+
+          {/* brand-spec §4.5 境内合规五件套 — 顺序固定: 公司全称 · ICP · 算法备案 / 四个《》链接 */}
+          <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
             <span>硅知睿智能科技（烟台）有限公司</span>
             <span aria-hidden="true">·</span>
             <a
               href="https://beian.miit.gov.cn/"
               target="_blank"
               rel="noopener noreferrer"
-              className="hover:text-[var(--color-text-secondary)] hover:underline transition-colors"
+              className="hover:text-[var(--lt-ink)] hover:underline"
             >
               鲁ICP备2026000242号
             </a>
@@ -154,7 +120,7 @@ export function Footer() {
               href="https://beian.cac.gov.cn/"
               target="_blank"
               rel="noopener noreferrer"
-              className="hover:text-[var(--color-text-secondary)] hover:underline transition-colors"
+              className="hover:text-[var(--lt-ink)] hover:underline"
             >
               算法备案（待取得）
             </a>
@@ -163,26 +129,25 @@ export function Footer() {
               href="https://www.beian.gov.cn/portal/registerSystemInfo?recordcode=37060002001239"
               target="_blank"
               rel="noopener noreferrer"
-              className="hover:text-[var(--color-text-secondary)] hover:underline transition-colors inline-flex items-center gap-1"
+              className="hover:text-[var(--lt-ink)] hover:underline"
             >
-              <svg className="w-3 h-3 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-              </svg>
               鲁公网安备37060002001239号
             </a>
           </div>
-          {/* 四个《》链接 — 占位 ≥32px (§4.5: design 阶段预留, 上线前补内容) */}
-          <div className="flex flex-wrap items-center gap-x-6 gap-y-2 min-h-8 text-xs text-[var(--color-text-muted)]">
-            <Link href="/terms" className="hover:text-[var(--color-text-secondary)] hover:underline transition-colors">
+          {/* 四个《》链接 — 占位 ≥32px (§4.5) */}
+          <div className="flex min-h-8 flex-wrap items-center gap-x-6 gap-y-2">
+            <Link href="/terms" className="hover:text-[var(--lt-ink)] hover:underline">
               《用户协议》
             </Link>
-            <Link href="/privacy" className="hover:text-[var(--color-text-secondary)] hover:underline transition-colors">
+            <Link href="/privacy" className="hover:text-[var(--lt-ink)] hover:underline">
               《隐私政策》
             </Link>
-            <span className="opacity-60" title="内容上线前补充">《算法说明》</span>
+            <span className="opacity-60" title="内容上线前补充">
+              《算法说明》
+            </span>
             <a
               href="mailto:contact@lurus.cn?subject=侵权投诉"
-              className="hover:text-[var(--color-text-secondary)] hover:underline transition-colors"
+              className="hover:text-[var(--lt-ink)] hover:underline"
             >
               《侵权投诉》
             </a>

@@ -28,7 +28,7 @@ const milestones: {
     tag: "企业产品",
     title: "多租户 LLM Hub 进入预生产",
     detail:
-      "Lurus Hub（lurus-newhub）上线预生产：OpenAI 兼容接口、多租户隔离、智能渠道路由、实时用量分析。",
+      "Lurus Hub（lurus-newhub）上线预生产：兼容主流 API 格式的接口、多租户隔离、智能渠道路由、实时用量分析。",
   },
   {
     date: "2026-06",
