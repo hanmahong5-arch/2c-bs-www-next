@@ -1,4 +1,9 @@
 import { Section } from "@/components/site";
+import {
+  fetchReleaseManifest,
+  formatDate,
+  formatSize,
+} from "@/lib/release-manifest";
 
 const MANIFEST_URL =
   process.env.NEXT_PUBLIC_LUTU_MANIFEST_URL ??
@@ -27,30 +32,8 @@ const ABI_NOTES: Record<string, string> = {
   "x86_64": "Android 模拟器",
 };
 
-function formatSize(bytes: number) {
-  return `${(bytes / 1024 / 1024).toFixed(1)} MB`;
-}
-
-function formatDate(iso: string) {
-  try {
-    return new Intl.DateTimeFormat("zh-CN", {
-      year: "numeric",
-      month: "2-digit",
-      day: "2-digit",
-    }).format(new Date(iso));
-  } catch {
-    return iso.slice(0, 10);
-  }
-}
-
-async function fetchManifest(): Promise<LutuManifest | null> {
-  try {
-    const res = await fetch(MANIFEST_URL, { next: { revalidate: 60 } });
-    if (!res.ok) return null;
-    return (await res.json()) as LutuManifest;
-  } catch {
-    return null;
-  }
+function fetchManifest() {
+  return fetchReleaseManifest<LutuManifest>(MANIFEST_URL);
 }
 
 // 段落抬头是纯静态的，骨架态照样能出 —— 抽出来给 Section 和 Skeleton 共用，
