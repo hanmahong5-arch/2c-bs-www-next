@@ -11,6 +11,7 @@ const ROUTES: ReadonlyArray<{
   { path: "/witness", changeFrequency: "monthly", priority: 0.9 },
   { path: "/kova", changeFrequency: "monthly", priority: 0.9 },
   { path: "/memorus", changeFrequency: "monthly", priority: 0.9 },
+  { path: "/memorus/benchmarks", changeFrequency: "monthly", priority: 0.8 },
   { path: "/hub", changeFrequency: "monthly", priority: 0.9 },
   { path: "/approach", changeFrequency: "monthly", priority: 0.9 },
   { path: "/lucrum", changeFrequency: "weekly", priority: 0.9 },

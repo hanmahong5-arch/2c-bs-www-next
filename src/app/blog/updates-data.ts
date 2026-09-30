@@ -10,6 +10,12 @@ export interface ChangelogEntry {
 
 export const updates: ChangelogEntry[] = [
   {
+    date: "2026-09",
+    title: "Memorus 公开基准报告",
+    desc: "LongMemEval_S held-out 问答 0.837、会话检索 any@5 0.971、LoCoMo J 0.746；数据、流程、失败与下一版计划全部公开。",
+    tags: ["Memorus", "Benchmark"],
+  },
+  {
     date: "2026-06",
     title: "hub.lurus.cn BETA 公测",
     desc: "兼容主流 API 格式的网关开放注册，30+ 模型智能路由，注册即送 ¥36 免费额度，无需信用卡。",

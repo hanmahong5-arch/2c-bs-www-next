@@ -12,5 +12,6 @@
 ## 方法与文档
 
 - [方法](https://www.lurus.cn/approach): 硬化、受托运维（客户自有环境，不含机房与算力转售）、按月交付证据；可接管原则；我们不做的事。
+- [Memorus 公开基准报告](https://www.lurus.cn/memorus/benchmarks): LongMemEval_S held-out 问答 0.837（同作答模型 oracle 0.905）、会话检索 any@5 0.971、LoCoMo J 0.746；方法、失败与下一步。
 - [文档](https://docs.lurus.cn): 各构件的概念、部署与判据。
 - [关于我们](https://www.lurus.cn/about)

@@ -1,15 +1,20 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { Disclosure, Eyebrow, Lead, ProductHeader, Section } from "@/components/site";
+import { fmt } from "./benchmarks/charts";
+import { DEV_RETRIEVAL, HELDOUT, LOCOMO } from "./benchmarks/data";
 
 // Memorus 产品页：给 AI 系统的长期记忆。
-// 叙事：一句话 → 核心主张（记忆也需要可核查）→ 形成 / 检索 / 接入 → 边界与现状 → 文档。
-// 每一处机制都对应 2b-svc-memorus 仓里真实存在的代码；没有的不写，不放基准数字。
+// 叙事：一句话 → 核心主张（记忆也需要可核查）→ 形成 / 检索 / 接入 → 公开基准摘要 → 边界与现状 → 文档。
+// 每一处机制都对应 2b-svc-memorus 仓里真实存在的代码；没有的不写。
+// 基准数字只在 /memorus/benchmarks 报告页展开；本页只放摘要与链接，数字直接取报告页的 data.ts。
 // 全部服务端渲染，无 JS 动效。
 
 export const metadata: Metadata = {
   title: "Memorus — AI 系统的长期记忆",
   description:
     "为 AI 系统保存长期记忆：抽取、去重、衰减、混合检索。可查变更历史；锚定到源文件的记忆，检索时核验是否过时。早期试点。",
+  alternates: { canonical: "/memorus" },
 };
 
 const DOCS = "https://docs.lurus.cn/memx/";
@@ -40,6 +45,29 @@ function Item({ children }: { children: React.ReactNode }) {
       </span>
       <span>{children}</span>
     </li>
+  );
+}
+
+function ReportLink({ children }: { children: React.ReactNode }) {
+  return (
+    <Link
+      href="/memorus/benchmarks"
+      className="inline-flex min-h-[44px] items-center text-[var(--lt-ink)] underline decoration-[var(--lt-rule)] underline-offset-4 hover:decoration-[var(--lt-accent)]"
+    >
+      {children}
+    </Link>
+  );
+}
+
+/** 数字在上、说明在下（视觉）；语义上说明是 dt、数字是 dd。 */
+function Stat({ value, label }: { value: string; label: string }) {
+  return (
+    <div className="flex flex-col-reverse">
+      <dt className="mt-2 text-sm leading-[1.7] text-[var(--color-text-secondary)]">{label}</dt>
+      <dd className="font-display text-[2rem] font-semibold leading-none tracking-[-0.02em] text-[var(--lt-ink)]">
+        {value}
+      </dd>
+    </div>
   );
 }
 
@@ -145,6 +173,27 @@ export default function MemorusPage() {
         </div>
       </Section>
 
+      {/* 公开基准：摘要，完整数据在报告页 */}
+      <Section id="benchmarks" labelledBy="benchmarks-title">
+        <SectionTitle id="benchmarks-title" eyebrow="公开基准">
+          数字公开，失败也公开。
+        </SectionTitle>
+        <Lead className="mt-6">
+          我们在两个公开长对话记忆基准上跑了实测，作答用的是低价通用对话模型（关闭推理）。
+        </Lead>
+        <dl className="mt-10 grid gap-8 sm:grid-cols-3">
+          <Stat
+            value={fmt(HELDOUT.qa)}
+            label={`LongMemEval_S held-out 问答准确率；同作答模型只给证据为 ${fmt(HELDOUT.oracle)}`}
+          />
+          <Stat value={fmt(HELDOUT.retrieval[0].value)} label="LongMemEval_S held-out 会话检索 any@5" />
+          <Stat value={fmt(LOCOMO.j)} label={`LoCoMo J 分（类别 1–4，${LOCOMO.n} 题）`} />
+        </dl>
+        <p className="mt-8">
+          <ReportLink>完整报告：数据、流程、失败与下一步</ReportLink>
+        </p>
+      </Section>
+
       {/* 边界与现状 */}
       <Section id="boundaries" labelledBy="boundaries-title">
         <SectionTitle id="boundaries-title" eyebrow="边界与现状">
@@ -156,7 +205,10 @@ export default function MemorusPage() {
             检索结果返回总分与核验状态；各层的分项得分目前只在引擎内部计算，还没有通过接口返回。
           </Item>
           <Item>
-            「混合检索优于纯向量检索」目前只有机制，没有可复现的基准数字支撑，所以这里不写数字。
+            混合检索与纯向量检索的对比现在有实测：dev 集会话检索 any@5 词法 + 向量{" "}
+            {fmt(DEV_RETRIEVAL.rows[3].any5)}、纯向量 {fmt(DEV_RETRIEVAL.rows[1].any5)}，差距不大。
+            LoCoMo 的短轮次检索仍是短板（轮次级 any@10 {fmt(LOCOMO.turnRetrieval[1].any10)}）；
+            评测里用到的词法清理与「整本会话 + 尾部命中轮」目前只在评测链路里，尚未进产品默认配置。
           </Item>
           <Item>
             零配置默认使用确定性的哈希向量，不是真实的语义嵌入；要做语义检索，需要配置嵌入服务。
