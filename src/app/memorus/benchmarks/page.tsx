@@ -362,7 +362,7 @@ export default function BenchmarksPage() {
               三道校验针对的是一个候选判分模型（与阅读同档），对照标签来自另一厂商的判分模型：与对照标签的一致率（oracle {JUDGE_CHECK.agreeOracle.k}/{JUDGE_CHECK.agreeOracle.n}，{fmt(JUDGE_CHECK.agreeOracle.rate)}；
               检索 {JUDGE_CHECK.agreeRetrieval.k}/{JUDGE_CHECK.agreeRetrieval.n}，{fmt(JUDGE_CHECK.agreeRetrieval.rate)}）；
               错答顶替的误收率 {fmt(JUDGE_CHECK.substituteFalseAccept.rate)}（{JUDGE_CHECK.substituteFalseAccept.pairs} 对，阈值 {JUDGE_CHECK.substituteFalseAccept.threshold}）；
-              与第二判分（免费小模型）的一致率 {JUDGE_CHECK.secondJudgeAgree.toFixed(2)}，仅记录。
+              与第二判分（免费小模型）的一致率 {JUDGE_CHECK.secondJudgeAgree.toFixed(2)}，低于事先放宽到的 90%；按事先写定的规则该项仅记录、不据此换判分。
             </Item>
             <Item>
               一致率与误收率达标，但这个候选判分模型偏宽：oracle {fmt(JUDGE_CHECK.looseOracle.from)} → {fmt(JUDGE_CHECK.looseOracle.to)}，检索 {fmt(JUDGE_CHECK.looseRetrieval.from)} →{" "}
@@ -624,7 +624,7 @@ export default function BenchmarksPage() {
           先写预测，再看结果：命中 {PREDICTION_STATS.hit} 项，落空 {PREDICTION_STATS.miss} 项。
         </SectionTitle>
         <Lead className="mt-6">
-          {PREDICTION_STATS.groups} 组预测拆成 {PREDICTION_STATS.total} 个逐项：{PREDICTION_STATS.hit} 项命中，{PREDICTION_STATS.miss} 项落空。
+          从 {PREDICTION_STATS.groups} 组预测中摘录 {PREDICTION_STATS.total} 个主指标逐项：{PREDICTION_STATS.hit} 项命中，{PREDICTION_STATS.miss} 项落空。
           每一项都在跑之前写下区间，跑完不改。
         </Lead>
         <div className="mt-8">
@@ -748,7 +748,7 @@ export default function BenchmarksPage() {
       {/* 10 成本与复现 */}
       <Section id="cost" labelledBy="cost-title">
         <SectionTitle id="cost-title" eyebrow="成本与复现">
-          花了多少，怎么自己跑一遍。
+          花了多少，以及复现需要什么。
         </SectionTitle>
         <List>
           <Item>token：{COST.tokens}。</Item>
@@ -764,10 +764,10 @@ export default function BenchmarksPage() {
           </Item>
         </List>
 
-        <H3>复现命令</H3>
+        <H3>评测命令（形态）</H3>
         <pre
           tabIndex={0}
-          aria-label="复现命令"
+          aria-label="评测命令（形态）"
           className="code-block mt-4 p-4 outline-none focus-visible:ring-2 focus-visible:ring-[var(--lt-accent)]"
         >
           {COST.reproCommand}
@@ -789,12 +789,10 @@ export default function BenchmarksPage() {
           </div>
           <div>
             <dt className={th}>代码仓</dt>
-            <dd>
-              <ExtLink href={COST.repoUrl}>{COST.repo}</ExtLink>
-            </dd>
+            <dd>目前为私有仓库，未对外公开；下列提交号供内部核对，对外复现以上方命令与数据集 sha256 为准。</dd>
           </div>
           <div>
-            <dt className={th}>提交</dt>
+            <dt className={th}>提交（内部仓库提交号）</dt>
             <dd>
               <ul className="space-y-1">
                 {COST.commits.map((c) => (
@@ -868,9 +866,6 @@ export default function BenchmarksPage() {
           </li>
           <li>
             <ExtLink href={LINKS.docs}>文档</ExtLink>
-          </li>
-          <li>
-            <ExtLink href={LINKS.repo}>代码仓</ExtLink>
           </li>
         </ul>
       </Section>

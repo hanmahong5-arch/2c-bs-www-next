@@ -286,6 +286,10 @@ export const RECOVERABLE = {
     { label: "多会话：证据齐全仍错", n: 7 },
     { label: "时间推理：缺证据", n: 13 },
     { label: "偏好：证据齐全仍错", n: 5 },
+    { label: "时间推理：证据齐全仍错", n: 1 },
+    { label: "偏好：缺证据", n: 1 },
+    { label: "知识更新：缺证据", n: 2 },
+    { label: "知识更新：证据齐全仍错", n: 2 },
   ],
   q2Missing: [
     { label: "多会话", n: 9 },
@@ -347,7 +351,7 @@ export interface Prediction {
 
 export const PREDICTIONS = [
   { group: 1, set: "dev", item: "B0 纯词法 any@5", predicted: "0.834 ± 0.03", actual: "0.828", hit: true },
-  { group: 2, set: "dev", item: "词法 + 向量 any@5", predicted: "[0.93, 0.97]", actual: "0.973", hit: true, note: "略超上沿" },
+  { group: 2, set: "dev", item: "词法 + 向量 any@5", predicted: "[0.93, 0.97]", actual: "0.973", hit: false, note: "超上沿 0.003，严格按区间记落空" },
   { group: 3, set: "dev", item: "纯向量比词法 + 向量低多少", predicted: "低 0.01–0.04", actual: "低 0.015", hit: true },
   {
     group: 4,
@@ -670,13 +674,12 @@ export const COST = {
   maxInputChars: 8000,
   longestTurnChars: "7.6 万",
   jobs: 8,
-  reproCommand: `memorus-eval longmemeval --arms staging-lexical-embed --data longmemeval_s_cleaned.json \\
+  reproCommand: `# 嵌入后端经 MEMORUS_EVAL_EMBED_{PROVIDER,MODEL,DIMS,MAX_CHARS} 指定（定稿 MAX_CHARS=8000）；配置补丁经 MEMORUS_EVAL_CONFIG_TOML 传入
+memorus-eval longmemeval --arms staging-lexical-embed --data longmemeval_s_cleaned.json \\
   --split heldout --dump-hits 20 --include-abstention --jobs <N> --out <arm>.jsonl
 # 配置补丁：[memory.lexical] query_stopwords = true；[ace.retrieval] content_word_coverage = true
-python scripts/eval/qa/lme_qa.py --context retrieval --top-sessions 5 --tail-sessions 5 --neighbors 1 ...
+python scripts/eval/qa/lme_qa.py --context retrieval --top-sessions 5 --tail-sessions 5 --neighbors 1 --split heldout ...
 # 作答 / 判分模型由 QA_READER_* / QA_JUDGE_* 环境变量提供，仓库内只出现别名`,
-  repo: "LurusTech/Lurus-memorus-r",
-  repoUrl: "https://github.com/LurusTech/Lurus-memorus-r",
   commits: [
     { hash: "a629dc2", what: "结果定稿" },
     { hash: "fcf6e75", what: "聚合排序与尾部命中轮" },
@@ -692,7 +695,8 @@ export const LIMITS = [
   "held-out 有轻度污染：切分之前，曾在全部 470 题上看过分题型检索汇总，所以 held-out 不是完全干净的。",
   "LongMemEval_S 的会话级 any@5 对小模型也不难，真正拉开差距的是 all@k 与问答。",
   "LoCoMo 轮次级检索 any@10 0.66 是明显的短板。",
-  "词法清理开关与「整本会话 + 尾部命中轮」目前只在评测链路里，尚未进入产品默认配置与检索 API。",
+  "词法清理两个开关已合入产品代码，默认关闭，可经配置开启（见上方评测命令的配置补丁）；「整本会话 + 尾部命中轮」目前只在评测脚本里，尚未进入检索 API。",
+  "LongMemEval held-out 没有跑同作答模型的全文上下文一档，只报检索与 oracle 两档。",
   "延迟没有在本轮系统测量，所以不报。",
 ] as const;
 
@@ -803,5 +807,4 @@ export const SCENE = {
 export const LINKS = {
   product: "/memorus",
   docs: "https://docs.lurus.cn/memx/",
-  repo: "https://github.com/LurusTech/Lurus-memorus-r",
 } as const;

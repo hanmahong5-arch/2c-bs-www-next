@@ -178,7 +178,7 @@ export function RetrievalScene() {
       <figcaption className="mt-4 text-[13px] leading-[1.75] text-[var(--color-text-muted)]">
         {`真实数据：LongMemEval_S dev 集一题的全部对话轮次，用开源多语言嵌入模型（1024 维）编码后做主成分投影` +
           `（前三主成分解释约 ${stats.variancePct}% 方差，位置远近仅示意）。连线为 memorus 定稿检索配置实际返回的前 ` +
-          `${stats.hits} 条命中。数据导出脚本：memorus 仓 scripts/eval/export_scene.py。`}
+          `${stats.hits} 条命中。数据导出脚本位于内部仓库，未公开。`}
       </figcaption>
     </figure>
   );
