@@ -203,6 +203,9 @@ export default function BenchmarksPage() {
                 <dd className="mt-3 font-display text-[3.25rem] font-semibold leading-none tracking-[-0.03em] tabular-nums text-[var(--lt-ink)] md:text-[3.5rem]">
                   {fmt(h.value)}
                 </dd>
+                <dd className="mt-2 font-mono text-[12px] tabular-nums leading-[1.7] text-[var(--lt-ink)]">
+                  95% 区间 [{fmt(h.ci95[0])}, {fmt(h.ci95[1])}] · n={h.n}
+                </dd>
                 <dd className="mt-2 text-[15px] leading-[1.6] text-[var(--color-text-secondary)]">{h.aside}</dd>
                 <dd className="mt-2 font-mono text-[11px] leading-[1.7] text-[var(--color-text-muted)]">{h.scope}</dd>
               </div>
