@@ -81,18 +81,25 @@ export const METRICS = [
 
 // ───────────────────────── 主数（标题区）─────────────────────────
 
+/** 95% 区间（Wilson），[下限, 上限]。 */
+export type Ci95 = readonly [number, number];
+
 export const HEADLINE = [
   {
     key: "qa",
     label: "LongMemEval_S · 问答准确率",
     value: 0.837,
-    aside: "同一作答模型只给证据：0.905",
+    ci95: [0.769, 0.888],
+    n: 147,
+    aside: "同一作答模型只给证据：0.905（95% 区间 [0.847, 0.942]）",
     scope: "held-out 147 题（含 9 道应弃答）· 只跑一次 · 2026-09-30",
   },
   {
     key: "retrieval",
     label: "LongMemEval_S · 会话检索 any@5",
     value: 0.971,
+    ci95: [0.928, 0.989],
+    n: 138,
     aside: "held-out",
     scope: "138 题可评分 · 会话级 · 2026-09-30",
   },
@@ -100,16 +107,18 @@ export const HEADLINE = [
     key: "locomo",
     label: "LoCoMo · J",
     value: 0.746,
+    ci95: [0.724, 0.767],
+    n: 1540,
     aside: "类别 1–4",
     scope: "1540 题 · 判 1 次 · 2026-09-30",
   },
-] as const;
+] as const satisfies readonly { key: string; label: string; value: number; ci95: Ci95; n: number; aside: string; scope: string }[];
 
 // ───────────────────────── 定稿配置 ─────────────────────────
 
 export const FINAL_CONFIG = {
   retrieval:
-    "词法 + 向量混合检索（开源多语言嵌入模型）+ 词法通道清理（查询侧英文功能词、覆盖率只算内容词）+ 嵌入输入截断 8000 字符",
+    "词法检索与向量检索（开源多语言嵌入模型）+ 词法清理（查询侧英文功能词、覆盖率只算内容词）+ 嵌入输入截断 8000 字符",
   cleanupFlags: ["query_stopwords", "content_word_coverage"],
   reading: "前 5 个检索会话整本 + 第 6–10 名会话的命中轮 ±1 邻轮",
   readingArgs: "--top-sessions 5 --tail-sessions 5 --neighbors 1",
@@ -123,6 +132,7 @@ export const HELDOUT = {
   scorable: 138,
   qa: 0.837,
   oracle: 0.905,
+  oracleCi95: [0.847, 0.942] as Ci95,
   gap: 0.068,
   typeMean: 0.854,
   abstain: { value: 0.889, n: 9 },
@@ -216,10 +226,10 @@ export const QA_STEPS = [
   },
   {
     tag: "Q1",
-    title: "检索换成词法 + 向量，作答改给整本会话",
+    title: "检索加入向量，作答改给整本会话",
     metric: "问答（dev 353 题）",
     value: 0.765,
-    changed: "检索换成词法 + 向量混合；作答上下文改为前 5 个会话整本。",
+    changed: "在词法检索之外加入向量检索；作答上下文改为前 5 个会话整本。",
     why: "多会话题要跨会话计数、汇总，零散命中轮给不全，所以给整本会话。",
     cost: "阅读输入 4.25M token。",
     src: SRC_DEV,
@@ -229,7 +239,7 @@ export const QA_STEPS = [
     title: "加词法清理，再补第 6–10 名会话的命中轮",
     metric: "问答（dev 353 题）",
     value: 0.813,
-    changed: "在 Q1 上加词法通道清理，并给第 6–10 名会话的命中轮 ±1 邻轮（定稿配置）。",
+    changed: "在 Q1 上加词法清理，并给第 6–10 名会话的命中轮 ±1 邻轮（定稿配置）。",
     why: "Q1 逐题拆分显示可挽回的错题主因是前 5 个会话装不全兄弟会话；离线估算后选了中间方案（见下表）。",
     cost: "阅读输入 3.53M token。",
     src: SRC_DEV,
@@ -249,17 +259,17 @@ export const RETRIEVAL_STEPS = [
   },
   {
     tag: "B0 + 向量",
-    title: "词法 + 向量混合",
+    title: "加入向量检索",
     metric: "all@5（dev；any@5 0.828 → 0.973）",
     value: 0.837,
-    changed: "在词法之外加向量通道（开源多语言嵌入模型）。",
+    changed: "在词法检索之外加入向量检索（开源多语言嵌入模型）。",
     why: "纯词法的缺口集中在多会话与偏好题；加向量后多会话题 all@5 0.416 → 0.701，偏好题 any@5 0.333 → 0.857。",
     cost: "多了嵌入开销，见「成本与复现」；不涉及阅读 token。",
     src: SRC_DEV,
   },
   {
     tag: "B1",
-    title: "词法通道清理",
+    title: "词法清理",
     metric: "all@5（dev；any@5 0.973 不变）",
     value: 0.849,
     changed: "查询侧去掉英文功能词，覆盖率只算内容词；两个开关默认关，只影响英文。",
@@ -722,8 +732,8 @@ export const PLAN = [
       },
       {
         n: 2,
-        title: "时间感知检索",
-        goal: "查询里的相对日期（「上个月」「三周前」）对 valid_from 软加权。目标：temporal 问答 +5pp。",
+        title: "时间相关问题",
+        goal: "问句里带「上个月」「三周前」这类相对时间时，能找到对应时间段里说过的话。目标：temporal 问答 +5pp。",
         verify: "dev 预测先行，held-out 换新后跑一次。",
       },
       {
@@ -745,8 +755,8 @@ export const PLAN = [
       },
       {
         n: 5,
-        title: "检索结果带新旧 / 已被取代信息",
-        goal: "把新旧、已被取代的信息交给作答侧，针对知识更新题取错新旧值的问题。",
+        title: "回答以现值为准",
+        goal: "同一件事前后说法不同时，能区分新旧说法，回答以现值为准；针对知识更新题取错新旧值的问题。",
         verify: "知识更新题的可挽回错题清零。",
       },
     ],
