@@ -4,7 +4,7 @@
 
 LurusTech 对外官网 —— 面向企业 AI 基础设施平台的纸感编辑风站点。**线上：** [www.lurus.cn](https://www.lurus.cn)
 
-Next.js 16（App Router）+ React 19 + Tailwind CSS 4（CSS-first）+ Framer Motion 12，用 Bun 构建运行，以 Docker standalone 镜像经 GitOps 交付。12 条内容路由，自身没有后端：所有产品入口都指向站外控制台，唯一的服务端路由是一个埋点接口。
+Next.js 16（App Router）+ React 19 + Tailwind CSS 4（CSS-first）+ Framer Motion 12，用 Bun 构建运行，以 Docker standalone 镜像经 GitOps 交付。15 条内容路由，自身没有后端：所有产品入口都指向站外控制台，唯一的服务端路由是一个埋点接口。
 
 ## 快速开始
 
@@ -23,19 +23,22 @@ docker build -t lurus-www . && docker run -p 3000:3000 lurus-www
 
 | 路由 | 内容 |
 |---|---|
-| `/` | 首页：Hero → TrustBand → Scenarios → QuickStart → Comparison → CostCalculator → Architecture → Features → ProductGrid → CTA |
-| `/platform` | Lugo 平台组：网关、计费、记忆 |
-| `/kova` | Kova，Agent 执行引擎 |
-| `/lucrum` | Lucrum，AI 量化交易 |
-| `/pricing` | 套餐档位、分模型价目表、FAQ |
-| `/download` | 桌面端工具 |
-| `/solutions` | 按人群划分的解决方案 |
+| `/` | 首页：一句话定位 → 一行证据 → 我们怎么工作 → 构件 → 最近交付 → 边界 |
+| `/witness` | Lurus Witness · 见证：只读采集、外部探测、恢复演练、月度证据 |
+| `/kova` | Kova，嵌入式持久执行引擎 |
+| `/memorus` · `/memorus/benchmarks` | Memorus 记忆引擎、公开基准报告 |
+| `/hub` | Lurus Hub，私有部署的多租户 LLM 网关 |
+| `/lugo` | Lugo，每客户独立安装的账号 / 钱包 / 收款底座 |
+| `/approach` | 方法，以及我们不做的事 |
+| `/lucrum` · `/switch` · `/download` | Lucrum、Switch 下载页、应用下载 |
 | `/about` · `/blog` | 公司介绍、产品更新（`/blog/rss.xml` 订阅源） |
 | `/privacy` · `/terms` | 法务页 |
 | `/login` | 跳转到身份提供方 |
 | `/api/track` | 埋点接口 —— 唯一的动态路由 |
 
-App Router 相关：`layout.tsx`（页头页脚、JSON-LD、主题初始化）、`template.tsx`（View Transitions 页面转场）、`loading.tsx`、`not-found.tsx`。社交卡片由 `opengraph-image.tsx` / `twitter-image.tsx` 动态生成。
+已下线的旧路由在 `next.config.ts` 里永久跳转（`/platform` → `/lugo`，`/pricing`、`/solutions` → `/approach`）。
+
+App Router 相关：`layout.tsx`（页头页脚、JSON-LD、主题初始化）、`template.tsx`（View Transitions 页面转场）、`not-found.tsx`。社交卡片由 `opengraph-image.tsx` / `twitter-image.tsx` 动态生成。
 
 ## 目录
 

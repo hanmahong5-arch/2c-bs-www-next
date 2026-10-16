@@ -12,6 +12,7 @@ const footerLinks: ReadonlyArray<{ title: string; links: readonly FooterLink[] }
       { name: "kova", href: "/kova" },
       { name: "memorus", href: "/memorus" },
       { name: "hub", href: "/hub" },
+      { name: "lugo", href: "/lugo" },
     ],
   },
   {

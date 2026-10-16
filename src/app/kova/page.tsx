@@ -58,7 +58,7 @@ export default function KovaPage() {
         name="Kova"
         maturity="早期试点"
         tagline="嵌入式持久执行引擎。每一步先写进日志，再算完成；进程中断后从日志接着走，走过的路可以回放。"
-        note="专有软件，按商业许可提供；目前只在我们自己的环境里运行。"
+        note="专有软件，按商业许可提供；目前只在我们自己的环境里运行（含生产集群）。"
         evidence={{
           name: "workflow #42",
           version: null,
@@ -114,6 +114,21 @@ export default function KovaPage() {
             </p>
           </Disclosure>
 
+          <Disclosure summary={<span className="text-[1.0625rem]">从 Dify 迁过来，审批点放在哪</span>}>
+            <p>
+              <Mono>kova spec import dify</Mono> 把 Dify（DSL 0.7.0）导出的工作流转成 Kova 工作流。
+              Kova 跑不了的节点不会被悄悄丢掉：每一个都变成一个等待人工输入的占位步骤，并逐个列进导入报告。
+              导入器用九份真实的公开导出文件做回归。
+            </p>
+            <p className="mt-3">
+              <Mono>kova spec check --suggest-gates</Mono> 回答「审批点该放在哪」：
+              只放在每条执行路径都会碰到写操作的位置，数量尽量少，并尽量靠近写操作本身。
+            </p>
+            <p className="mt-3">
+              批准、拒绝、取消、恢复这些人工决定，会把「谁做的决定」一并写进日志，事后导出证据时可以看到。
+            </p>
+          </Disclosure>
+
           <Disclosure summary={<span className="text-[1.0625rem]">嵌入方式</span>}>
             <p>
               核心是一个 Rust 库，直接链接进你的程序，不需要单独部署的调度服务；
@@ -162,7 +177,8 @@ export default function KovaPage() {
         <ul className="mt-8 space-y-4 text-base leading-[1.8] text-[var(--color-text-secondary)]">
           <Dash>
             成熟度是 <MaturityChip level="早期试点" />
-            ：只在我们自有环境试运行，未承载客户流量。外部接入还早。
+            ：REST 服务已部署在我们自己的生产集群（kova.lurus.cn），每天异地备份；
+            尚未承载客户流量，外部接入还早。
           </Dash>
           <Dash>
             声明式工作流的注册表已按租户分区，但隔离只做到接口层；

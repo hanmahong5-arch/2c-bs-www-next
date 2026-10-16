@@ -9,9 +9,10 @@ import {
   Section,
   type Maturity,
 } from "@/components/site";
+import { updates } from "@/app/blog/updates-data";
 
 // 首页叙事：渐进带入，不是转化漏斗。
-// 一句话定位 → 一行证据（证据强度分级）→ 我们怎么工作（观测/执行/回放）→ 构件索引 → 边界 → 一句邀请。
+// 一句话定位 → 一行证据（证据强度分级）→ 我们怎么工作（观测/执行/回放）→ 构件索引 → 最近交付 → 边界 → 一句邀请。
 // 全部服务端渲染，无 JS 动效；首屏内容不依赖水合即可见。
 
 const CONTACT = "mailto:contact@lurus.cn";
@@ -44,6 +45,12 @@ const components: ReadonlyArray<{
     name: "Lurus Hub",
     href: "/hub",
     line: "私有部署的多租户 LLM 网关，基于开源 New API（AGPLv3）。",
+    maturity: "内部生产使用",
+  },
+  {
+    name: "Lugo · 账号与计费",
+    href: "/lugo",
+    line: "每客户独立安装的登录、钱包与收款：多渠道一本账，退款与对账留痕。",
     maturity: "内部生产使用",
   },
 ];
@@ -179,7 +186,7 @@ export default function Home() {
       <Section id="components" width="wide" labelledBy="components-title">
         <div className="max-w-[44rem]">
           <SectionTitle id="components-title" eyebrow="构件">
-            四个构件，成熟度各自标明。
+            五个构件，成熟度各自标明。
           </SectionTitle>
         </div>
         <ul className="mt-10 border-t border-[var(--lt-rule)]">
@@ -202,6 +209,30 @@ export default function Home() {
             </li>
           ))}
         </ul>
+      </Section>
+
+      {/* 最近交付：取更新日志真源的前三条，不另写一份 */}
+      <Section id="recent" width="wide" labelledBy="recent-title">
+        <div className="max-w-[44rem]">
+          <SectionTitle id="recent-title" eyebrow="最近">
+            最近交付了什么。
+          </SectionTitle>
+        </div>
+        <ul className="mt-10 border-t border-[var(--lt-rule)]">
+          {updates.slice(0, 3).map((u) => (
+            <li
+              key={u.title}
+              className="grid gap-x-8 gap-y-1 border-b border-[var(--lt-rule)] py-5 md:grid-cols-[6rem_14rem_1fr] md:items-baseline"
+            >
+              <span className="font-mono text-[13px] text-[var(--color-text-muted)]">{u.date}</span>
+              <span className="font-medium text-[var(--lt-ink)]">{u.title}</span>
+              <span className="text-[15px] leading-relaxed text-[var(--color-text-secondary)]">{u.desc}</span>
+            </li>
+          ))}
+        </ul>
+        <p className="mt-6">
+          <QuietLink href="/blog">全部更新 →</QuietLink>
+        </p>
       </Section>
 
       {/* 边界 */}

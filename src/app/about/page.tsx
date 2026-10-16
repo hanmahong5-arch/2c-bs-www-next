@@ -79,7 +79,7 @@ export default function AboutPage() {
       </Section>
 
       {/* 联系 */}
-      <Section labelledBy="contact-title">
+      <Section id="contact" labelledBy="contact-title">
         <p
           id="contact-title"
           className="font-display text-xl leading-[1.5] text-[var(--lt-ink)] md:text-2xl"

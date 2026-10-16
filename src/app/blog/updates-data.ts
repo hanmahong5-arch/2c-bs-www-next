@@ -10,6 +10,36 @@ export interface ChangelogEntry {
 
 export const updates: ChangelogEntry[] = [
   {
+    date: "2026-10",
+    title: "Lugo 钱路闸门：下单、退款、对账逐笔可查",
+    desc: "订单下单即带过期、关单与商户号核对；退款跟踪到终态；渠道日账单与平台台账自动比对，差异进控制台「对账问题」。在线收款代码就绪，待首个真实商户开通验证。",
+    tags: ["Lugo", "Billing"],
+  },
+  {
+    date: "2026-10",
+    title: "Kova 上生产集群，支持从 Dify 导入",
+    desc: "kova-rest 部署到 kova.lurus.cn 并每日异地备份；kova spec import dify 导入 Dify 工作流，跑不了的节点逐个列进报告；--suggest-gates 建议审批点放在哪；人工决定记下决定人。",
+    tags: ["Kova"],
+  },
+  {
+    date: "2026-10",
+    title: "Hub 新控制台与企业功能",
+    desc: "新控制台全面取代旧界面；企业租户支持付款方、成员角色、邀请与账户密钥、租户审计；项目月度预算上限在扣费前生效。",
+    tags: ["Hub"],
+  },
+  {
+    date: "2026-10",
+    title: "统一登录与企业身份",
+    desc: "平台登录页成为各产品唯一的登录入口，手机 APP 与网页登录态打通；此前上线通行密钥（Passkey）、异常登录检测、SCIM 2.0 目录同步与企业域名验证。",
+    tags: ["Lugo", "Identity"],
+  },
+  {
+    date: "2026-10",
+    title: "Lugo 产品页上线",
+    desc: "账号、钱包与收款底座有了自己的介绍页：每客户独立安装，装完以「交付就绪」看板全绿为终点。",
+    tags: ["Lugo", "Web"],
+  },
+  {
     date: "2026-09",
     title: "Memorus 公开基准报告",
     desc: "LongMemEval_S held-out 问答 0.837、会话检索 any@5 0.971、LoCoMo J 0.746；数据、流程、失败与下一版计划全部公开。",

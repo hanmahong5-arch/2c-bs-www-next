@@ -4,7 +4,7 @@
 
 The public marketing site for LurusTech — a paper-themed editorial site for an enterprise AI infrastructure platform. **Live:** [www.lurus.cn](https://www.lurus.cn)
 
-Next.js 16 (App Router) + React 19 + Tailwind CSS 4 (CSS-first) + Framer Motion 12, built and run with Bun, shipped as a Docker standalone image through GitOps. Twelve content routes, no backend of its own: every product link points at an external console, and the only server-side route is an analytics beacon.
+Next.js 16 (App Router) + React 19 + Tailwind CSS 4 (CSS-first) + Framer Motion 12, built and run with Bun, shipped as a Docker standalone image through GitOps. Fifteen content routes, no backend of its own: every product link points at an external console, and the only server-side route is an analytics beacon.
 
 ## Quick start
 
@@ -23,19 +23,22 @@ docker build -t lurus-www . && docker run -p 3000:3000 lurus-www
 
 | Route | What it is |
 |---|---|
-| `/` | Home: Hero → TrustBand → Scenarios → QuickStart → Comparison → CostCalculator → Architecture → Features → ProductGrid → CTA |
-| `/platform` | The Lugo platform group: gateway, billing, memory |
-| `/kova` | Kova, the agent execution engine |
-| `/lucrum` | Lucrum, AI quantitative trading |
-| `/pricing` | Tiers, per-model price table, FAQ |
-| `/download` | Desktop tools |
-| `/solutions` | Use cases by persona |
+| `/` | Home: positioning → one evidence line → how we work → components → recent deliveries → boundaries |
+| `/witness` | Lurus Witness: read-only collection, external probes, restore drills, monthly evidence |
+| `/kova` | Kova, the embedded durable execution engine |
+| `/memorus` · `/memorus/benchmarks` | Memorus memory engine, public benchmark report |
+| `/hub` | Lurus Hub, the private multi-tenant LLM gateway |
+| `/lugo` | Lugo, the per-customer accounts / wallet / payments base |
+| `/approach` | How we work, and what we don't do |
+| `/lucrum` · `/switch` · `/download` | Lucrum, Switch download, app downloads |
 | `/about` · `/blog` | Company, product changelog (`/blog/rss.xml` feed) |
 | `/privacy` · `/terms` | Legal |
 | `/login` | Redirect to the identity provider |
 | `/api/track` | Analytics beacon — the only dynamic route |
 
-App Router specifics: `layout.tsx` (header/footer, JSON-LD, theme bootstrap), `template.tsx` (view-transition page transitions), `loading.tsx`, `not-found.tsx`. Social cards are generated at `opengraph-image.tsx` / `twitter-image.tsx`.
+Retired routes redirect permanently in `next.config.ts` (`/platform` → `/lugo`, `/pricing` and `/solutions` → `/approach`).
+
+App Router specifics: `layout.tsx` (header/footer, JSON-LD, theme bootstrap), `template.tsx` (view-transition page transitions), `not-found.tsx`. Social cards are generated at `opengraph-image.tsx` / `twitter-image.tsx`.
 
 ## Layout
 
