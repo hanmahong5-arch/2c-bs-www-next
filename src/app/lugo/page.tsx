@@ -159,6 +159,17 @@ export default function LugoPage() {
               接口以 OpenAPI 3.1 描述，在你的实例上可以在线浏览与调试；
               服务等级指标有一页公开的状态页。
             </p>
+            <p className="mt-2">
+              我们自己这套的接口规范公开可读，无需登录：{" "}
+              <a href="https://identity.lurus.cn/docs/api" target="_blank" rel="noopener noreferrer" className={linkClass}>
+                在线 API 参考
+              </a>
+              {" · "}
+              <a href="https://identity.lurus.cn/docs/openapi.yaml" target="_blank" rel="noopener noreferrer" className={linkClass}>
+                openapi.yaml
+              </a>
+              。
+            </p>
           </Disclosure>
         </div>
       </Section>
