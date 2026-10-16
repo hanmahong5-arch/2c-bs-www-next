@@ -49,6 +49,7 @@ const nav: readonly NavItem[] = [
   { name: "Kova", href: "/kova" },
   { name: "Memorus", href: "/memorus" },
   { name: "Hub", href: "/hub" },
+  { name: "Lugo", href: "/lugo" },
   { name: "方法", href: "/approach" },
   { name: "文档", href: "https://docs.lurus.cn", external: true },
 ];

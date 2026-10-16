@@ -8,6 +8,7 @@
 - [Kova](https://www.lurus.cn/kova): 嵌入式持久执行引擎——预写日志崩溃恢复、执行留痕、可回放。成熟度：早期试点。
 - [Memorus](https://www.lurus.cn/memorus): AI 记忆引擎——抽取、去重、衰减、混合检索；CLI / REST / MCP。成熟度：早期试点。
 - [Lurus Hub](https://www.lurus.cn/hub): 私有部署的多租户 LLM 网关，基于开源 New API（AGPLv3）。成熟度：内部生产使用。
+- [Lugo · 账号与计费](https://www.lurus.cn/lugo): 每客户独立安装的账号、钱包与收款底座——单点登录、支付宝/微信支付直连与多渠道统一落账、幂等退款、渠道日对账、签名权益令牌、交付就绪看板。成熟度：内部生产使用。
 
 ## 方法与文档
 
