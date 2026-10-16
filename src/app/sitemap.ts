@@ -18,6 +18,7 @@ const ROUTES: ReadonlyArray<{
   { path: "/lucrum", changeFrequency: "weekly", priority: 0.9 },
   { path: "/switch", changeFrequency: "weekly", priority: 0.8 },
   { path: "/download", changeFrequency: "weekly", priority: 0.7 },
+  { path: "/hub/pricing", changeFrequency: "daily", priority: 0.8 },
   { path: "/about", changeFrequency: "monthly", priority: 0.5 },
   { path: "/blog", changeFrequency: "weekly", priority: 0.6 },
   { path: "/privacy", changeFrequency: "yearly", priority: 0.3 },
