@@ -10,6 +10,7 @@ export const ROUTES = [
   "/memorus",
   "/memorus/benchmarks",
   "/hub",
+  "/lugo",
   "/approach",
   "/lucrum",
   "/switch",
