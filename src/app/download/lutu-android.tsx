@@ -45,10 +45,10 @@ function SectionHeader() {
         id="lutu-title"
         className="font-display text-[1.625rem] font-semibold leading-[1.25] tracking-[-0.02em] text-[var(--lt-ink)] md:text-[1.875rem]"
       >
-        鹿途 Lutu · Android
+        鹿途 Lutu · Android（归档）
       </h2>
       <p className="mt-3 text-base leading-[1.8] text-[var(--color-text-secondary)]">
-        移动端客户端。安装包信息读取自 releases.lurus.cn 的发布清单。
+        移动端客户端，当前不在主动开发。安装包信息读取自 releases.lurus.cn 的发布清单。
       </p>
     </>
   );

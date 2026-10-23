@@ -38,7 +38,7 @@ const components: ReadonlyArray<{
   {
     name: "Memorus",
     href: "/memorus",
-    line: "AI 记忆引擎：抽取、去重、衰减、混合检索；CLI / REST / MCP。",
+    line: "记得住，也查得清：保留原文、可按时点追问；CLI / REST / MCP。",
     maturity: "早期试点",
   },
   {
@@ -209,6 +209,13 @@ export default function Home() {
             </li>
           ))}
         </ul>
+        <p className="mt-6 text-[15px] leading-relaxed text-[var(--color-text-secondary)]">
+          另有桌面客户端{" "}
+          <QuietLink href="/switch">Switch</QuietLink>
+          ：在一处管理多个 AI 编程 CLI；以及我们运营的{" "}
+          <QuietLink href="/hub/pricing">Hub 按量价格</QuietLink>
+          。
+        </p>
       </Section>
 
       {/* 最近交付：取更新日志真源的前三条，不另写一份 */}
