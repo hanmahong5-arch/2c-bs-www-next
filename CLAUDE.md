@@ -12,4 +12,4 @@ bun run lint
 docker build -t lurus-www .
 ```
 
-> 真源/细节: 设计系统真源 `doc/design/brand-spec.md` · 项目上下文 / 组件 / 动效 / 文案哲学 `/lurus-www-next` `/frontend-design` skill · ecosystem 数据 `src/lib/ecosystem.ts`。
+> 真源/细节: 设计系统真源 `doc/design/brand-spec.md` · 项目上下文 / 组件 / 动效 / 文案哲学 `/lurus-www-next` `/frontend-design` skill · 产品数据页内本地（如 `src/app/memorus/product-data.ts`），无统一 ecosystem 模块。

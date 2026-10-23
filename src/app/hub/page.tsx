@@ -66,7 +66,18 @@ export default function HubPage() {
         name="Lurus Hub"
         maturity="内部生产使用"
         tagline="部署在你自己环境里的多租户 LLM 网关：多家上游模型服务走同一个入口，用量按租户记账，调用日志默认开启。"
-        note="基于开源 New API（源自 One API），AGPLv3。"
+        note={
+          <>
+            基于开源 New API（源自 One API），AGPLv3。我们运营的 hub.lurus.cn 按量单价见{" "}
+            <Link
+              href="/hub/pricing"
+              className="underline decoration-[var(--lt-rule)] underline-offset-4 hover:decoration-[var(--lt-accent)]"
+            >
+              价格
+            </Link>
+            。
+          </>
+        }
       />
 
       {/* 核心主张 */}

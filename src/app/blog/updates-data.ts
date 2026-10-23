@@ -11,6 +11,12 @@ export interface ChangelogEntry {
 export const updates: ChangelogEntry[] = [
   {
     date: "2026-10",
+    title: "Memorus 产品页改版，Hub 公开按量价格",
+    desc: "Memorus 主叙事改为「记得住，也查得清」，补时点查询演示与同口径基准；hub.lurus.cn 价目实时读自公开接口。官网补邀请链接转发、Switch 推广码落地，并收齐发现路径。",
+    tags: ["Memorus", "Hub", "Web"],
+  },
+  {
+    date: "2026-10",
     title: "Lugo 钱路闸门：下单、退款、对账逐笔可查",
     desc: "订单下单即带过期、关单与商户号核对；退款跟踪到终态；渠道日账单与平台台账自动比对，差异进控制台「对账问题」。在线收款代码就绪，待首个真实商户开通验证。",
     tags: ["Lugo", "Billing"],
