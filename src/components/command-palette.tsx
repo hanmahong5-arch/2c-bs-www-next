@@ -36,9 +36,12 @@ const GROUPS: Group[] = [
       { label: "Memorus — AI 记忆引擎", href: "/memorus", Icon: ChartBarIcon },
       { label: "Memorus 公开基准报告", href: "/memorus/benchmarks", Icon: DocumentTextIcon },
       { label: "Hub — 私有 LLM 网关", href: "/hub", Icon: CloudArrowDownIcon },
+      { label: "Hub 按量价格", href: "/hub/pricing", Icon: CurrencyYenIcon },
       { label: "Lugo — 账号与计费", href: "/lugo", Icon: CurrencyYenIcon },
-      { label: "方法", href: "/approach", Icon: CurrencyYenIcon },
+      { label: "Switch — AI CLI 管理器", href: "/switch", Icon: CloudArrowDownIcon },
+      { label: "方法", href: "/approach", Icon: WrenchScrewdriverIcon },
       { label: "博客", href: "/blog", Icon: DocumentTextIcon },
+      { label: "关于", href: "/about", Icon: EnvelopeIcon },
     ],
   },
   {

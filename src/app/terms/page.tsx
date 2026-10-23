@@ -30,11 +30,16 @@ export default function TermsPage() {
         </Section>
 
         <Section title="3. 计费与付款">
-          按量付费部分以实际使用量计算，订阅制部分按周期预付。
-          逾期未付款可能导致服务降级或暂停。详细定价见
-          <Link href="/pricing" className="text-[var(--color-ochre)] hover:underline mx-1">
-            定价页面
+          按量付费部分以实际使用量计算；项目制或订阅约定以合同为准。
+          逾期未付款可能导致服务降级或暂停。我们运营的 hub.lurus.cn
+          公开单价见
+          <Link href="/hub/pricing" className="text-[var(--color-ochre)] hover:underline mx-1">
+            Hub 价格
           </Link>
+          ；其余交付面议，写信到{" "}
+          <a href="mailto:contact@lurus.cn" className="text-[var(--color-ochre)] hover:underline">
+            contact@lurus.cn
+          </a>
           。
         </Section>
 
@@ -44,8 +49,8 @@ export default function TermsPage() {
         </Section>
 
         <Section title="5. 服务可用性">
-          我们以 99.9% 可用性为目标，但不保证零中断。计划内维护将提前通知。
-          对于免费版用户，不提供 SLA 保障。
+          我们尽力保持服务可用，但不保证零中断。计划内维护将提前通知。
+          未另签 SLA 的使用，不提供可用性承诺数字。
         </Section>
 
         <Section title="6. 责任限制">

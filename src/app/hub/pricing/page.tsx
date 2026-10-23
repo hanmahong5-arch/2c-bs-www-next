@@ -100,12 +100,16 @@ export default function HubPricingPage() {
         </ul>
       </Section>
 
-      <Section id="lutu" labelledBy="lutu-title">
-        <SectionTitle id="lutu-title" eyebrow="鹿途">
-          鹿途不另收会员费。
+      <Section id="other" labelledBy="other-title">
+        <SectionTitle id="other-title" eyebrow="其它产品">
+          走 Hub 的调用，不另收会员费。
         </SectionTitle>
         <Lead className="mt-6">
-          鹿途目前没有会员套餐。鹿途里的 AI 调用经 Hub 计费，单价与上表相同，从同一个钱包扣。
+          经 hub.lurus.cn 发出的模型调用（含{" "}
+          <Link href="/download" className={linkClass}>
+            鹿途
+          </Link>
+          {" "}等归档客户端）按上表同价扣费，从同一个钱包扣，不另设会员套餐。
         </Lead>
       </Section>
 
