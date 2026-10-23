@@ -177,7 +177,17 @@ export default function HubPage() {
             在你的部署里开启并验证之前，请把它们当作「可用但未开」，不是「已交付」。
           </Dash>
           <Dash>接口文档与路由的一致性有自动检查；但检查不发真实请求，文档里的请求体、响应体和状态码仍可能有出入。</Dash>
-          <Dash>不转售上游模型服务，也不做机房与算力转售。</Dash>
+          <Dash>
+            装进你环境的 Hub 不转售上游模型服务，也不做机房与算力转售。我们自己运营的 hub.lurus.cn
+            按量收费，单价见{" "}
+            <Link
+              href="/hub/pricing"
+              className="text-[var(--lt-ink)] underline decoration-[var(--lt-rule)] underline-offset-4 hover:decoration-[var(--lt-accent)]"
+            >
+              价格
+            </Link>
+            。
+          </Dash>
           <Dash>不对延迟、可用率或成本给出承诺数字。</Dash>
         </ul>
         <p className="mt-10 text-base leading-[1.8] text-[var(--color-text-secondary)]">

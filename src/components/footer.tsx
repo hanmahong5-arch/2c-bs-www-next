@@ -13,6 +13,7 @@ const footerLinks: ReadonlyArray<{ title: string; links: readonly FooterLink[] }
       { name: "memorus", href: "/memorus" },
       { name: "hub", href: "/hub" },
       { name: "lugo", href: "/lugo" },
+      { name: "switch", href: "/switch" },
     ],
   },
   {
@@ -21,6 +22,8 @@ const footerLinks: ReadonlyArray<{ title: string; links: readonly FooterLink[] }
       { name: "docs", href: "https://docs.lurus.cn" },
       { name: "方法 approach", href: "/approach" },
       { name: "changelog", href: "/blog" },
+      { name: "下载", href: "/download" },
+      { name: "Hub 价格", href: "/hub/pricing" },
     ],
   },
   {

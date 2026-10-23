@@ -175,27 +175,27 @@ export default function LugoPage() {
         </div>
       </Section>
 
-      {/* 一个钱包：功能代码已完成、尚未部署，图为演示数据渲染的真实页面（lugo #109、tally #21） */}
+      {/* 一个钱包：功能代码已完成、尚未部署；截图为演示数据（lugo #109） */}
       <Section id="one-wallet" width="wide" labelledBy="one-wallet-title">
         <div className="max-w-[44rem]">
           <SectionTitle id="one-wallet-title" eyebrow="即将上线">
             一个账号、一个钱包、所有产品。
           </SectionTitle>
           <Lead className="mt-6">
-            Hub、Tally、Kova、鹿途用同一个账号登录，从同一个钱包扣费。
-            钱包按产品列出本月各花了多少、扣了几笔；从任何一个产品去充值，付完一键回到原来的产品。
+            Hub、Kova、Memorus 等走同一套 Lurus 账号与钱包：登录一次，余额共用，
+            按产品看本月各花了多少。从任一产品去充值，付完一键回到原来的页面。
           </Lead>
         </div>
         <figure className="mt-10 max-w-[51rem]">
           <Image
             src="/images/lugo/wallet-spend-by-product.png"
-            alt="钱包页的「本月各产品花费」卡片：Hub 模型 API、Tally 进销存、Kova 智能体、鹿途四个产品各自的本月花费与笔数，共用一个余额。"
+            alt="钱包页的「本月各产品花费」卡片：多个产品各自的本月花费与笔数，共用一个余额。"
             width={818}
             height={300}
             className="h-auto w-full rounded-sm border border-[var(--lt-rule)]"
           />
           <figcaption className="mt-2 font-mono text-[11px] text-[var(--color-text-muted)]">
-            示例 · 演示数据渲染的真实页面。代码已完成，尚未部署到线上。
+            示例 · 演示数据渲染的真实页面。产品名单以现网为准；代码已完成，尚未部署到线上。
           </figcaption>
         </figure>
       </Section>
