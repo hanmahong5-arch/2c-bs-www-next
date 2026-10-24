@@ -1,0 +1,60 @@
+# www Pod 默认 deny-all；SSR/ISR 需出站读 Hub 价目与 releases 清单。
+# DNS 另由 allow-dns-egress（含 CoreDNS Service CIDR + Pod CIDR）放行。
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: lurus-www-egress-https
+  namespace: lurus-www
+  labels:
+    app: lurus-www
+    app.kubernetes.io/name: lurus-www
+    app.kubernetes.io/part-of: lurus
+    policy-type: egress-https
+spec:
+  podSelector: {}
+  policyTypes:
+    - Egress
+  egress:
+    - ports:
+        - port: 443
+          protocol: TCP
+        - port: 80
+          protocol: TCP
+    - to:
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: lurus-system
+      ports:
+        - port: 3000
+          protocol: TCP
+        - port: 8080
+          protocol: TCP
+---
+# CoreDNS endpoints 在 Flannel Pod CIDR (10.42/16)；仅放行 kube-system
+# namespaceSelector 时部分 CNI 对 ClusterIP DNAT 路径仍拦 UDP/53。
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-dns-egress
+  namespace: lurus-www
+  labels:
+    app.kubernetes.io/part-of: lurus
+    policy-type: dns
+spec:
+  podSelector: {}
+  policyTypes:
+    - Egress
+  egress:
+    - ports:
+        - port: 53
+          protocol: UDP
+        - port: 53
+          protocol: TCP
+      to:
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: kube-system
+        - ipBlock:
+            cidr: 10.43.0.0/16
+        - ipBlock:
+            cidr: 10.42.0.0/16
