@@ -34,6 +34,13 @@ spec:
     spec:
       imagePullSecrets:
         - name: ghcr-pull-secret
+      # www Pod DNS 在 deny-all + Flannel 下对外部名不可靠；Hub/releases 在 R6，
+      # 用 hostAliases 固定解析，配合 networkpolicy-egress-https 做 SSR 取数。
+      hostAliases:
+        - ip: "43.226.45.87"
+          hostnames:
+            - hub.lurus.cn
+            - releases.lurus.cn
       # must exceed the preStop sleep (10s) so the drain finishes before SIGKILL
       terminationGracePeriodSeconds: 30
       containers:
