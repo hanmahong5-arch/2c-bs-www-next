@@ -11,6 +11,12 @@ export interface ChangelogEntry {
 export const updates: ChangelogEntry[] = [
   {
     date: "2026-10",
+    title: "官网转化可信度：ICP、可复制接入、价目 CTA",
+    desc: "首页补 Ideal Customer Profile；Memorus 首屏加 CLI 接入示意与试点下一步；Hub 显式挂「按量价格 / 私有部署」；Switch 下载区写清安装 → 登录 → 推广码路径。",
+    tags: ["Web", "Memorus", "Hub", "Switch"],
+  },
+  {
+    date: "2026-10",
     title: "Memorus 产品页改版，Hub 公开按量价格",
     desc: "Memorus 主叙事改为「记得住，也查得清」，补时点查询演示与同口径基准；hub.lurus.cn 价目实时读自公开接口。官网补邀请链接转发、Switch 推广码落地，并收齐发现路径。",
     tags: ["Memorus", "Hub", "Web"],
