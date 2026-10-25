@@ -97,6 +97,9 @@ export default function Home() {
             <Lead className="mt-7">
               我们把 AI 系统在客户自己的环境里跑稳，并用证据说明它是稳的。
             </Lead>
+            <p className="mt-5 text-base leading-[1.8] text-[var(--color-text-secondary)]">
+              面向要把 AI 系统装进客户自有环境、且需要可核查证据的工程与交付团队。
+            </p>
             <p className="mt-10">
               <a
                 href="#evidence"
