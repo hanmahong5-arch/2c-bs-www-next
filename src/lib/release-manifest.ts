@@ -8,9 +8,14 @@ export const RELEASES_BASE = "https://releases.lurus.cn";
 export async function fetchReleaseManifest<T>(
   url: string,
   revalidate = 60,
+  /** 构建机/容器常无外网；短超时避免 SSG 卡死 60s×3（Docker CI）。 */
+  timeoutMs = 8_000,
 ): Promise<T | null> {
   try {
-    const res = await fetch(url, { next: { revalidate } });
+    const res = await fetch(url, {
+      next: { revalidate },
+      signal: AbortSignal.timeout(timeoutMs),
+    });
     if (!res.ok) return null;
     return (await res.json()) as T;
   } catch {
