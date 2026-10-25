@@ -15,6 +15,11 @@ spec:
   # slow image pull non-fatal — the old pod keeps serving until the new is up).
   # Requires 2-pod headroom in the lurus-www ResourceQuota: raised in lurus-deploy
   # cluster/quotas/lurus-www.yaml (req.mem 512Mi / lim.mem 1Gi / lim.cpu 2).
+  # CN GHCR pulls can take several minutes; keep progressDeadline high so the
+  # controller does not prematurely mark the rollout failed while layers download.
+  # Prefer scripts/r1-sync-www.sh (mirror fetch → Argo refresh) over kubectl set-image,
+  # so selfHeal does not thrash against a manually set tag.
+  progressDeadlineSeconds: 900
   strategy:
     type: RollingUpdate
     rollingUpdate:
