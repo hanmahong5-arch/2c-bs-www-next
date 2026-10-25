@@ -1,48 +1,41 @@
 #!/usr/bin/env bash
-# Sync git mirror on R1 master, let Argo selfHeal pull the new image tag.
-# Usage (from a machine with `ssh master`):
+# Sync R1 git mirror → Argo selfHeal → wait rollout.
+#
+# R1 often cannot fetch GitHub (TLS EOF). Default path: push main FROM this
+# workstation (which can reach GitHub) into the bare mirror over SSH, then
+# hard-refresh Argo on master.
+#
+# Usage (PowerShell or Git Bash, with `ssh master` working):
 #   bash scripts/r1-sync-www.sh
 # Optional: IMAGE_TAG=main-abcdef0 bash scripts/r1-sync-www.sh
 set -euo pipefail
 
 REMOTE="${REMOTE:-master}"
-MIRROR="/data/git-mirrors/2c-bs-www-next.git"
-REPO_HTTPS="https://github.com/hanmahong5-arch/2c-bs-www-next.git"
+MIRROR_PATH="/data/git-mirrors/2c-bs-www-next.git"
+MIRROR_SSH="ssh://${REMOTE}${MIRROR_PATH}"
 NS=lurus-www
 APP=lurus-www
+ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 
-ssh -o BatchMode=yes -o ConnectTimeout=20 "$REMOTE" bash -s -- "$MIRROR" "$REPO_HTTPS" "$NS" "$APP" "${IMAGE_TAG:-}" <<'REMOTE'
+echo "==> push origin/main → R1 mirror (local→SSH; avoids R1→GitHub TLS)"
+git -C "$ROOT" fetch origin main
+git -C "$ROOT" push "$MIRROR_SSH" "refs/remotes/origin/main:refs/heads/main"
+
+echo "==> hard refresh Argo + wait rollout on $REMOTE"
+ssh -o BatchMode=yes -o ConnectTimeout=20 "$REMOTE" \
+  NS="$NS" APP="$APP" WANT_TAG="${IMAGE_TAG:-}" bash -s <<'REMOTE'
 set -euo pipefail
-MIRROR="$1"; REPO="$2"; NS="$3"; APP="$4"; WANT_TAG="${5:-}"
-
-echo "==> fetch mirror main"
-cd "$MIRROR"
-git fetch "$REPO" '+refs/heads/main:refs/heads/main'
-git symbolic-ref HEAD refs/heads/main 2>/dev/null || true
-echo "mirror HEAD: $(git log main -1 --oneline)"
-git show main:deploy/k8s/deployment.yaml | grep -E 'image:'
-
-echo "==> hard refresh Argo"
 kubectl -n argocd annotate application "$APP" argocd.argoproj.io/refresh=hard --overwrite
-
-# Wait until deploy image matches git (or WANT_TAG)
 deadline=$((SECONDS + 300))
 while (( SECONDS < deadline )); do
   img=$(kubectl get deploy "$APP" -n "$NS" -o jsonpath='{.spec.template.spec.containers[0].image}')
   sync=$(kubectl get application "$APP" -n argocd -o jsonpath='{.status.sync.status}')
   echo "  sync=$sync image=$img"
-  if [[ -n "$WANT_TAG" && "$img" == *"$WANT_TAG"* ]]; then
+  if [[ -n "${WANT_TAG}" && "$img" == *"${WANT_TAG}"* ]]; then
     break
   fi
-  if [[ -z "$WANT_TAG" && "$sync" == "Synced" ]]; then
-    break
-  fi
-  # If a new pod is stuck Pulling/ContainerCreating > 4m while old Ready, leave it —
-  # CN GHCR pulls are slow; do not thrash.
   sleep 5
 done
-
-echo "==> rollout status"
 kubectl rollout status "deployment/$APP" -n "$NS" --timeout=600s
 kubectl get pods -n "$NS" -l app="$APP" -o wide
 kubectl get deploy "$APP" -n "$NS" -o jsonpath='image={.spec.template.spec.containers[0].image}{"\n"}'
