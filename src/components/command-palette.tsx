@@ -26,6 +26,9 @@ type Item = {
 
 type Group = { section: string; items: Item[] };
 
+/** Header 触发按钮与键盘快捷键共用：勿再合成 KeyboardEvent（Windows 上只带 metaKey 打不开）。 */
+export const OPEN_COMMAND_PALETTE = "lurus:open-command-palette";
+
 const GROUPS: Group[] = [
   {
     section: "导航",
@@ -69,7 +72,7 @@ export function CommandPalette() {
     setActiveIdx(0);
   }, []);
 
-  // ⌘K / Ctrl+K toggle, ESC to close.
+  // ⌘K / Ctrl+K toggle, ESC to close；Header 按钮经自定义事件打开。
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "k") {
@@ -80,8 +83,13 @@ export function CommandPalette() {
         closePalette();
       }
     };
+    const onOpen = () => setOpen(true);
     window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
+    window.addEventListener(OPEN_COMMAND_PALETTE, onOpen);
+    return () => {
+      window.removeEventListener("keydown", onKey);
+      window.removeEventListener(OPEN_COMMAND_PALETTE, onOpen);
+    };
   }, [open, closePalette]);
 
   // Flatten + filter
@@ -282,26 +290,20 @@ function getIsMac() {
 }
 const noopSubscribe = () => () => {};
 
-// Trigger button — drop into Header.
+/** 桌面顶栏触发；与键盘快捷键同开命令面板。 */
 export function CommandPaletteTrigger() {
   const isMac = useSyncExternalStore(noopSubscribe, getIsMac, () => false);
 
-  const handleClick = () => {
-    // Synthesize a ⌘K keypress to reuse the same handler as the keyboard shortcut.
-    window.dispatchEvent(
-      new KeyboardEvent("keydown", { key: "k", metaKey: true, bubbles: true })
-    );
-  };
-
   return (
     <button
-      onClick={handleClick}
+      type="button"
+      onClick={() => window.dispatchEvent(new Event(OPEN_COMMAND_PALETTE))}
       aria-label="打开命令面板"
-      className="hidden md:flex items-center gap-2 px-3 py-1.5 rounded-lg border border-[var(--color-border)] hover:border-[var(--color-ochre)]/30 hover:bg-[var(--color-surface)] transition-all text-xs text-[var(--color-text-muted)] hover:text-[var(--color-text-secondary)]"
+      className="hidden items-center gap-1.5 text-xs text-[var(--color-text-muted)] transition-colors hover:text-[var(--lt-ink)] md:inline-flex"
     >
       <span>搜索</span>
-      <kbd className="font-mono text-[10px] px-1.5 py-0.5 rounded bg-[var(--background)] border border-[var(--color-border)]">
-        {isMac ? "⌘K" : "Ctrl K"}
+      <kbd className="font-mono text-[10px] tracking-tight text-[var(--color-text-muted)]">
+        {isMac ? "⌘K" : "Ctrl+K"}
       </kbd>
     </button>
   );

@@ -57,15 +57,16 @@ export default function BlogPage() {
         </ol>
 
         <p className="mt-10 text-sm text-[var(--color-text-muted)]">
-          更早的记录见{" "}
+          产品使用说明见{" "}
           <a
-            href="https://docs.lurus.cn/changelog"
+            href="https://docs.lurus.cn"
             target="_blank"
             rel="noopener noreferrer"
             className="text-[var(--lt-ink)] underline decoration-[var(--lt-rule)] underline-offset-4 hover:decoration-[var(--lt-accent)]"
           >
-            文档站更新日志 ↗
+            docs.lurus.cn ↗
           </a>
+          。
         </p>
       </Section>
     </>

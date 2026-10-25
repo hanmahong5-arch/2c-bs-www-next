@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState, useSyncExternalStore } from "react";
+import { CommandPaletteTrigger } from "@/components/command-palette";
 
 // 深色模式切换 — 初始态由 layout.tsx 的 beforeInteractive script 同步应用在 <html>
 // 上。用 useSyncExternalStore（而非 effect 里 setState）读回当前值，SSR 快照固定为
@@ -125,7 +126,8 @@ export function Header() {
           ))}
         </nav>
 
-        <div className="hidden items-center gap-3 md:flex">
+        <div className="hidden items-center gap-4 md:flex">
+          <CommandPaletteTrigger />
           <a
             href={LOGIN_URL}
             target="_blank"
