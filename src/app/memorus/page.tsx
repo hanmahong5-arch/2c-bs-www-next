@@ -117,6 +117,14 @@ export default function MemorusPage() {
               阅读文档
             </a>
           </div>
+          <figure className="mt-10 max-w-[36rem] border border-[var(--lt-rule)] bg-[var(--lt-paper)] px-4 py-3">
+            <figcaption className="font-mono text-[11px] uppercase tracking-[0.12em] text-[var(--color-text-muted)]">
+              接入示意 · 尚未上包仓库，安装见文档
+            </figcaption>
+            <pre className="mt-2 overflow-x-auto font-mono text-[13px] leading-[1.7] text-[var(--lt-ink)]">
+              <code>{`memorus-r search "项目预算"`}</code>
+            </pre>
+          </figure>
         </div>
       </div>
 
@@ -372,8 +380,8 @@ export default function MemorusPage() {
             申请试点
           </a>
         </div>
-        <p className="mt-4 text-sm text-[var(--color-text-muted)]">
-          试点申请发至{" "}
+        <p className="mt-4 text-sm leading-[1.7] text-[var(--color-text-muted)]">
+          下一步：邮件说明你的环境与目标；我们回复是否适合现阶段试点。申请发至{" "}
           <a href={LINKS.pilot} className={LINK_CLASS}>
             {LINKS.pilotLabel}
           </a>

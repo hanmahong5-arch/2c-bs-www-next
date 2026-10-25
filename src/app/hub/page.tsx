@@ -89,6 +89,17 @@ export default function HubPage() {
           应用只对接一套接口，背后接哪几家上游、怎么分配，由网关决定。
           谁调了什么、用了多少、结果如何，都留在你自己的数据库里。
         </Lead>
+        <div className="mt-8 flex flex-wrap gap-3">
+          <Link href="/hub/pricing" className="btn-primary">
+            查看按量价格
+          </Link>
+          <a href={CONTACT} className="btn-secondary">
+            联系私有部署
+          </a>
+        </div>
+        <p className="mt-4 text-sm text-[var(--color-text-muted)]">
+          自营 hub.lurus.cn 按表扣费；要把网关装进你自己的环境，写信说明部署约束即可。
+        </p>
       </Section>
 
       {/* 三个展开 */}
