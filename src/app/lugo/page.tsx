@@ -247,6 +247,9 @@ export default function LugoPage() {
           </Link>
           。
         </p>
+        <p className="mt-4 text-sm leading-[1.7] text-[var(--color-text-muted)]">
+          下一步：私有部署写信说明安装边界（身份源 / 商户号 / 网络）。
+        </p>
       </Section>
     </>
   );

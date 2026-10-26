@@ -43,6 +43,9 @@ export default function DownloadPage() {
         <Lead className="mt-6">
           Windows 版可下载：配置、代理、MCP、快照与账单，在一处管多个 AI 编程 CLI。
         </Lead>
+        <p className="mt-4 text-sm leading-[1.7] text-[var(--color-text-muted)]">
+          下一步：安装 → 登录 →（若有推广码）在首页粘贴。
+        </p>
         <p className="mt-6 text-base leading-[1.8] text-[var(--color-text-secondary)]">
           <Link href="/switch" className={linkClass}>
             前往 Switch 介绍与下载 →
