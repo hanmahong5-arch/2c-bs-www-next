@@ -98,6 +98,9 @@ export default function HubPricingPage() {
           </Dash>
           <Dash>调用时按上表单价从钱包扣费；余额不足时请求会被拒绝，不会先欠费再催缴。</Dash>
         </ul>
+        <p className="mt-4 text-sm leading-[1.7] text-[var(--color-text-muted)]">
+          下一步：登录后钱包充值 → 用 API Key 调 hub.lurus.cn；私有部署写信说明上游与网络约束。
+        </p>
       </Section>
 
       <Section id="other" labelledBy="other-title">

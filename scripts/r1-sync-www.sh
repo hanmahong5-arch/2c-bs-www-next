@@ -8,6 +8,9 @@
 # Usage (PowerShell or Git Bash, with `ssh master` working):
 #   bash scripts/r1-sync-www.sh
 # Optional: IMAGE_TAG=main-abcdef0 bash scripts/r1-sync-www.sh
+#
+# On Windows: Git for Windows' bundled ssh often ignores ~/.ssh/config Host
+# aliases. Prefer System32 OpenSSH when present so `Host master` resolves.
 set -euo pipefail
 
 REMOTE="${REMOTE:-master}"
@@ -17,12 +20,25 @@ NS=lurus-www
 APP=lurus-www
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 
+# Resolve ssh binary (and tell git to use the same one for push).
+SSH_BIN=ssh
+if [[ -x /c/Windows/System32/OpenSSH/ssh.exe ]]; then
+  SSH_BIN=/c/Windows/System32/OpenSSH/ssh.exe
+elif [[ -x /mnt/c/Windows/System32/OpenSSH/ssh.exe ]]; then
+  SSH_BIN=/mnt/c/Windows/System32/OpenSSH/ssh.exe
+elif command -v ssh.exe >/dev/null 2>&1; then
+  # Native Windows path when invoked from PowerShell-wrapped bash
+  SSH_BIN="$(command -v ssh.exe)"
+fi
+export GIT_SSH_COMMAND="${GIT_SSH_COMMAND:-$SSH_BIN}"
+
 echo "==> push origin/main → R1 mirror (local→SSH; avoids R1→GitHub TLS)"
+echo "    ssh=$SSH_BIN remote=$REMOTE"
 git -C "$ROOT" fetch origin main
 git -C "$ROOT" push "$MIRROR_SSH" "refs/remotes/origin/main:refs/heads/main"
 
 echo "==> hard refresh Argo + wait rollout on $REMOTE"
-ssh -o BatchMode=yes -o ConnectTimeout=20 "$REMOTE" \
+"$SSH_BIN" -o BatchMode=yes -o ConnectTimeout=20 "$REMOTE" \
   NS="$NS" APP="$APP" WANT_TAG="${IMAGE_TAG:-}" bash -s <<'REMOTE'
 set -euo pipefail
 kubectl -n argocd annotate application "$APP" argocd.argoproj.io/refresh=hard --overwrite
@@ -31,7 +47,9 @@ while (( SECONDS < deadline )); do
   img=$(kubectl get deploy "$APP" -n "$NS" -o jsonpath='{.spec.template.spec.containers[0].image}')
   sync=$(kubectl get application "$APP" -n argocd -o jsonpath='{.status.sync.status}')
   echo "  sync=$sync image=$img"
-  if [[ -n "${WANT_TAG}" && "$img" == *"${WANT_TAG}"* ]]; then
+  if [[ -n "${WANT_TAG}" ]]; then
+    [[ "$img" == *"${WANT_TAG}"* ]] && break
+  elif [[ "$sync" == "Synced" ]]; then
     break
   fi
   sleep 5
