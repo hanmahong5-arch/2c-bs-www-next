@@ -83,7 +83,7 @@ export function Footer() {
               LurusTech
             </p>
             <p className="mt-2 max-w-[22rem] text-[13px] leading-relaxed text-[var(--lt-ink)]/70">
-              让客户自有环境里的 AI 系统，状态可核查、数据可恢复、改动有记录。
+              客户自有环境里的 AI 受托运维：可恢复，月报写明测量方式。
             </p>
           </div>
 

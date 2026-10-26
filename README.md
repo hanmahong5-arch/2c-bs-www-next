@@ -23,7 +23,7 @@ docker build -t lurus-www . && docker run -p 3000:3000 lurus-www
 
 | Route | What it is |
 |---|---|
-| `/` | Home: positioning → one evidence line → how we work → components → recent deliveries → boundaries |
+| `/` | Home: operated AI in your environment (recoverable + monthly report) → one evidence line → method → observe / execute / replay → components used to deliver → recent changelog → boundaries |
 | `/witness` | Lurus Witness: read-only collection, external probes, restore drills, monthly evidence |
 | `/kova` | Kova, the embedded durable execution engine |
 | `/memorus` · `/memorus/benchmarks` | Memorus memory engine, public benchmark report |

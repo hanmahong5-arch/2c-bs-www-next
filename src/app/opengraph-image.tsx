@@ -2,7 +2,8 @@ import { ImageResponse } from "next/og";
 
 // 动态生成站点社交分享卡 — 替代此前引用却不存在的静态 /og-image.png (404)。
 // 文案保持拉丁字形，避免在 ImageResponse 中加载中文字体的复杂度；品牌词为主体。
-export const alt = "LurusTech — AI delivery engineering in your own environment";
+export const alt =
+  "LurusTech — AI operations that stay in your environment: verified restore, monthly measured report";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -45,7 +46,7 @@ export default function OpengraphImage() {
               color: MUTED,
             }}
           >
-            AI Delivery Engineering
+            In Your Environment
           </div>
         </div>
 
@@ -71,8 +72,8 @@ export default function OpengraphImage() {
               maxWidth: 900,
             }}
           >
-            AI systems in your own environment: state you can check, data you
-            can restore, changes on record.
+            Operate the AI already on your servers: a real restore, and a
+            monthly report that shows how each number was measured.
           </div>
         </div>
 

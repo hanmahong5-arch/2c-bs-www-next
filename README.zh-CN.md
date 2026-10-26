@@ -23,7 +23,7 @@ docker build -t lurus-www . && docker run -p 3000:3000 lurus-www
 
 | 路由 | 内容 |
 |---|---|
-| `/` | 首页：一句话定位 → 一行证据 → 我们怎么工作 → 构件 → 最近交付 → 边界 |
+| `/` | 首页：受托运维（可恢复 + 月报）→ 一行证据 → 方法 → 观测/执行/回放 → 交付所用构件 → 近况 → 边界 |
 | `/witness` | Lurus Witness · 见证：只读采集、外部探测、恢复演练、月度证据 |
 | `/kova` | Kova，嵌入式持久执行引擎 |
 | `/memorus` · `/memorus/benchmarks` | Memorus 记忆引擎、公开基准报告 |

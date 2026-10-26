@@ -41,11 +41,11 @@ const jetbrainsMono = JetBrains_Mono({
 
 const SITE_URL = "https://www.lurus.cn";
 const SITE_DESC =
-  "让客户自有环境里的 AI 系统，状态可核查、数据可恢复、改动有记录。企业 AI 交付工程：把 AI 系统在客户自己的环境里跑稳，并用证据说明它是稳的。";
+  "在客户自有环境里受托运维已经跑起来的 AI 系统：真的恢复一次才算可恢复，每月一份报告，每个数字附测量方式。系统留在客户自己的服务器上。";
 
 export const metadata: Metadata = {
   title: {
-    default: "LurusTech — 企业 AI 交付工程",
+    default: "LurusTech — 企业 AI 受托运维",
     template: "%s — LurusTech",
   },
   description: SITE_DESC,
@@ -102,7 +102,7 @@ const jsonLd = {
       operatingSystem: "Linux",
       url: `${SITE_URL}/kova`,
       description:
-        "嵌入式持久执行引擎：WAL 崩溃恢复、执行留痕、可回放。成熟度：内部生产使用。",
+        "嵌入式持久执行引擎：WAL 崩溃恢复、执行留痕、可回放。成熟度：早期试点。",
       publisher: { "@id": `${SITE_URL}/#org` },
     },
   ],
