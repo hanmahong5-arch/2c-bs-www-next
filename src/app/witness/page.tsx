@@ -273,6 +273,13 @@ export default function WitnessPage() {
           </Link>
           。
         </p>
+        <p className="mt-4 text-sm leading-[1.7] text-[var(--color-text-muted)]">
+          下一步：邮件说明被观测环境与值班诉求；我们回复是否适合现阶段试点。来信{" "}
+          <a href="mailto:contact@lurus.cn" className={linkClass}>
+            contact@lurus.cn
+          </a>
+          。
+        </p>
       </Section>
     </>
   );

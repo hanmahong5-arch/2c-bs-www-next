@@ -102,7 +102,7 @@ const jsonLd = {
       operatingSystem: "Linux",
       url: `${SITE_URL}/kova`,
       description:
-        "嵌入式持久执行引擎：WAL 崩溃恢复、执行留痕、可回放。成熟度：内部生产使用。",
+        "嵌入式持久执行引擎：WAL 崩溃恢复、执行留痕、可回放。成熟度：早期试点。",
       publisher: { "@id": `${SITE_URL}/#org` },
     },
   ],

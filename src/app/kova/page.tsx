@@ -206,6 +206,16 @@ export default function KovaPage() {
           </a>
           。
         </p>
+        <p className="mt-4 text-sm leading-[1.7] text-[var(--color-text-muted)]">
+          下一步：先读文档；要进你的环境试，邮件说明工作流形态与约束。来信{" "}
+          <a
+            href="mailto:contact@lurus.cn"
+            className="text-[var(--lt-ink)] underline decoration-[var(--lt-rule)] underline-offset-4 hover:decoration-[var(--lt-accent)]"
+          >
+            contact@lurus.cn
+          </a>
+          。
+        </p>
       </Section>
     </>
   );
