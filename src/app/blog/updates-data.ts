@@ -11,6 +11,12 @@ export interface ChangelogEntry {
 export const updates: ChangelogEntry[] = [
   {
     date: "2026-10",
+    title: "试点页下一步对齐，发现层诚实修正",
+    desc: "见证、Kova、方法、Lugo、下载结尾补「下一步」微文案；命令面板加入下载；站点 JSON-LD 中 Kova 成熟度与产品页一致为早期试点。",
+    tags: ["Web", "Witness", "Kova", "Lugo"],
+  },
+  {
+    date: "2026-10",
     title: "官网转化可信度：ICP、可复制接入、价目 CTA",
     desc: "首页补 Ideal Customer Profile；Memorus 首屏加 CLI 接入示意与试点下一步；Hub 显式挂「按量价格 / 私有部署」；Switch 下载区写清安装 → 登录 → 推广码路径。",
     tags: ["Web", "Memorus", "Hub", "Switch"],
