@@ -41,7 +41,7 @@ html {
   /* Font stacks — 自托管 Latin 主字体 + 系统 CJK 字体回退。
      不再自托管 Noto SC webfont（~1MB woff2 拖垮 LCP；且 latin 子集本就不含中文）。
      --font-display 的中文回退故意选无衬线而非衬线：Fraunces 只有 latin 子集
-     （layout.tsx 里 subsets: ["latin"]），中文字符必然落到这里的回退栈；之前
+     （src/fonts 里的 woff2），中文字符必然落到这里的回退栈；之前
      回退到宋体系，会让中文标题在全站无衬线的观感里显得突兀，结果是没人敢用
      .type-h1/.type-h2（首页 8 个 h2 全绕开字阶系统自己写 class）。现在 Fraunces
      只在 latin 字符上生效，中文继续走与 --font-sans 一致的黑体。 */

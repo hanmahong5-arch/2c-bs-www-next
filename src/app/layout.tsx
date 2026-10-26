@@ -1,9 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import {
-  Fraunces,
-  Inter_Tight,
-  JetBrains_Mono,
-} from "next/font/google";
+import localFont from "next/font/local";
 import Script from "next/script";
 import { MotionConfig } from "framer-motion";
 import "./globals.css";
@@ -15,28 +11,33 @@ import { CommandPalette } from "@/components/command-palette";
 // 读取失败（隐私模式等）时静默回退浅色，不影响页面渲染。
 const THEME_INIT_SCRIPT = `(function(){try{var t=localStorage.getItem('theme');if(t==='dark'||(!t&&window.matchMedia('(prefers-color-scheme: dark)').matches)){document.documentElement.classList.add('dark');}}catch(e){}})();`;
 
-// 仅由 next/font 本地打包 Latin 主字体；中文走系统 CJK 字体回退（见 globals.css 字体栈）。
-// 原 Noto Sans/Serif SC webfont 用 subsets:["latin"] 加载——不含中文字形（中文本就
-// 回退系统字体），却带来 ~1MB woff2 拖垮首屏 LCP/FCP，故移除，中文渲染不变。
-const fraunces = Fraunces({
+// Latin 主字体打进仓库（src/fonts，可变字体的 latin 子集），构建期不再请求
+// fonts.googleapis.com。Google 有时返回无扩展名的 /l/font?kit=…&skey=… URL，
+// Next 16.2 的 next/font/google 会在 Turbopack 里把 `&` 拆成多条 query，
+// 报 “queries have exactly one entry” 并让 CI build 失败。中文仍走系统 CJK
+// 回退（见 globals.css）。字重范围与原先 next/font/google 的声明一致。
+const fraunces = localFont({
+  src: "../fonts/fraunces-latin.woff2",
   variable: "--font-fraunces",
-  subsets: ["latin"],
-  weight: ["500", "600"],
+  weight: "500 600",
   display: "swap",
+  adjustFontFallback: "Times New Roman",
 });
 
-const interTight = Inter_Tight({
+const interTight = localFont({
+  src: "../fonts/inter-tight-latin.woff2",
   variable: "--font-inter-tight",
-  subsets: ["latin"],
-  weight: ["400", "500", "600"],
+  weight: "400 600",
   display: "swap",
+  adjustFontFallback: "Arial",
 });
 
-const jetbrainsMono = JetBrains_Mono({
+const jetbrainsMono = localFont({
+  src: "../fonts/jetbrains-mono-latin.woff2",
   variable: "--font-mono",
-  subsets: ["latin"],
-  weight: ["400", "500"],
+  weight: "400 500",
   display: "swap",
+  adjustFontFallback: "Arial",
 });
 
 const SITE_URL = "https://www.lurus.cn";
