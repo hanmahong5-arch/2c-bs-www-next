@@ -32,8 +32,14 @@ elif command -v ssh.exe >/dev/null 2>&1; then
 fi
 export GIT_SSH_COMMAND="${GIT_SSH_COMMAND:-$SSH_BIN}"
 
+# Prefer explicit IMAGE_TAG; else read the tip from deploy/k8s (Argo often
+# stays OutOfSync for unrelated drift, so waiting on Synced alone hangs).
+if [[ -z "${IMAGE_TAG:-}" ]]; then
+  IMAGE_TAG=$(grep -oE 'main-[0-9a-f]+' "$ROOT/deploy/k8s/deployment.yaml" | head -1 || true)
+fi
+
 echo "==> push origin/main → R1 mirror (local→SSH; avoids R1→GitHub TLS)"
-echo "    ssh=$SSH_BIN remote=$REMOTE"
+echo "    ssh=$SSH_BIN remote=$REMOTE want=${IMAGE_TAG:-"(any)"}"
 git -C "$ROOT" fetch origin main
 git -C "$ROOT" push "$MIRROR_SSH" "refs/remotes/origin/main:refs/heads/main"
 
@@ -47,9 +53,10 @@ while (( SECONDS < deadline )); do
   img=$(kubectl get deploy "$APP" -n "$NS" -o jsonpath='{.spec.template.spec.containers[0].image}')
   sync=$(kubectl get application "$APP" -n argocd -o jsonpath='{.status.sync.status}')
   echo "  sync=$sync image=$img"
-  if [[ -n "${WANT_TAG}" ]]; then
-    [[ "$img" == *"${WANT_TAG}"* ]] && break
-  elif [[ "$sync" == "Synced" ]]; then
+  if [[ -n "${WANT_TAG}" && "$img" == *"${WANT_TAG}"* ]]; then
+    break
+  fi
+  if [[ -z "${WANT_TAG}" && "$sync" == "Synced" ]]; then
     break
   fi
   sleep 5
