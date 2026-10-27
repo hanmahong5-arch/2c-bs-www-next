@@ -278,6 +278,23 @@ export const DEPLOY_FACTS = [
   },
 ] as const;
 
+/**
+ * 工程验证（非公开基准）。数字转录自 2b-svc-memorus
+ * `doc/quality-baseline-2026-10-26.md`；改数字前先复跑该文命令。
+ */
+export const ENGINEERING = {
+  date: "2026-10-26",
+  ref: "a9d04ae",
+  testsPassed: 3125,
+  testsFailed: 0,
+  testsIgnored: 12,
+  /** Schema Graph + LogStore 行覆盖（llvm-cov） */
+  featureLineCoveragePct: 98.1,
+  featureLineCoverageNote: "schema_graph + log_store；门禁 ≥95%",
+  schemaGraphHttpTests: 11,
+  note: "WSL 实跑；排除 Python 绑定。公开问答/检索分数见基准报告，不写在这里。",
+} as const;
+
 // ───────────────────────── S7 接入 ─────────────────────────
 
 export const INTEGRATIONS = [

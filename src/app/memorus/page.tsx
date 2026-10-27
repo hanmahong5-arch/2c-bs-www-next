@@ -7,6 +7,7 @@ import { LOCOMO } from "./benchmarks/data";
 import {
   CAPABILITIES,
   DEPLOY_FACTS,
+  ENGINEERING,
   HERO_STATS,
   INTEGRATIONS,
   LATENCY,
@@ -318,6 +319,33 @@ export default function MemorusPage() {
             </table>
             <p className="mt-4 text-[13px] leading-[1.7] text-[var(--color-text-muted)]">
               {LATENCY.env ?? "尚未系统测量，所以不报数字；测完后连同测量环境一起公开。"}
+            </p>
+            <h3 className="mt-10 font-display text-lg font-semibold leading-[1.4] text-[var(--lt-ink)]">
+              工程验证
+            </h3>
+            <dl className="mt-4 space-y-3 text-[13px] leading-[1.7]">
+              <div className="flex justify-between gap-4 border-b border-[var(--lt-rule)] pb-2">
+                <dt className="text-[var(--color-text-muted)]">工作区测试</dt>
+                <dd className="font-mono tabular-nums text-[var(--lt-ink)]">
+                  {ENGINEERING.testsPassed} passed / {ENGINEERING.testsFailed} failed
+                </dd>
+              </div>
+              <div className="flex justify-between gap-4 border-b border-[var(--lt-rule)] pb-2">
+                <dt className="text-[var(--color-text-muted)]">主功能行覆盖</dt>
+                <dd className="font-mono tabular-nums text-[var(--lt-ink)]">
+                  {ENGINEERING.featureLineCoveragePct}%
+                </dd>
+              </div>
+              <div className="flex justify-between gap-4 border-b border-[var(--lt-rule)] pb-2">
+                <dt className="text-[var(--color-text-muted)]">Schema Graph HTTP</dt>
+                <dd className="font-mono tabular-nums text-[var(--lt-ink)]">
+                  {ENGINEERING.schemaGraphHttpTests} passed
+                </dd>
+              </div>
+            </dl>
+            <p className="mt-4 text-[13px] leading-[1.7] text-[var(--color-text-muted)]">
+              {ENGINEERING.date} · {ENGINEERING.ref} · {ENGINEERING.featureLineCoverageNote}。
+              {ENGINEERING.note}
             </p>
           </div>
         </div>
