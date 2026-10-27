@@ -434,6 +434,34 @@ body {
   animation: fade-in-right 0.8s var(--ease-out-expo) both;
 }
 
+/* Home hero: quiet ken-burns on the Urus ridge (presence, not noise) */
+@keyframes home-hero-drift {
+  from {
+    transform: scale(1.04) translate3d(0, 0, 0);
+  }
+  to {
+    transform: scale(1.1) translate3d(-1.2%, -0.6%, 0);
+  }
+}
+.home-hero-bg {
+  animation: home-hero-drift 28s var(--ease-out-expo) both alternate infinite;
+  will-change: transform;
+}
+
+@keyframes home-layer-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.home-layer-row {
+  animation: home-layer-in 0.7s var(--ease-out-expo) both;
+}
+
 /* Pill badge */
 .pill {
   display: inline-flex;
@@ -530,7 +558,9 @@ header {
     animation-duration: 0s;
   }
   .hero-enter-up,
-  .hero-enter-right {
+  .hero-enter-right,
+  .home-hero-bg,
+  .home-layer-row {
     animation: none;
   }
 }

@@ -26,26 +26,35 @@ export default function OpengraphImage() {
           fontFamily: "sans-serif",
         }}
       >
-        {/* 顶部 accent 标记条 */}
+        {/* 顶部：Urus mark hint + layer peel */}
         <div style={{ display: "flex", alignItems: "center" }}>
           <div
             style={{
-              width: 56,
-              height: 14,
-              background: ACCENT,
-              borderRadius: 4,
+              width: 48,
+              height: 48,
+              borderRadius: 8,
+              background: INK,
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              color: PAPER,
+              fontSize: 22,
+              fontWeight: 700,
+              letterSpacing: 1,
             }}
-          />
+          >
+            U
+          </div>
           <div
             style={{
               marginLeft: 18,
-              fontSize: 24,
-              letterSpacing: 6,
+              fontSize: 22,
+              letterSpacing: 8,
               textTransform: "uppercase",
               color: MUTED,
             }}
           >
-            AI Delivery Engineering
+            LURUS · URUS · RUS · US
           </div>
         </div>
 
@@ -53,7 +62,7 @@ export default function OpengraphImage() {
         <div style={{ display: "flex", flexDirection: "column" }}>
           <div
             style={{
-              fontSize: 132,
+              fontSize: 120,
               fontWeight: 700,
               color: INK,
               letterSpacing: -4,
@@ -64,11 +73,22 @@ export default function OpengraphImage() {
           </div>
           <div
             style={{
-              marginTop: 28,
-              fontSize: 42,
+              marginTop: 20,
+              fontSize: 36,
+              color: ACCENT,
+              letterSpacing: 2,
+              textTransform: "uppercase",
+            }}
+          >
+            Urus — the aurochs
+          </div>
+          <div
+            style={{
+              marginTop: 22,
+              fontSize: 38,
               color: "#3D3B33",
               lineHeight: 1.3,
-              maxWidth: 900,
+              maxWidth: 920,
             }}
           >
             AI systems in your own environment: state you can check, data you

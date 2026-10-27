@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { BrandLockup } from "@/components/brand-mark";
 
 // brand-spec §4 长版：列顺序 产品 → 资源 → 公司 → 法务；
 // 「公司」「法务」两列文案按规范逐字固定，不可改。
@@ -79,11 +80,9 @@ export function Footer() {
       <div className="mx-auto max-w-5xl border-t border-[var(--lt-rule)] py-14">
         <div className="grid grid-cols-2 gap-x-8 gap-y-10 md:grid-cols-[1.4fr_repeat(4,1fr)]">
           <div className="col-span-2 md:col-span-1">
-            <p className="font-display text-base font-semibold text-[var(--lt-ink)]">
-              LurusTech
-            </p>
-            <p className="mt-2 max-w-[22rem] text-[13px] leading-relaxed text-[var(--lt-ink)]/70">
-              让客户自有环境里的 AI 系统，状态可核查、数据可恢复、改动有记录。
+            <BrandLockup className="[&>span]:text-base" />
+            <p className="mt-3 max-w-[22rem] text-[13px] leading-relaxed text-[var(--lt-ink)]/70">
+              从 LURUS 剥到 US：野牛般的韧性——状态可核查、数据可恢复、改动有记录。
             </p>
           </div>
 
