@@ -11,8 +11,14 @@ export interface ChangelogEntry {
 export const updates: ChangelogEntry[] = [
   {
     date: "2026-10",
-    title: "首页 Urus 品牌改版：野牛商标与 LURUS→US 四层产品线",
-    desc: "全幅原牛山脊英雄图与 Urus 商标；命名叙事剥开 LURUS / URUS / RUS / US，构件归入层级；页头页脚换上角标锁。",
+    title: "产品线定三层：LURUS / URUS / RUS，商标收成字母 U",
+    desc: "对外货架对齐 Products · Solutions · Platform；US 仅内部脚注。商标改为抽象 U（角在尖端轻外展），英雄图换几何山脊。",
+    tags: ["Web", "Brand"],
+  },
+  {
+    date: "2026-10",
+    title: "首页 Urus 品牌改版：野牛商标与命名叙事",
+    desc: "全幅山脊英雄图与 Urus 商标；命名叙事引入 LURUS 剥层；页头页脚换上角标锁。",
     tags: ["Web", "Brand"],
   },
   {

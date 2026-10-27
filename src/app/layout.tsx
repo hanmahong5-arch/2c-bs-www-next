@@ -44,7 +44,7 @@ const jetbrainsMono = localFont({
 
 const SITE_URL = "https://www.lurus.cn";
 const SITE_DESC =
-  "LurusTech（Urus · 原牛）：让客户自有环境里的 AI 系统状态可核查、数据可恢复、改动有记录。产品线 LURUS / URUS / RUS / US。";
+  "LurusTech（Urus · 原牛）：自助产品、B 端标杆与基础设施。状态可核查、数据可恢复、改动有记录。";
 
 export const metadata: Metadata = {
   title: {
