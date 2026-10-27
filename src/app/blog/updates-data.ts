@@ -11,8 +11,8 @@ export interface ChangelogEntry {
 export const updates: ChangelogEntry[] = [
   {
     date: "2026-10",
-    title: "产品线定三层：LURUS / URUS / RUS，商标收成字母 U",
-    desc: "对外货架对齐 Products · Solutions · Platform；US 仅内部脚注。商标改为抽象 U（角在尖端轻外展），英雄图换几何山脊。",
+    title: "产品线定三层：LURUS / URUS / RUS，商标定为 U + 野牛角",
+    desc: "对外货架对齐 Products · Solutions · Platform；US 仅内部脚注。商标取字母 U 与双角（小尺寸仍读作 U，大尺寸带野牛识别），英雄图用几何山脊。",
     tags: ["Web", "Brand"],
   },
   {

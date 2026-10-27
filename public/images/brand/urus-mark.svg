@@ -1,5 +1,13 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none" role="img" aria-labelledby="urusTitle">
   <title id="urusTitle">Urus</title>
-  <path fill="currentColor" d="M18 8c0-1.1.9-2 2-2h4c1.1 0 2 .9 2 2v26c0 4.4 2.7 8 8 8s8-3.6 8-8V8c0-1.1.9-2 2-2h4c1.1 0 2 .9 2 2v26c0 8.8-5.8 16-16 16S18 42.8 18 34V8z"/>
-  <circle cx="32" cy="46" r="3" fill="#FF5D1F"/>
+  <!-- U bowl -->
+  <path
+    fill="currentColor"
+    d="M16 22c0-1.1.9-2 2-2h5c1.1 0 2 .9 2 2v20c0 3.3 2.2 6 5 6s5-2.7 5-6V22c0-1.1.9-2 2-2h5c1.1 0 2 .9 2 2v20c0 7.7-5.4 14-14 14S16 49.7 16 42V22z"
+  />
+  <!-- Left horn -->
+  <path fill="currentColor" d="M18 20 8 6l16 6-2 8h-4z"/>
+  <!-- Right horn -->
+  <path fill="currentColor" d="M46 20 56 6 40 12l2 8h4z"/>
+  <circle cx="32" cy="48" r="2.75" fill="#FF5D1F"/>
 </svg>

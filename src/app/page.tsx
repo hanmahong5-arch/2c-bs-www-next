@@ -195,7 +195,7 @@ export default function Home() {
                 <BrandMark className="h-24 w-24 text-[var(--lt-ink)]" />
               </div>
               <figcaption className="mt-3 font-mono text-[11px] leading-relaxed text-[var(--color-text-muted)]">
-                商标 · 字母 U
+                商标 · U + 野牛角
               </figcaption>
             </figure>
           </div>
