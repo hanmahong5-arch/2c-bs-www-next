@@ -1,8 +1,9 @@
 import Image from "next/image";
 
 /**
- * Urus mark — reads as letter U. Minimal tip flare = horn hint only.
- * No face / animal. currentColor follows theme ink.
+ * Urus mark — letter U + bison horns.
+ * Small: reads as U (LURUS peel). Large: 野牛 trademark cue.
+ * currentColor follows theme ink; ochre tip is brand accent.
  */
 export function BrandMark({
   className = "h-7 w-7",
@@ -19,9 +20,11 @@ export function BrandMark({
     >
       <path
         fill="currentColor"
-        d="M18 8c0-1.1.9-2 2-2h4c1.1 0 2 .9 2 2v26c0 4.4 2.7 8 8 8s8-3.6 8-8V8c0-1.1.9-2 2-2h4c1.1 0 2 .9 2 2v26c0 8.8-5.8 16-16 16S18 42.8 18 34V8z"
+        d="M15 26c0-1.1.9-2 2-2h6c1.1 0 2 .9 2 2v16c0 3.9 2.7 7 7 7s7-3.1 7-7V26c0-1.1.9-2 2-2h6c1.1 0 2 .9 2 2v16c0 8.3-5.8 15-15 15S15 50.3 15 42V26z"
       />
-      <circle cx="32" cy="46" r="3" fill="#FF5D1F" />
+      <path fill="currentColor" d="M17 24 5 4l22 8-3 12H17z" />
+      <path fill="currentColor" d="M47 24 59 4 37 12l3 12h7z" />
+      <circle cx="32" cy="49" r="3" fill="#FF5D1F" />
     </svg>
   );
 }
@@ -37,7 +40,7 @@ export function BrandLockup({ className = "" }: { className?: string }) {
   );
 }
 
-/** Large abstract mark for brand story panel. */
+/** Large mark study for brand story panel. */
 export function UrusMarkPanel({
   className = "",
   priority = false,
@@ -47,8 +50,8 @@ export function UrusMarkPanel({
 }) {
   return (
     <Image
-      src="/images/brand/urus-mark-abstract.jpg"
-      alt="Urus 商标：字母 U"
+      src="/images/brand/urus-mark-study-u-horns.jpg"
+      alt="Urus 商标：字母 U 与野牛角"
       width={1024}
       height={1024}
       priority={priority}
