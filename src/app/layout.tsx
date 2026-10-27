@@ -1,9 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import {
-  Fraunces,
-  Inter_Tight,
-  JetBrains_Mono,
-} from "next/font/google";
+import localFont from "next/font/local";
 import Script from "next/script";
 import { MotionConfig } from "framer-motion";
 import "./globals.css";
@@ -15,27 +11,34 @@ import { CommandPalette } from "@/components/command-palette";
 // 读取失败（隐私模式等）时静默回退浅色，不影响页面渲染。
 const THEME_INIT_SCRIPT = `(function(){try{var t=localStorage.getItem('theme');if(t==='dark'||(!t&&window.matchMedia('(prefers-color-scheme: dark)').matches)){document.documentElement.classList.add('dark');}}catch(e){}})();`;
 
-// 仅由 next/font 本地打包 Latin 主字体；中文走系统 CJK 字体回退（见 globals.css 字体栈）。
-// 原 Noto Sans/Serif SC webfont 用 subsets:["latin"] 加载——不含中文字形（中文本就
-// 回退系统字体），却带来 ~1MB woff2 拖垮首屏 LCP/FCP，故移除，中文渲染不变。
-const fraunces = Fraunces({
+// Latin 主字体自托管（src/fonts），中文走系统 CJK 回退（globals.css）。
+// 不用 next/font/google：Google 偶发返回无扩展名的 /l/font?kit=…&skey=… URL，
+// Turbopack 会在 & 处拆坏查询串，CI 报「queries have exactly one entry」(next#99114)。
+const fraunces = localFont({
+  src: [
+    { path: "../fonts/fraunces-latin-500-normal.woff2", weight: "500", style: "normal" },
+    { path: "../fonts/fraunces-latin-600-normal.woff2", weight: "600", style: "normal" },
+  ],
   variable: "--font-fraunces",
-  subsets: ["latin"],
-  weight: ["500", "600"],
   display: "swap",
 });
 
-const interTight = Inter_Tight({
+const interTight = localFont({
+  src: [
+    { path: "../fonts/inter-tight-latin-400-normal.woff2", weight: "400", style: "normal" },
+    { path: "../fonts/inter-tight-latin-500-normal.woff2", weight: "500", style: "normal" },
+    { path: "../fonts/inter-tight-latin-600-normal.woff2", weight: "600", style: "normal" },
+  ],
   variable: "--font-inter-tight",
-  subsets: ["latin"],
-  weight: ["400", "500", "600"],
   display: "swap",
 });
 
-const jetbrainsMono = JetBrains_Mono({
+const jetbrainsMono = localFont({
+  src: [
+    { path: "../fonts/jetbrains-mono-latin-400-normal.woff2", weight: "400", style: "normal" },
+    { path: "../fonts/jetbrains-mono-latin-500-normal.woff2", weight: "500", style: "normal" },
+  ],
   variable: "--font-mono",
-  subsets: ["latin"],
-  weight: ["400", "500"],
   display: "swap",
 });
 

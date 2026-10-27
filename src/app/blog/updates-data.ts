@@ -11,6 +11,18 @@ export interface ChangelogEntry {
 export const updates: ChangelogEntry[] = [
   {
     date: "2026-10",
+    title: "Memorus 工程验证上产品页：3125 测全绿、主功能覆盖 98.1%",
+    desc: "WSL 实跑工作区测试 3125 passed / 0 failed；Schema Graph + LogStore 行覆盖 98.1%（门禁 ≥95%）；Schema Graph HTTP 11 条含跨租户擦除与关图留库钩。公开基准分数不变，读写延迟仍标「测量中」。",
+    tags: ["Memorus", "Web"],
+  },
+  {
+    date: "2026-10",
+    title: "官网字体自托管，构建不再依赖 Google Fonts",
+    desc: "Fraunces / Inter Tight / JetBrains Mono 的 Latin woff2 纳入仓库，经 next/font/local 加载，避免 CI 偶发因 Google 返回无扩展名字体 URL 而构建失败。",
+    tags: ["Web"],
+  },
+  {
+    date: "2026-10",
     title: "试点页下一步对齐，发现层诚实修正",
     desc: "见证、Kova、方法、Lugo、下载结尾补「下一步」微文案；命令面板加入下载；站点 JSON-LD 中 Kova 成熟度与产品页一致为早期试点。",
     tags: ["Web", "Witness", "Kova", "Lugo"],
