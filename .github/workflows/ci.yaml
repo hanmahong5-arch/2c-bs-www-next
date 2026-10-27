@@ -174,4 +174,9 @@ jobs:
           git add deploy/k8s/deployment.yaml
           git diff --cached --quiet && exit 0
           git commit -m "deploy: update image tag to main-$(echo ${{ github.sha }} | cut -c1-7)"
-          git push
+          # main 上并发 push（例如紧随其后的产品 PR）会拒绝非快进；拉齐后再推。
+          for i in 1 2 3; do
+            git pull --rebase origin main && git push && exit 0
+            sleep $((i * 2))
+          done
+          exit 1
