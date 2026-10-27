@@ -20,11 +20,11 @@ export function BrandMark({
     >
       <path
         fill="currentColor"
-        d="M16 22c0-1.1.9-2 2-2h5c1.1 0 2 .9 2 2v20c0 3.3 2.2 6 5 6s5-2.7 5-6V22c0-1.1.9-2 2-2h5c1.1 0 2 .9 2 2v20c0 7.7-5.4 14-14 14S16 49.7 16 42V22z"
+        d="M15 26c0-1.1.9-2 2-2h6c1.1 0 2 .9 2 2v16c0 3.9 2.7 7 7 7s7-3.1 7-7V26c0-1.1.9-2 2-2h6c1.1 0 2 .9 2 2v16c0 8.3-5.8 15-15 15S15 50.3 15 42V26z"
       />
-      <path fill="currentColor" d="M18 20 8 6l16 6-2 8h-4z" />
-      <path fill="currentColor" d="M46 20 56 6 40 12l2 8h4z" />
-      <circle cx="32" cy="48" r="2.75" fill="#FF5D1F" />
+      <path fill="currentColor" d="M17 24 5 4l22 8-3 12H17z" />
+      <path fill="currentColor" d="M47 24 59 4 37 12l3 12h7z" />
+      <circle cx="32" cy="49" r="3" fill="#FF5D1F" />
     </svg>
   );
 }
