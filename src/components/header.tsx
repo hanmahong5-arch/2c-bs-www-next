@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState, useSyncExternalStore } from "react";
 import { CommandPaletteTrigger } from "@/components/command-palette";
+import { BrandLockup } from "@/components/brand-mark";
 
 // 深色模式切换 — 初始态由 layout.tsx 的 beforeInteractive script 同步应用在 <html>
 // 上。用 useSyncExternalStore（而非 effect 里 setState）读回当前值，SSR 快照固定为
@@ -108,11 +109,8 @@ export function Header() {
   return (
     <header className="sticky top-0 z-50 border-b border-[var(--lt-rule)] bg-[var(--lt-paper)]/90 backdrop-blur">
       <div className="mx-auto flex h-14 max-w-5xl items-center justify-between px-6">
-        <Link
-          href="/"
-          className="font-display text-lg font-semibold tracking-[-0.02em] text-[var(--lt-ink)]"
-        >
-          LurusTech
+        <Link href="/" aria-label="LurusTech 首页" className="inline-flex items-center">
+          <BrandLockup />
         </Link>
 
         <nav aria-label="主导航" className="hidden items-center gap-6 md:flex">

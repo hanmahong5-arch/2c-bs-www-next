@@ -11,6 +11,12 @@ export interface ChangelogEntry {
 export const updates: ChangelogEntry[] = [
   {
     date: "2026-10",
+    title: "首页 Urus 品牌改版：野牛商标与 LURUS→US 四层产品线",
+    desc: "全幅原牛山脊英雄图与 Urus 商标；命名叙事剥开 LURUS / URUS / RUS / US，构件归入层级；页头页脚换上角标锁。",
+    tags: ["Web", "Brand"],
+  },
+  {
+    date: "2026-10",
     title: "Memorus 工程验证上产品页：3125 测全绿、主功能覆盖 98.1%",
     desc: "WSL 实跑工作区测试 3125 passed / 0 failed；Schema Graph + LogStore 行覆盖 98.1%（门禁 ≥95%）；Schema Graph HTTP 11 条含跨租户擦除与关图留库钩。公开基准分数不变，读写延迟仍标「测量中」。",
     tags: ["Memorus", "Web"],

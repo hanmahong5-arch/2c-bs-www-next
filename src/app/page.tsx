@@ -1,59 +1,77 @@
+import Image from "next/image";
 import Link from "next/link";
 import {
-  Disclosure,
-  Eyebrow,
   EvidenceLine,
   EvidenceList,
+  Eyebrow,
   Lead,
   MaturityChip,
   Section,
   type Maturity,
 } from "@/components/site";
+import { BrandMark, UrusPortrait } from "@/components/brand-mark";
 import { updates } from "@/app/blog/updates-data";
 
-// 首页叙事：渐进带入，不是转化漏斗。
-// 一句话定位 → 一行证据（证据强度分级）→ 我们怎么工作（观测/执行/回放）→ 构件索引 → 最近交付 → 边界 → 一句邀请。
-// 全部服务端渲染，无 JS 动效；首屏内容不依赖水合即可见。
+// 首页：品牌英雄（Urus 原牛）→ 四层命名 LURUS / URUS / RUS / US → 证据 → 最近 → 边界。
+// 学 Linear / Stripe 的克制：首屏只留品牌、一句主张、一组 CTA、一张全幅图；层级用排版叙事，不用卡片墙。
 
 const CONTACT = "mailto:contact@lurus.cn";
 
-const components: ReadonlyArray<{
-  name: string;
-  href: string;
+type Layer = {
+  code: "LURUS" | "URUS" | "RUS" | "US";
+  title: string;
   line: string;
-  maturity: Maturity;
-}> = [
+  products: ReadonlyArray<{ name: string; href: string; maturity?: Maturity }>;
+};
+
+/** 剥开 LURUS：公司 → 野牛核 → 工程脊骨 → 人与账 */
+const LAYERS: readonly Layer[] = [
   {
-    name: "Lurus Witness · 见证",
-    href: "/witness",
-    line: "只读采集、外部探测、每月真实恢复演练与月度证据报告。",
-    maturity: "早期试点",
+    code: "LURUS",
+    title: "公司与交付",
+    line: "企业 AI 交付工程：系统留在你自己的环境里，我们用证据说明它是稳的。",
+    products: [
+      { name: "方法", href: "/approach" },
+      { name: "关于", href: "/about" },
+    ],
   },
   {
-    name: "Kova",
-    href: "/kova",
-    line: "嵌入式持久执行引擎：WAL 崩溃恢复、执行留痕、可回放。",
-    maturity: "早期试点",
+    code: "URUS",
+    title: "野牛 · 可核查",
+    line: "原牛（Urus）是品牌核：先看清状态，再下判断；每条读数写明证据强度。",
+    products: [{ name: "见证 Witness", href: "/witness", maturity: "早期试点" }],
   },
   {
-    name: "Memorus",
-    href: "/memorus",
-    line: "记得住，也查得清：保留原文、可按时点追问；CLI / REST / MCP。",
-    maturity: "早期试点",
+    code: "RUS",
+    title: "脊骨 · 执行与记忆",
+    line: "跑得住、记得住、调得出：持久执行、记忆引擎、私有 LLM 网关。",
+    products: [
+      { name: "Kova", href: "/kova", maturity: "早期试点" },
+      { name: "Memorus", href: "/memorus", maturity: "早期试点" },
+      { name: "Hub", href: "/hub", maturity: "内部生产使用" },
+    ],
   },
   {
-    name: "Lurus Hub",
-    href: "/hub",
-    line: "私有部署的多租户 LLM 网关，基于开源 New API（AGPLv3）。",
-    maturity: "内部生产使用",
-  },
-  {
-    name: "Lugo · 账号与计费",
-    href: "/lugo",
-    line: "每客户独立安装的登录、钱包与收款：多渠道一本账，退款与对账留痕。",
-    maturity: "内部生产使用",
+    code: "US",
+    title: "人与账",
+    line: "账号、钱包、收款与桌面工具——同一套身份，落到你自己的环境。",
+    products: [
+      { name: "Lugo", href: "/lugo", maturity: "内部生产使用" },
+      { name: "Switch", href: "/switch" },
+    ],
   },
 ];
+
+function QuietLink({ href, children }: { href: string; children: React.ReactNode }) {
+  return (
+    <Link
+      href={href}
+      className="text-[var(--lt-ink)] underline decoration-[var(--lt-rule)] underline-offset-4 hover:decoration-[var(--lt-accent)]"
+    >
+      {children}
+    </Link>
+  );
+}
 
 function SectionTitle({ id, eyebrow, children }: { id: string; eyebrow: string; children: React.ReactNode }) {
   return (
@@ -69,55 +87,150 @@ function SectionTitle({ id, eyebrow, children }: { id: string; eyebrow: string; 
   );
 }
 
-function QuietLink({ href, children }: { href: string; children: React.ReactNode }) {
+/** Typographic peel: highlight the active syllable inside LURUS */
+function LayerWord({ code }: { code: Layer["code"] }) {
+  const full = "LURUS";
+  const start = full.indexOf(code === "LURUS" ? "LURUS" : code);
+  const end = start + (code === "LURUS" ? 5 : code.length);
   return (
-    <Link
-      href={href}
-      className="text-[var(--lt-ink)] underline decoration-[var(--lt-rule)] underline-offset-4 hover:decoration-[var(--lt-accent)]"
-    >
-      {children}
-    </Link>
+    <span className="font-display text-[2rem] font-semibold tracking-[0.12em] md:text-[2.75rem]" aria-label={code}>
+      <span className="text-[var(--lt-ink)]/25">{full.slice(0, start)}</span>
+      <span className="text-[var(--lt-ink)]">{full.slice(start, end)}</span>
+      <span className="text-[var(--lt-ink)]/25">{full.slice(end)}</span>
+    </span>
   );
 }
 
 export default function Home() {
   return (
     <>
-      {/* 首屏：一句话定位 */}
-      <section aria-labelledby="home-title" className="px-6">
-        <div className="mx-auto max-w-5xl pb-20 pt-24 md:pb-28 md:pt-36">
-          <div className="max-w-[44rem]">
-            <Eyebrow>企业 AI 交付工程</Eyebrow>
+      {/* ── Hero: full-bleed Urus ridge, brand first ── */}
+      <section
+        aria-labelledby="home-brand"
+        className="relative isolate min-h-[min(92vh,52rem)] overflow-hidden border-b border-[var(--lt-rule)]"
+      >
+        <Image
+          src="/images/brand/hero-urus-ridge.jpg"
+          alt=""
+          fill
+          priority
+          sizes="100vw"
+          className="home-hero-bg object-cover object-[72%_42%] md:object-[58%_40%]"
+        />
+        {/* Soft wash: type stays readable; ridge + ox stay visible on the right */}
+        <div
+          aria-hidden="true"
+          className="absolute inset-0 bg-gradient-to-r from-[var(--lt-paper)] from-0% via-[var(--lt-paper)]/78 via-45% to-transparent to-88%"
+        />
+        <div
+          aria-hidden="true"
+          className="absolute inset-0 bg-gradient-to-t from-[var(--lt-paper)] from-0% via-[var(--lt-paper)]/20 via-35% to-transparent to-55%"
+        />
+
+        <div className="relative mx-auto flex min-h-[min(92vh,52rem)] max-w-5xl flex-col justify-end px-6 pb-16 pt-28 md:pb-24 md:pt-36">
+          <div className="max-w-[36rem]">
+            <p className="hero-enter-up font-mono text-[11px] uppercase tracking-[0.2em] text-[var(--color-text-muted)]">
+              Urus · 原牛
+            </p>
             <h1
-              id="home-title"
-              className="mt-5 font-display text-[2.125rem] font-semibold leading-[1.2] tracking-[-0.025em] text-[var(--lt-ink)] md:text-[3.125rem] md:leading-[1.15]"
+              id="home-brand"
+              className="hero-enter-up mt-5 flex items-center gap-3 font-display text-[2.75rem] font-semibold leading-none tracking-[-0.03em] text-[var(--lt-ink)] md:text-[4.25rem]"
+              style={{ animationDelay: "60ms" }}
             >
-              让客户自有环境里的 AI 系统，状态可核查、数据可恢复、改动有记录。
+              <BrandMark className="h-10 w-10 shrink-0 text-[var(--lt-ink)] md:h-14 md:w-14" />
+              LurusTech
             </h1>
-            <Lead className="mt-7">
-              我们把 AI 系统在客户自己的环境里跑稳，并用证据说明它是稳的。
-            </Lead>
-            <p className="mt-5 text-base leading-[1.8] text-[var(--color-text-secondary)]">
-              面向要把 AI 系统装进客户自有环境、且需要可核查证据的工程与交付团队。
+            <p
+              className="hero-enter-up mt-6 font-display text-xl leading-[1.45] tracking-[-0.015em] text-[var(--lt-ink)] md:text-2xl"
+              style={{ animationDelay: "140ms" }}
+            >
+              状态可核查。数据可恢复。改动有记录。
             </p>
-            <p className="mt-10">
-              <a
-                href="#evidence"
-                className="font-mono text-[13px] text-[var(--color-text-secondary)] underline decoration-[var(--lt-rule)] underline-offset-4 hover:text-[var(--lt-ink)] hover:decoration-[var(--lt-accent)]"
-              >
-                看一行证据 ↓
+            <p
+              className="hero-enter-up mt-4 max-w-[32rem] text-base leading-[1.8] text-[var(--color-text-secondary)]"
+              style={{ animationDelay: "220ms" }}
+            >
+              把 AI 系统在客户自有环境里跑稳，并用证据说明它是稳的。
+            </p>
+            <div
+              className="hero-enter-up mt-10 flex flex-wrap items-center gap-3"
+              style={{ animationDelay: "300ms" }}
+            >
+              <Link href="/approach" className="btn-primary">
+                读方法
+              </Link>
+              <a href={CONTACT} className="btn-secondary">
+                写信聊聊
               </a>
-            </p>
+              <a
+                href="#layers"
+                className="ml-1 font-mono text-[13px] text-[var(--color-text-muted)] underline decoration-[var(--lt-rule)] underline-offset-4 hover:text-[var(--lt-ink)] hover:decoration-[var(--lt-accent)]"
+              >
+                四层产品线 ↓
+              </a>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* 一行证据：三种证据强度 */}
+      {/* ── Brand etymology: peel LURUS ── */}
+      <Section id="layers" width="wide" labelledBy="layers-title">
+        <div className="grid items-start gap-12 md:grid-cols-[minmax(0,22rem)_1fr]">
+          <div>
+            <SectionTitle id="layers-title" eyebrow="命名">
+              剥开 LURUS。
+            </SectionTitle>
+            <Lead className="mt-6">
+              品牌取自原牛 Urus——已灭绝的野牛：强壮、警惕、活在自己的领地。
+              名字由外向内收一层，产品线也收一层。
+            </Lead>
+            <figure className="mt-10 max-w-[18rem]">
+              <UrusPortrait className="w-full rounded-sm ring-1 ring-[var(--lt-rule)]" />
+              <figcaption className="mt-3 font-mono text-[11px] leading-relaxed text-[var(--color-text-muted)]">
+                商标形象 · Urus（原牛）
+              </figcaption>
+            </figure>
+          </div>
+
+          <ol className="border-t border-[var(--lt-rule)]">
+            {LAYERS.map((layer, i) => (
+              <li
+                key={layer.code}
+                className="home-layer-row border-b border-[var(--lt-rule)] py-8"
+                style={{ animationDelay: `${i * 80}ms` }}
+              >
+                <div className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-2">
+                  <LayerWord code={layer.code} />
+                  <span className="font-mono text-[11px] uppercase tracking-[0.16em] text-[var(--color-text-muted)]">
+                    {layer.title}
+                  </span>
+                </div>
+                <p className="mt-3 max-w-[40rem] text-[15px] leading-[1.8] text-[var(--color-text-secondary)]">
+                  {layer.line}
+                </p>
+                <ul className="mt-5 flex flex-wrap gap-x-5 gap-y-2">
+                  {layer.products.map((p) => (
+                    <li key={p.href} className="flex items-center gap-2">
+                      <QuietLink href={p.href}>{p.name}</QuietLink>
+                      {p.maturity ? <MaturityChip level={p.maturity} /> : null}
+                    </li>
+                  ))}
+                </ul>
+              </li>
+            ))}
+          </ol>
+        </div>
+      </Section>
+
+      {/* ── Evidence (honesty signal, one job) ── */}
       <Section id="evidence" width="wide" labelledBy="evidence-title">
         <div className="max-w-[44rem]">
           <SectionTitle id="evidence-title" eyebrow="一行证据">
-            每一条状态，都写明它从哪里来、有多新。
+            野牛先确认风向，再迈步。
           </SectionTitle>
+          <Lead className="mt-6">
+            每一条状态都写明从哪里来、有多新。别家的仪表盘常常全绿；我们会告诉你哪一条只是推断。
+          </Lead>
         </div>
         <EvidenceList
           className="mt-10"
@@ -143,85 +256,13 @@ export default function Home() {
             source="采集器 3 小时未上报 —— 这不是「正常」，是「不知道」"
           />
         </EvidenceList>
-        <Lead className="mt-10">
-          别家的仪表盘常常全绿。我们会告诉你，哪一条只是推断。
-        </Lead>
-      </Section>
-
-      {/* 我们怎么工作 */}
-      <Section id="how" labelledBy="how-title">
-        <SectionTitle id="how-title" eyebrow="我们怎么工作">
-          观测，执行，回放。
-        </SectionTitle>
-        <div className="mt-10">
-          <Disclosure summary={<span className="text-[1.0625rem]">观测：先看清，再下判断。</span>}>
-            <p>
-              在客户环境里放只读采集器（目前在自有环境试点），另从一台不在被测机器上的主机做外部探测。
-              采样缺了就记为「未采样」，不默认算作正常。
-            </p>
-            <p className="mt-2">
-              <QuietLink href="/witness">见证 →</QuietLink>
-            </p>
-          </Disclosure>
-          <Disclosure summary={<span className="text-[1.0625rem]">执行：每一步改动都留痕。</span>}>
-            <p>
-              目标是：需要在客户环境里动手时，先审批，再执行；执行过程逐步写入日志，
-              进程崩溃后从日志恢复，事后可以逐步回放。计划由 Kova{" "}
-              <MaturityChip level="早期试点" /> 承担；今天这些动作仍由独立脚本完成。
-            </p>
-            <p className="mt-2">
-              <QuietLink href="/kova">Kova →</QuietLink>
-            </p>
-          </Disclosure>
-          <Disclosure summary={<span className="text-[1.0625rem]">回放与报告：用恢复证明备份。</span>}>
-            <p>
-              备份是否可用，只有一个判据：真的恢复一次，再逐表核对行数。
-              每月做一次，并出一份月度证据报告，报告里每个数字附测量方式。
-            </p>
-            <p className="mt-2">
-              <QuietLink href="/approach">方法 →</QuietLink>
-            </p>
-          </Disclosure>
-        </div>
-      </Section>
-
-      {/* 构件 */}
-      <Section id="components" width="wide" labelledBy="components-title">
-        <div className="max-w-[44rem]">
-          <SectionTitle id="components-title" eyebrow="构件">
-            五个构件，成熟度各自标明。
-          </SectionTitle>
-        </div>
-        <ul className="mt-10 border-t border-[var(--lt-rule)]">
-          {components.map((c) => (
-            <li key={c.href} className="border-b border-[var(--lt-rule)]">
-              <Link
-                href={c.href}
-                className="group grid gap-x-8 gap-y-1 py-5 md:grid-cols-[14rem_1fr_auto] md:items-baseline"
-              >
-                <span className="font-medium text-[var(--lt-ink)] group-hover:underline group-hover:decoration-[var(--lt-accent)] group-hover:underline-offset-4">
-                  {c.name}
-                </span>
-                <span className="text-[15px] leading-relaxed text-[var(--color-text-secondary)]">
-                  {c.line}
-                </span>
-                <span className="mt-1 md:mt-0">
-                  <MaturityChip level={c.maturity} />
-                </span>
-              </Link>
-            </li>
-          ))}
-        </ul>
-        <p className="mt-6 text-[15px] leading-relaxed text-[var(--color-text-secondary)]">
-          另有桌面客户端{" "}
-          <QuietLink href="/switch">Switch</QuietLink>
-          ：在一处管理多个 AI 编程 CLI；以及我们运营的{" "}
-          <QuietLink href="/hub/pricing">Hub 按量价格</QuietLink>
-          。
+        <p className="mt-8 text-[15px] leading-relaxed text-[var(--color-text-secondary)]">
+          观测层见 <QuietLink href="/witness">见证</QuietLink>
+          ；怎么交付见 <QuietLink href="/approach">方法</QuietLink>。
         </p>
       </Section>
 
-      {/* 最近交付：取更新日志真源的前三条，不另写一份 */}
+      {/* ── Recent ── */}
       <Section id="recent" width="wide" labelledBy="recent-title">
         <div className="max-w-[44rem]">
           <SectionTitle id="recent-title" eyebrow="最近">
@@ -245,35 +286,40 @@ export default function Home() {
         </p>
       </Section>
 
-      {/* 边界 */}
+      {/* ── Boundaries ── */}
       <Section id="boundaries" labelledBy="boundaries-title">
         <SectionTitle id="boundaries-title" eyebrow="边界">
           我们不做的事。
         </SectionTitle>
         <ul className="mt-8 space-y-4 text-base leading-[1.8] text-[var(--color-text-secondary)]">
           <li className="flex gap-3">
-            <span aria-hidden="true" className="text-[var(--color-text-muted)]">—</span>
+            <span aria-hidden="true" className="text-[var(--color-text-muted)]">
+              —
+            </span>
             <span>不做机房与算力转售。我们主张系统留在客户自有的环境里。</span>
           </li>
           <li className="flex gap-3">
-            <span aria-hidden="true" className="text-[var(--color-text-muted)]">—</span>
+            <span aria-hidden="true" className="text-[var(--color-text-muted)]">
+              —
+            </span>
             <span>不在客户环境里跑无人审批的写操作；事先批准的定时任务（如备份）除外。</span>
           </li>
           <li className="flex gap-3">
-            <span aria-hidden="true" className="text-[var(--color-text-muted)]">—</span>
+            <span aria-hidden="true" className="text-[var(--color-text-muted)]">
+              —
+            </span>
             <span>不承诺我们证明不了的数字。</span>
           </li>
         </ul>
       </Section>
 
-      {/* 结尾一句邀请 */}
+      {/* ── Invite ── */}
       <Section labelledBy="invite-title">
         <p
           id="invite-title"
           className="font-display text-xl leading-[1.5] text-[var(--lt-ink)] md:text-2xl"
         >
-          想先看看我们怎么做，读{" "}
-          <QuietLink href="/approach">方法</QuietLink>
+          想先看看我们怎么做，读 <QuietLink href="/approach">方法</QuietLink>
           ；想聊聊你的环境，写信到{" "}
           <a
             href={CONTACT}
@@ -282,6 +328,9 @@ export default function Home() {
             contact@lurus.cn
           </a>
           。
+        </p>
+        <p className="mt-4 text-sm leading-[1.7] text-[var(--color-text-muted)]">
+          下一步：来信写清环境现状与目标；我们回复是否接、怎么分期。
         </p>
       </Section>
     </>
