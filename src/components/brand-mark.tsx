@@ -1,6 +1,9 @@
 import Image from "next/image";
 
-/** Urus (aurochs) trademark mark — inline SVG so currentColor tints with theme. */
+/**
+ * Urus mark — reads as letter U. Minimal tip flare = horn hint only.
+ * No face / animal. currentColor follows theme ink.
+ */
 export function BrandMark({
   className = "h-7 w-7",
 }: {
@@ -16,13 +19,9 @@ export function BrandMark({
     >
       <path
         fill="currentColor"
-        d="M8.5 6.5c-.8 0-1.5.7-1.5 1.6 0 6.2 2.4 12.8 6.2 17.4.4.5 1.2.5 1.6 0 1.8-2.4 3-5.4 3.5-8.9.2-1.5-.9-2.6-2.3-2.6H8.5zM55.5 6.5c.8 0 1.5.7 1.5 1.6 0 6.2-2.4 12.8-6.2 17.4-.4.5-1.2.5-1.6 0-1.8-2.4-3-5.4-3.5-8.9-.2-1.5.9-2.6 2.3-2.6h7.5z"
+        d="M18 8c0-1.1.9-2 2-2h4c1.1 0 2 .9 2 2v26c0 4.4 2.7 8 8 8s8-3.6 8-8V8c0-1.1.9-2 2-2h4c1.1 0 2 .9 2 2v26c0 8.8-5.8 16-16 16S18 42.8 18 34V8z"
       />
-      <path
-        fill="currentColor"
-        d="M18 12h6c1.1 0 2 .9 2 2v18c0 5 3.1 9 8 9s8-4 8-9V14c0-1.1.9-2 2-2h6c1.1 0 2 .9 2 2v18c0 10.5-7 19-18 19S16 40.5 16 30V14c0-1.1.9-2 2-2z"
-      />
-      <circle cx="32" cy="42" r="3" fill="#FF5D1F" />
+      <circle cx="32" cy="46" r="3" fill="#FF5D1F" />
     </svg>
   );
 }
@@ -38,8 +37,8 @@ export function BrandLockup({ className = "" }: { className?: string }) {
   );
 }
 
-/** Illustrated trademark portrait for brand story sections */
-export function UrusPortrait({
+/** Large abstract mark for brand story panel. */
+export function UrusMarkPanel({
   className = "",
   priority = false,
 }: {
@@ -48,8 +47,8 @@ export function UrusPortrait({
 }) {
   return (
     <Image
-      src="/images/brand/urus-mark.jpg"
-      alt="Urus · 原牛商标形象"
+      src="/images/brand/urus-mark-abstract.jpg"
+      alt="Urus 商标：字母 U"
       width={1024}
       height={1024}
       priority={priority}

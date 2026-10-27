@@ -9,55 +9,62 @@ import {
   Section,
   type Maturity,
 } from "@/components/site";
-import { BrandMark, UrusPortrait } from "@/components/brand-mark";
+import { BrandMark } from "@/components/brand-mark";
 import { updates } from "@/app/blog/updates-data";
 
-// 首页：品牌英雄（Urus 原牛）→ 四层命名 LURUS / URUS / RUS / US → 证据 → 最近 → 边界。
-// 学 Linear / Stripe 的克制：首屏只留品牌、一句主张、一组 CTA、一张全幅图；层级用排版叙事，不用卡片墙。
+// 首页：品牌英雄 → 对外三层 LURUS(C) / URUS(B) / RUS(基建) → 证据 → 最近 → 边界。
+// US = 内部经营层，只作脚注（互联网公司惯例：内部工具不与对外产品线并列陈列）。
+// 学 Stripe / AWS 目录：Products · Solutions · Platform，三层够用。
 
 const CONTACT = "mailto:contact@lurus.cn";
 
 type Layer = {
-  code: "LURUS" | "URUS" | "RUS" | "US";
+  code: "LURUS" | "URUS" | "RUS";
+  audience: string;
   title: string;
   line: string;
   products: ReadonlyArray<{ name: string; href: string; maturity?: Maturity }>;
 };
 
-/** 剥开 LURUS：公司 → 野牛核 → 工程脊骨 → 人与账 */
+/**
+ * 对外产品线三层（软件工程 / IT 公司常见分法）：
+ * LURUS — C 端 / 自助产品（Products）
+ * URUS  — B 端标杆交付（Solutions）
+ * RUS   — 基础设施（Platform）
+ * US    — 内部全站经营，见层下脚注，不进主列表
+ */
 const LAYERS: readonly Layer[] = [
   {
     code: "LURUS",
-    title: "公司与交付",
-    line: "企业 AI 交付工程：系统留在你自己的环境里，我们用证据说明它是稳的。",
+    audience: "C 端",
+    title: "自助产品",
+    line: "个人与小团队能自己上手：桌面工具、按量调用、客户端下载。",
     products: [
-      { name: "方法", href: "/approach" },
-      { name: "关于", href: "/about" },
+      { name: "Switch", href: "/switch" },
+      { name: "Hub 按量价格", href: "/hub/pricing" },
+      { name: "下载", href: "/download" },
     ],
   },
   {
     code: "URUS",
-    title: "野牛 · 可核查",
-    line: "原牛（Urus）是品牌核：先看清状态，再下判断；每条读数写明证据强度。",
-    products: [{ name: "见证 Witness", href: "/witness", maturity: "早期试点" }],
-  },
-  {
-    code: "RUS",
-    title: "脊骨 · 执行与记忆",
-    line: "跑得住、记得住、调得出：持久执行、记忆引擎、私有 LLM 网关。",
+    audience: "B 端",
+    title: "标杆交付",
+    line: "装进客户自有环境，用证据说明稳不稳——观测、记忆与方法。",
     products: [
-      { name: "Kova", href: "/kova", maturity: "早期试点" },
+      { name: "见证 Witness", href: "/witness", maturity: "早期试点" },
       { name: "Memorus", href: "/memorus", maturity: "早期试点" },
-      { name: "Hub", href: "/hub", maturity: "内部生产使用" },
+      { name: "方法", href: "/approach" },
     ],
   },
   {
-    code: "US",
-    title: "人与账",
-    line: "账号、钱包、收款与桌面工具——同一套身份，落到你自己的环境。",
+    code: "RUS",
+    audience: "基建",
+    title: "基础设施",
+    line: "被上层共同依赖：持久执行、私有网关、账号与计费底座。",
     products: [
+      { name: "Kova", href: "/kova", maturity: "早期试点" },
+      { name: "Hub 私有部署", href: "/hub", maturity: "内部生产使用" },
       { name: "Lugo", href: "/lugo", maturity: "内部生产使用" },
-      { name: "Switch", href: "/switch" },
     ],
   },
 ];
@@ -90,8 +97,8 @@ function SectionTitle({ id, eyebrow, children }: { id: string; eyebrow: string; 
 /** Typographic peel: highlight the active syllable inside LURUS */
 function LayerWord({ code }: { code: Layer["code"] }) {
   const full = "LURUS";
-  const start = full.indexOf(code === "LURUS" ? "LURUS" : code);
-  const end = start + (code === "LURUS" ? 5 : code.length);
+  const start = code === "LURUS" ? 0 : full.indexOf(code);
+  const end = start + code.length;
   return (
     <span className="font-display text-[2rem] font-semibold tracking-[0.12em] md:text-[2.75rem]" aria-label={code}>
       <span className="text-[var(--lt-ink)]/25">{full.slice(0, start)}</span>
@@ -104,27 +111,26 @@ function LayerWord({ code }: { code: Layer["code"] }) {
 export default function Home() {
   return (
     <>
-      {/* ── Hero: full-bleed Urus ridge, brand first ── */}
+      {/* ── Hero ── */}
       <section
         aria-labelledby="home-brand"
         className="relative isolate min-h-[min(92vh,52rem)] overflow-hidden border-b border-[var(--lt-rule)]"
       >
         <Image
-          src="/images/brand/hero-urus-ridge.jpg"
+          src="/images/brand/hero-abstract-ridge.jpg"
           alt=""
           fill
           priority
           sizes="100vw"
-          className="home-hero-bg object-cover object-[72%_42%] md:object-[58%_40%]"
-        />
-        {/* Soft wash: type stays readable; ridge + ox stay visible on the right */}
-        <div
-          aria-hidden="true"
-          className="absolute inset-0 bg-gradient-to-r from-[var(--lt-paper)] from-0% via-[var(--lt-paper)]/78 via-45% to-transparent to-88%"
+          className="home-hero-bg object-cover object-[70%_45%] md:object-[60%_42%]"
         />
         <div
           aria-hidden="true"
-          className="absolute inset-0 bg-gradient-to-t from-[var(--lt-paper)] from-0% via-[var(--lt-paper)]/20 via-35% to-transparent to-55%"
+          className="absolute inset-0 bg-gradient-to-r from-[var(--lt-paper)] from-0% via-[var(--lt-paper)]/80 via-42% to-transparent to-90%"
+        />
+        <div
+          aria-hidden="true"
+          className="absolute inset-0 bg-gradient-to-t from-[var(--lt-paper)] from-0% via-[var(--lt-paper)]/25 via-32% to-transparent to-58%"
         />
 
         <div className="relative mx-auto flex min-h-[min(92vh,52rem)] max-w-5xl flex-col justify-end px-6 pb-16 pt-28 md:pb-24 md:pt-36">
@@ -150,7 +156,7 @@ export default function Home() {
               className="hero-enter-up mt-4 max-w-[32rem] text-base leading-[1.8] text-[var(--color-text-secondary)]"
               style={{ animationDelay: "220ms" }}
             >
-              把 AI 系统在客户自有环境里跑稳，并用证据说明它是稳的。
+              自助产品、B 端标杆、基础设施——三层对外；内部经营不占货架。
             </p>
             <div
               className="hero-enter-up mt-10 flex flex-wrap items-center gap-3"
@@ -166,67 +172,82 @@ export default function Home() {
                 href="#layers"
                 className="ml-1 font-mono text-[13px] text-[var(--color-text-muted)] underline decoration-[var(--lt-rule)] underline-offset-4 hover:text-[var(--lt-ink)] hover:decoration-[var(--lt-accent)]"
               >
-                四层产品线 ↓
+                三层产品线 ↓
               </a>
             </div>
           </div>
         </div>
       </section>
 
-      {/* ── Brand etymology: peel LURUS ── */}
+      {/* ── Layers: 3 public ── */}
       <Section id="layers" width="wide" labelledBy="layers-title">
-        <div className="grid items-start gap-12 md:grid-cols-[minmax(0,22rem)_1fr]">
+        <div className="grid items-start gap-12 md:grid-cols-[minmax(0,20rem)_1fr]">
           <div>
-            <SectionTitle id="layers-title" eyebrow="命名">
+            <SectionTitle id="layers-title" eyebrow="产品线">
               剥开 LURUS。
             </SectionTitle>
             <Lead className="mt-6">
-              品牌取自原牛 Urus——已灭绝的野牛：强壮、警惕、活在自己的领地。
-              名字由外向内收一层，产品线也收一层。
+              名字取自原牛 Urus。对外只陈列三层——与多数软件公司的 Products / Solutions /
+              Platform 同构；最里一层 US 留给自己用。
             </Lead>
-            <figure className="mt-10 max-w-[18rem]">
-              <UrusPortrait className="w-full rounded-sm ring-1 ring-[var(--lt-rule)]" />
+            <figure className="mt-10 flex max-w-[16rem] flex-col items-start">
+              <div className="flex h-40 w-40 items-center justify-center ring-1 ring-[var(--lt-rule)] bg-[var(--lt-bg)]">
+                <BrandMark className="h-24 w-24 text-[var(--lt-ink)]" />
+              </div>
               <figcaption className="mt-3 font-mono text-[11px] leading-relaxed text-[var(--color-text-muted)]">
-                商标形象 · Urus（原牛）
+                商标 · 字母 U
               </figcaption>
             </figure>
           </div>
 
-          <ol className="border-t border-[var(--lt-rule)]">
-            {LAYERS.map((layer, i) => (
-              <li
-                key={layer.code}
-                className="home-layer-row border-b border-[var(--lt-rule)] py-8"
-                style={{ animationDelay: `${i * 80}ms` }}
-              >
-                <div className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-2">
-                  <LayerWord code={layer.code} />
-                  <span className="font-mono text-[11px] uppercase tracking-[0.16em] text-[var(--color-text-muted)]">
-                    {layer.title}
-                  </span>
-                </div>
-                <p className="mt-3 max-w-[40rem] text-[15px] leading-[1.8] text-[var(--color-text-secondary)]">
-                  {layer.line}
-                </p>
-                <ul className="mt-5 flex flex-wrap gap-x-5 gap-y-2">
-                  {layer.products.map((p) => (
-                    <li key={p.href} className="flex items-center gap-2">
-                      <QuietLink href={p.href}>{p.name}</QuietLink>
-                      {p.maturity ? <MaturityChip level={p.maturity} /> : null}
-                    </li>
-                  ))}
-                </ul>
-              </li>
-            ))}
-          </ol>
+          <div>
+            <ol className="border-t border-[var(--lt-rule)]">
+              {LAYERS.map((layer, i) => (
+                <li
+                  key={layer.code}
+                  className="home-layer-row border-b border-[var(--lt-rule)] py-8"
+                  style={{ animationDelay: `${i * 80}ms` }}
+                >
+                  <div className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-2">
+                    <LayerWord code={layer.code} />
+                    <span className="font-mono text-[11px] uppercase tracking-[0.16em] text-[var(--lt-accent)]">
+                      {layer.audience}
+                    </span>
+                  </div>
+                  <p className="mt-2 font-medium text-[var(--lt-ink)]">{layer.title}</p>
+                  <p className="mt-2 max-w-[40rem] text-[15px] leading-[1.8] text-[var(--color-text-secondary)]">
+                    {layer.line}
+                  </p>
+                  <ul className="mt-5 flex flex-wrap gap-x-5 gap-y-2">
+                    {layer.products.map((p) => (
+                      <li key={p.href} className="flex items-center gap-2">
+                        <QuietLink href={p.href}>{p.name}</QuietLink>
+                        {p.maturity ? <MaturityChip level={p.maturity} /> : null}
+                      </li>
+                    ))}
+                  </ul>
+                </li>
+              ))}
+            </ol>
+
+            {/* US — internal only, not a peer shelf */}
+            <p className="mt-8 max-w-[40rem] text-[13px] leading-[1.7] text-[var(--color-text-muted)]">
+              <span className="font-mono tracking-[0.12em] text-[var(--lt-ink)]/50">LUR</span>
+              <span className="font-mono tracking-[0.12em] text-[var(--lt-ink)]">US</span>
+              <span className="ml-3">
+                内部全站全线 · 设计 / 开发 / 经营用，不对外售卖。见{" "}
+                <QuietLink href="/about">关于</QuietLink>。
+              </span>
+            </p>
+          </div>
         </div>
       </Section>
 
-      {/* ── Evidence (honesty signal, one job) ── */}
+      {/* ── Evidence ── */}
       <Section id="evidence" width="wide" labelledBy="evidence-title">
         <div className="max-w-[44rem]">
           <SectionTitle id="evidence-title" eyebrow="一行证据">
-            野牛先确认风向，再迈步。
+            先看清，再迈步。
           </SectionTitle>
           <Lead className="mt-6">
             每一条状态都写明从哪里来、有多新。别家的仪表盘常常全绿；我们会告诉你哪一条只是推断。
@@ -257,7 +278,7 @@ export default function Home() {
           />
         </EvidenceList>
         <p className="mt-8 text-[15px] leading-relaxed text-[var(--color-text-secondary)]">
-          观测层见 <QuietLink href="/witness">见证</QuietLink>
+          B 端观测见 <QuietLink href="/witness">见证</QuietLink>
           ；怎么交付见 <QuietLink href="/approach">方法</QuietLink>。
         </p>
       </Section>
@@ -296,7 +317,7 @@ export default function Home() {
             <span aria-hidden="true" className="text-[var(--color-text-muted)]">
               —
             </span>
-            <span>不做机房与算力转售。我们主张系统留在客户自有的环境里。</span>
+            <span>不做机房与算力转售。B 端主张系统留在客户自有的环境里。</span>
           </li>
           <li className="flex gap-3">
             <span aria-hidden="true" className="text-[var(--color-text-muted)]">
@@ -308,7 +329,7 @@ export default function Home() {
             <span aria-hidden="true" className="text-[var(--color-text-muted)]">
               —
             </span>
-            <span>不承诺我们证明不了的数字。</span>
+            <span>不承诺我们证明不了的数字。US 内部层不对外售卖。</span>
           </li>
         </ul>
       </Section>
@@ -319,7 +340,7 @@ export default function Home() {
           id="invite-title"
           className="font-display text-xl leading-[1.5] text-[var(--lt-ink)] md:text-2xl"
         >
-          想先看看我们怎么做，读 <QuietLink href="/approach">方法</QuietLink>
+          想先看看 B 端怎么做，读 <QuietLink href="/approach">方法</QuietLink>
           ；想聊聊你的环境，写信到{" "}
           <a
             href={CONTACT}

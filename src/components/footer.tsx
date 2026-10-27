@@ -82,7 +82,7 @@ export function Footer() {
           <div className="col-span-2 md:col-span-1">
             <BrandLockup className="[&>span]:text-base" />
             <p className="mt-3 max-w-[22rem] text-[13px] leading-relaxed text-[var(--lt-ink)]/70">
-              从 LURUS 剥到 US：野牛般的韧性——状态可核查、数据可恢复、改动有记录。
+              LURUS · URUS · RUS——自助、标杆、基建；状态可核查、数据可恢复、改动有记录。
             </p>
           </div>
 

@@ -54,7 +54,7 @@ export default function OpengraphImage() {
               color: MUTED,
             }}
           >
-            LURUS · URUS · RUS · US
+            LURUS · URUS · RUS
           </div>
         </div>
 
