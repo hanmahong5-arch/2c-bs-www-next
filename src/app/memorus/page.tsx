@@ -68,12 +68,25 @@ const th = "font-mono text-[11px] uppercase tracking-[0.12em] text-[var(--color-
 
 const ci = (c: readonly [number, number]) => `[${fmt(c[0])}, ${fmt(c[1])}]`;
 
-/** 延迟值：null 显示「测量中」。 */
-const ms = (v: number | null) => (v === null ? "测量中" : `${v} ms`);
+/** 延迟值：有数字才格式化；全 null 时不渲染表格（见 latencyMeasured）。 */
+const ms = (v: number | null) => (v === null ? "—" : `${v} ms`);
+
+function latencyMeasured(): boolean {
+  const cells = [
+    LATENCY.write.p50,
+    LATENCY.write.p95,
+    LATENCY.write.p99,
+    LATENCY.read.p50,
+    LATENCY.read.p95,
+    LATENCY.read.p99,
+  ];
+  return cells.some((v) => v !== null);
+}
 
 // ───────────────────────── 页面 ─────────────────────────
 
 export default function MemorusPage() {
+  const showLatencyTable = latencyMeasured();
   return (
     <>
       {/* S1 首屏：主张 + 三个带区间的数字 */}
@@ -280,47 +293,52 @@ export default function MemorusPage() {
           </ul>
           <div className="border-y border-[var(--lt-rule)] py-5">
             <h3 className="font-display text-lg font-semibold leading-[1.4] text-[var(--lt-ink)]">读写延迟</h3>
-            <table className="mt-4 w-full border-collapse text-left text-[13px]">
-              <caption className="sr-only">读写延迟 p50 / p95 / p99</caption>
-              <thead>
-                <tr className="border-b border-[var(--lt-rule)]">
-                  <th scope="col" className={`${th} py-2 pr-3 font-medium`}>
-                    操作
-                  </th>
-                  {(["p50", "p95", "p99"] as const).map((q) => (
-                    <th key={q} scope="col" className={`${th} px-2 py-2 text-right font-medium last:pr-0`}>
-                      {q}
+            {showLatencyTable ? (
+              <table className="mt-4 w-full border-collapse text-left text-[13px]">
+                <caption className="sr-only">读写延迟 p50 / p95 / p99</caption>
+                <thead>
+                  <tr className="border-b border-[var(--lt-rule)]">
+                    <th scope="col" className={`${th} py-2 pr-3 font-medium`}>
+                      操作
                     </th>
-                  ))}
-                </tr>
-              </thead>
-              <tbody>
-                {(
-                  [
-                    ["写入", LATENCY.write],
-                    ["检索", LATENCY.read],
-                  ] as const
-                ).map(([label, row]) => (
-                  <tr key={label} className="border-b border-[var(--lt-rule)] last:border-b-0">
-                    <th scope="row" className="py-2.5 pr-3 font-normal text-[var(--lt-ink)]">
-                      {label}
-                    </th>
-                    {([row.p50, row.p95, row.p99] as const).map((v, i) => (
-                      <td
-                        key={i}
-                        className="px-2 py-2.5 text-right font-mono tabular-nums text-[var(--color-text-secondary)] last:pr-0"
-                      >
-                        {ms(v)}
-                      </td>
+                    {(["p50", "p95", "p99"] as const).map((q) => (
+                      <th key={q} scope="col" className={`${th} px-2 py-2 text-right font-medium last:pr-0`}>
+                        {q}
+                      </th>
                     ))}
                   </tr>
-                ))}
-              </tbody>
-            </table>
+                </thead>
+                <tbody>
+                  {(
+                    [
+                      ["写入", LATENCY.write],
+                      ["检索", LATENCY.read],
+                    ] as const
+                  ).map(([label, row]) => (
+                    <tr key={label} className="border-b border-[var(--lt-rule)] last:border-b-0">
+                      <th scope="row" className="py-2.5 pr-3 font-normal text-[var(--lt-ink)]">
+                        {label}
+                      </th>
+                      {([row.p50, row.p95, row.p99] as const).map((v, i) => (
+                        <td
+                          key={i}
+                          className="px-2 py-2.5 text-right font-mono tabular-nums text-[var(--color-text-secondary)] last:pr-0"
+                        >
+                          {ms(v)}
+                        </td>
+                      ))}
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            ) : null}
             <p className="mt-4 text-[13px] leading-[1.7] text-[var(--color-text-muted)]">
               {LATENCY.env ?? "尚未系统测量，所以不报数字；测完后连同测量环境一起公开。"}
             </p>
-            <h3 className="mt-10 font-display text-lg font-semibold leading-[1.4] text-[var(--lt-ink)]">
+            <p className="mt-10 font-mono text-[11px] font-medium uppercase tracking-[0.16em] text-[var(--color-text-muted)]">
+              工程验证（非公开基准）
+            </p>
+            <h3 className="mt-2 font-display text-lg font-semibold leading-[1.4] text-[var(--lt-ink)]">
               工程验证
             </h3>
             <dl className="mt-4 space-y-3 text-[13px] leading-[1.7]">
