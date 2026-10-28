@@ -106,10 +106,9 @@ export function Footer() {
           <p>&copy; {year} LurusTech. All rights reserved.</p>
           <p>Lurus Hub: Built on New API · AGPL-3.0.</p>
 
-          {/* 境内合规：主体须与工信部/公安备案一致。当前域名为个人备案（王晓寒 · 鲁ICP备2026000242号）。 */}
+          {/* 境内合规：底部只悬挂备案号（法规要求），不公示个人姓名。
+              当前 lurus.cn 仍是个人备案号；企业内容长期应迁到企业主体域名（见 doc/ops/company-domain-cutover.md）。 */}
           <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
-            <span>王晓寒</span>
-            <span aria-hidden="true">·</span>
             <a
               href="https://beian.miit.gov.cn/"
               target="_blank"
