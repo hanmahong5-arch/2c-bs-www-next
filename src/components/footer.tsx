@@ -106,10 +106,9 @@ export function Footer() {
           <p>&copy; {year} LurusTech. All rights reserved.</p>
           <p>Lurus Hub: Built on New API · AGPL-3.0.</p>
 
-          {/* brand-spec §4.5 境内合规五件套 — 顺序固定: 公司全称 · ICP · 算法备案 / 四个《》链接 */}
+          {/* 境内合规：底部只悬挂备案号（法规要求），不公示个人姓名。
+              当前 lurus.cn 仍是个人备案号；企业内容长期应迁到企业主体域名（见 doc/ops/company-domain-cutover.md）。 */}
           <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
-            <span>硅知睿智能科技（烟台）有限公司</span>
-            <span aria-hidden="true">·</span>
             <a
               href="https://beian.miit.gov.cn/"
               target="_blank"

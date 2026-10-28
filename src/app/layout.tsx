@@ -83,7 +83,6 @@ const jsonLd = {
       "@type": "Organization",
       "@id": `${SITE_URL}/#org`,
       name: "LurusTech",
-      legalName: "硅知睿智能科技（烟台）有限公司",
       url: SITE_URL,
       logo: `${SITE_URL}/favicon.ico`,
       description: SITE_DESC,
