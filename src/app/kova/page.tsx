@@ -15,9 +15,9 @@ import {
 // 页面不放性能数字：旧版引用的实测文档已不在仓库当前版本中，指不到出处就不写。
 
 export const metadata: Metadata = {
-  title: "Kova · 嵌入式持久执行引擎",
+  title: "Kova · 可证明的 Agent 执行",
   description:
-    "Kova 把每一步执行先写入预写日志再算完成：进程中断后从日志继续，执行过程留痕、可离线回放。目前在我们自己的环境中使用。早期试点。",
+    "在不能出错、不能出境、必须举证的场景里，Agent 每一步可被第三方离线核验，并可主权部署。Forge 编排 · Kova 证明 · Lumen 看见。早期试点。",
 };
 
 const DOCS = "https://docs.lurus.cn/kova/";
@@ -58,8 +58,8 @@ export default function KovaPage() {
       <ProductHeader
         name="Kova"
         maturity="早期试点"
-        tagline="嵌入式持久执行引擎。每一步先写进日志，再算完成；进程中断后从日志接着走，走过的路可以回放。"
-        note="专有软件，按商业许可提供；目前只在我们自己的环境里运行（含生产集群）。"
+        tagline="在不能出错、不能出境、必须举证的场景里，Agent 跑过的每一步都能被第三方离线核验——且可部署在你自己的机器上。"
+        note="专有软件，按商业许可提供；目前只在我们自己的环境里运行（含生产集群）。Forge 编排 · Kova 证明 · Lumen 看见。"
         evidence={{
           name: "workflow #42",
           version: null,
@@ -73,11 +73,12 @@ export default function KovaPage() {
       {/* 核心主张 */}
       <Section id="claim" labelledBy="claim-title">
         <SectionTitle id="claim-title" eyebrow="核心">
-          中断不可避免，重来可以避免。
+          怕的不是 Agent 会不会写，是写完谁也说不清。
         </SectionTitle>
         <Lead className="mt-6">
-          多步任务做到一半，进程被杀、机器重启，都是常事。Kova 让每一步的结果先落盘，
-          恢复时读日志就知道做到了哪里——不靠记忆，也不靠猜。
+          半夜改生产、续证书、跑备份：进程被杀、步骤重开、日志可改——审计桌上站不住。
+          Kova 让每一步先落盘再算完成；跑完可导出签名证据包，对方只凭公钥离线核验。
+          中断不可避免，重来可以避免；「看见」走 Lumen，「证明」走证据包——两件事不要混。
         </Lead>
 
         <div className="mt-10">
@@ -145,26 +146,27 @@ export default function KovaPage() {
 
       {/* 受托运维为什么需要它 */}
       <Section id="why-ops" labelledBy="why-ops-title">
-        <SectionTitle id="why-ops-title" eyebrow="为什么">
-          受托运维里的动作，也该可中断、可恢复、有记录。
+        <SectionTitle id="why-ops-title" eyebrow="场景">
+          受托运维：写操作先人批，崩了还能举证。
         </SectionTitle>
         <Lead className="mt-6">
           续证书、做备份、跑恢复演练，都是多步操作。中途断掉时，应该能知道做到了哪一步，
           从那里继续；事后能说清每一步做了什么；动到客户数据之前，先有人批准。
+          客户故事见文档站联测与场景页（Forge 编排 · 人批闸 · 公钥验包）。
         </Lead>
         <ul className="mt-8 space-y-4 text-base leading-[1.8] text-[var(--color-text-secondary)]">
           <Dash>
             可中断、可恢复、每一步留痕：Kova 已经具备，见上文。
           </Dash>
           <Dash>
-            写操作先审批：Kova 的工作流可以停在一个审批点，等人批准或拒绝后再继续，
-            审批本身也记在日志里。
+            写操作先审批：Kova 的工作流可以停在一个审批点，等人批准或拒绝后再继续；
+            拒绝与 await 类决定的决定人可进日志（不是「一切批准都有完整审计」的泛化承诺）。
           </Dash>
           <Dash>
             <span>
-              把我们现有的续证书、备份与恢复演练脚本迁到 Kova 上执行：
+              把现有续证书、备份与恢复演练迁到 Kova 上执行：
               <MaturityChip level="设计中" className="ml-1.5" />
-              。这些动作今天仍由独立脚本完成。
+              。今天仍多为独立脚本；演示路径走 Forge HITL + 证据包。
             </span>
           </Dash>
         </ul>
