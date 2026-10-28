@@ -3,7 +3,7 @@
     "collect": {
       "url": [
         "http://localhost:3000/",
-        "http://localhost:3000/pricing",
+        "http://localhost:3000/hub/pricing",
         "http://localhost:3000/about"
       ],
       "startServerCommand": "bun run start",

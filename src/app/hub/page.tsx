@@ -229,6 +229,16 @@ export default function HubPage() {
           </Link>
           。
         </p>
+        <p className="mt-4 text-sm leading-[1.7] text-[var(--color-text-muted)]">
+          下一步：先看{" "}
+          <Link
+            href="/hub/pricing"
+            className="text-[var(--lt-ink)] underline decoration-[var(--lt-rule)] underline-offset-4 hover:decoration-[var(--lt-accent)]"
+          >
+            按量价格
+          </Link>
+          ；私有部署写信说明上游与网络约束。
+        </p>
       </Section>
     </>
   );

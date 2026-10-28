@@ -84,6 +84,8 @@ jobs:
         run: bun scripts/smoke.ts http://localhost:3000
       - name: Mobile overflow audit (375px)
         run: bun scripts/check-mobile.ts http://localhost:3000
+      - name: Accept gate — honesty / conversion / discovery
+        run: bun scripts/accept.ts http://localhost:3000
 
   lighthouse:
     name: Lighthouse (informational)
