@@ -11,6 +11,12 @@ export interface ChangelogEntry {
 export const updates: ChangelogEntry[] = [
   {
     date: "2026-10",
+    title: "Kova 联测账本上线：Forge × Kova × Lumen",
+    desc: "官网 /kova 与 docs.lurus.cn/kova/triple-joint 公开 2026-10-28 实测：编排与鉴权腿已绿；LLM 402 时证据包腿响亮停止。三仓单一入口 triple.sh，SKIP 永不假绿。",
+    tags: ["Kova", "Forge", "Lumen", "Web"],
+  },
+  {
+    date: "2026-10",
     title: "产品线定三层：LURUS / URUS / RUS，商标定为 U + 野牛角",
     desc: "对外货架对齐 Products · Solutions · Platform；US 仅内部脚注。商标取字母 U 与双角（小尺寸仍读作 U，大尺寸带野牛识别），英雄图用几何山脊。",
     tags: ["Web", "Brand"],

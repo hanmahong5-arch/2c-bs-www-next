@@ -21,6 +21,7 @@ export const metadata: Metadata = {
 };
 
 const DOCS = "https://docs.lurus.cn/kova/";
+const DOCS_JOINT = "https://docs.lurus.cn/kova/triple-joint";
 
 function SectionTitle({ id, eyebrow, children }: { id: string; eyebrow: string; children: ReactNode }) {
   return (
@@ -165,6 +166,35 @@ export default function KovaPage() {
               <MaturityChip level="设计中" className="ml-1.5" />
               。这些动作今天仍由独立脚本完成。
             </span>
+          </Dash>
+        </ul>
+      </Section>
+
+      {/* 联测轨迹 · 带日期，不粉饰 */}
+      <Section id="joint-verify" labelledBy="joint-verify-title">
+        <SectionTitle id="joint-verify-title" eyebrow="联测">
+          Forge 编排 · Kova 证明 · Lumen 看见。
+        </SectionTitle>
+        <Lead className="mt-6">
+          三仓用同一条命令面联测。最近一次实测（2026-10-28）：契约门与
+          Forge→Kova 鉴权、入队已通过；模型供应商余额不足（402）时，真轨迹与证据包腿响亮停止——不把「编排绿」写成「全链路绿」。
+        </Lead>
+        <ul className="mt-8 space-y-4 text-base leading-[1.8] text-[var(--color-text-secondary)]">
+          <Dash>
+            静态契约（OpenAPI 逐字节）与单一操作入口已钉住，避免三仓各猜一套命令。
+          </Dash>
+          <Dash>
+            可读回放（Lumen）与可验证证据包（Kova <Mono>evidence</Mono>）是两件事；前者不是后者。
+          </Dash>
+          <Dash>
+            完整腿表与失败原文见{" "}
+            <a
+              href={DOCS_JOINT}
+              className="text-[var(--lt-ink)] underline decoration-[var(--lt-rule)] underline-offset-4 hover:decoration-[var(--lt-accent)]"
+            >
+              文档站 · 联测账本
+            </a>
+            。
           </Dash>
         </ul>
       </Section>
