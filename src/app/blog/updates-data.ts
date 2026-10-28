@@ -11,14 +11,20 @@ export interface ChangelogEntry {
 export const updates: ChangelogEntry[] = [
   {
     date: "2026-10",
+    title: "Kova 联测融资门全绿：mock LLM + 钉钥 VERIFIED",
+    desc: "2026-10-28c：JOINT_MOCK_LLM=1 跑通 Forge→Kova→Lumen；lifecycle 与证据包 present，钉钥 Signature VERIFIED。mock ≠ 真 newapi；402 红账本保留。",
+    tags: ["Kova", "Forge", "Lumen", "Web"],
+  },
+  {
+    date: "2026-10",
     title: "Kova 官网改恐惧→举证叙事，受托运维场景页上线",
-    desc: "产品页钉子句改为合规敏感可离线核验；补受托运维人批故事。联测仍诚实披露 newapi 402，不把编排绿写成全链路绿。",
+    desc: "产品页钉子句改为合规敏感可离线核验；补受托运维人批故事。联测账本带日期、SKIP 永不假绿。",
     tags: ["Kova", "Web", "Brand"],
   },
   {
     date: "2026-10",
     title: "Kova 联测账本上线：Forge × Kova × Lumen",
-    desc: "官网 /kova 与 docs.lurus.cn/kova/triple-joint 公开 2026-10-28 实测：编排与鉴权腿已绿；LLM 402 时证据包腿响亮停止。三仓单一入口 triple.sh，SKIP 永不假绿。",
+    desc: "官网 /kova 与 docs.lurus.cn/kova/triple-joint 公开 2026-10-28 实测；同日 c 次融资门全绿，a/b 为 402 红账本。",
     tags: ["Kova", "Forge", "Lumen", "Web"],
   },
   {

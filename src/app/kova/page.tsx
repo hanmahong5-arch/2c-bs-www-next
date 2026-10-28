@@ -178,8 +178,9 @@ export default function KovaPage() {
           Forge 编排 · Kova 证明 · Lumen 看见。
         </SectionTitle>
         <Lead className="mt-6">
-          三仓用同一条命令面联测。最近一次实测（2026-10-28）：契约门与
-          Forge→Kova 鉴权、入队已通过；模型供应商余额不足（402）时，真轨迹与证据包腿响亮停止——不把「编排绿」写成「全链路绿」。
+          三仓用同一条命令面联测。最近一次实测（2026-10-28c）：融资门全绿（离线
+          mock LLM）——lifecycle 与钉钥证据包均 VERIFIED。mock ≠ 真供应商回答；去掉
+          mock 且未充值时仍会 402。
         </Lead>
         <ul className="mt-8 space-y-4 text-base leading-[1.8] text-[var(--color-text-secondary)]">
           <Dash>
