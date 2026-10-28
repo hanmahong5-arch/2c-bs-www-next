@@ -50,7 +50,7 @@ spec:
       terminationGracePeriodSeconds: 30
       containers:
         - name: www
-          image: ghcr.io/hanmahong5-arch/2c-bs-www-next:main-f6f46d7
+          image: ghcr.io/hanmahong5-arch/2c-bs-www-next:main-e207b84
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 3000
