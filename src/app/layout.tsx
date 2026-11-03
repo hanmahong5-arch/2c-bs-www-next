@@ -44,11 +44,11 @@ const jetbrainsMono = localFont({
 
 const SITE_URL = "https://www.lurus.cn";
 const SITE_DESC =
-  "LurusTech（Urus · 原牛）：自助产品、B 端标杆与基础设施。状态可核查、数据可恢复、改动有记录。";
+  "在客户自有环境里受托运维已经跑起来的 AI 系统：真的恢复一次才算可恢复，每月一份报告，每个数字写明怎么测。系统留在客户自己的服务器上。";
 
 export const metadata: Metadata = {
   title: {
-    default: "LurusTech — Urus · 企业 AI 交付工程",
+    default: "LurusTech — Urus · 企业 AI 受托运维",
     template: "%s — LurusTech",
   },
   description: SITE_DESC,

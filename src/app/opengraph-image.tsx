@@ -2,7 +2,8 @@ import { ImageResponse } from "next/og";
 
 // 动态生成站点社交分享卡 — 替代此前引用却不存在的静态 /og-image.png (404)。
 // 文案保持拉丁字形，避免在 ImageResponse 中加载中文字体的复杂度；品牌词为主体。
-export const alt = "LurusTech — AI delivery engineering in your own environment";
+export const alt =
+  "LurusTech — Urus. Entrusted AI ops in your environment: a real restore, and a monthly report that shows how each number was measured.";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -73,8 +74,8 @@ export default function OpengraphImage() {
           </div>
           <div
             style={{
-              marginTop: 20,
-              fontSize: 36,
+              marginTop: 18,
+              fontSize: 28,
               color: ACCENT,
               letterSpacing: 2,
               textTransform: "uppercase",
@@ -84,15 +85,15 @@ export default function OpengraphImage() {
           </div>
           <div
             style={{
-              marginTop: 22,
-              fontSize: 38,
+              marginTop: 18,
+              fontSize: 32,
               color: "#3D3B33",
-              lineHeight: 1.3,
-              maxWidth: 920,
+              lineHeight: 1.35,
+              maxWidth: 980,
             }}
           >
-            AI systems in your own environment: state you can check, data you
-            can restore, changes on record.
+            Entrusted ops for the AI already on your servers: a real restore,
+            and a monthly report that shows how each number was measured.
           </div>
         </div>
 
