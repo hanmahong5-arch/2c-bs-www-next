@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Eyebrow, Lead, Section } from "@/components/site";
+import { changelogAnchor } from "@/lib/changelog-rss";
 import { filterUpdates } from "./filter-updates";
 import { updates, type ChangelogEntry } from "./updates-data";
 
@@ -180,7 +181,10 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
                           {entry.date}
                         </time>
                         <div>
-                          <h3 className="font-display text-[1.25rem] font-semibold leading-snug tracking-[-0.02em] text-[var(--lt-ink)]">
+                          <h3
+                            id={changelogAnchor(entry)}
+                            className="scroll-mt-20 font-display text-[1.25rem] font-semibold leading-snug tracking-[-0.02em] text-[var(--lt-ink)]"
+                          >
                             {entry.title}
                           </h3>
                           <p className="mt-2 max-w-[68ch] text-[15px] leading-[1.8] text-[var(--color-text-secondary)]">

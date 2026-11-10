@@ -1,6 +1,6 @@
 import { expect, test } from "bun:test";
 import { updates, type ChangelogEntry } from "@/app/blog/updates-data";
-import { changelogGuid, renderChangelogRss } from "./changelog-rss";
+import { changelogAnchor, changelogGuid, renderChangelogRss } from "./changelog-rss";
 
 function guidFor(xml: string, title: string): string {
   const block = xml.split("<item>").find((part) => part.includes(`<title>${title}</title>`));
@@ -24,7 +24,7 @@ test("rss guid stays put when a newer entry is inserted at the head", () => {
   expect(guidFor(after, title)).toBe(changelogGuid(updates[0]));
 });
 
-test("rss uses the historical wording, month anchors, and escapes markup", () => {
+test("rss uses the historical wording, per-entry anchors, and escapes markup", () => {
   const xml = renderChangelogRss([
     {
       date: "2026-11",
@@ -36,7 +36,15 @@ test("rss uses the historical wording, month anchors, and escapes markup", () =>
 
   expect(xml).toContain("条目保留当时的原文，其中的活动与说法以当时为准，不代表现状。");
   expect(xml).not.toContain("新功能、改进和修复");
-  expect(xml).toContain("https://www.lurus.cn/blog#2026-11");
+  expect(xml).toContain(`https://www.lurus.cn/blog#${changelogAnchor({ date: "2026-11", title: "A & B", desc: "", tags: [] })}`);
+  const october = updates.filter((entry) => entry.date === "2026-10");
+  const live = renderChangelogRss(updates);
+  const octoberLinks = october.map((entry) => {
+    const block = live.split("<item>").find((part) => part.includes(`<title>${entry.title}</title>`));
+    return block?.match(/<link>([^<]+)<\/link>/)?.[1];
+  });
+  expect(new Set(octoberLinks).size).toBe(october.length);
+  expect(octoberLinks.every((link) => link?.startsWith("https://www.lurus.cn/blog#e"))).toBe(true);
   expect(xml).toContain("A &amp; B");
   expect(xml).toContain("&lt;现状&gt;");
   expect(xml).toContain("Hub &quot;公开&quot;");

@@ -20,6 +20,16 @@ export function changelogGuid(entry: ChangelogEntry): string {
   return `lurus-changelog-${entry.date}-${entry.title}`;
 }
 
+/** 页面锚点。同一月有多条时也不能共用。只含小写十六进制，方便写进 URL。 */
+export function changelogAnchor(entry: ChangelogEntry): string {
+  const s = `${entry.date}\n${entry.title}`;
+  let h = 5381;
+  for (let i = 0; i < s.length; i++) {
+    h = Math.imul(h, 33) ^ s.charCodeAt(i);
+  }
+  return `e${(h >>> 0).toString(16).padStart(8, "0")}`;
+}
+
 // "YYYY-MM" → RFC-822 pubDate（该月 1 号）。月粒度是 changelog 的真实精度。
 function pubDate(ym: string): string {
   return new Date(`${ym}-01T08:00:00+08:00`).toUTCString();
@@ -27,7 +37,7 @@ function pubDate(ym: string): string {
 
 /**
  * /blog/rss.xml。条目只用 updates 里的原文。
- * 每条链到该月锚点；guid 用日期加标题，不用数组下标。
+ * 每条链到自己的锚点，不共用月份；guid 用日期加标题，不用数组下标。
  */
 export function renderChangelogRss(entries: readonly ChangelogEntry[] = updates): string {
   const items = entries
@@ -35,7 +45,7 @@ export function renderChangelogRss(entries: readonly ChangelogEntry[] = updates)
       const cats = entry.tags.map((tag) => `<category>${esc(tag)}</category>`).join("");
       return `    <item>
       <title>${esc(entry.title)}</title>
-      <link>${BLOG_URL}#${esc(entry.date)}</link>
+      <link>${BLOG_URL}#${changelogAnchor(entry)}</link>
       <guid isPermaLink="false">${esc(changelogGuid(entry))}</guid>
       <pubDate>${pubDate(entry.date)}</pubDate>
       <description>${esc(entry.desc)}</description>
