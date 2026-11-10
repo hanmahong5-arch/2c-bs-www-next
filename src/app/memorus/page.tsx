@@ -430,6 +430,10 @@ export default function MemorusPage() {
           <a href={LINKS.pilot} className={LINK_CLASS}>
             {LINKS.pilotLabel}
           </a>
+          。范围见{" "}
+          <Link href="/approach#intake" className={LINK_CLASS}>
+            首信清单
+          </Link>
           。
         </NextStep>
       </Section>

@@ -253,9 +253,12 @@ async function checkSitemapRobots(failures: string[]) {
 
 async function checkApproachIntake(failures: string[]) {
   const { text } = await renderText(`${base}/approach`);
-  if (!text.includes("来信请先写清")) {
-    failures.push("/approach: 缺「来信请先写清」");
-    console.log(`/approach intake`.padEnd(22), "✗ 缺「来信请先写清」");
+  const reasons: string[] = [];
+  if (!text.includes("来信请先写清")) reasons.push("缺「来信请先写清」");
+  if (!text.includes("写第一封邮件")) reasons.push("缺「写第一封邮件」");
+  if (reasons.length) {
+    failures.push(`/approach: ${reasons.join("; ")}`);
+    console.log(`/approach intake`.padEnd(22), "✗", reasons.join("; "));
   } else {
     console.log(`/approach intake`.padEnd(22), "ok");
   }

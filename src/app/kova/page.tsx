@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import type { ReactNode } from "react";
 import {
   Disclosure,
@@ -248,6 +249,13 @@ export default function KovaPage() {
           >
             contact@lurus.cn
           </a>
+          。范围见{" "}
+          <Link
+            href="/approach#intake"
+            className="text-[var(--lt-ink)] underline decoration-[var(--lt-rule)] underline-offset-4 hover:decoration-[var(--lt-accent)]"
+          >
+            首信清单
+          </Link>
           。
         </NextStep>
       </Section>

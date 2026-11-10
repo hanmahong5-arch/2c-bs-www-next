@@ -279,6 +279,10 @@ export default function WitnessPage() {
           <a href="mailto:contact@lurus.cn" className={linkClass}>
             contact@lurus.cn
           </a>
+          。范围见{" "}
+          <Link href="/approach#intake" className={linkClass}>
+            首信清单
+          </Link>
           。
         </NextStep>
       </Section>

@@ -33,3 +33,5 @@
 **本轮第七刀：** `/approach#intake` 首信清单。`IntakeBrief` 复用 `ScopeSplit`，范围在 `src/lib/engagement-intake.ts`。mailto 只有四项占位，不预填密码。不写回复时限，不公开受托运维价格。首页只加一条「方法页首信清单」，命令面板一条入口。方法页收束改为按这份清单写信。
 
 **本轮第八刀：** 首页「一行证据」三行仍标示例，不改成实测或正常。带下加一条发丝索引，只链已核对的 `/memorus/benchmarks`（基准）、`/hub/pricing`（价目）、`/hub/pricing.md`（价目纯文本，普通链接）、`/blog`（日志）、`/witness`（产品）、`/approach#intake`（首信）。不报运行数字、客户名或 SLA，不链 `/security` 与 GitHub。2026-11 更新日志已有首信条目，不再另加。
+
+**本轮第九刀：** `LedgerRow` 是一行 1px 发丝链接（标签、附注、↗），无填充、无阴影、无圆角。`/approach#intake` 用它承接原有 mailto（`contact@lurus.cn`，主题「受托运维咨询」），文案是「写第一封邮件 / 不报价，不收集密码」。ScopeSplit 与成熟度小注仍在。见证、Kova、Memorus、Lugo 的下一步里各加一条指向 `/approach#intake` 的文字链，不改成熟度，不写回复时限。

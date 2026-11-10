@@ -248,7 +248,13 @@ export default function LugoPage() {
           </Link>
           。
         </p>
-        <NextStep>私有部署写信说明安装边界（身份源 / 商户号 / 网络）。</NextStep>
+        <NextStep>
+          私有部署写信说明安装边界（身份源 / 商户号 / 网络）。范围见{" "}
+          <Link href="/approach#intake" className={linkClass}>
+            首信清单
+          </Link>
+          。
+        </NextStep>
       </Section>
     </>
   );

@@ -7,10 +7,11 @@ import {
   EvidenceList,
   IntakeBrief,
   Lead,
+  LedgerRow,
   NextStep,
   Section,
 } from "@/components/site";
-import { CONTACT_EMAIL } from "@/lib/engagement-intake";
+import { CONTACT_EMAIL, intakeMailto } from "@/lib/engagement-intake";
 
 // 方法页：怎么证明系统稳（个人项目站）。
 // 不写客户名、行业名单、金额、案例数量。每个区块一句主张，细节放进 Disclosure。
@@ -313,6 +314,12 @@ export default function ApproachPage() {
           </Lead>
         </div>
         <IntakeBrief className="mt-10" />
+        <LedgerRow
+          href={intakeMailto()}
+          label="写第一封邮件"
+          meta="不报价，不收集密码"
+          className="mt-8"
+        />
       </Section>
 
       {/* 结尾 */}
