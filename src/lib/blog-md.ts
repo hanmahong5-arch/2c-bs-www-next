@@ -1,4 +1,5 @@
 import { updates, type ChangelogEntry } from "@/app/blog/updates-data";
+import { changelogAnchor } from "@/lib/changelog-rss";
 
 const PAGE = "https://www.lurus.cn/blog";
 
@@ -6,6 +7,8 @@ function entryBlock(entry: ChangelogEntry): string {
   return `## ${entry.title}
 
 日期：${entry.date}
+
+本条：${PAGE}#${changelogAnchor(entry)}
 
 ${entry.desc}
 
@@ -15,6 +18,7 @@ ${entry.desc}
 /**
  * /blog 的纯文本孪生。
  * 条目只用 updates 里的原文，不改写，也不把当时的说法写成现状。
+ * 每条的「本条」是网页上同一个锚点。
  */
 export function renderBlogMarkdown(): string {
   return `# 更新日志
