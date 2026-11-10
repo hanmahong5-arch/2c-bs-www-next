@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { EvidenceLine, EvidenceList, Eyebrow, Lead, ProductHeader, Section } from "@/components/site";
+import { EvidenceLine, EvidenceList, Eyebrow, Lead, NextStep, ProductHeader, Section } from "@/components/site";
 import { AsOfDemo } from "./asof-demo";
 import { DataTable, fmt } from "./benchmarks/charts";
 import { LOCOMO } from "./benchmarks/data";
@@ -426,13 +426,13 @@ export default function MemorusPage() {
             申请试点
           </a>
         </div>
-        <p className="mt-4 text-sm leading-[1.7] text-[var(--color-text-muted)]">
-          下一步：邮件说明你的环境与目标；我们回复是否适合现阶段试点。申请发至{" "}
+        <NextStep>
+          邮件说明你的环境与目标；我们回复是否适合现阶段试点。申请发至{" "}
           <a href={LINKS.pilot} className={LINK_CLASS}>
             {LINKS.pilotLabel}
           </a>
           。
-        </p>
+        </NextStep>
       </Section>
     </>
   );

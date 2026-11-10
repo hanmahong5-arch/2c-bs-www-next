@@ -1,7 +1,7 @@
 import { Suspense } from "react";
 import type { Metadata } from "next";
 import Link from "next/link";
-import { Eyebrow, Lead, ScopeSplit, Section } from "@/components/site";
+import { Eyebrow, Lead, NextStep, ScopeSplit, Section } from "@/components/site";
 import { HubPriceTable, HubPriceTableSkeleton } from "./price-table";
 
 // Hub 按量价格页：标题 → 价目表（实时读取）→ 怎么付 → 鹿途 → 边界。
@@ -111,9 +111,9 @@ export default function HubPricingPage() {
           </Dash>
           <Dash>调用时按上表单价从钱包扣费；余额不足时请求会被拒绝，不会先欠费再催缴。</Dash>
         </ul>
-        <p className="mt-4 text-sm leading-[1.7] text-[var(--color-text-muted)]">
-          下一步：登录后钱包充值 → 用 API Key 调 hub.lurus.cn；私有部署写信说明上游与网络约束。
-        </p>
+        <NextStep>
+          登录后钱包充值 → 用 API Key 调 hub.lurus.cn；私有部署写信说明上游与网络约束。
+        </NextStep>
       </Section>
 
       <Section id="other" labelledBy="other-title">

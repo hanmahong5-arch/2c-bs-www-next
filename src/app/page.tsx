@@ -7,6 +7,7 @@ import {
   Eyebrow,
   Lead,
   MaturityChip,
+  NextStep,
   Section,
   type Maturity,
 } from "@/components/site";
@@ -380,9 +381,7 @@ export default function Home() {
           </a>
           。
         </p>
-        <p className="mt-4 text-sm leading-[1.7] text-[var(--color-text-muted)]">
-          下一步：来信写清环境现状与目标；我们回复是否接、怎么分期。
-        </p>
+        <NextStep>来信写清环境现状与目标；我们回复是否接、怎么分期。</NextStep>
       </Section>
     </>
   );
