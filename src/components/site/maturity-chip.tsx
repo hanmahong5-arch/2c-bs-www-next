@@ -11,7 +11,7 @@ export interface MaturityChipProps {
 export function MaturityChip({ level, className = "" }: MaturityChipProps) {
   return (
     <span
-      className={`inline-flex items-center whitespace-nowrap rounded-sm border border-[var(--lt-rule)] px-1.5 py-px align-middle font-mono text-[11px] leading-5 text-[var(--color-text-muted)] ${className}`}
+      className={`inline-flex items-center whitespace-nowrap border border-[var(--lt-rule)] px-1.5 py-px align-middle font-mono text-[11px] leading-5 text-[var(--color-text-muted)] ${className}`}
     >
       <span className="sr-only">成熟度：</span>
       {level}

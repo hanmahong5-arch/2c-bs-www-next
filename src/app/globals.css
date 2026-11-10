@@ -374,7 +374,7 @@ body {
 .code-block {
   background: #1A1712;
   border: 1px solid #2C271E;
-  border-radius: 12px;
+  border-radius: 0;
   color: #CBC4B4;
   font-family: var(--font-mono);
   font-size: 0.8125rem;
