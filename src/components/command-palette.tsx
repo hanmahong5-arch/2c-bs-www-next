@@ -81,6 +81,22 @@ const GROUPS: Group[] = [
   },
 ];
 
+/** 铺在同一张纸上：发丝线，无圆角，无投影。 */
+export const PALETTE_SCRIM_CLASS =
+  "fixed inset-0 z-[100] flex items-start justify-center bg-[var(--lt-ink)]/20 px-4 pt-[16vh]";
+export const PALETTE_PANEL_CLASS =
+  "w-full max-w-[600px] overflow-hidden border border-[var(--lt-rule)] bg-[var(--lt-paper)]";
+export const PALETTE_SEARCH_LABEL = "搜索页面、产品、文档";
+
+/** 当前行用一条赭石左边线，不用填充块。 */
+export function paletteRowClass(active: boolean) {
+  return `flex cursor-pointer items-center gap-3 border-l-2 px-5 py-2.5 text-sm ${
+    active
+      ? "border-[var(--lt-accent)] text-[var(--lt-ink)]"
+      : "border-transparent text-[var(--color-text-secondary)] hover:text-[var(--lt-ink)]"
+  }`;
+}
+
 /** 命令面板的过滤。空查询返回全部；命中 label 或 hint，大小写不敏感。 */
 export function filterPaletteItems(query: string) {
   const q = query.trim().toLowerCase();
@@ -193,7 +209,7 @@ export function CommandPalette() {
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.15 }}
-          className="fixed inset-0 z-[100] bg-black/60 backdrop-blur-sm flex items-start justify-center pt-[16vh] px-4"
+          className={PALETTE_SCRIM_CLASS}
           onClick={closePalette}
         >
           <motion.div
@@ -201,26 +217,26 @@ export function CommandPalette() {
             role="dialog"
             aria-modal="true"
             aria-label="命令面板"
-            initial={{ y: -16, scale: 0.97, opacity: 0 }}
-            animate={{ y: 0, scale: 1, opacity: 1 }}
-            exit={{ y: -8, scale: 0.98, opacity: 0 }}
+            initial={{ y: -8, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            exit={{ y: -4, opacity: 0 }}
             transition={{ duration: 0.18, ease: [0.16, 1, 0.3, 1] }}
             onClick={(e) => e.stopPropagation()}
-            className="w-full max-w-[600px] bg-[var(--color-surface)] border border-[var(--color-border)] rounded-2xl overflow-hidden"
-            style={{ boxShadow: "var(--shadow-window)" }}
+            className={PALETTE_PANEL_CLASS}
           >
             {/* Search input */}
-            <div className="flex items-center gap-3 px-5 py-4 border-b border-[var(--color-border)]">
-              <span className="text-[var(--color-ochre)]/70 font-mono text-sm">⌘</span>
+            <div className="flex items-center gap-3 border-b border-[var(--lt-rule)] px-5 py-4">
+              <span className="font-mono text-sm text-[var(--color-text-muted)]">⌘</span>
               <input
                 ref={inputRef}
                 autoFocus
                 value={query}
                 onChange={(e) => { setQuery(e.target.value); setActiveIdx(0); }}
-                placeholder="搜索页面、产品、文档..."
-                className="flex-1 bg-transparent outline-none rounded focus-visible:ring-2 focus-visible:ring-[var(--color-accent)]/50 text-[var(--color-text-primary)] placeholder:text-[var(--color-text-muted)] text-sm"
+                placeholder={`${PALETTE_SEARCH_LABEL}...`}
+                aria-label={PALETTE_SEARCH_LABEL}
+                className="focus-ink flex-1 bg-transparent text-sm text-[var(--lt-ink)] placeholder:text-[var(--color-text-muted)]"
               />
-              <kbd className="text-[10px] font-mono px-2 py-1 rounded bg-[var(--background)] border border-[var(--color-border)] text-[var(--color-text-muted)]">
+              <kbd className="border border-[var(--lt-rule)] bg-[var(--lt-paper)] px-2 py-1 font-mono text-[10px] text-[var(--color-text-muted)]">
                 ESC
               </kbd>
             </div>
@@ -245,14 +261,10 @@ export function CommandPalette() {
                         const isActive = activeIdx === flatIdx;
                         const Icon = item.Icon;
                         const handleClick = closePalette;
-                        const className = `flex items-center gap-3 mx-2 px-3 py-2.5 rounded-lg text-sm cursor-pointer transition-colors ${
-                          isActive
-                            ? "bg-[var(--color-ochre)]/12 text-[var(--color-text-primary)]"
-                            : "text-[var(--color-text-secondary)] hover:bg-[var(--color-ochre)]/8"
-                        }`;
+                        const className = paletteRowClass(isActive);
                         const inner = (
                           <>
-                            <Icon className={`w-4 h-4 shrink-0 ${isActive ? "text-[var(--color-ochre)]" : "text-[var(--color-text-muted)]"}`} />
+                            <Icon className={`h-4 w-4 shrink-0 ${isActive ? "text-[var(--lt-accent)]" : "text-[var(--color-text-muted)]"}`} />
                             <span className="flex-1 truncate">{item.label}</span>
                             {item.hint && (
                               <span className="text-[10px] font-mono text-[var(--color-text-muted)]/60 truncate">{item.hint}</span>
@@ -312,17 +324,17 @@ export function CommandPalette() {
             </div>
 
             {/* Footer */}
-            <div className="flex flex-wrap items-center gap-x-4 gap-y-2 px-5 py-3 border-t border-[var(--color-border)] text-[10px] font-mono text-[var(--color-text-muted)]">
+            <div className="flex flex-wrap items-center gap-x-4 gap-y-2 border-t border-[var(--lt-rule)] px-5 py-3 font-mono text-[10px] text-[var(--color-text-muted)]">
               <span className="flex items-center gap-1.5">
-                <kbd className="px-1.5 py-0.5 rounded bg-[var(--background)] border border-[var(--color-border)]">↑</kbd>
-                <kbd className="px-1.5 py-0.5 rounded bg-[var(--background)] border border-[var(--color-border)]">↓</kbd>
+                <kbd className="border border-[var(--lt-rule)] bg-[var(--lt-paper)] px-1.5 py-0.5">↑</kbd>
+                <kbd className="border border-[var(--lt-rule)] bg-[var(--lt-paper)] px-1.5 py-0.5">↓</kbd>
                 选择
               </span>
               <span className="flex items-center gap-1.5">
-                <kbd className="px-1.5 py-0.5 rounded bg-[var(--background)] border border-[var(--color-border)]">↵</kbd>
+                <kbd className="border border-[var(--lt-rule)] bg-[var(--lt-paper)] px-1.5 py-0.5">↵</kbd>
                 打开
               </span>
-              <span className="ml-auto text-[var(--color-ochre)]/60">Lurus ⌘K</span>
+              <span className="ml-auto">Lurus ⌘K</span>
             </div>
           </motion.div>
         </motion.div>

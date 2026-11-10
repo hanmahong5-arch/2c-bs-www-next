@@ -1,13 +1,32 @@
 import { expect, test } from "bun:test";
 import { updates } from "@/app/blog/updates-data";
 import { changelogAnchor } from "@/lib/changelog-rss";
-import { filterPaletteItems } from "./command-palette";
+import {
+  filterPaletteItems,
+  PALETTE_PANEL_CLASS,
+  PALETTE_SCRIM_CLASS,
+  PALETTE_SEARCH_LABEL,
+  paletteRowClass,
+} from "./command-palette";
 
 const ANCHORS = [
   { query: "回执", href: "/approach#receipt", label: "方法 — 回执" },
   { query: "演练", href: "/witness#restore", label: "见证 — 演练" },
   { query: "月报", href: "/witness#report", label: "见证 — 月报" },
 ] as const;
+
+test("the palette sits on the same paper as the page", () => {
+  expect(PALETTE_PANEL_CLASS).toContain("bg-[var(--lt-paper)]");
+  expect(PALETTE_PANEL_CLASS).toContain("border-[var(--lt-rule)]");
+  expect(PALETTE_PANEL_CLASS).not.toContain("rounded");
+  expect(PALETTE_SCRIM_CLASS).toContain("bg-[var(--lt-ink)]/20");
+  expect(PALETTE_SCRIM_CLASS).not.toContain("bg-black");
+  expect(PALETTE_SCRIM_CLASS).not.toContain("backdrop-blur");
+  expect(paletteRowClass(true)).toContain("border-[var(--lt-accent)]");
+  expect(paletteRowClass(true)).not.toContain("rounded");
+  expect(paletteRowClass(false)).toContain("border-transparent");
+  expect(PALETTE_SEARCH_LABEL).toBe("搜索页面、产品、文档");
+});
 
 test("llms.txt is one plain full document", () => {
   const hits = filterPaletteItems("llms").filter((row) => row.item.href === "/llms.txt");
