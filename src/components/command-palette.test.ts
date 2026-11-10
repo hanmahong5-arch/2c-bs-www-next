@@ -13,6 +13,7 @@ import {
   scrollPaletteOptionIntoView,
   OPEN_COMMAND_PALETTE,
   openPaletteFromMenu,
+  paletteMotion,
 } from "./command-palette";
 
 const ANCHORS = [
@@ -105,6 +106,20 @@ test("mobile search closes the menu and then opens the same palette", () => {
     order.push("close");
   }, target);
   expect(order).toEqual(["close", OPEN_COMMAND_PALETTE]);
+});
+
+test("reduced motion shows the palette in place", () => {
+  const still = paletteMotion(true);
+  expect(still.scrim.initial).toBe(false);
+  expect(still.scrim.transition.duration).toBe(0);
+  expect(still.panel.initial).toBe(false);
+  expect(still.panel.animate).toEqual({ y: 0, opacity: 1 });
+  expect(still.panel.exit).toEqual({ y: 0, opacity: 1 });
+  expect(still.panel.transition.duration).toBe(0);
+  const moving = paletteMotion(false);
+  expect(moving.scrim.transition.duration).toBe(0.15);
+  expect(moving.panel.initial).toEqual({ y: -8, opacity: 0 });
+  expect(moving.panel.transition.duration).toBe(0.18);
 });
 
 test("llms.txt is one plain full document", () => {

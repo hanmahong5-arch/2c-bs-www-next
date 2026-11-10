@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useState, useMemo, useRef, useSyncExternalStore } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import {
@@ -101,6 +101,40 @@ export const PALETTE_PANEL_CLASS =
   "w-full max-w-[600px] overflow-hidden border border-[var(--lt-rule)] bg-[var(--lt-paper)]";
 export const PALETTE_SEARCH_LABEL = "搜索页面、产品、文档";
 
+/** 系统要求减少动态时，面板直接出现，不淡入、不位移。 */
+export function paletteMotion(reduced: boolean) {
+  if (reduced) {
+    return {
+      scrim: {
+        initial: false as const,
+        animate: { opacity: 1 },
+        exit: { opacity: 1 },
+        transition: { duration: 0 },
+      },
+      panel: {
+        initial: false as const,
+        animate: { y: 0, opacity: 1 },
+        exit: { y: 0, opacity: 1 },
+        transition: { duration: 0 },
+      },
+    };
+  }
+  return {
+    scrim: {
+      initial: { opacity: 0 },
+      animate: { opacity: 1 },
+      exit: { opacity: 0 },
+      transition: { duration: 0.15 },
+    },
+    panel: {
+      initial: { y: -8, opacity: 0 },
+      animate: { y: 0, opacity: 1 },
+      exit: { y: -4, opacity: 0 },
+      transition: { duration: 0.18, ease: [0.16, 1, 0.3, 1] as [number, number, number, number] },
+    },
+  };
+}
+
 type InertNode = {
   hasAttribute(name: string): boolean;
   setAttribute(name: string, value: string): void;
@@ -178,6 +212,7 @@ export function CommandPalette() {
   const router = useRouter();
   const inputRef = useRef<HTMLInputElement>(null);
   const panelRef = useRef<HTMLDivElement>(null);
+  const enter = paletteMotion(useReducedMotion() === true);
 
   // Single close path: reset query + active index alongside open=false.
   const closePalette = useCallback(() => {
@@ -275,10 +310,7 @@ export function CommandPalette() {
     <AnimatePresence>
       {open && (
         <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.15 }}
+          {...enter.scrim}
           className={PALETTE_SCRIM_CLASS}
           onClick={closePalette}
         >
@@ -287,10 +319,7 @@ export function CommandPalette() {
             role="dialog"
             aria-modal="true"
             aria-label="命令面板"
-            initial={{ y: -8, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            exit={{ y: -4, opacity: 0 }}
-            transition={{ duration: 0.18, ease: [0.16, 1, 0.3, 1] }}
+            {...enter.panel}
             onClick={(e) => e.stopPropagation()}
             className={PALETTE_PANEL_CLASS}
           >
