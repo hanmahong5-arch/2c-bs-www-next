@@ -2,21 +2,18 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Eyebrow, Lead, Section } from "@/components/site";
 import { changelogAnchor } from "@/lib/changelog-rss";
+import { blogPageMetadata } from "./blog-metadata";
 import { filterUpdates } from "./filter-updates";
 import { updates, type ChangelogEntry } from "./updates-data";
 
 // 更新日志是历史记录：条目内容（updates-data.ts）按当时的原文保留，不回改事实。
 // 这一页只做纸面索引：按月锚点，以及 ?tag= 的服务端筛选。不在客户端过滤。
 
-export const metadata: Metadata = {
-  title: "更新日志",
-  description: "LurusTech 过往的产品更新记录，按时间倒序。",
-  // 子页一旦写 alternates，会整份替换根 layout 的 canonical，所以这里要自己带上 "./"。
-  alternates: {
-    canonical: "./",
-    types: { "application/rss+xml": "/blog/rss.xml" },
-  },
-};
+export async function generateMetadata({ searchParams }: BlogPageProps): Promise<Metadata> {
+  const { tag } = await searchParams;
+  const activeTag = readTag(tag);
+  return blogPageMetadata(activeTag, filterUpdates(updates, activeTag).length);
+}
 
 type BlogPageProps = {
   searchParams: Promise<{ tag?: string | string[] }>;
