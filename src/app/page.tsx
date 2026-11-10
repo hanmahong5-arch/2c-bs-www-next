@@ -203,7 +203,7 @@ export default function Home() {
               Urus · 原牛
             </p>
             <p
-              className="hero-enter-up mt-5 font-mono text-[11px] uppercase tracking-[0.16em] text-[var(--lt-accent)]"
+              className="hero-enter-up mt-5 font-mono text-[11px] uppercase tracking-[0.16em] text-[var(--lt-ink)]"
               style={{ animationDelay: "60ms" }}
             >
               个人项目 · 工具与底座
@@ -310,7 +310,7 @@ export default function Home() {
                 >
                   <div className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-2">
                     <LayerWord code={layer.code} />
-                    <span className="font-mono text-[11px] uppercase tracking-[0.16em] text-[var(--lt-accent)]">
+                    <span className="font-mono text-[11px] uppercase tracking-[0.16em] text-[var(--lt-ink)]">
                       {layer.audience}
                     </span>
                   </div>

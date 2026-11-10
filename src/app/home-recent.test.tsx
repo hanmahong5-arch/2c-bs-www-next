@@ -12,4 +12,9 @@ test("home recent titles open that changelog entry and the index link stays", ()
   }
   expect(html).toContain('href="/blog"');
   expect(html).toContain("全部更新");
+  expect(html).toContain("个人项目 · 工具与底座");
+  expect(html).toContain(">自助<");
+  expect(html).toContain(">环境里<");
+  expect(html).toContain(">底座<");
+  expect(html).not.toContain("text-[var(--lt-accent)]");
 });
