@@ -49,3 +49,5 @@
 **本轮第十五刀：** 命令面板资源组在「方法纯文本」旁加「日志纯文本」（`/blog.md`，hint `text/markdown`）。accept 源检查要求 `command-palette.tsx` 含 `/blog.md`，原有 `/download`、`/hub/pricing`、`/hub/pricing.md`、`updates-data`、`/approach.md`、`/approach#delivery` 检查仍在。外形不动。不编客户、价格、SLA，不链 `/security` 与 GitHub。
 
 **本轮第十六刀：** 命令面板三条纯文本（`/hub/pricing.md`、`/approach.md`、`/blog.md`）标 `plain`。点击用同页 `<a href>`，回车用 `window.location.assign`，整页取 `text/markdown`，不走 App Router。外链仍新标签。外形不动。accept 仍要求这三条路径留在 `command-palette.tsx`。
+
+**本轮第十七刀：** `/approach#receipt` 恢复演练回执。栏位留空：何时、恢复了什么、备份类别、谁见证、核对了什么、不声称。写明这是演练之后的回执样子，不写可用率，不写客户名，不是合同。复用 ScopeSplit，LedgerRow 指向已核对的 `/witness#restore`。`/approach.md` 同源。不填某一次的日期，不编客户名或可用率。

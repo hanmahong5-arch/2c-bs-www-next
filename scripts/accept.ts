@@ -266,6 +266,12 @@ async function checkApproachIntake(failures: string[]) {
   if (!text.includes("来信请先写清")) reasons.push("缺「来信请先写清」");
   if (!text.includes("写第一封邮件")) reasons.push("缺「写第一封邮件」");
   if (!text.includes("硬化与受托运维，各包含什么")) reasons.push("缺「硬化与受托运维，各包含什么」");
+  if (!text.includes("演练之后，写下这一张")) reasons.push("缺「演练之后，写下这一张」");
+  if (!text.includes("（留空）")) reasons.push("缺「（留空）」");
+  if (!text.includes("不写可用率")) reasons.push("缺「不写可用率」");
+  if (!text.includes("不写客户名")) reasons.push("缺「不写客户名」");
+  if (!text.includes("不是合同")) reasons.push("缺「不是合同」");
+  if (/\d+(?:\.\d+)?\s*[%％]/.test(text)) reasons.push("出现可用性百分比");
   if (reasons.length) {
     failures.push(`/approach: ${reasons.join("; ")}`);
     console.log(`/approach intake`.padEnd(22), "✗", reasons.join("; "));
@@ -297,6 +303,12 @@ async function checkApproachMd(failures: string[]) {
   if (!body.includes("来信请先写清")) reasons.push("缺「来信请先写清」");
   if (!body.includes("硬化与受托运维")) reasons.push("缺「硬化与受托运维」");
   if (!body.includes("不代替合同")) reasons.push("缺「不代替合同」");
+  if (!body.includes("## 恢复演练回执")) reasons.push("缺「恢复演练回执」");
+  if (!body.includes("（留空）")) reasons.push("缺「（留空）」");
+  if (!body.includes("不写可用率")) reasons.push("缺「不写可用率」");
+  if (!body.includes("不写客户名")) reasons.push("缺「不写客户名」");
+  if (!body.includes("这张回执不是合同。")) reasons.push("缺「这张回执不是合同。」");
+  if (/\d+(?:\.\d+)?\s*[%％]/.test(body)) reasons.push("出现可用性百分比");
   if (reasons.length) {
     failures.push(`/approach.md: ${reasons.join("; ")}`);
     console.log(`/approach.md`.padEnd(22), "✗", reasons.join("; "));

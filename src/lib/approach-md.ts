@@ -6,6 +6,7 @@ import {
   INTAKE_NOTE,
   INTAKE_SUBJECT,
 } from "@/lib/engagement-intake";
+import { renderRestoreReceiptMarkdown } from "@/lib/restore-receipt";
 
 const PAGE = "https://www.lurus.cn/approach";
 
@@ -25,7 +26,7 @@ ${bullets(excluded)}`;
 
 /**
  * /approach 的纯文本孪生。
- * 句子只用首信与交付分界里已有的常量，不另写客户、价格或 SLA。
+ * 句子来自首信、交付分界，以及留空的恢复演练回执。不另写客户、价格或 SLA。
  */
 export function renderApproachMarkdown(): string {
   return `# 方法
@@ -51,5 +52,7 @@ ${INTAKE_NOTE}
 ${columns(DELIVERY_INCLUDED, DELIVERY_EXCLUDED)}
 
 ${DELIVERY_NOTE}
+
+${renderRestoreReceiptMarkdown()}
 `;
 }

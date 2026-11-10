@@ -37,6 +37,9 @@
  *
  * LedgerRow({ href, label, meta, className? })
  *   一行 1px 发丝链接：标签、附注、↗。无填充、无阴影、无圆角、无光晕。
+ *
+ * RestoreReceipt({ input?, className? })
+ *   恢复演练回执的留空样子：发丝栏位，加 ScopeSplit 写明回执记录什么、不声称什么。
  */
 export { Section, type SectionProps } from "./section";
 export { Eyebrow, type EyebrowProps } from "./eyebrow";
@@ -61,3 +64,4 @@ export { ScopeSplit, type ScopeSplitProps } from "./scope-split";
 export { NextStep, type NextStepProps } from "./next-step";
 export { IntakeBrief, type IntakeBriefProps } from "./intake-brief";
 export { LedgerRow, type LedgerRowProps } from "./ledger-row";
+export { RestoreReceipt, type RestoreReceiptProps } from "./restore-receipt";

@@ -13,5 +13,9 @@ test("approach markdown has the intake subject and both column headings", () => 
   expect(md).toContain(INTAKE_NOTE);
   expect(md).toContain(DELIVERY_NOTE);
   expect(md).toContain("不代替合同");
+  expect(md).toContain("## 恢复演练回执");
+  expect(md).toContain("（留空）");
+  expect(md).toContain("这张回执不是合同。");
   expect(md).not.toContain("password=");
+  expect(md).not.toMatch(/\d+(?:\.\d+)?\s*[%％]/);
 });

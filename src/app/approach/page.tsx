@@ -9,11 +9,13 @@ import {
   Lead,
   LedgerRow,
   NextStep,
+  RestoreReceipt,
   ScopeSplit,
   Section,
 } from "@/components/site";
 import { DELIVERY_EXCLUDED, DELIVERY_INCLUDED, DELIVERY_NOTE } from "@/lib/engagement-delivery";
 import { CONTACT_EMAIL, intakeMailto } from "@/lib/engagement-intake";
+import { RESTORE_RECEIPT_INTRO } from "@/lib/restore-receipt";
 
 // 方法页：怎么证明系统稳（个人项目站）。
 // 不写客户名、行业名单、金额、案例数量。每个区块一句主张，细节放进 Disclosure。
@@ -275,6 +277,23 @@ export default function ApproachPage() {
             </p>
           </Disclosure>
         </div>
+      </Section>
+
+      {/* 回执：判据之后。留空示例，不填某一次演练。 */}
+      <Section id="receipt" width="wide" labelledBy="receipt-title">
+        <div className="max-w-[44rem]">
+          <SectionTitle id="receipt-title" eyebrow="回执">
+            演练之后，写下这一张。
+          </SectionTitle>
+          <Lead className="mt-6">{RESTORE_RECEIPT_INTRO}</Lead>
+        </div>
+        <RestoreReceipt className="mt-10" />
+        <LedgerRow
+          href="/witness#restore"
+          label="演练步骤见见证页"
+          meta="只认真恢复"
+          className="mt-8"
+        />
       </Section>
 
       {/* 可核对：不改上面的主张，只加一张细线索引 */}
