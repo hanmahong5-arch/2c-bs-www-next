@@ -1,6 +1,6 @@
 import { expect, test } from "bun:test";
 import { updates, type ChangelogEntry } from "@/app/blog/updates-data";
-import { CHANGELOG_FEED_TITLE, changelogAnchor, changelogFeedTypes, changelogGuid, renderChangelogRss } from "./changelog-rss";
+import { CHANGELOG_FEED_TITLE, LLMS_INDEX_PATH, LLMS_INDEX_TITLE, changelogAnchor, changelogFeedTypes, changelogGuid, renderChangelogRss } from "./changelog-rss";
 
 function guidFor(xml: string, title: string): string {
   const block = xml.split("<item>").find((part) => part.includes(`<title>${title}</title>`));
@@ -39,6 +39,12 @@ test("rss uses the historical wording, per-entry anchors, and escapes markup", (
     {
       url: "/blog/rss.xml",
       title: CHANGELOG_FEED_TITLE,
+    },
+  ]);
+  expect(changelogFeedTypes()["text/plain"]).toEqual([
+    {
+      url: LLMS_INDEX_PATH,
+      title: LLMS_INDEX_TITLE,
     },
   ]);
   expect(xml).toContain("条目保留当时的原文，其中的活动与说法以当时为准，不代表现状。");

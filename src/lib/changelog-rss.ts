@@ -3,16 +3,24 @@ import { updates, type ChangelogEntry } from "@/app/blog/updates-data";
 const SITE = "https://www.lurus.cn";
 export const CHANGELOG_FEED_PATH = "/blog/rss.xml";
 export const CHANGELOG_FEED_TITLE = "LurusTech 更新日志";
+export const LLMS_INDEX_PATH = "/llms.txt";
+export const LLMS_INDEX_TITLE = "LurusTech 站点索引";
 const FEED_URL = `${SITE}${CHANGELOG_FEED_PATH}`;
 const BLOG_URL = `${SITE}/blog`;
 
-/** 全站 <link rel="alternate">。页面若自己写 alternates，须带上这一项，否则会把根上的订阅源盖掉。 */
+/** 全站 <link rel="alternate">。页面若自己写 alternates，须整份带上，否则会把根上的订阅源和站点索引盖掉。 */
 export function changelogFeedTypes() {
   return {
     "application/rss+xml": [
       {
         url: CHANGELOG_FEED_PATH,
         title: CHANGELOG_FEED_TITLE,
+      },
+    ],
+    "text/plain": [
+      {
+        url: LLMS_INDEX_PATH,
+        title: LLMS_INDEX_TITLE,
       },
     ],
   };
