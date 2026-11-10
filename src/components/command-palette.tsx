@@ -122,6 +122,19 @@ export function paletteRowClass(active: boolean) {
   }`;
 }
 
+export function paletteOptionId(index: number) {
+  return `palette-opt-${index}`;
+}
+
+/** 当前行滚进列表视野。负下标或还没有这一行时不动。 */
+export function scrollPaletteOptionIntoView(
+  index: number,
+  root: { getElementById(id: string): { scrollIntoView(opts: { block: "nearest" }): void } | null },
+) {
+  if (index < 0) return;
+  root.getElementById(paletteOptionId(index))?.scrollIntoView({ block: "nearest" });
+}
+
 /** 命令面板的过滤。空查询返回全部；命中 label 或 hint，大小写不敏感。 */
 export function filterPaletteItems(query: string) {
   const q = query.trim().toLowerCase();
@@ -201,6 +214,12 @@ export function CommandPalette() {
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
   }, [open, filteredFlat, activeIdx, router, closePalette]);
+
+  // 键盘选中的行留在列表里，不滚出半屏的结果区。
+  useEffect(() => {
+    if (!open) return;
+    scrollPaletteOptionIntoView(activeIdx, document);
+  }, [open, activeIdx, filteredFlat]);
 
   // Tab 在面板两端折返。同一层的页面标成 inert，读屏和点击都进不来。
   useEffect(() => {
@@ -311,6 +330,7 @@ export function CommandPalette() {
                           return (
                             <a
                               key={`${item.href}:${item.label}`}
+                              id={paletteOptionId(flatIdx)}
                               href={item.href}
                               target="_blank"
                               rel="noopener noreferrer"
@@ -326,6 +346,7 @@ export function CommandPalette() {
                           return (
                             <a
                               key={`${item.href}:${item.label}`}
+                              id={paletteOptionId(flatIdx)}
                               href={item.href}
                               onClick={handleClick}
                               onMouseEnter={() => setActiveIdx(flatIdx)}
@@ -338,6 +359,7 @@ export function CommandPalette() {
                         return (
                           <Link
                             key={`${item.href}:${item.label}`}
+                            id={paletteOptionId(flatIdx)}
                             href={item.href}
                             onClick={handleClick}
                             onMouseEnter={() => setActiveIdx(flatIdx)}

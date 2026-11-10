@@ -8,6 +8,8 @@ import {
   PALETTE_SCRIM_CLASS,
   PALETTE_SEARCH_LABEL,
   paletteRowClass,
+  paletteOptionId,
+  scrollPaletteOptionIntoView,
 } from "./command-palette";
 
 const ANCHORS = [
@@ -59,6 +61,25 @@ test("an open palette makes the rest of that layer inert and leaves prior inert 
   expect(header.hasAttribute("inert")).toBe(false);
   expect(main.hasAttribute("inert")).toBe(false);
   expect(footer.hasAttribute("inert")).toBe(true);
+});
+
+test("the selected palette row scrolls into the list and a missing row does not", () => {
+  const seen: Array<{ id: string; block: string }> = [];
+  const root = {
+    getElementById(id: string) {
+      if (id !== "palette-opt-3") return null;
+      return {
+        scrollIntoView(opts: { block: "nearest" }) {
+          seen.push({ id, block: opts.block });
+        },
+      };
+    },
+  };
+  expect(paletteOptionId(3)).toBe("palette-opt-3");
+  scrollPaletteOptionIntoView(3, root);
+  scrollPaletteOptionIntoView(-1, root);
+  scrollPaletteOptionIntoView(9, root);
+  expect(seen).toEqual([{ id: "palette-opt-3", block: "nearest" }]);
 });
 
 test("llms.txt is one plain full document", () => {
