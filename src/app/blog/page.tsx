@@ -89,12 +89,18 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
               过往的更新记录，按时间倒序。条目保留当时的原文，
               其中的活动与说法以当时为准，不代表现状。
             </Lead>
-            <p className="mt-6 text-[13px] leading-[1.7]">
+            <p className="mt-6 flex flex-wrap gap-x-4 gap-y-2 text-[13px] leading-[1.7]">
               <a
                 href="/blog.md"
                 className="text-[var(--color-text-muted)] underline decoration-[var(--lt-rule)] underline-offset-4 hover:text-[var(--lt-ink)] hover:decoration-[var(--lt-accent)]"
               >
                 同一份日志的纯文本
+              </a>
+              <a
+                href="/blog/rss.xml"
+                className="text-[var(--color-text-muted)] underline decoration-[var(--lt-rule)] underline-offset-4 hover:text-[var(--lt-ink)] hover:decoration-[var(--lt-accent)]"
+              >
+                订阅源
               </a>
             </p>
           </div>

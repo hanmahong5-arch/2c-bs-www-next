@@ -21,6 +21,8 @@ export function renderBlogMarkdown(): string {
 
 网页：${PAGE}
 
+订阅源：${PAGE}/rss.xml
+
 条目保留当时的原文，其中的活动与说法以当时为准，不代表现状。
 
 ${updates.map(entryBlock).join("\n\n")}

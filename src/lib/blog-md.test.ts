@@ -6,5 +6,6 @@ test("blog markdown keeps the first entry title and the historical-wording sente
   const md = renderBlogMarkdown();
   expect(md).toContain(updates[0].title);
   expect(md).toContain("条目保留当时的原文，其中的活动与说法以当时为准，不代表现状。");
+  expect(md).toContain("订阅源：https://www.lurus.cn/blog/rss.xml");
   expect(md).not.toContain("password=");
 });
