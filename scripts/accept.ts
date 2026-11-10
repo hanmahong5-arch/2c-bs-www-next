@@ -371,7 +371,9 @@ async function checkApproachMd(failures: string[]) {
   if (!body.includes("不写可用率")) reasons.push("缺「不写可用率」");
   if (!body.includes("不写客户名")) reasons.push("缺「不写客户名」");
   if (!body.includes("这张回执不是合同。")) reasons.push("缺「这张回执不是合同。」");
-  if (/\d+(?:\.\d+)?\s*[%％]/.test(body)) reasons.push("出现可用性百分比");
+  if (!body.includes("/llms.txt")) reasons.push("缺 /llms.txt");
+  if (!body.includes("/approach#receipt")) reasons.push("缺 /approach#receipt");
+  if (AVAILABILITY_PERCENT.test(body)) reasons.push("出现可用性百分比");
   if (reasons.length) {
     failures.push(`/approach.md: ${reasons.join("; ")}`);
     console.log(`/approach.md`.padEnd(22), "✗", reasons.join("; "));
