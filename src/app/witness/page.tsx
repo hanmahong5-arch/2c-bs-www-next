@@ -8,8 +8,10 @@ import {
   Lead,
   NextStep,
   ProductHeader,
+  ScopeSplit,
   Section,
 } from "@/components/site";
+import { drillMeasure } from "@/lib/witness-drill";
 
 // 见证：先一句话，细节进展开。事实来源见 2l-svc-fleet README / business-reading-guide、
 // 根仓 scripts/ops 下的外部探测、月报与恢复演练脚本，以及 docs 站 witness 目录。
@@ -54,6 +56,7 @@ const linkClass =
   "text-[var(--lt-ink)] underline decoration-[var(--lt-rule)] underline-offset-4 hover:decoration-[var(--lt-accent)]";
 
 export default function WitnessPage() {
+  const measure = drillMeasure();
   return (
     <>
       <ProductHeader
@@ -214,6 +217,20 @@ export default function WitnessPage() {
             </p>
           </Disclosure>
         </div>
+        <p className="mt-10 text-base leading-[1.8] text-[var(--color-text-secondary)]">{measure.intro}</p>
+        <div className="mt-6 border-t border-[var(--lt-rule)]">
+          <div className="grid gap-x-8 gap-y-1 border-b border-[var(--lt-rule)] py-3 sm:grid-cols-[8.5rem_minmax(0,1fr)]">
+            <div className="font-mono text-[12px] leading-[1.7] text-[var(--color-text-muted)]">是否恢复成功</div>
+            <div className="text-[15px] leading-[1.7] text-[var(--lt-ink)]">{measure.outcome}</div>
+          </div>
+        </div>
+        <p className="mt-2 font-mono text-[11px] leading-[1.6] text-[var(--color-text-muted)]">
+          <span aria-hidden="true" className="text-[var(--lt-accent)]">
+            ●
+          </span>{" "}
+          定义 · 这一格留空，不是某一次演练
+        </p>
+        <ScopeSplit className="mt-8" included={measure.measured} excluded={measure.notMeasured} />
       </Section>
 
       {/* 月度证据报告 */}

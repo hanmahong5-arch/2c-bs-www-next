@@ -280,6 +280,32 @@ async function checkApproachIntake(failures: string[]) {
   }
 }
 
+async function checkWitnessDrill(failures: string[]) {
+  const { text } = await renderText(`${base}/witness`);
+  const required = [
+    "是否恢复成功",
+    "恢复了什么",
+    "哪一类备份",
+    "谁见证",
+    "核对了什么",
+    "不写可用率",
+    "不写客户名",
+    "不是合同",
+    "不是常设 SLA",
+  ] as const;
+  const reasons: string[] = [];
+  for (const line of required) {
+    if (!text.includes(line)) reasons.push(`缺「${line}」`);
+  }
+  if (/\d+(?:\.\d+)?\s*[%％]/.test(text)) reasons.push("出现可用性百分比");
+  if (reasons.length) {
+    failures.push(`/witness drill: ${reasons.join("; ")}`);
+    console.log(`/witness drill`.padEnd(22), "✗", reasons.join("; "));
+  } else {
+    console.log(`/witness drill`.padEnd(22), "ok");
+  }
+}
+
 async function checkPricingPay(failures: string[]) {
   const { text } = await renderText(`${base}/hub/pricing`);
   const reasons: string[] = [];
@@ -367,6 +393,7 @@ async function main() {
   await checkPricingPay(failures);
   await checkConversion(failures);
   await checkApproachIntake(failures);
+  await checkWitnessDrill(failures);
   await checkMemorus(failures);
   await checkLugo(failures);
   await checkJsonLd(failures);

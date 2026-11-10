@@ -51,3 +51,5 @@
 **本轮第十六刀：** 命令面板三条纯文本（`/hub/pricing.md`、`/approach.md`、`/blog.md`）标 `plain`。点击用同页 `<a href>`，回车用 `window.location.assign`，整页取 `text/markdown`，不走 App Router。外链仍新标签。外形不动。accept 仍要求这三条路径留在 `command-palette.tsx`。
 
 **本轮第十七刀：** `/approach#receipt` 恢复演练回执。栏位留空：何时、恢复了什么、备份类别、谁见证、核对了什么、不声称。写明这是演练之后的回执样子，不写可用率，不写客户名，不是合同。复用 ScopeSplit，LedgerRow 指向已核对的 `/witness#restore`。`/approach.md` 同源。不填某一次的日期，不编客户名或可用率。
+
+**本轮第十八刀：** `/witness#restore` 旁写明试点测量。一次演练记下是否恢复成功、恢复了什么、来自哪一类备份、谁见证、核对了什么；不写可用率，不写客户名，不是合同，不是常设 SLA。这一次的结果留空。复用 ScopeSplit。见证页没有 markdown 孪生，本轮不新开路由。不编可用率百分比。
