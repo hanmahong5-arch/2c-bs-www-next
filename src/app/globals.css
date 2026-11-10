@@ -551,6 +551,39 @@ header {
    起始帧（opacity:0）失效从而正常显示，但**漏掉任何一个类，该元素就会永久停在
    透明起始态**——对开了「减弱动态效果」的用户等于内容消失。新增 .hero-* 动画类时
    务必同步加到下面的列表里。 */
+/* 跳到正文：平时收成 1px，聚焦后固定盖在粘性页眉上。
+   不用 sr-only / not-sr-only，避免 position 与 padding 互相盖掉。 */
+.skip-link {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+.skip-link:focus {
+  position: fixed;
+  left: 1rem;
+  top: 0.75rem;
+  z-index: 60;
+  width: auto;
+  height: auto;
+  margin: 0;
+  overflow: visible;
+  clip: auto;
+  white-space: normal;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid var(--lt-rule);
+  background: var(--lt-paper);
+  color: var(--lt-ink);
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  outline: 1px solid var(--lt-ink);
+}
+
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   ::view-transition-old(root),

@@ -132,10 +132,7 @@ export default function RootLayout({
         {/* reducedMotion="user" 让全站 framer-motion 动画（含 repeat:Infinity 的呼吸/漂移效果）
             自动尊重系统"减弱动态效果"偏好，无需逐组件改造。 */}
         <MotionConfig reducedMotion="user">
-          <a
-            href="#content"
-            className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-3 focus:z-[60] focus:border focus:border-[var(--lt-rule)] focus:bg-[var(--lt-paper)] focus:px-3 focus:py-2 focus:text-sm focus:text-[var(--lt-ink)] focus:outline focus:outline-1 focus:outline-[var(--lt-ink)]"
-          >
+          <a href="#content" className="skip-link">
             跳到正文
           </a>
           <Header />

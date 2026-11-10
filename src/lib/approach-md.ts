@@ -57,9 +57,13 @@ ${columns(DELIVERY_INCLUDED, DELIVERY_EXCLUDED)}
 ${DELIVERY_NOTE}
 
 ${renderEvidenceReportMarkdown()}
+
 月度证据报告 /witness#report：五栏留空，不代替回执。
+
 ${renderRestoreReceiptMarkdown()}
+
 索引 /llms.txt：六条已有入口。
+
 演练回执 /approach#receipt：字段留空，不写可用率。
 `;
 }
