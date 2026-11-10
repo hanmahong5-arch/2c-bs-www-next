@@ -6,6 +6,7 @@ import {
   EvidenceLine,
   EvidenceList,
   Lead,
+  Lineage,
   ProductHeader,
   Section,
 } from "@/components/site";
@@ -172,17 +173,28 @@ export default function HubPage() {
         <SectionTitle id="license-title" eyebrow="许可与来源">
           基于开源 New API，AGPLv3。
         </SectionTitle>
-        <div className="mt-6 space-y-4 text-base leading-[1.8] text-[var(--color-text-secondary)]">
-          <p>
-            Lurus Hub 不是从零写起的。它是开源项目 New API 的定制衍生版本，New API 本身源自
-            One API（MIT）。我们在转发层之上加了通道评分、用量汇总、多租户与审计。
-          </p>
-          <p>
-            许可沿用上游：默认 AGPLv3。按 AGPLv3，修改后的版本通过网络提供服务或对外分发时，
-            须向用户提供相应的完整源代码。在只用开源许可的情况下，上游的品牌标识与版权声明须完整保留。
-          </p>
-          <p>具体条款以仓库中的 LICENSE 与 NOTICE 为准。</p>
-        </div>
+        <Lead className="mt-6">
+          Lurus Hub 不是从零写起的。谱系写在表里，方便核对许可，而不是藏在一段话里。
+        </Lead>
+        <Lineage
+          className="mt-8"
+          product="Lurus Hub"
+          facts={[
+            { label: "本产品", value: "Lurus Hub" },
+            { label: "直接上游", value: "New API（定制衍生）" },
+            { label: "再上游", value: "One API · MIT" },
+            { label: "许可", value: "AGPLv3（沿用上游默认许可）" },
+            {
+              label: "我们加上",
+              value: "通道评分、用量汇总、多租户与审计。转发层仍是上游的。",
+            },
+            {
+              label: "必须保留",
+              value: "上游品牌标识与版权声明；网络提供或分发修改版时须提供完整源代码。",
+            },
+          ]}
+          note="具体条款以仓库中的 LICENSE 与 NOTICE 为准。"
+        />
       </Section>
 
       {/* 边界与现状 */}
