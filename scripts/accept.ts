@@ -265,6 +265,19 @@ async function checkApproachIntake(failures: string[]) {
   }
 }
 
+async function checkPricingPay(failures: string[]) {
+  const { text } = await renderText(`${base}/hub/pricing`);
+  const reasons: string[] = [];
+  if (!text.includes("钱包充值")) reasons.push("缺「钱包充值」");
+  if (!text.includes("私有部署")) reasons.push("缺「私有部署」");
+  if (reasons.length) {
+    failures.push(`/hub/pricing pay: ${reasons.join("; ")}`);
+    console.log(`/hub/pricing pay`.padEnd(22), "✗", reasons.join("; "));
+  } else {
+    console.log(`/hub/pricing pay`.padEnd(22), "ok");
+  }
+}
+
 async function checkPricingMd(failures: string[]) {
   const res = await fetch(`${base}/hub/pricing.md`);
   const type = res.headers.get("content-type") ?? "";
@@ -292,6 +305,7 @@ async function main() {
   checkDiscovery(failures);
   await checkAllRoutes(failures);
   await checkPricingMd(failures);
+  await checkPricingPay(failures);
   await checkConversion(failures);
   await checkApproachIntake(failures);
   await checkMemorus(failures);
