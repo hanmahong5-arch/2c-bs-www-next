@@ -3,6 +3,7 @@ import { BrandLockup } from "@/components/brand-mark";
 
 // 个人项目站页脚：产品 → 资源 → 关于 → 法务。
 // 以个人备案现实为准（本仓无 brand-spec.md）；不挂 Careers、不挂未取得的算法备案。
+// 「安全问题」只是一封信，不是已备好的 DPA 或安全页。
 type FooterLink = { name: string; href: string };
 
 const footerLinks: ReadonlyArray<{ title: string; links: readonly FooterLink[] }> = [
@@ -39,7 +40,7 @@ const footerLinks: ReadonlyArray<{ title: string; links: readonly FooterLink[] }
     links: [
       { name: "Terms of Service", href: "/terms" },
       { name: "Privacy Policy", href: "/privacy" },
-      { name: "Security & DPA", href: "mailto:contact@lurus.cn?subject=Security%20%26%20DPA" },
+      { name: "安全问题", href: "mailto:contact@lurus.cn?subject=%E5%AE%89%E5%85%A8%E9%97%AE%E9%A2%98" },
     ],
   },
 ];
