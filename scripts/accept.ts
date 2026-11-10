@@ -26,6 +26,7 @@ const HOME_PROOF_HREFS = [
   "/witness#report",
 ] as const;
 const AVAILABILITY_PERCENT = /\d+(?:\.\d+)?\s*[%％]/;
+const APPROACH_PROOF_HREFS = ["/llms.txt", "/approach#receipt", "/witness#report"] as const;
 const UNKNOWN_BLOG_TAG = "no-such-mark";
 
 interface CdpResult {
@@ -289,7 +290,17 @@ async function checkApproachIntake(failures: string[]) {
   if (!text.includes("不写可用率")) reasons.push("缺「不写可用率」");
   if (!text.includes("不写客户名")) reasons.push("缺「不写客户名」");
   if (!text.includes("不是合同")) reasons.push("缺「不是合同」");
-  if (/\d+(?:\.\d+)?\s*[%％]/.test(text)) reasons.push("出现可用性百分比");
+  if (AVAILABILITY_PERCENT.test(text)) reasons.push("出现可用性百分比");
+  try {
+    const res = await fetch(`${base}/approach`);
+    const html = await res.text();
+    if (res.status !== 200) reasons.push(`HTTP ${res.status}`);
+    for (const href of APPROACH_PROOF_HREFS) {
+      if (!html.includes(`href="${href}"`)) reasons.push(`缺入口 ${href}`);
+    }
+  } catch (e) {
+    reasons.push((e as Error).message);
+  }
   if (reasons.length) {
     failures.push(`/approach: ${reasons.join("; ")}`);
     console.log(`/approach intake`.padEnd(22), "✗", reasons.join("; "));

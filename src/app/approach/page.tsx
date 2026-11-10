@@ -32,6 +32,8 @@ export const metadata: Metadata = {
 // 页内锚点已在源码核对：/hub/pricing 的 Section id="prices"，/witness 的 Section id="report"。
 // /hub/pricing.md 不在 SITE_ROUTES（accept 按纯文本另查），route handler 在
 // src/app/hub/pricing.md/route.ts，本波点名，用普通链接打开，不走页面预取。
+// 表内已有 /witness#report，不再重复。表下两行 LedgerRow 只补尚未出现的
+// /llms.txt 与 /approach#receipt。
 // 不链 /security（仓库里没有这个路由），不编 GitHub 地址。
 const PROOF: readonly {
   href: string;
@@ -309,6 +311,18 @@ export default function ApproachPage() {
             </li>
           ))}
         </ul>
+        <LedgerRow
+          href="/llms.txt"
+          label="索引 /llms.txt"
+          meta="六条已有入口"
+          className="mt-8"
+        />
+        <LedgerRow
+          href="/approach#receipt"
+          label="演练回执"
+          meta="字段留空，不写可用率"
+          className="-mt-px"
+        />
       </Section>
 
       {/* 4. 可接管 */}

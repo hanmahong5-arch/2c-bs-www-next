@@ -61,3 +61,5 @@
 **本轮第二十一刀：** 首页证据带下，原有六个入口不动，示例声明仍在。用 `LedgerRow` 加两行：「演练回执」（`/approach#receipt`，字段留空，不写可用率）和「月度证据报告」（`/witness#report`，五栏留空，不代替回执）。accept 要求首页含这两条 `href`，正文不含可用性百分比。不编客户、可用率、SLA，不链 `/security` 与 GitHub，不新开路由。
 
 **本轮第二十二刀：** `public/llms.txt` 补六条已核对入口：`/hub/pricing.md`（与网页同一份单价，读不到只写暂时读不到，不留旧价）、`/approach.md`（首信、交付范围、空白回执、月报字段；不代替合同，不是价目）、`/blog.md`（原文，不代表现状）、`/approach#intake`（环境、现有系统、目标、接入方式；不报价，不收集密码）、`/approach#receipt`（回执留空；不写可用率，不写客户名，不是合同）、`/witness#report`（月报五栏留空；不写可用率，不代替演练回执）。不新开路由。命令面板资源组加「站点索引 llms.txt」，`plain` 整页打开。accept 拉取 `/llms.txt` 须含这六条路径，且不含可用性百分比。不编客户、可用率、SLA，不链 `/security` 与未核对的 GitHub。
+
+**本轮第二十三刀：** `/approach` 可核对细表原有六条不动，其中已有 `/witness#report`。表下用 `LedgerRow` 补两条尚未出现的入口：「索引 /llms.txt」（六条已有入口）和「演练回执」（`/approach#receipt`，字段留空，不写可用率）。不重复已有路径。accept 要求 `/approach` 含 `/llms.txt`、`/approach#receipt`、`/witness#report` 这三条 `href`，正文不含可用性百分比。不新开路由，不编客户、可用率或 SLA，不链 `/security` 与未核对的上游地址。
