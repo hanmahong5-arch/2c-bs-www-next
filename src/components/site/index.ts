@@ -51,3 +51,4 @@ export {
 } from "./maturity-chip";
 export { ProductHeader, type ProductHeaderProps } from "./product-header";
 export { Lineage, type LineageProps, type LineageFact } from "./lineage";
+export { ScopeSplit, type ScopeSplitProps } from "./scope-split";

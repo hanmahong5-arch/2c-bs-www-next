@@ -1,7 +1,7 @@
 import { Suspense } from "react";
 import type { Metadata } from "next";
 import Link from "next/link";
-import { Eyebrow, Lead, Section } from "@/components/site";
+import { Eyebrow, Lead, ScopeSplit, Section } from "@/components/site";
 import { HubPriceTable, HubPriceTableSkeleton } from "./price-table";
 
 // Hub 按量价格页：标题 → 价目表（实时读取）→ 怎么付 → 鹿途 → 边界。
@@ -78,6 +78,19 @@ export default function HubPricingPage() {
             对话类模型按 token 计价，输入与输出分开算；图像等按次计价的模型看最后一列。
             表中是匿名访客可用的默认分组价格，账号所在分组不同时单价可能不同，以控制台里显示的为准。
           </p>
+          <ScopeSplit
+            className="mt-8"
+            included={[
+              "自营 hub.lurus.cn 的按量单价，与钱包扣费同源",
+              "对话按输入 / 输出 token；图像等按次",
+              "同一个钱包，不另设会员套餐",
+            ]}
+            excluded={[
+              "延迟、可用率的承诺数字",
+              "私有部署与受托运维的报价（写信说明约束）",
+              "读不到接口时的旧价兜底",
+            ]}
+          />
         </div>
         <Suspense fallback={<HubPriceTableSkeleton />}>
           <HubPriceTable />

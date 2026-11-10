@@ -18,4 +18,6 @@
 
 **落在哪：** `Lineage`（`src/components/site/lineage.tsx`），Hub「许可与来源」从三段散文收成可扫读定义表。事实不变：New API ← One API（MIT），AGPLv3，我们加通道评分 / 用量 / 多租户 / 审计。
 
-**下一轮候选（调研回来再选一条）：** 全站「下一步」组件化、首页证据条与产品页同源、Memorus 公开基准 vs 工程验证的视觉分层。
+**调研已回：** [OSS 生态](bc-c4f060d8-4888-5a85-a0a6-f3f9cb2a77e5) 指出只有 Hub 有上游归属、缺可点的 LICENSE；[营销模块](bc-9825c21c-8113-5f64-ac3c-047fe01853b6) 把价目诚实框列为第一批。
+
+**本轮第二刀：** `ScopeSplit` 落在 `/hub/pricing`：包含 / 不包含。不编上游仓库链接（仓内没有已核对的 URL）。
