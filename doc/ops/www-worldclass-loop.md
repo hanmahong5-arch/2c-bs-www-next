@@ -29,3 +29,5 @@
 **本轮第五刀：** 命令面板接更新日志真源（最近 5 条）和产品页上的成熟度；价目纯文本可搜到。面板外形不动。
 
 **本轮第六刀：** `/blog` 收成纸面日志。条目原文不动。月份只做发丝锚（`#2026-10` 起），不设跨年跳转——数据都在 2026。标记用服务端 `?tag=`（Next `searchParams` 是 Promise）；没有的标记写「日志里没有这个标记」，月份和标记索引仍在。`/approach` 只加一节可核对细表，右列种类仅 基准 / 价目 / 日志 / 产品，链到已核对的 `/memorus/benchmarks`、`/hub/pricing#prices`、`/hub/pricing.md`（纯文本 route，不在 `SITE_ROUTES`）、`/blog`、`/witness#report`、`/kova`。不链 `/security`，不编 GitHub，不写新数字或客户名。
+
+**本轮第七刀：** `/approach#intake` 首信清单。`IntakeBrief` 复用 `ScopeSplit`，范围在 `src/lib/engagement-intake.ts`。mailto 只有四项占位，不预填密码。不写回复时限，不公开受托运维价格。首页只加一条「方法页首信清单」，命令面板一条入口。方法页收束改为按这份清单写信。

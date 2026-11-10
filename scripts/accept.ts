@@ -174,6 +174,16 @@ async function checkSitemapRobots(failures: string[]) {
   console.log(`discovery`.padEnd(22), failures.some((f) => f.startsWith("sitemap") || f.startsWith("robots") || f.startsWith("cmdk")) ? "✗" : "ok");
 }
 
+async function checkApproachIntake(failures: string[]) {
+  const { text } = await renderText(`${base}/approach`);
+  if (!text.includes("来信请先写清")) {
+    failures.push("/approach: 缺「来信请先写清」");
+    console.log(`/approach intake`.padEnd(22), "✗ 缺「来信请先写清」");
+  } else {
+    console.log(`/approach intake`.padEnd(22), "ok");
+  }
+}
+
 async function checkPricingMd(failures: string[]) {
   const res = await fetch(`${base}/hub/pricing.md`);
   const type = res.headers.get("content-type") ?? "";
@@ -202,6 +212,7 @@ async function main() {
   await checkAllRoutes(failures);
   await checkPricingMd(failures);
   await checkConversion(failures);
+  await checkApproachIntake(failures);
   await checkMemorus(failures);
   await checkLugo(failures);
   await checkJsonLd(failures);

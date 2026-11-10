@@ -5,10 +5,12 @@ import {
   Eyebrow,
   EvidenceLine,
   EvidenceList,
+  IntakeBrief,
   Lead,
   NextStep,
   Section,
 } from "@/components/site";
+import { CONTACT_EMAIL } from "@/lib/engagement-intake";
 
 // 方法页：把企业 AI 交付工程的做法讲给潜在客户。
 // 不写客户名、行业名单、金额、案例数量。每个区块一句主张，细节放进 Disclosure。
@@ -20,8 +22,6 @@ export const metadata: Metadata = {
   description:
     "我们怎样接手客户自有环境里已经做出来、但还没稳住的 AI 系统：硬化、受托运维、按月交付证据。",
 };
-
-const CONTACT_EMAIL = "contact@lurus.cn";
 
 // 买方可核对。右列种类只写这四个词。
 // 页内锚点已在源码核对：/hub/pricing 的 Section id="prices"，/witness 的 Section id="report"。
@@ -302,6 +302,19 @@ export default function ApproachPage() {
         </ul>
       </Section>
 
+      {/* 首信：联系收束之前，先把第一封邮件的范围写清 */}
+      <Section id="intake" width="wide" labelledBy="intake-title">
+        <div className="max-w-[44rem]">
+          <SectionTitle id="intake-title" eyebrow="首信">
+            来信请先写清这些。
+          </SectionTitle>
+          <Lead className="mt-6">
+            每个环境不一样，我们不在这页报价，也不收集密码。下面是要在你第一封邮件里说清的范围；我们读后回复是否接、硬化与受托运维怎么分期。具体以合同约定为准。
+          </Lead>
+        </div>
+        <IntakeBrief className="mt-10" />
+      </Section>
+
       {/* 结尾 */}
       <Section labelledBy="contact-title">
         <p
@@ -317,7 +330,9 @@ export default function ApproachPage() {
           </a>
           。
         </p>
-        <NextStep>来信写清环境现状与目标；我们回复是否接、怎么分期。</NextStep>
+        <NextStep>
+          按上方清单写信到 {CONTACT_EMAIL}；我们回复是否接、硬化与受托运维怎么分期。
+        </NextStep>
       </Section>
     </>
   );

@@ -382,6 +382,9 @@ export default function Home() {
           。
         </p>
         <NextStep>来信写清环境现状与目标；我们回复是否接、怎么分期。</NextStep>
+        <p className="mt-4">
+          <QuietLink href="/approach#intake">方法页首信清单</QuietLink>
+        </p>
       </Section>
     </>
   );

@@ -10,6 +10,12 @@ export interface ChangelogEntry {
 
 export const updates: ChangelogEntry[] = [
   {
+    date: "2026-11",
+    title: "方法页增加首信清单",
+    desc: "官网加上第一封邮件要写清的清单，写在方法页。这一页不报价。",
+    tags: ["Web", "Approach"],
+  },
+  {
     date: "2026-10",
     title: "Kova 联测融资门全绿：mock LLM + 钉钥 VERIFIED",
     desc: "2026-10-28c：JOINT_MOCK_LLM=1 跑通 Forge→Kova→Lumen；lifecycle 与证据包 present，钉钥 Signature VERIFIED。mock ≠ 真 newapi；402 红账本保留。",

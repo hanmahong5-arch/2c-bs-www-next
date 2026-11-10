@@ -44,6 +44,7 @@ const GROUPS: Group[] = [
       { label: "Lugo — 账号与计费", href: "/lugo", hint: "内部生产使用", Icon: CurrencyYenIcon },
       { label: "Switch — AI CLI 管理器", href: "/switch", hint: "早期试点", Icon: CloudArrowDownIcon },
       { label: "方法", href: "/approach", Icon: WrenchScrewdriverIcon },
+      { label: "方法 — 首信清单", href: "/approach#intake", Icon: EnvelopeIcon },
       { label: "博客", href: "/blog", Icon: DocumentTextIcon },
       { label: "关于", href: "/about", Icon: EnvelopeIcon },
     ],

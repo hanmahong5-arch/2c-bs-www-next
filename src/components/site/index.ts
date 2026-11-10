@@ -31,6 +31,10 @@
  *                 evidenceCaption? = "示例", note? })
  *   产品页顶部，内含页面唯一的 <h1>：名称 + 成熟度 chip + 一句话 + 可选小注 + 可选证据样例。
  *   用了它的页面不要再自己写 <h1>。
+ *
+ * IntakeBrief({ className? })
+ *   首信清单：复用 ScopeSplit，列出第一封邮件要写清的范围与不包含项，
+ *   附成熟度小注，以及一封不预填密码的 mailto 草稿。
  */
 export { Section, type SectionProps } from "./section";
 export { Eyebrow, type EyebrowProps } from "./eyebrow";
@@ -53,3 +57,4 @@ export { ProductHeader, type ProductHeaderProps } from "./product-header";
 export { Lineage, type LineageProps, type LineageFact } from "./lineage";
 export { ScopeSplit, type ScopeSplitProps } from "./scope-split";
 export { NextStep, type NextStepProps } from "./next-step";
+export { IntakeBrief, type IntakeBriefProps } from "./intake-brief";
