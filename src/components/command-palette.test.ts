@@ -9,6 +9,7 @@ import {
   PALETTE_SEARCH_LABEL,
   paletteRowClass,
   paletteOptionId,
+  paletteActiveDescendant,
   scrollPaletteOptionIntoView,
 } from "./command-palette";
 
@@ -80,6 +81,14 @@ test("the selected palette row scrolls into the list and a missing row does not"
   scrollPaletteOptionIntoView(-1, root);
   scrollPaletteOptionIntoView(9, root);
   expect(seen).toEqual([{ id: "palette-opt-3", block: "nearest" }]);
+});
+
+test("the search box names the selected row and names nothing when that row is missing", () => {
+  expect(paletteActiveDescendant(0, 4)).toBe(paletteOptionId(0));
+  expect(paletteActiveDescendant(3, 4)).toBe("palette-opt-3");
+  expect(paletteActiveDescendant(-1, 4)).toBeUndefined();
+  expect(paletteActiveDescendant(4, 4)).toBeUndefined();
+  expect(paletteActiveDescendant(0, 0)).toBeUndefined();
 });
 
 test("llms.txt is one plain full document", () => {

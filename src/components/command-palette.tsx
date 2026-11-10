@@ -122,8 +122,16 @@ export function paletteRowClass(active: boolean) {
   }`;
 }
 
+export const PALETTE_LIST_ID = "palette-list";
+
 export function paletteOptionId(index: number) {
   return `palette-opt-${index}`;
+}
+
+/** 搜索框要报出的当前行。没有这一行时不指。 */
+export function paletteActiveDescendant(index: number, count: number) {
+  if (count <= 0 || index < 0 || index >= count) return undefined;
+  return paletteOptionId(index);
 }
 
 /** 当前行滚进列表视野。负下标或还没有这一行时不动。 */
@@ -279,6 +287,11 @@ export function CommandPalette() {
               <input
                 ref={inputRef}
                 autoFocus
+                role="combobox"
+                aria-expanded="true"
+                aria-controls={PALETTE_LIST_ID}
+                aria-autocomplete="list"
+                aria-activedescendant={paletteActiveDescendant(activeIdx, filteredFlat.length)}
                 value={query}
                 onChange={(e) => { setQuery(e.target.value); setActiveIdx(0); }}
                 placeholder={`${PALETTE_SEARCH_LABEL}...`}
@@ -291,7 +304,12 @@ export function CommandPalette() {
             </div>
 
             {/* Results list */}
-            <div className="max-h-[50vh] overflow-y-auto py-2">
+            <div
+              id={PALETTE_LIST_ID}
+              role="listbox"
+              aria-label="搜索结果"
+              className="max-h-[50vh] overflow-y-auto py-2"
+            >
               {filteredFlat.length === 0 ? (
                 <div className="px-5 py-12 text-center">
                   <p className="text-sm text-[var(--color-text-muted)]">没有匹配项</p>
@@ -311,6 +329,14 @@ export function CommandPalette() {
                         const Icon = item.Icon;
                         const handleClick = closePalette;
                         const className = paletteRowClass(isActive);
+                        const rowProps = {
+                          id: paletteOptionId(flatIdx),
+                          role: "option" as const,
+                          "aria-selected": isActive,
+                          onClick: handleClick,
+                          onMouseEnter: () => setActiveIdx(flatIdx),
+                          className,
+                        };
                         const inner = (
                           <>
                             <Icon className={`h-4 w-4 shrink-0 ${isActive ? "text-[var(--lt-accent)]" : "text-[var(--color-text-muted)]"}`} />
@@ -330,13 +356,10 @@ export function CommandPalette() {
                           return (
                             <a
                               key={`${item.href}:${item.label}`}
-                              id={paletteOptionId(flatIdx)}
                               href={item.href}
                               target="_blank"
                               rel="noopener noreferrer"
-                              onClick={handleClick}
-                              onMouseEnter={() => setActiveIdx(flatIdx)}
-                              className={className}
+                              {...rowProps}
                             >
                               {inner}
                             </a>
@@ -346,11 +369,8 @@ export function CommandPalette() {
                           return (
                             <a
                               key={`${item.href}:${item.label}`}
-                              id={paletteOptionId(flatIdx)}
                               href={item.href}
-                              onClick={handleClick}
-                              onMouseEnter={() => setActiveIdx(flatIdx)}
-                              className={className}
+                              {...rowProps}
                             >
                               {inner}
                             </a>
@@ -359,11 +379,8 @@ export function CommandPalette() {
                         return (
                           <Link
                             key={`${item.href}:${item.label}`}
-                            id={paletteOptionId(flatIdx)}
                             href={item.href}
-                            onClick={handleClick}
-                            onMouseEnter={() => setActiveIdx(flatIdx)}
-                            className={className}
+                            {...rowProps}
                           >
                             {inner}
                           </Link>
