@@ -7,6 +7,7 @@
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import { updates } from "../src/app/blog/updates-data";
+import { llmsIndexLines, llmsIndexPaths } from "../src/lib/llms-index";
 import { CONVERSION_ROUTES, ROUTES } from "./routes";
 
 const base = (process.argv[2] ?? "http://localhost:3000").replace(/\/$/, "");
@@ -186,6 +187,9 @@ function checkDiscovery(failures: string[]) {
   }
   if (!cmdk.includes("/witness#report")) {
     failures.push("cmdk: 缺 /witness#report");
+  }
+  if (!cmdk.includes('href: "/llms.txt"')) {
+    failures.push("cmdk: 缺 /llms.txt");
   }
 }
 
@@ -383,6 +387,31 @@ async function checkBlogMd(failures: string[]) {
   }
 }
 
+async function checkLlmsTxt(failures: string[]) {
+  const reasons: string[] = [];
+  try {
+    const res = await fetch(`${base}/llms.txt`);
+    const body = await res.text();
+    if (res.status !== 200) reasons.push(`HTTP ${res.status}`);
+    for (const path of llmsIndexPaths()) {
+      if (!body.includes(path)) reasons.push(`缺 ${path}`);
+    }
+    for (const line of llmsIndexLines()) {
+      if (!body.includes(line)) reasons.push("缺索引行");
+    }
+    if (AVAILABILITY_PERCENT.test(body)) reasons.push("出现可用性百分比");
+  } catch (e) {
+    reasons.push((e as Error).message);
+  }
+
+  if (reasons.length) {
+    failures.push(`/llms.txt: ${reasons.join("; ")}`);
+    console.log(`/llms.txt`.padEnd(22), "✗", reasons.join("; "));
+  } else {
+    console.log(`/llms.txt`.padEnd(22), "ok");
+  }
+}
+
 async function checkPricingMd(failures: string[]) {
   const res = await fetch(`${base}/hub/pricing.md`);
   const type = res.headers.get("content-type") ?? "";
@@ -410,6 +439,7 @@ async function main() {
   checkDiscovery(failures);
   await checkAllRoutes(failures);
   await checkPricingMd(failures);
+  await checkLlmsTxt(failures);
   await checkApproachMd(failures);
   await checkBlogMd(failures);
   await checkPricingPay(failures);

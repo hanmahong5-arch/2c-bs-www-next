@@ -71,6 +71,7 @@ const GROUPS: Group[] = [
       { label: "Hub 价目纯文本", href: "/hub/pricing.md", hint: "text/markdown", plain: true, Icon: DocumentTextIcon },
       { label: "方法纯文本", href: "/approach.md", hint: "text/markdown", plain: true, Icon: DocumentTextIcon },
       { label: "日志纯文本", href: "/blog.md", hint: "text/markdown", plain: true, Icon: DocumentTextIcon },
+      { label: "站点索引 llms.txt", href: "/llms.txt", hint: "text/plain", plain: true, Icon: DocumentTextIcon },
       { label: "API 文档", href: "https://docs.lurus.cn", external: true, Icon: DocumentTextIcon, hint: "docs.lurus.cn" },
       { label: "GitHub", href: "https://github.com/hanmahong5-arch", external: true, Icon: CodeBracketIcon },
       { label: "联系我们", href: "/about#contact", Icon: EnvelopeIcon },
