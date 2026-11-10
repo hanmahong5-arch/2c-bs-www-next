@@ -45,3 +45,5 @@
 **本轮第十三刀：** 命令面板补上已有的两条表面，外形不动。资源组在「Hub 价目纯文本」旁加「方法纯文本」（`/approach.md`，hint `text/markdown`）；导航组在「方法 — 首信清单」旁加「方法 — 交付范围」（`/approach#delivery`，hint `包含 / 不包含`）。accept 源检查要求 `command-palette.tsx` 含这两条路径，原有 `/download`、`/hub/pricing`、`/hub/pricing.md`、`updates-data` 检查仍在。不编客户、SLA、GitHub 或 `/security`，不加月报样本。
 
 **本轮第十四刀：** `/blog.md`，与更新日志同源，条目原文来自 `updates-data.ts`，不改写。不进 `SITE_ROUTES`。accept 单独 fetch：200、`text/markdown`，正文含「更新日志」与当前第一条标题。页上一条安静链接「同一份日志的纯文本」。月份索引与标记筛选仍在。正文写明条目保留当时原文，不代表现状。不编客户、价格、SLA，不链 `/security` 与 GitHub。
+
+**本轮第十五刀：** 命令面板资源组在「方法纯文本」旁加「日志纯文本」（`/blog.md`，hint `text/markdown`）。accept 源检查要求 `command-palette.tsx` 含 `/blog.md`，原有 `/download`、`/hub/pricing`、`/hub/pricing.md`、`updates-data`、`/approach.md`、`/approach#delivery` 检查仍在。外形不动。不编客户、价格、SLA，不链 `/security` 与 GitHub。

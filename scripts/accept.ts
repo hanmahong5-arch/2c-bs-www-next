@@ -172,6 +172,9 @@ function checkDiscovery(failures: string[]) {
   if (!cmdk.includes("/approach#delivery")) {
     failures.push("cmdk: 缺 /approach#delivery");
   }
+  if (!cmdk.includes("/blog.md")) {
+    failures.push("cmdk: 缺 /blog.md");
+  }
 }
 
 async function checkBlogTags(failures: string[]) {
