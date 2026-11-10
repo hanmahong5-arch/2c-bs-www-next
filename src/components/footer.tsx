@@ -11,18 +11,18 @@ const footerLinks: ReadonlyArray<{ title: string; links: readonly FooterLink[] }
   {
     title: "产品",
     links: [
-      { name: "见证 witness", href: "/witness" },
-      { name: "kova", href: "/kova" },
-      { name: "memorus", href: "/memorus" },
-      { name: "hub", href: "/hub" },
-      { name: "lugo", href: "/lugo" },
-      { name: "switch", href: "/switch" },
+      { name: "见证", href: "/witness" },
+      { name: "Kova", href: "/kova" },
+      { name: "Memorus", href: "/memorus" },
+      { name: "Hub", href: "/hub" },
+      { name: "Lugo", href: "/lugo" },
+      { name: "Switch", href: "/switch" },
     ],
   },
   {
     title: "资源",
     links: [
-      { name: "docs", href: "https://docs.lurus.cn" },
+      { name: "文档", href: "https://docs.lurus.cn" },
       { name: "方法 approach", href: "/approach" },
       { name: "更新日志", href: "/blog" },
       { name: "下载", href: "/download" },
@@ -101,7 +101,7 @@ export function Footer() {
 
         <div className="mt-12 flex flex-col gap-3 border-t border-[var(--lt-rule)] pt-6 text-xs text-[var(--lt-ink)]/70">
           <p>&copy; {year} LurusTech. All rights reserved.</p>
-          <p>Lurus Hub: Built on New API · AGPL-3.0.</p>
+          <p>Lurus Hub 基于开源 New API，AGPLv3。</p>
 
           {/* 境内合规：只挂已取得的备案号，不公示个人姓名。见 doc/ops/company-domain-cutover.md */}
           <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
