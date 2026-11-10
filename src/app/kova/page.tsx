@@ -10,6 +10,7 @@ import {
   ProductHeader,
   Section,
 } from "@/components/site";
+import { NewWindowNote } from "@/components/site/new-window-note";
 
 // /kova：见证体系里的「执行」层。
 // 结构：ProductHeader → 核心主张 → 三个展开（崩溃恢复 / 执行留痕与回放 / 嵌入方式）
@@ -195,9 +196,12 @@ export default function KovaPage() {
             完整腿表与失败原文见{" "}
             <a
               href={DOCS_JOINT}
+              target="_blank"
+              rel="noopener noreferrer"
               className="text-[var(--lt-ink)] underline decoration-[var(--lt-rule)] underline-offset-4 hover:decoration-[var(--lt-accent)]"
             >
               文档站 · 联测账本
+              <NewWindowNote />
             </a>
             。
           </Dash>
@@ -235,9 +239,12 @@ export default function KovaPage() {
           接口、配置与恢复语义的细节，见{" "}
           <a
             href={DOCS}
+            target="_blank"
+            rel="noopener noreferrer"
             className="text-[var(--lt-ink)] underline decoration-[var(--lt-rule)] underline-offset-4 hover:decoration-[var(--lt-accent)]"
           >
             Kova 文档
+            <NewWindowNote />
           </a>
           。
         </p>

@@ -1,3 +1,5 @@
+import { NewWindowNote } from "@/components/site/new-window-note";
+
 export interface LedgerRowProps {
   href: string;
   /** 行首，如「写第一封邮件」 */
@@ -12,9 +14,11 @@ export interface LedgerRowProps {
  * 无填充、无阴影、无圆角、无光晕。整行可点。
  */
 export function LedgerRow({ href, label, meta, className = "" }: LedgerRowProps) {
+  const external = href.startsWith("https://") || href.startsWith("http://");
   return (
     <a
       href={href}
+      {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
       className={`flex flex-wrap items-baseline gap-x-4 gap-y-1 border-y border-[var(--lt-rule)] py-3 text-[var(--lt-ink)] no-underline outline-offset-4 hover:border-[var(--lt-ink)] focus-visible:outline focus-visible:outline-1 focus-visible:outline-[var(--lt-ink)] ${className}`}
     >
       <span className="min-w-0 text-[15px] leading-[1.6]">{label}</span>
@@ -24,6 +28,7 @@ export function LedgerRow({ href, label, meta, className = "" }: LedgerRowProps)
           ↗
         </span>
       </span>
+      {external ? <NewWindowNote /> : null}
     </a>
   );
 }

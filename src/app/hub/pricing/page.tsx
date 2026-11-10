@@ -2,6 +2,7 @@ import { Suspense } from "react";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Eyebrow, Lead, LedgerRow, NextStep, ScopeSplit, Section } from "@/components/site";
+import { NewWindowNote } from "@/components/site/new-window-note";
 import { HubPriceTable, HubPriceTableSkeleton } from "./price-table";
 
 // Hub 按量价格页：标题 → 价目表（实时读取）→ 怎么付 → 鹿途 → 边界。
@@ -109,8 +110,9 @@ export default function HubPricingPage() {
         <ul className="mt-8 space-y-4 text-base leading-[1.8] text-[var(--color-text-secondary)]">
           <Dash>
             用 Lurus 账号登录后在{" "}
-            <a href={TOPUP_URL} className={linkClass}>
+            <a href={TOPUP_URL} target="_blank" rel="noopener noreferrer" className={linkClass}>
               钱包充值
+              <NewWindowNote />
             </a>
             ，余额以人民币计。
           </Dash>

@@ -12,6 +12,7 @@ import {
   ScopeSplit,
   Section,
 } from "@/components/site";
+import { NewWindowNote } from "@/components/site/new-window-note";
 import { EVIDENCE_REPORT_INTRO } from "@/lib/evidence-report";
 import { drillMeasure } from "@/lib/witness-drill";
 
@@ -290,8 +291,9 @@ export default function WitnessPage() {
           className="font-display text-xl leading-[1.5] text-[var(--lt-ink)] md:text-2xl"
         >
           细节在{" "}
-          <a href={DOCS} className={linkClass}>
+          <a href={DOCS} target="_blank" rel="noopener noreferrer" className={linkClass}>
             文档
+            <NewWindowNote />
           </a>
           ；我们怎么工作，见{" "}
           <Link href="/approach" className={linkClass}>

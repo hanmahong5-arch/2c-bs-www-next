@@ -21,4 +21,16 @@ test("LedgerRow is a hairline link with label, meta, and arrow", () => {
   expect(html).toContain("border-y");
   expect(html).toContain("border-[var(--lt-rule)]");
   expect(html).not.toMatch(/rounded|shadow|purple|glow|bg-/);
+  expect(html).not.toContain("target=");
+  expect(html).not.toContain("新窗口");
+});
+
+test("an off-site ledger row opens in a new window and says so", () => {
+  const html = renderToStaticMarkup(
+    <LedgerRow href="https://identity.lurus.cn/topup" label="钱包充值" meta="余额以人民币计" />,
+  );
+
+  expect(html).toContain('target="_blank"');
+  expect(html).toContain('rel="noopener noreferrer"');
+  expect(html).toContain("（新窗口打开）");
 });

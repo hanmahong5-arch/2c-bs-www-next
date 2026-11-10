@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { EvidenceLine, EvidenceList, Eyebrow, Lead, NextStep, ProductHeader, Section } from "@/components/site";
+import { NewWindowNote } from "@/components/site/new-window-note";
 import { AsOfDemo } from "./asof-demo";
 import { DataTable, fmt } from "./benchmarks/charts";
 import { LOCOMO } from "./benchmarks/data";
@@ -126,8 +127,9 @@ export default function MemorusPage() {
             <Link href={LINKS.benchmarks} className="btn-primary">
               看完整基准
             </Link>
-            <a href={LINKS.docs} className="btn-secondary">
+            <a href={LINKS.docs} target="_blank" rel="noopener noreferrer" className="btn-secondary">
               阅读文档
+              <NewWindowNote />
             </a>
           </div>
           <figure className="mt-10 max-w-[36rem] border border-[var(--lt-rule)] bg-[var(--lt-paper)] px-4 py-3">
@@ -418,8 +420,9 @@ export default function MemorusPage() {
           想把它放进你的系统，先读文档；想在你的环境里试，写信给我们。
         </p>
         <div className="mt-8 flex flex-wrap gap-3">
-          <a href={LINKS.docs} className="btn-secondary">
+          <a href={LINKS.docs} target="_blank" rel="noopener noreferrer" className="btn-secondary">
             阅读文档
+            <NewWindowNote />
           </a>
           <a href={LINKS.pilot} className="btn-primary">
             申请试点
