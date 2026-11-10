@@ -22,6 +22,8 @@ type Item = {
   href: string;
   hint?: string;
   external?: boolean;
+  /** text/markdown route：整页请求，不走 App Router。 */
+  plain?: boolean;
   Icon: typeof HomeIcon;
 };
 
@@ -63,9 +65,9 @@ const GROUPS: Group[] = [
     section: "资源",
     items: [
       { label: "下载", href: "/download", Icon: CloudArrowDownIcon },
-      { label: "Hub 价目纯文本", href: "/hub/pricing.md", hint: "text/markdown", Icon: DocumentTextIcon },
-      { label: "方法纯文本", href: "/approach.md", hint: "text/markdown", Icon: DocumentTextIcon },
-      { label: "日志纯文本", href: "/blog.md", hint: "text/markdown", Icon: DocumentTextIcon },
+      { label: "Hub 价目纯文本", href: "/hub/pricing.md", hint: "text/markdown", plain: true, Icon: DocumentTextIcon },
+      { label: "方法纯文本", href: "/approach.md", hint: "text/markdown", plain: true, Icon: DocumentTextIcon },
+      { label: "日志纯文本", href: "/blog.md", hint: "text/markdown", plain: true, Icon: DocumentTextIcon },
       { label: "API 文档", href: "https://docs.lurus.cn", external: true, Icon: DocumentTextIcon, hint: "docs.lurus.cn" },
       { label: "GitHub", href: "https://github.com/hanmahong5-arch", external: true, Icon: CodeBracketIcon },
       { label: "联系我们", href: "/about#contact", Icon: EnvelopeIcon },
@@ -139,6 +141,8 @@ export function CommandPalette() {
         if (!sel) return;
         if (sel.item.external) {
           window.open(sel.item.href, "_blank", "noopener,noreferrer");
+        } else if (sel.item.plain) {
+          window.location.assign(sel.item.href);
         } else {
           router.push(sel.item.href);
         }
@@ -250,19 +254,35 @@ export function CommandPalette() {
                             )}
                           </>
                         );
-                        return item.external ? (
-                          <a
-                            key={`${item.href}:${item.label}`}
-                            href={item.href}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            onClick={handleClick}
-                            onMouseEnter={() => setActiveIdx(flatIdx)}
-                            className={className}
-                          >
-                            {inner}
-                          </a>
-                        ) : (
+                        if (item.external) {
+                          return (
+                            <a
+                              key={`${item.href}:${item.label}`}
+                              href={item.href}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              onClick={handleClick}
+                              onMouseEnter={() => setActiveIdx(flatIdx)}
+                              className={className}
+                            >
+                              {inner}
+                            </a>
+                          );
+                        }
+                        if (item.plain) {
+                          return (
+                            <a
+                              key={`${item.href}:${item.label}`}
+                              href={item.href}
+                              onClick={handleClick}
+                              onMouseEnter={() => setActiveIdx(flatIdx)}
+                              className={className}
+                            >
+                              {inner}
+                            </a>
+                          );
+                        }
+                        return (
                           <Link
                             key={`${item.href}:${item.label}`}
                             href={item.href}
