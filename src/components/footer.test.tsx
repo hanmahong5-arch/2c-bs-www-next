@@ -54,5 +54,11 @@ test("footer names the log 更新日志, the same name as the page", () => {
   expect(log?.[0]).toContain("更新日志");
   expect(log?.[0]).not.toContain("changelog");
   expect(html).not.toContain("博客");
+  const approach = html.match(/<a[^>]*href="\/approach"[^>]*>[\s\S]*?<\/a>/);
+  expect(approach?.[0]).toContain(">方法</a>");
+  expect(approach?.[0]).not.toContain("方法 approach");
+  const pricing = html.match(/<a[^>]*href="\/hub\/pricing"[^>]*>[\s\S]*?<\/a>/);
+  expect(pricing?.[0]).toContain(">Hub 按量价格</a>");
+  expect(pricing?.[0]).not.toContain(">Hub 价格<");
   expect(html.match(/focus-ink/g)?.length).toBe(21);
 });

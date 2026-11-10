@@ -23,10 +23,10 @@ const footerLinks: ReadonlyArray<{ title: string; links: readonly FooterLink[] }
     title: "资源",
     links: [
       { name: "文档", href: "https://docs.lurus.cn" },
-      { name: "方法 approach", href: "/approach" },
+      { name: "方法", href: "/approach" },
       { name: "更新日志", href: "/blog" },
       { name: "下载", href: "/download" },
-      { name: "Hub 价格", href: "/hub/pricing" },
+      { name: "Hub 按量价格", href: "/hub/pricing" },
     ],
   },
   {
