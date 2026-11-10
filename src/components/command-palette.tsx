@@ -38,6 +38,8 @@ const GROUPS: Group[] = [
     items: [
       { label: "首页", href: "/", Icon: HomeIcon },
       { label: "见证 — 状态可核查", href: "/witness", hint: "早期试点", Icon: CubeTransparentIcon },
+      { label: "见证 — 演练", href: "/witness#restore", hint: "只认真恢复", Icon: CubeTransparentIcon },
+      { label: "见证 — 月报", href: "/witness#report", hint: "月度证据报告", Icon: DocumentTextIcon },
       { label: "Kova — 持久执行引擎", href: "/kova", hint: "早期试点", Icon: WrenchScrewdriverIcon },
       { label: "Memorus — AI 记忆引擎", href: "/memorus", hint: "早期试点", Icon: ChartBarIcon },
       { label: "Memorus 公开基准报告", href: "/memorus/benchmarks", Icon: DocumentTextIcon },
@@ -48,6 +50,7 @@ const GROUPS: Group[] = [
       { label: "方法", href: "/approach", Icon: WrenchScrewdriverIcon },
       { label: "方法 — 首信清单", href: "/approach#intake", Icon: EnvelopeIcon },
       { label: "方法 — 交付范围", href: "/approach#delivery", hint: "包含 / 不包含", Icon: WrenchScrewdriverIcon },
+      { label: "方法 — 回执", href: "/approach#receipt", hint: "演练之后", Icon: DocumentTextIcon },
       { label: "博客", href: "/blog", Icon: DocumentTextIcon },
       { label: "关于", href: "/about", Icon: EnvelopeIcon },
     ],
@@ -74,6 +77,21 @@ const GROUPS: Group[] = [
     ],
   },
 ];
+
+/** 命令面板的过滤。空查询返回全部；命中 label 或 hint，大小写不敏感。 */
+export function filterPaletteItems(query: string) {
+  const q = query.trim().toLowerCase();
+  const out: { group: string; item: Item; flatIdx: number }[] = [];
+  let idx = 0;
+  for (const g of GROUPS) {
+    for (const item of g.items) {
+      if (!q || item.label.toLowerCase().includes(q) || item.hint?.toLowerCase().includes(q)) {
+        out.push({ group: g.section, item, flatIdx: idx++ });
+      }
+    }
+  }
+  return out;
+}
 
 export function CommandPalette() {
   const [open, setOpen] = useState(false);
@@ -110,20 +128,7 @@ export function CommandPalette() {
     };
   }, [open, closePalette]);
 
-  // Flatten + filter
-  const filteredFlat = useMemo(() => {
-    const q = query.trim().toLowerCase();
-    const out: { group: string; item: Item; flatIdx: number }[] = [];
-    let idx = 0;
-    for (const g of GROUPS) {
-      for (const item of g.items) {
-        if (!q || item.label.toLowerCase().includes(q) || item.hint?.toLowerCase().includes(q)) {
-          out.push({ group: g.section, item, flatIdx: idx++ });
-        }
-      }
-    }
-    return out;
-  }, [query]);
+  const filteredFlat = useMemo(() => filterPaletteItems(query), [query]);
 
   // Arrow navigation + Enter
   useEffect(() => {

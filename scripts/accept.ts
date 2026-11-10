@@ -175,6 +175,15 @@ function checkDiscovery(failures: string[]) {
   if (!cmdk.includes("/blog.md")) {
     failures.push("cmdk: 缺 /blog.md");
   }
+  if (!cmdk.includes("/approach#receipt")) {
+    failures.push("cmdk: 缺 /approach#receipt");
+  }
+  if (!cmdk.includes("/witness#restore")) {
+    failures.push("cmdk: 缺 /witness#restore");
+  }
+  if (!cmdk.includes("/witness#report")) {
+    failures.push("cmdk: 缺 /witness#report");
+  }
 }
 
 async function checkBlogTags(failures: string[]) {
