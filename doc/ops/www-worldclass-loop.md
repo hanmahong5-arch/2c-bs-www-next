@@ -27,3 +27,5 @@
 **本轮第四刀：** `/hub/pricing.md`，与价目页同源。不进 HTML sitemap：accept 按网页渲染，纯文本单独用 fetch 检查。
 
 **本轮第五刀：** 命令面板接更新日志真源（最近 5 条）和产品页上的成熟度；价目纯文本可搜到。面板外形不动。
+
+**本轮第六刀：** `/blog` 收成纸面日志。条目原文不动。月份只做发丝锚（`#2026-10` 起），不设跨年跳转——数据都在 2026。标记用服务端 `?tag=`（Next `searchParams` 是 Promise）；没有的标记写「日志里没有这个标记」，月份和标记索引仍在。`/approach` 只加一节可核对细表，右列种类仅 基准 / 价目 / 日志 / 产品，链到已核对的 `/memorus/benchmarks`、`/hub/pricing#prices`、`/hub/pricing.md`（纯文本 route，不在 `SITE_ROUTES`）、`/blog`、`/witness#report`、`/kova`。不链 `/security`，不编 GitHub，不写新数字或客户名。

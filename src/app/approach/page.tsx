@@ -12,6 +12,7 @@ import {
 
 // 方法页：把企业 AI 交付工程的做法讲给潜在客户。
 // 不写客户名、行业名单、金额、案例数量。每个区块一句主张，细节放进 Disclosure。
+// 可核对一节只列已经发布的入口，不重述数字。
 // 全部服务端渲染，无 JS 动效。
 
 export const metadata: Metadata = {
@@ -21,6 +22,59 @@ export const metadata: Metadata = {
 };
 
 const CONTACT_EMAIL = "contact@lurus.cn";
+
+// 买方可核对。右列种类只写这四个词。
+// 页内锚点已在源码核对：/hub/pricing 的 Section id="prices"，/witness 的 Section id="report"。
+// /hub/pricing.md 不在 SITE_ROUTES（accept 按纯文本另查），route handler 在
+// src/app/hub/pricing.md/route.ts，本波点名，用普通链接打开，不走页面预取。
+// 不链 /security（仓库里没有这个路由），不编 GitHub 地址。
+const PROOF: readonly {
+  href: string;
+  title: string;
+  kind: "基准" | "价目" | "日志" | "产品";
+  plain?: boolean;
+}[] = [
+  { href: "/memorus/benchmarks", title: "Memorus 公开基准报告", kind: "基准" },
+  { href: "/hub/pricing#prices", title: "Hub 按量价格", kind: "价目" },
+  { href: "/hub/pricing.md", title: "Hub 价目纯文本", kind: "价目", plain: true },
+  { href: "/blog", title: "更新日志", kind: "日志" },
+  { href: "/witness#report", title: "见证", kind: "产品" },
+  { href: "/kova", title: "Kova", kind: "产品" },
+];
+
+function ProofLink({
+  href,
+  title,
+  kind,
+  plain,
+}: {
+  href: string;
+  title: string;
+  kind: string;
+  plain?: boolean;
+}) {
+  const className = "group flex items-baseline justify-between gap-x-6 py-3";
+  const inner = (
+    <>
+      <span className="text-[15px] leading-[1.6] text-[var(--lt-ink)] underline decoration-[var(--lt-rule)] underline-offset-4 group-hover:decoration-[var(--lt-accent)]">
+        {title}
+      </span>
+      <span className="shrink-0 font-mono text-[12px] text-[var(--color-text-muted)]">{kind}</span>
+    </>
+  );
+  if (plain) {
+    return (
+      <a href={href} className={className}>
+        {inner}
+      </a>
+    );
+  }
+  return (
+    <Link href={href} className={className}>
+      {inner}
+    </Link>
+  );
+}
 
 function SectionTitle({
   id,
@@ -186,6 +240,21 @@ export default function ApproachPage() {
             </p>
           </Disclosure>
         </div>
+      </Section>
+
+      {/* 可核对：不改上面的主张，只加一张细线索引 */}
+      <Section id="proof" labelledBy="proof-title">
+        <SectionTitle id="proof-title" eyebrow="可核对">
+          公开的材料都在这些页面上。
+        </SectionTitle>
+        <Lead className="mt-6">这里不重述数字。打开原页自己看。</Lead>
+        <ul className="mt-8 border-t border-[var(--lt-rule)]">
+          {PROOF.map((row) => (
+            <li key={row.href} className="border-b border-[var(--lt-rule)]">
+              <ProofLink {...row} />
+            </li>
+          ))}
+        </ul>
       </Section>
 
       {/* 4. 可接管 */}
