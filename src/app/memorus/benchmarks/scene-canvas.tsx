@@ -60,7 +60,7 @@ function readTheme() {
     ink: pick("--lt-ink", "#14130F"),
     accent: pick("--lt-accent", "#FF5D1F"),
     rule: pick("--lt-rule", "#D6D2C2"),
-    muted: pick("--color-text-muted", "#6B6860"),
+    muted: pick("--color-text-muted", "#66635B"),
     paper: pick("--lt-paper", "#F5F2E8"),
   };
 }

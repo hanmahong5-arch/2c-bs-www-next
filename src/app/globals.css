@@ -61,7 +61,7 @@ html {
   --color-border-hover: #C4C0B0;
   --color-text-primary: var(--lt-ink);
   --color-text-secondary: #3D3B33;
-  --color-text-muted: #6B6860; /* #E8E4D6 底上 ≥4.5:1 (WCAG AA); 原 #7A7769 不达标 */
+  --color-text-muted: #66635B; /* 区块底 #E8E4D6 上 4.71:1，纸 #F5F2E8 上 5.36:1。原 #6B6860 在区块底只有 4.37:1 */
   --color-accent: var(--lt-accent);
   --color-success: var(--lt-ok);
   --color-error: var(--lt-err);
