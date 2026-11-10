@@ -32,15 +32,15 @@ const footerLinks: ReadonlyArray<{ title: string; links: readonly FooterLink[] }
   {
     title: "关于",
     links: [
-      { name: "About", href: "/about" },
-      { name: "Contact", href: "mailto:contact@lurus.cn" },
+      { name: "关于", href: "/about" },
+      { name: "联系", href: "mailto:contact@lurus.cn" },
     ],
   },
   {
     title: "法务",
     links: [
-      { name: "Terms of Service", href: "/terms" },
-      { name: "Privacy Policy", href: "/privacy" },
+      { name: "服务条款", href: "/terms" },
+      { name: "隐私政策", href: "/privacy" },
       { name: "安全问题", href: "mailto:contact@lurus.cn?subject=%E5%AE%89%E5%85%A8%E9%97%AE%E9%A2%98" },
     ],
   },
@@ -127,7 +127,7 @@ export function Footer() {
           </div>
           <div className="flex min-h-8 flex-wrap items-center gap-x-6 gap-y-2">
             <Link href="/terms" className="hover:text-[var(--lt-ink)] hover:underline">
-              《用户协议》
+              《服务条款》
             </Link>
             <Link href="/privacy" className="hover:text-[var(--lt-ink)] hover:underline">
               《隐私政策》

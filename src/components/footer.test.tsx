@@ -18,6 +18,23 @@ test("footer security row is a mailbox and does not name a DPA", () => {
   expect(security?.[0]).not.toContain("新窗口");
 });
 
+test("footer uses the page's own name for about, terms, and privacy", () => {
+  const html = renderToStaticMarkup(<Footer />);
+
+  expect(html).toContain('href="/about"');
+  expect(html).toContain(">关于<");
+  expect(html).toContain(">联系<");
+  expect(html).toContain(">服务条款<");
+  expect(html).toContain(">《服务条款》<");
+  expect(html).toContain(">隐私政策<");
+  expect(html).toContain(">《隐私政策》<");
+  expect(html).not.toContain("About");
+  expect(html).not.toContain("Contact");
+  expect(html).not.toContain("Terms of Service");
+  expect(html).not.toContain("Privacy Policy");
+  expect(html).not.toContain("用户协议");
+});
+
 test("footer names the log 更新日志, the same name as the page", () => {
   const html = renderToStaticMarkup(<Footer />);
   const log = html.match(/<a[^>]*href="\/blog"[^>]*>[\s\S]*?<\/a>/);
