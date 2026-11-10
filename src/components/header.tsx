@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState, useSyncExternalStore } from "react";
+import { useState, useSyncExternalStore, useEffect, useRef } from "react";
 import { CommandPaletteTrigger, MobilePaletteButton } from "@/components/command-palette";
 import { BrandLockup } from "@/components/brand-mark";
 import { NewWindowNote } from "@/components/site/new-window-note";
@@ -62,6 +62,22 @@ const nav: readonly NavItem[] = [
 
 const focusInk = "focus-ink";
 
+/** 目录开着时，Esc 把它收起。 */
+export function escapeClosesMenu(open: boolean, key: string) {
+  return open && key === "Escape";
+}
+
+/** 目录开着且地址变了，把它收起。同一地址不收。 */
+export function pathClosesMenu(open: boolean, previousPath: string, pathname: string) {
+  return open && previousPath !== pathname;
+}
+
+export function closeMenuFromEscape(open: boolean, key: string, close: () => void, focus: () => void) {
+  if (!escapeClosesMenu(open, key)) return;
+  close();
+  focus();
+}
+
 const LOGIN_URL = "https://identity.lurus.cn";
 
 function NavLink({
@@ -109,15 +125,45 @@ function NavLink({
 export function Header() {
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
+  const pathRef = useRef(pathname);
+  const menuButtonRef = useRef<HTMLButtonElement>(null);
   const isActive = (item: NavItem) =>
     !item.external &&
     !!pathname &&
     (pathname === item.href || pathname.startsWith(`${item.href}/`));
 
+  useEffect(() => {
+    if (!pathClosesMenu(open, pathRef.current, pathname)) {
+      pathRef.current = pathname;
+      return;
+    }
+    pathRef.current = pathname;
+    setOpen(false);
+  }, [open, pathname]);
+
+  useEffect(() => {
+    if (!open) return;
+    const onKey = (e: KeyboardEvent) => {
+      closeMenuFromEscape(
+        open,
+        e.key,
+        () => setOpen(false),
+        () => menuButtonRef.current?.focus(),
+      );
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [open]);
+
   return (
     <header className="sticky top-0 z-50 border-b border-[var(--lt-rule)] bg-[var(--lt-paper)]/90 backdrop-blur">
       <div className="mx-auto flex h-14 max-w-5xl items-center justify-between px-6">
-        <Link href="/" aria-label="LurusTech 个人项目站首页" className={`inline-flex items-center ${focusInk}`}>
+        <Link
+          href="/"
+          aria-label="LurusTech 个人项目站首页"
+          onClick={() => setOpen(false)}
+          className={`inline-flex items-center ${focusInk}`}
+        >
           <BrandLockup />
         </Link>
 
@@ -147,6 +193,7 @@ export function Header() {
         </div>
 
         <button
+          ref={menuButtonRef}
           type="button"
           className={`p-2 text-sm text-[var(--color-text-secondary)] md:hidden ${focusInk}`}
           onClick={() => setOpen((v) => !v)}
@@ -182,6 +229,7 @@ export function Header() {
                 href={LOGIN_URL}
                 target="_blank"
                 rel="noopener noreferrer"
+                onClick={() => setOpen(false)}
                 className={`text-xs text-[var(--color-text-muted)] ${focusInk}`}
               >
                 登录
