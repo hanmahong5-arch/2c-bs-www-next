@@ -28,7 +28,8 @@ ${bullets(excluded)}`;
 /**
  * /approach 的纯文本孪生。
  * 句子来自首信、交付分界、留空的月度证据报告，以及留空的恢复演练回执。不另写客户、价格或 SLA。
- * 文末两行只复述方法页已有的入口：/llms.txt（六条已有入口）、/approach#receipt（字段留空，不写可用率）。
+ * 月报正文旁一行复述方法页已有入口 /witness#report（五栏留空，不代替回执）。
+ * 文末两行复述 /llms.txt（六条已有入口）与 /approach#receipt（字段留空，不写可用率）。
  */
 export function renderApproachMarkdown(): string {
   return `# 方法
@@ -56,6 +57,7 @@ ${columns(DELIVERY_INCLUDED, DELIVERY_EXCLUDED)}
 ${DELIVERY_NOTE}
 
 ${renderEvidenceReportMarkdown()}
+月度证据报告 /witness#report：五栏留空，不代替回执。
 ${renderRestoreReceiptMarkdown()}
 索引 /llms.txt：六条已有入口。
 演练回执 /approach#receipt：字段留空，不写可用率。

@@ -65,3 +65,5 @@
 **本轮第二十三刀：** `/approach` 可核对细表原有六条不动，其中已有 `/witness#report`。表下用 `LedgerRow` 补两条尚未出现的入口：「索引 /llms.txt」（六条已有入口）和「演练回执」（`/approach#receipt`，字段留空，不写可用率）。不重复已有路径。accept 要求 `/approach` 含 `/llms.txt`、`/approach#receipt`、`/witness#report` 这三条 `href`，正文不含可用性百分比。不新开路由，不编客户、可用率或 SLA，不链 `/security` 与未核对的上游地址。
 
 **本轮第二十四刀：** `/approach.md` 在已有回执与月报正文后补两行，事实与方法页相同：索引 `/llms.txt`（六条已有入口）、演练回执 `/approach#receipt`（字段留空，不写可用率）。markdown 里原本没有 `/witness#report`，本轮不另写。HTML 不动。approach-md 测试与 accept 要求这两条路径在，且正文不含可用性百分比。不新开路由，不编客户、可用率或 SLA。
+
+**本轮第二十五刀：** `/approach.md` 月报正文旁补一行，与方法页已有入口相同：月度证据报告 `/witness#report`（五栏留空，不代替回执）。HTML 不动。approach-md 测试与 accept 要求这条路径在，且正文不含可用性百分比。不新开路由，不编客户、可用率或 SLA。
