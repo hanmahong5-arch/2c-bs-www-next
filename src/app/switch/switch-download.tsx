@@ -1,4 +1,4 @@
-import { Section } from "@/components/site";
+import { NextStep, Section } from "@/components/site";
 import {
   RELEASES_BASE,
   assetUrl,
@@ -53,8 +53,9 @@ function SectionHeader() {
         下载
       </h2>
       <p className="mt-3 text-base leading-[1.8] text-[var(--color-text-secondary)]">
-        安装包信息读取自 releases.lurus.cn 的发布清单。下一步：安装 → 登录 →（若有推广码）在首页粘贴。
+        安装包信息读取自 releases.lurus.cn 的发布清单。
       </p>
+      <NextStep>安装 → 登录 →（若有推广码）在首页粘贴。</NextStep>
     </>
   );
 }
