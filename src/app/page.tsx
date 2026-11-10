@@ -6,6 +6,7 @@ import {
   EvidenceList,
   Eyebrow,
   Lead,
+  LedgerRow,
   MaturityChip,
   NextStep,
   Section,
@@ -385,6 +386,18 @@ export default function Home() {
               </li>
             ))}
           </ul>
+          <LedgerRow
+            href="/approach#receipt"
+            label="演练回执"
+            meta="字段留空，不写可用率"
+            className="mt-8"
+          />
+          <LedgerRow
+            href="/witness#report"
+            label="月度证据报告"
+            meta="五栏留空，不代替回执"
+            className="-mt-px"
+          />
         </div>
         <p className="mt-8 text-[15px] leading-relaxed text-[var(--color-text-secondary)]">
           怎么硬化、怎么证明稳，写在 <QuietLink href="/approach">方法</QuietLink>

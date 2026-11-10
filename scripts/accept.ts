@@ -21,7 +21,10 @@ const HOME_PROOF_HREFS = [
   "/blog",
   "/witness",
   "/approach#intake",
+  "/approach#receipt",
+  "/witness#report",
 ] as const;
+const AVAILABILITY_PERCENT = /\d+(?:\.\d+)?\s*[%％]/;
 const UNKNOWN_BLOG_TAG = "no-such-mark";
 
 interface CdpResult {
@@ -240,6 +243,8 @@ async function checkHomeProof(failures: string[]) {
     for (const href of HOME_PROOF_HREFS) {
       if (!html.includes(`href="${href}"`)) reasons.push(`缺入口 ${href}`);
     }
+    const { text } = await renderText(`${base}/`);
+    if (AVAILABILITY_PERCENT.test(text)) reasons.push("出现可用性百分比");
   } catch (e) {
     reasons.push((e as Error).message);
   }
@@ -248,7 +253,7 @@ async function checkHomeProof(failures: string[]) {
     failures.push(`/ home proof: ${reasons.join("; ")}`);
     console.log(`/ home proof`.padEnd(22), "✗", reasons.join("; "));
   } else {
-    console.log(`/ home proof`.padEnd(22), "ok 示例 + 六个入口");
+    console.log(`/ home proof`.padEnd(22), "ok 示例 + 八个入口");
   }
 }
 
