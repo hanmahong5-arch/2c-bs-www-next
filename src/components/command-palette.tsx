@@ -15,6 +15,7 @@ import {
   CodeBracketIcon,
   EnvelopeIcon,
 } from "@heroicons/react/24/outline";
+import { updates } from "@/app/blog/updates-data";
 
 type Item = {
   label: string;
@@ -34,23 +35,33 @@ const GROUPS: Group[] = [
     section: "导航",
     items: [
       { label: "首页", href: "/", Icon: HomeIcon },
-      { label: "见证 — 状态可核查", href: "/witness", Icon: CubeTransparentIcon },
-      { label: "Kova — 持久执行引擎", href: "/kova", Icon: WrenchScrewdriverIcon },
-      { label: "Memorus — AI 记忆引擎", href: "/memorus", Icon: ChartBarIcon },
+      { label: "见证 — 状态可核查", href: "/witness", hint: "早期试点", Icon: CubeTransparentIcon },
+      { label: "Kova — 持久执行引擎", href: "/kova", hint: "早期试点", Icon: WrenchScrewdriverIcon },
+      { label: "Memorus — AI 记忆引擎", href: "/memorus", hint: "早期试点", Icon: ChartBarIcon },
       { label: "Memorus 公开基准报告", href: "/memorus/benchmarks", Icon: DocumentTextIcon },
-      { label: "Hub — 私有 LLM 网关", href: "/hub", Icon: CloudArrowDownIcon },
-      { label: "Hub 按量价格", href: "/hub/pricing", Icon: CurrencyYenIcon },
-      { label: "Lugo — 账号与计费", href: "/lugo", Icon: CurrencyYenIcon },
-      { label: "Switch — AI CLI 管理器", href: "/switch", Icon: CloudArrowDownIcon },
+      { label: "Hub — 私有 LLM 网关", href: "/hub", hint: "内部生产使用", Icon: CloudArrowDownIcon },
+      { label: "Hub 按量价格", href: "/hub/pricing", hint: "与扣费同源", Icon: CurrencyYenIcon },
+      { label: "Lugo — 账号与计费", href: "/lugo", hint: "内部生产使用", Icon: CurrencyYenIcon },
+      { label: "Switch — AI CLI 管理器", href: "/switch", hint: "早期试点", Icon: CloudArrowDownIcon },
       { label: "方法", href: "/approach", Icon: WrenchScrewdriverIcon },
       { label: "博客", href: "/blog", Icon: DocumentTextIcon },
       { label: "关于", href: "/about", Icon: EnvelopeIcon },
     ],
   },
   {
+    section: "更新",
+    items: updates.slice(0, 5).map((entry) => ({
+      label: entry.title,
+      href: "/blog",
+      hint: entry.date,
+      Icon: DocumentTextIcon,
+    })),
+  },
+  {
     section: "资源",
     items: [
       { label: "下载", href: "/download", Icon: CloudArrowDownIcon },
+      { label: "Hub 价目纯文本", href: "/hub/pricing.md", hint: "text/markdown", Icon: DocumentTextIcon },
       { label: "API 文档", href: "https://docs.lurus.cn", external: true, Icon: DocumentTextIcon, hint: "docs.lurus.cn" },
       { label: "GitHub", href: "https://github.com/hanmahong5-arch", external: true, Icon: CodeBracketIcon },
       { label: "联系我们", href: "/about#contact", Icon: EnvelopeIcon },
@@ -237,7 +248,7 @@ export function CommandPalette() {
                         );
                         return item.external ? (
                           <a
-                            key={item.href}
+                            key={`${item.href}:${item.label}`}
                             href={item.href}
                             target="_blank"
                             rel="noopener noreferrer"
@@ -249,7 +260,7 @@ export function CommandPalette() {
                           </a>
                         ) : (
                           <Link
-                            key={item.href}
+                            key={`${item.href}:${item.label}`}
                             href={item.href}
                             onClick={handleClick}
                             onMouseEnter={() => setActiveIdx(flatIdx)}

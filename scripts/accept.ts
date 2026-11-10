@@ -149,6 +149,12 @@ function checkDiscovery(failures: string[]) {
   if (!cmdk.includes("/hub/pricing")) {
     failures.push("cmdk: 缺 /hub/pricing");
   }
+  if (!cmdk.includes("/hub/pricing.md")) {
+    failures.push("cmdk: 缺 /hub/pricing.md");
+  }
+  if (!cmdk.includes("updates-data")) {
+    failures.push("cmdk: 更新日志未接 updates-data");
+  }
 }
 
 async function checkSitemapRobots(failures: string[]) {
