@@ -85,6 +85,9 @@ async function checkAllRoutes(failures: string[]) {
       const { title, text, html } = await renderText(url);
       if (!title) reasons.push("title 空");
       if (!text.includes(BRAND)) reasons.push(`缺品牌 ${BRAND}`);
+      if (route === "/" && (!html.includes('href="#content"') || !text.includes("跳到正文"))) {
+        reasons.push("缺「跳到正文」");
+      }
       if (text.length < MIN_TEXT) reasons.push(`正文过短 ${text.length}`);
       for (const host of FORBIDDEN_FONT_HOSTS) {
         if (html.includes(host)) reasons.push(`HTML 含外部字体宿主 ${host}`);
