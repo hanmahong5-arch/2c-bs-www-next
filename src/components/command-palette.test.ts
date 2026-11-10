@@ -11,6 +11,8 @@ import {
   paletteOptionId,
   paletteActiveDescendant,
   scrollPaletteOptionIntoView,
+  OPEN_COMMAND_PALETTE,
+  openPaletteFromMenu,
 } from "./command-palette";
 
 const ANCHORS = [
@@ -89,6 +91,20 @@ test("the search box names the selected row and names nothing when that row is m
   expect(paletteActiveDescendant(-1, 4)).toBeUndefined();
   expect(paletteActiveDescendant(4, 4)).toBeUndefined();
   expect(paletteActiveDescendant(0, 0)).toBeUndefined();
+});
+
+test("mobile search closes the menu and then opens the same palette", () => {
+  const order: string[] = [];
+  const target = {
+    dispatchEvent(event: Event) {
+      order.push(event.type);
+      return true;
+    },
+  };
+  openPaletteFromMenu(() => {
+    order.push("close");
+  }, target);
+  expect(order).toEqual(["close", OPEN_COMMAND_PALETTE]);
 });
 
 test("llms.txt is one plain full document", () => {

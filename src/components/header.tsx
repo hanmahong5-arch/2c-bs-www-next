@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState, useSyncExternalStore } from "react";
-import { CommandPaletteTrigger } from "@/components/command-palette";
+import { CommandPaletteTrigger, MobilePaletteButton } from "@/components/command-palette";
 import { BrandLockup } from "@/components/brand-mark";
 import { NewWindowNote } from "@/components/site/new-window-note";
 import { themeColor } from "@/lib/theme-chrome";
@@ -176,15 +176,18 @@ export function Header() {
             ))}
           </ul>
           <div className="mx-auto flex max-w-5xl items-center justify-between px-6 pb-4">
-            <a
-              href={LOGIN_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className={`text-xs text-[var(--color-text-muted)] ${focusInk}`}
-            >
-              登录
-              <NewWindowNote />
-            </a>
+            <div className="flex items-center gap-4">
+              <MobilePaletteButton onOpen={() => setOpen(false)} />
+              <a
+                href={LOGIN_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`text-xs text-[var(--color-text-muted)] ${focusInk}`}
+              >
+                登录
+                <NewWindowNote />
+              </a>
+            </div>
             <ThemeToggle />
           </div>
         </nav>

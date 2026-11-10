@@ -34,6 +34,19 @@ type Group = { section: string; items: Item[] };
 /** Header 触发按钮与键盘快捷键共用：勿再合成 KeyboardEvent（Windows 上只带 metaKey 打不开）。 */
 export const OPEN_COMMAND_PALETTE = "lurus:open-command-palette";
 
+export function openCommandPalette(target: { dispatchEvent(event: Event): boolean } = window) {
+  target.dispatchEvent(new Event(OPEN_COMMAND_PALETTE));
+}
+
+/** 窄屏目录里的搜索：先收起目录，再打开同一块面板。 */
+export function openPaletteFromMenu(
+  close: () => void,
+  target: { dispatchEvent(event: Event): boolean } = window,
+) {
+  close();
+  openCommandPalette(target);
+}
+
 const GROUPS: Group[] = [
   {
     section: "导航",
@@ -425,7 +438,7 @@ export function CommandPaletteTrigger() {
   return (
     <button
       type="button"
-      onClick={() => window.dispatchEvent(new Event(OPEN_COMMAND_PALETTE))}
+      onClick={() => openCommandPalette()}
       aria-label="打开命令面板"
       className={`hidden items-center gap-1.5 text-xs text-[var(--color-text-muted)] transition-colors hover:text-[var(--lt-ink)] focus-ink md:inline-flex`}
     >
@@ -433,6 +446,20 @@ export function CommandPaletteTrigger() {
       <kbd className="font-mono text-[10px] tracking-tight text-[var(--color-text-muted)]">
         {isMac ? "⌘K" : "Ctrl+K"}
       </kbd>
+    </button>
+  );
+}
+
+/** 窄屏目录里的搜索。不写快捷键，目录收起后再打开面板。 */
+export function MobilePaletteButton({ onOpen }: { onOpen: () => void }) {
+  return (
+    <button
+      type="button"
+      onClick={() => openPaletteFromMenu(onOpen)}
+      aria-label="打开命令面板"
+      className="focus-ink text-xs text-[var(--color-text-muted)]"
+    >
+      搜索
     </button>
   );
 }
