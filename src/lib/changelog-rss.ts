@@ -1,8 +1,22 @@
 import { updates, type ChangelogEntry } from "@/app/blog/updates-data";
 
 const SITE = "https://www.lurus.cn";
-const FEED_URL = `${SITE}/blog/rss.xml`;
+export const CHANGELOG_FEED_PATH = "/blog/rss.xml";
+export const CHANGELOG_FEED_TITLE = "LurusTech 更新日志";
+const FEED_URL = `${SITE}${CHANGELOG_FEED_PATH}`;
 const BLOG_URL = `${SITE}/blog`;
+
+/** 全站 <link rel="alternate">。页面若自己写 alternates，须带上这一项，否则会把根上的订阅源盖掉。 */
+export function changelogFeedTypes() {
+  return {
+    "application/rss+xml": [
+      {
+        url: CHANGELOG_FEED_PATH,
+        title: CHANGELOG_FEED_TITLE,
+      },
+    ],
+  };
+}
 
 const CHANNEL_DESCRIPTION =
   "过往的更新记录，按时间倒序。条目保留当时的原文，其中的活动与说法以当时为准，不代表现状。";
@@ -57,7 +71,7 @@ export function renderChangelogRss(entries: readonly ChangelogEntry[] = updates)
   return `<?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>LurusTech 更新日志</title>
+    <title>${esc(CHANGELOG_FEED_TITLE)}</title>
     <link>${BLOG_URL}</link>
     <atom:link href="${FEED_URL}" rel="self" type="application/rss+xml" />
     <description>${esc(CHANNEL_DESCRIPTION)}</description>

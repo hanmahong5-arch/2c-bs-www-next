@@ -45,6 +45,7 @@ import {
 } from "./data";
 import { RetrievalScene } from "./retrieval-scene";
 import { sceneStats } from "./scene-projection";
+import { changelogFeedTypes } from "@/lib/changelog-rss";
 
 // Memorus 公开基准报告：LongMemEval_S / LoCoMo 的数据、流程、失败与下一步全部公开。
 // 结构：标题与主数 → 一次真实检索 → 测什么 → 怎么测 → 结果 → 怎么提上去的 → 没采用的 → 预测 vs 实测
@@ -58,7 +59,7 @@ const DESCRIPTION = `Memorus 在 LongMemEval_S held-out 上问答准确率 ${fmt
 export const metadata: Metadata = {
   title: TITLE,
   description: DESCRIPTION,
-  alternates: { canonical: "/memorus/benchmarks" },
+  alternates: { canonical: "/memorus/benchmarks", types: changelogFeedTypes() },
   openGraph: { title: TITLE, description: DESCRIPTION, url: "/memorus/benchmarks" },
 };
 

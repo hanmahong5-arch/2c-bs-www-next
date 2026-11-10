@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
+import { changelogFeedTypes } from "@/lib/changelog-rss";
 
 const CANONICAL = "/blog";
-const FEED = "/blog/rss.xml";
 
 /**
  * 已知标记和整份日志都指向 /blog：筛选是同一份日志的视图。
@@ -15,7 +15,7 @@ export function blogPageMetadata(tag: string | null | undefined, matchCount: num
     description: "LurusTech 过往的产品更新记录，按时间倒序。",
     alternates: {
       canonical: unknown ? `${CANONICAL}?tag=${encodeURIComponent(tag)}` : CANONICAL,
-      types: { "application/rss+xml": FEED },
+      types: changelogFeedTypes(),
     },
     ...(unknown ? { robots: { index: false, follow: true } } : {}),
   };

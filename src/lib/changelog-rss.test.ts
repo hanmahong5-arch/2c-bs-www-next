@@ -1,6 +1,6 @@
 import { expect, test } from "bun:test";
 import { updates, type ChangelogEntry } from "@/app/blog/updates-data";
-import { changelogAnchor, changelogGuid, renderChangelogRss } from "./changelog-rss";
+import { CHANGELOG_FEED_TITLE, changelogAnchor, changelogFeedTypes, changelogGuid, renderChangelogRss } from "./changelog-rss";
 
 function guidFor(xml: string, title: string): string {
   const block = xml.split("<item>").find((part) => part.includes(`<title>${title}</title>`));
@@ -34,6 +34,13 @@ test("rss uses the historical wording, per-entry anchors, and escapes markup", (
     },
   ]);
 
+  expect(xml).toContain(`<title>${CHANGELOG_FEED_TITLE}</title>`);
+  expect(changelogFeedTypes()["application/rss+xml"]).toEqual([
+    {
+      url: "/blog/rss.xml",
+      title: CHANGELOG_FEED_TITLE,
+    },
+  ]);
   expect(xml).toContain("条目保留当时的原文，其中的活动与说法以当时为准，不代表现状。");
   expect(xml).not.toContain("新功能、改进和修复");
   expect(xml).toContain(`https://www.lurus.cn/blog#${changelogAnchor({ date: "2026-11", title: "A & B", desc: "", tags: [] })}`);

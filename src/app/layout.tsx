@@ -4,6 +4,7 @@ import Script from "next/script";
 import { MotionConfig } from "framer-motion";
 import "./globals.css";
 import { Header } from "@/components/header";
+import { changelogFeedTypes } from "@/lib/changelog-rss";
 import { Footer } from "@/components/footer";
 import { CommandPalette } from "@/components/command-palette";
 
@@ -54,7 +55,7 @@ export const metadata: Metadata = {
   description: SITE_DESC,
   metadataBase: new URL(SITE_URL),
   // "./" 按当前路径解析。写死 "/" 会继承到每一页，首屏「下载与上手」打开的 /download 会被说成首页。
-  alternates: { canonical: "./" },
+  alternates: { canonical: "./", types: changelogFeedTypes() },
   openGraph: {
     type: "website",
     locale: "zh_CN",

@@ -6,6 +6,12 @@ test("missing page metadata is its own page and has no canonical", () => {
   expect(metadata.title).toBe("没有这一页");
   expect(metadata.description).toBe("地址可能写错了，或者内容已经挪走。");
   expect(metadata.alternates?.canonical).toBeNull();
+  expect(metadata.alternates?.types?.["application/rss+xml"]).toEqual([
+    {
+      url: "/blog/rss.xml",
+      title: "LurusTech 更新日志",
+    },
+  ]);
   expect(metadata.robots).toBeUndefined();
 });
 
