@@ -17,3 +17,11 @@ test("footer security row is a mailbox and does not name a DPA", () => {
   );
   expect(security?.[0]).not.toContain("新窗口");
 });
+
+test("footer names the log 更新日志, the same name as the page", () => {
+  const html = renderToStaticMarkup(<Footer />);
+  const log = html.match(/<a[^>]*href="\/blog"[^>]*>[\s\S]*?<\/a>/);
+  expect(log?.[0]).toContain("更新日志");
+  expect(log?.[0]).not.toContain("changelog");
+  expect(html).not.toContain("博客");
+});
