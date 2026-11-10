@@ -1,5 +1,13 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { Eyebrow, Lead } from "@/components/site";
+
+// 缺失地址不是一份文档。标题和说明不用首页的那一套，也不把它写成规范地址。
+export const metadata: Metadata = {
+  title: "没有这一页",
+  description: "地址可能写错了，或者内容已经挪走。",
+  alternates: { canonical: null },
+};
 
 const suggestions = [
   { name: "首页", href: "/", desc: "回到起点" },
@@ -21,7 +29,7 @@ export default function NotFound() {
             没有这一页。
           </h1>
           <Lead className="mt-6">
-            地址可能写错了，或者内容已经挪走。下面几条常有人去：
+            地址可能写错了，或者内容已经挪走。可以从这些页面继续：
           </Lead>
 
           <ul className="mt-10 border-t border-[var(--lt-rule)]">
