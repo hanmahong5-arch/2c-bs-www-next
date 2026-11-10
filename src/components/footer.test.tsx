@@ -33,6 +33,8 @@ test("footer uses the page's own name for about, terms, and privacy", () => {
   expect(html).not.toContain("Terms of Service");
   expect(html).not.toContain("Privacy Policy");
   expect(html).not.toContain("用户协议");
+  expect(html).toContain("LurusTech。保留所有权利。");
+  expect(html).not.toContain("All rights reserved");
 });
 
 test("footer product names and the Hub license match the pages", () => {

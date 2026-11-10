@@ -100,7 +100,7 @@ export function Footer() {
         </div>
 
         <div className="mt-12 flex flex-col gap-3 border-t border-[var(--lt-rule)] pt-6 text-xs text-[var(--lt-ink)]/70">
-          <p>&copy; {year} LurusTech. All rights reserved.</p>
+          <p>&copy; {year} LurusTech。保留所有权利。</p>
           <p>Lurus Hub 基于开源 New API，AGPLv3。</p>
 
           {/* 境内合规：只挂已取得的备案号，不公示个人姓名。见 doc/ops/company-domain-cutover.md */}
