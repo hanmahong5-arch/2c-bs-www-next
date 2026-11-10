@@ -14,6 +14,7 @@ import {
 } from "@/components/site";
 import { BrandMark } from "@/components/brand-mark";
 import { updates } from "@/app/blog/updates-data";
+import { changelogAnchor } from "@/lib/changelog-rss";
 
 // 首页：个人项目站。Urus 英雄图与 LURUS 剥层保留。
 // 我在做的工具与底座 → 三件事 → 三层手段 → 一行证据 → 近况 → 边界。
@@ -420,7 +421,9 @@ export default function Home() {
               className="grid gap-x-8 gap-y-1 border-b border-[var(--lt-rule)] py-5 md:grid-cols-[6rem_14rem_1fr] md:items-baseline"
             >
               <span className="font-mono text-[13px] text-[var(--color-text-muted)]">{u.date}</span>
-              <span className="font-medium text-[var(--lt-ink)]">{u.title}</span>
+              <span className="font-medium">
+                <QuietLink href={`/blog#${changelogAnchor(u)}`}>{u.title}</QuietLink>
+              </span>
               <span className="text-[15px] leading-relaxed text-[var(--color-text-secondary)]">{u.desc}</span>
             </li>
           ))}
