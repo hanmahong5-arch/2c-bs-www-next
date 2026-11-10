@@ -302,6 +302,24 @@ async function checkApproachMd(failures: string[]) {
   }
 }
 
+async function checkBlogMd(failures: string[]) {
+  const res = await fetch(`${base}/blog.md`);
+  const type = res.headers.get("content-type") ?? "";
+  const body = await res.text();
+  const firstTitle = updates[0]?.title ?? "";
+  const reasons: string[] = [];
+  if (res.status !== 200) reasons.push(`HTTP ${res.status}`);
+  if (!type.includes("text/markdown")) reasons.push(`content-type ${type || "空"}`);
+  if (!body.includes("更新日志")) reasons.push("缺「更新日志」");
+  if (!firstTitle || !body.includes(firstTitle)) reasons.push(`缺首条「${firstTitle}」`);
+  if (reasons.length) {
+    failures.push(`/blog.md: ${reasons.join("; ")}`);
+    console.log(`/blog.md`.padEnd(22), "✗", reasons.join("; "));
+  } else {
+    console.log(`/blog.md`.padEnd(22), "ok");
+  }
+}
+
 async function checkPricingMd(failures: string[]) {
   const res = await fetch(`${base}/hub/pricing.md`);
   const type = res.headers.get("content-type") ?? "";
@@ -330,6 +348,7 @@ async function main() {
   await checkAllRoutes(failures);
   await checkPricingMd(failures);
   await checkApproachMd(failures);
+  await checkBlogMd(failures);
   await checkPricingPay(failures);
   await checkConversion(failures);
   await checkApproachIntake(failures);
