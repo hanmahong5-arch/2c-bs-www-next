@@ -109,7 +109,7 @@ export function Header() {
   return (
     <header className="sticky top-0 z-50 border-b border-[var(--lt-rule)] bg-[var(--lt-paper)]/90 backdrop-blur">
       <div className="mx-auto flex h-14 max-w-5xl items-center justify-between px-6">
-        <Link href="/" aria-label="LurusTech 首页" className="inline-flex items-center">
+        <Link href="/" aria-label="LurusTech 个人项目站首页" className="inline-flex items-center">
           <BrandLockup />
         </Link>
 

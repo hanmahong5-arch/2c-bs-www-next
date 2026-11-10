@@ -2,13 +2,13 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Disclosure, Eyebrow, Lead, Section } from "@/components/site";
 
-// 关于页：一句话身份 → 我们相信什么 → 联系方式。
+// 关于页：个人身份 → 信条 → 联系方式。
 // 不写客户名、金额、团队规模、产品数量、模型数量。全部服务端渲染，无 JS 动效。
 
 export const metadata: Metadata = {
   title: "关于",
   description:
-    "LurusTech 做企业 AI 交付工程：把客户自有环境里的 AI 系统跑稳，并用证据说明它是稳的。",
+    "LurusTech 个人项目站：做 AI 工具与底座，用证据说明系统稳不稳。",
 };
 
 const CONTACT_EMAIL = "contact@lurus.cn";
@@ -32,11 +32,10 @@ export default function AboutPage() {
               id="about-title"
               className="mt-5 font-display text-[2.125rem] font-semibold leading-[1.2] tracking-[-0.025em] text-[var(--lt-ink)] md:text-[2.75rem] md:leading-[1.15]"
             >
-              LurusTech 做企业 AI 交付工程。
+              我在做 AI 工具与底座。
             </h1>
             <Lead className="mt-7">
-              我们把 AI 系统在客户自己的环境里跑稳，并用证据说明它是稳的：
-              状态可核查、数据可恢复、改动有记录。
+              LurusTech 是个人项目站。系统留在你自己的环境里；状态可核查、数据可恢复、改动有记录——每条都写明凭什么。
             </Lead>
           </div>
         </div>

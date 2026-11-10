@@ -12,7 +12,7 @@ import {
 } from "@/components/site";
 import { CONTACT_EMAIL } from "@/lib/engagement-intake";
 
-// 方法页：把企业 AI 交付工程的做法讲给潜在客户。
+// 方法页：怎么证明系统稳（个人项目站）。
 // 不写客户名、行业名单、金额、案例数量。每个区块一句主张，细节放进 Disclosure。
 // 可核对一节只列已经发布的入口，不重述数字。
 // 全部服务端渲染，无 JS 动效。
@@ -20,7 +20,7 @@ import { CONTACT_EMAIL } from "@/lib/engagement-intake";
 export const metadata: Metadata = {
   title: "方法",
   description:
-    "我们怎样接手客户自有环境里已经做出来、但还没稳住的 AI 系统：硬化、受托运维、按月交付证据。",
+    "怎么把已经做出来的 AI 系统在你自己的环境里跑稳：硬化、持续负责、按月交付证据。",
 };
 
 // 买方可核对。右列种类只写这四个词。
@@ -125,10 +125,10 @@ export default function ApproachPage() {
               id="approach-title"
               className="mt-5 font-display text-[2.125rem] font-semibold leading-[1.2] tracking-[-0.025em] text-[var(--lt-ink)] md:text-[2.75rem] md:leading-[1.15]"
             >
-              把已经做出来的 AI 系统，在你自己的环境里跑稳。
+              怎么证明：已经做出来的 AI 系统，在你自己的环境里跑稳。
             </h1>
             <Lead className="mt-7">
-              这一页写我们接什么样的活、分几步做、认哪些判据、怎样计价，以及不做什么。
+              这一页写接什么样的活、分几步做、认哪些判据、个人项目合作怎么计价，以及不做什么。
             </Lead>
           </div>
         </div>
@@ -278,13 +278,13 @@ export default function ApproachPage() {
       {/* 5. 计价 */}
       <Section id="pricing" labelledBy="pricing-title">
         <SectionTitle id="pricing-title" eyebrow="计价方式">
-          一次性硬化，加按环境的月度受托运维。
+          一次性硬化，加按环境的月度负责。
         </SectionTitle>
         <div className="mt-10">
-          <Disclosure summary={<Point>不公开价目，按范围报价。</Point>}>
+          <Disclosure summary={<Point>不公开价目；个人项目合作按范围报价。</Point>}>
             <p>
-              每个系统的规模、环境和验收要求都不一样。我们先看你的环境，
-              再按硬化的工作量和需要运维的环境数量报价，具体以合同约定为准。
+              这不是公司标书价目。每个系统的规模、环境和验收要求都不一样。先看环境，
+              再按硬化工作量和需要持续负责的环境数量报价，具体以书面约定为准。
             </p>
           </Disclosure>
         </div>
@@ -331,7 +331,7 @@ export default function ApproachPage() {
           。
         </p>
         <NextStep>
-          按上方清单写信到 {CONTACT_EMAIL}；我们回复是否接、硬化与受托运维怎么分期。
+          按上方清单来信，写清环境现状与目标，寄到 {CONTACT_EMAIL}；我回复是否适合现阶段，以及硬化与受托运维怎么分期。
         </NextStep>
       </Section>
     </>

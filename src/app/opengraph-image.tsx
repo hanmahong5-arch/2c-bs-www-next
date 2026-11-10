@@ -3,7 +3,7 @@ import { ImageResponse } from "next/og";
 // 动态生成站点社交分享卡 — 替代此前引用却不存在的静态 /og-image.png (404)。
 // 文案保持拉丁字形，避免在 ImageResponse 中加载中文字体的复杂度；品牌词为主体。
 export const alt =
-  "LurusTech — Urus. Entrusted AI ops in your environment: a real restore, and a monthly report that shows how each number was measured.";
+  "LurusTech — Urus. Personal workshop for AI tools and infrastructure: evidence-graded status, real restores, maturity labeled per component.";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -92,8 +92,8 @@ export default function OpengraphImage() {
               maxWidth: 980,
             }}
           >
-            Entrusted ops for the AI already on your servers: a real restore,
-            and a monthly report that shows how each number was measured.
+            Personal workshop for AI tools and infrastructure: evidence-graded
+            status, a real restore when claiming recoverability, maturity labeled.
           </div>
         </div>
 

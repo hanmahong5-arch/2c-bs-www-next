@@ -10,7 +10,9 @@ import { updates, type ChangelogEntry } from "./updates-data";
 export const metadata: Metadata = {
   title: "更新日志",
   description: "LurusTech 过往的产品更新记录，按时间倒序。",
+  // 子页一旦写 alternates，会整份替换根 layout 的 canonical，所以这里要自己带上 "./"。
   alternates: {
+    canonical: "./",
     types: { "application/rss+xml": "/blog/rss.xml" },
   },
 };

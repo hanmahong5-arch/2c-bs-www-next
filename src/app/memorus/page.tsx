@@ -27,7 +27,6 @@ export const metadata: Metadata = {
   title: "Memorus — AI 系统的长期记忆",
   description:
     "记得住，也查得清：保留原文、可按时点追问、删除可传播、团队可治理。单个二进制文件，默认零外部依赖。LongMemEval-S held-out 问答 0.837（95% 区间 0.769–0.888，n=147）。早期试点。",
-  alternates: { canonical: "/memorus" },
 };
 
 // ───────────────────────── 小组件 ─────────────────────────

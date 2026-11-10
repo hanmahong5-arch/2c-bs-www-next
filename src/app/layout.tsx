@@ -44,21 +44,22 @@ const jetbrainsMono = localFont({
 
 const SITE_URL = "https://www.lurus.cn";
 const SITE_DESC =
-  "在客户自有环境里受托运维已经跑起来的 AI 系统：真的恢复一次才算可恢复，每月一份报告，每个数字写明怎么测。系统留在客户自己的服务器上。";
+  "LurusTech 个人项目站：桌面工具、记忆与执行底座、网关与账号。状态写明证据强度；备份只认真恢复；各构件成熟度分别标明。";
 
 export const metadata: Metadata = {
   title: {
-    default: "LurusTech — Urus · 企业 AI 受托运维",
+    default: "LurusTech — Urus · 个人项目站",
     template: "%s — LurusTech",
   },
   description: SITE_DESC,
   metadataBase: new URL(SITE_URL),
-  alternates: { canonical: "/" },
+  // "./" 按当前路径解析。写死 "/" 会继承到每一页，首屏「下载与上手」打开的 /download 会被说成首页。
+  alternates: { canonical: "./" },
   openGraph: {
     type: "website",
     locale: "zh_CN",
     siteName: "LurusTech",
-    url: SITE_URL,
+    url: "./",
     // og:image 由 app/opengraph-image.tsx 动态注入
   },
   twitter: {
@@ -74,17 +75,16 @@ export const viewport: Viewport = {
   initialScale: 1,
 };
 
-// schema.org 结构化数据 — 让搜索引擎与 AI 检索理解组织/站点/核心产品实体图谱。
-// 字段取自共享简报的产品表与 footer 备案实体，不含 offers/评分/可用性；只列上主导航的构件中需要结构化声明的条目。
+// schema.org — 个人项目站：品牌用 Person，不暗示法人公司。
+// 不含 offers/评分/可用性；只列需要结构化声明的核心构件。
 const jsonLd = {
   "@context": "https://schema.org",
   "@graph": [
     {
-      "@type": "Organization",
-      "@id": `${SITE_URL}/#org`,
+      "@type": "Person",
+      "@id": `${SITE_URL}/#person`,
       name: "LurusTech",
       url: SITE_URL,
-      logo: `${SITE_URL}/favicon.ico`,
       description: SITE_DESC,
       sameAs: ["https://github.com/hanmahong5-arch"],
     },
@@ -94,7 +94,7 @@ const jsonLd = {
       name: "LurusTech",
       url: SITE_URL,
       inLanguage: "zh-CN",
-      publisher: { "@id": `${SITE_URL}/#org` },
+      publisher: { "@id": `${SITE_URL}/#person` },
     },
     {
       "@type": "SoftwareApplication",
@@ -105,7 +105,7 @@ const jsonLd = {
       url: `${SITE_URL}/kova`,
       description:
         "嵌入式持久执行引擎：WAL 崩溃恢复、执行留痕、可回放。成熟度：早期试点。",
-      publisher: { "@id": `${SITE_URL}/#org` },
+      publisher: { "@id": `${SITE_URL}/#person` },
     },
   ],
 };

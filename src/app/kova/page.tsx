@@ -145,10 +145,10 @@ export default function KovaPage() {
         </div>
       </Section>
 
-      {/* 受托运维为什么需要它 */}
+      {/* 为什么需要它 */}
       <Section id="why-ops" labelledBy="why-ops-title">
         <SectionTitle id="why-ops-title" eyebrow="场景">
-          受托运维：写操作先人批，崩了还能举证。
+          写操作先人批，崩了还能举证。
         </SectionTitle>
         <Lead className="mt-6">
           续证书、做备份、跑恢复演练，都是多步操作。中途断掉时，应该能知道做到了哪一步，
@@ -179,7 +179,7 @@ export default function KovaPage() {
           Forge 编排 · Kova 证明 · Lumen 看见。
         </SectionTitle>
         <Lead className="mt-6">
-          三仓用同一条命令面联测。最近一次实测（2026-10-28c）：融资门全绿（离线
+          三仓用同一条命令面联测。最近一次实测（2026-10-28c）：验收路径全绿（离线
           mock LLM）——lifecycle 与钉钥证据包均 VERIFIED。mock ≠ 真供应商回答；去掉
           mock 且未充值时仍会 402。
         </Lead>
