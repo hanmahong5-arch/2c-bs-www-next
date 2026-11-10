@@ -17,6 +17,7 @@ import { updates } from "@/app/blog/updates-data";
 // 首页：Urus 英雄图与 LURUS 剥层保留，先卖买方能买到的结果。
 // 受托运维（客户自有环境、可恢复、月报写明测量方式）→ 运维三件事 → 三层手段 → 一行证据 → 近况 → 边界。
 // 近况只取更新日志真源的前三条。不写价格、客户名、编造数字。
+// 证据带下只链已核对的公开入口，不把示例行改成实测，也不在首页重述价目数字。
 
 const CONTACT = "mailto:contact@lurus.cn";
 
@@ -67,6 +68,57 @@ const LAYERS: readonly Layer[] = [
     ],
   },
 ];
+
+// 与方法页「可核对」同一套纸面细表：左列入口，右列等宽种类。
+// 路由已在源码核对。/hub/pricing.md 是纯文本 route，不在 SITE_ROUTES，用普通链接，不走页面预取。
+// 不链 /security，不编 GitHub，不写运行数字、客户名或 SLA。
+const REAL_PROOF: readonly {
+  href: string;
+  title: string;
+  kind: "基准" | "价目" | "价目纯文本" | "日志" | "产品" | "首信";
+  plain?: boolean;
+}[] = [
+  { href: "/memorus/benchmarks", title: "Memorus 公开基准报告", kind: "基准" },
+  { href: "/hub/pricing", title: "Hub 按量价格", kind: "价目" },
+  { href: "/hub/pricing.md", title: "Hub 价目纯文本", kind: "价目纯文本", plain: true },
+  { href: "/blog", title: "更新日志", kind: "日志" },
+  { href: "/witness", title: "见证", kind: "产品" },
+  { href: "/approach#intake", title: "方法页首信清单", kind: "首信" },
+];
+
+function ProofLink({
+  href,
+  title,
+  kind,
+  plain,
+}: {
+  href: string;
+  title: string;
+  kind: string;
+  plain?: boolean;
+}) {
+  const className = "group flex items-baseline justify-between gap-x-6 py-3";
+  const inner = (
+    <>
+      <span className="text-[15px] leading-[1.6] text-[var(--lt-ink)] underline decoration-[var(--lt-rule)] underline-offset-4 group-hover:decoration-[var(--lt-accent)]">
+        {title}
+      </span>
+      <span className="shrink-0 font-mono text-[12px] text-[var(--color-text-muted)]">{kind}</span>
+    </>
+  );
+  if (plain) {
+    return (
+      <a href={href} className={className}>
+        {inner}
+      </a>
+    );
+  }
+  return (
+    <Link href={href} className={className}>
+      {inner}
+    </Link>
+  );
+}
 
 function QuietLink({ href, children }: { href: string; children: React.ReactNode }) {
   return (
@@ -321,6 +373,18 @@ export default function Home() {
             source="采集器 3 小时未上报 —— 这不是「正常」，是「不知道」"
           />
         </EvidenceList>
+        <div className="mt-10 max-w-[44rem]">
+          <p className="text-[15px] leading-relaxed text-[var(--color-text-secondary)]">
+            上面三行仍是示例。这些页是已经发布的入口，打开原页自己看，这里不重述数字。
+          </p>
+          <ul className="mt-6 border-y border-[var(--lt-rule)]">
+            {REAL_PROOF.map((row, i) => (
+              <li key={row.href} className={i > 0 ? "border-t border-[var(--lt-rule)]" : undefined}>
+                <ProofLink {...row} />
+              </li>
+            ))}
+          </ul>
+        </div>
         <p className="mt-8 text-[15px] leading-relaxed text-[var(--color-text-secondary)]">
           硬化、按月受托运维和这份月报怎么衔接，写在 <QuietLink href="/approach">方法</QuietLink>
           。观测见 <QuietLink href="/witness">见证</QuietLink>。
