@@ -1,8 +1,8 @@
 import Link from "next/link";
 import { BrandLockup } from "@/components/brand-mark";
 
-// brand-spec §4 长版：列顺序 产品 → 资源 → 公司 → 法务；
-// 「公司」「法务」两列文案按规范逐字固定，不可改。
+// 个人项目站页脚：产品 → 资源 → 关于 → 法务。
+// 以个人备案现实为准（本仓无 brand-spec.md）；不挂 Careers、不挂未取得的算法备案。
 type FooterLink = { name: string; href: string };
 
 const footerLinks: ReadonlyArray<{ title: string; links: readonly FooterLink[] }> = [
@@ -28,11 +28,10 @@ const footerLinks: ReadonlyArray<{ title: string; links: readonly FooterLink[] }
     ],
   },
   {
-    title: "公司",
+    title: "关于",
     links: [
-      { name: "About LurusTech", href: "/about" },
+      { name: "About", href: "/about" },
       { name: "Contact", href: "mailto:contact@lurus.cn" },
-      { name: "Careers", href: "mailto:contact@lurus.cn?subject=Careers" },
     ],
   },
   {
@@ -82,7 +81,7 @@ export function Footer() {
           <div className="col-span-2 md:col-span-1">
             <BrandLockup className="[&>span]:text-base" />
             <p className="mt-3 max-w-[22rem] text-[13px] leading-relaxed text-[var(--lt-ink)]/70">
-              客户自有环境里的 AI 受托运维：可恢复，月报写明每个数字怎么测。
+              个人项目站：工具与底座，状态写明证据，备份只认真恢复。
             </p>
           </div>
 
@@ -106,8 +105,7 @@ export function Footer() {
           <p>&copy; {year} LurusTech. All rights reserved.</p>
           <p>Lurus Hub: Built on New API · AGPL-3.0.</p>
 
-          {/* 境内合规：底部只悬挂备案号（法规要求），不公示个人姓名。
-              当前 lurus.cn 仍是个人备案号；企业内容长期应迁到企业主体域名（见 doc/ops/company-domain-cutover.md）。 */}
+          {/* 境内合规：只挂已取得的备案号，不公示个人姓名。见 doc/ops/company-domain-cutover.md */}
           <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
             <a
               href="https://beian.miit.gov.cn/"
@@ -119,15 +117,6 @@ export function Footer() {
             </a>
             <span aria-hidden="true">·</span>
             <a
-              href="https://beian.cac.gov.cn/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:text-[var(--lt-ink)] hover:underline"
-            >
-              算法备案（待取得）
-            </a>
-            <span aria-hidden="true">·</span>
-            <a
               href="https://www.beian.gov.cn/portal/registerSystemInfo?recordcode=37060002001239"
               target="_blank"
               rel="noopener noreferrer"
@@ -136,7 +125,6 @@ export function Footer() {
               鲁公网安备37060002001239号
             </a>
           </div>
-          {/* 四个《》链接 — 占位 ≥32px (§4.5) */}
           <div className="flex min-h-8 flex-wrap items-center gap-x-6 gap-y-2">
             <Link href="/terms" className="hover:text-[var(--lt-ink)] hover:underline">
               《用户协议》
@@ -144,9 +132,6 @@ export function Footer() {
             <Link href="/privacy" className="hover:text-[var(--lt-ink)] hover:underline">
               《隐私政策》
             </Link>
-            <span className="opacity-60" title="内容上线前补充">
-              《算法说明》
-            </span>
             <a
               href="mailto:contact@lurus.cn?subject=侵权投诉"
               className="hover:text-[var(--lt-ink)] hover:underline"

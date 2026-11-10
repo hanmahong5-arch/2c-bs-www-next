@@ -2,7 +2,7 @@
 
 # Lurus Website
 
-The public marketing site for LurusTech — a paper-themed editorial site for an enterprise AI infrastructure platform. **Live:** [www.lurus.cn](https://www.lurus.cn)
+Personal project site for LurusTech (personal ICP on `lurus.cn`; not the corporate entity site). Paper-themed editorial site for AI tools and infrastructure. **Live:** [www.lurus.cn](https://www.lurus.cn)
 
 Next.js 16 (App Router) + React 19 + Tailwind CSS 4 (CSS-first) + Framer Motion 12, built and run with Bun, shipped as a Docker standalone image through GitOps. Fifteen content routes, no backend of its own: every product link points at an external console, and the only server-side route is an analytics beacon.
 
@@ -23,7 +23,7 @@ docker build -t lurus-www . && docker run -p 3000:3000 lurus-www
 
 | Route | What it is |
 |---|---|
-| `/` | Home: entrusted ops in the customer's environment → three jobs → three layers as means → one evidence line → changelog → boundaries |
+| `/` | Home: personal workshop (tools & infra) → three criteria → three layers → one evidence line → changelog → boundaries |
 | `/witness` | Lurus Witness: read-only collection, external probes, restore drills, monthly evidence |
 | `/kova` | Kova, the embedded durable execution engine |
 | `/memorus` · `/memorus/benchmarks` | Memorus memory engine, public benchmark report |
@@ -31,7 +31,7 @@ docker build -t lurus-www . && docker run -p 3000:3000 lurus-www
 | `/lugo` | Lugo, the per-customer accounts / wallet / payments base |
 | `/approach` | How we work, and what we don't do |
 | `/lucrum` · `/switch` · `/download` | Lucrum, Switch download, app downloads |
-| `/about` · `/blog` | Company, product changelog (`/blog/rss.xml` feed) |
+| `/about` · `/blog` | About, product changelog (`/blog/rss.xml` feed) |
 | `/privacy` · `/terms` | Legal |
 | `/login` | Redirect to the identity provider |
 | `/api/track` | Analytics beacon — the only dynamic route |

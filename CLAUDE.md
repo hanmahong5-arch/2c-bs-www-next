@@ -1,6 +1,6 @@
 # lurus-www (2c-bs-www-next)
 
-公司官网（当前活跃版本）。Lurus Web 产品组 (P2)。domain `www.lurus.cn`（`lurus.cn` 301 redirect），ns/port `lurus-www`/3000，ICP 备案节点。Next.js 16 / React 19 / Tailwind 4 / Framer Motion 12 / Bun。
+个人项目站（`lurus.cn` 个人备案；不是企业主体官网）。domain `www.lurus.cn`（`lurus.cn` 301 redirect），ns/port `lurus-www`/3000，ICP 备案节点。Next.js 16 / React 19 / Tailwind 4 / Framer Motion 12 / Bun。企业完整叙事见 `doc/ops/company-domain-cutover.md`（`ailurus.top`）。
 
 ## Commands
 

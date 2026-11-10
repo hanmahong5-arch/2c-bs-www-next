@@ -2,7 +2,7 @@
 
 # Lurus 官网
 
-LurusTech 对外官网 —— 面向企业 AI 基础设施平台的纸感编辑风站点。**线上：** [www.lurus.cn](https://www.lurus.cn)
+LurusTech **个人项目站**（`lurus.cn` 个人备案，不是企业主体官网）—— 工具与底座的纸感编辑风站点。**线上：** [www.lurus.cn](https://www.lurus.cn)
 
 Next.js 16（App Router）+ React 19 + Tailwind CSS 4（CSS-first）+ Framer Motion 12，用 Bun 构建运行，以 Docker standalone 镜像经 GitOps 交付。15 条内容路由，自身没有后端：所有产品入口都指向站外控制台，唯一的服务端路由是一个埋点接口。
 
@@ -23,7 +23,7 @@ docker build -t lurus-www . && docker run -p 3000:3000 lurus-www
 
 | 路由 | 内容 |
 |---|---|
-| `/` | 首页：受托运维（客户自有环境）→ 运维三件事 → 三层手段 → 一行证据 → 近况 → 边界 |
+| `/` | 首页：个人项目（工具与底座）→ 三件判据 → 三层地图 → 一行证据 → 近况 → 边界 |
 | `/witness` | Lurus Witness · 见证：只读采集、外部探测、恢复演练、月度证据 |
 | `/kova` | Kova，嵌入式持久执行引擎 |
 | `/memorus` · `/memorus/benchmarks` | Memorus 记忆引擎、公开基准报告 |
@@ -31,7 +31,7 @@ docker build -t lurus-www . && docker run -p 3000:3000 lurus-www
 | `/lugo` | Lugo，每客户独立安装的账号 / 钱包 / 收款底座 |
 | `/approach` | 方法，以及我们不做的事 |
 | `/lucrum` · `/switch` · `/download` | Lucrum、Switch 下载页、应用下载 |
-| `/about` · `/blog` | 公司介绍、产品更新（`/blog/rss.xml` 订阅源） |
+| `/about` · `/blog` | 关于、产品更新（`/blog/rss.xml` 订阅源） |
 | `/privacy` · `/terms` | 法务页 |
 | `/login` | 跳转到身份提供方 |
 | `/api/track` | 埋点接口 —— 唯一的动态路由 |

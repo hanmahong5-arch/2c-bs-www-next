@@ -11,20 +11,20 @@ export interface ChangelogEntry {
 export const updates: ChangelogEntry[] = [
   {
     date: "2026-10",
-    title: "Kova 联测融资门全绿：mock LLM + 钉钥 VERIFIED",
+    title: "Kova 联测验收全绿：mock LLM + 钉钥 VERIFIED",
     desc: "2026-10-28c：JOINT_MOCK_LLM=1 跑通 Forge→Kova→Lumen；lifecycle 与证据包 present，钉钥 Signature VERIFIED。mock ≠ 真 newapi；402 红账本保留。",
     tags: ["Kova", "Forge", "Lumen", "Web"],
   },
   {
     date: "2026-10",
-    title: "Kova 官网改恐惧→举证叙事，受托运维场景页上线",
-    desc: "产品页钉子句改为合规敏感可离线核验；补受托运维人批故事。联测账本带日期、SKIP 永不假绿。",
+    title: "Kova 官网改恐惧→举证叙事，人批场景页上线",
+    desc: "产品页钉子句改为合规敏感可离线核验；补写操作先人批的故事。联测账本带日期、SKIP 永不假绿。",
     tags: ["Kova", "Web", "Brand"],
   },
   {
     date: "2026-10",
     title: "Kova 联测账本上线：Forge × Kova × Lumen",
-    desc: "官网 /kova 与 docs.lurus.cn/kova/triple-joint 公开 2026-10-28 实测；同日 c 次融资门全绿，a/b 为 402 红账本。",
+    desc: "官网 /kova 与 docs.lurus.cn/kova/triple-joint 公开 2026-10-28 实测；同日 c 次验收路径全绿，a/b 为 402 红账本。",
     tags: ["Kova", "Forge", "Lumen", "Web"],
   },
   {
@@ -59,8 +59,8 @@ export const updates: ChangelogEntry[] = [
   },
   {
     date: "2026-10",
-    title: "官网转化可信度：ICP、可复制接入、价目 CTA",
-    desc: "首页补 Ideal Customer Profile；Memorus 首屏加 CLI 接入示意与试点下一步；Hub 显式挂「按量价格 / 私有部署」；Switch 下载区写清安装 → 登录 → 推广码路径。",
+    title: "官网转化路径：可复制接入与价目 CTA",
+    desc: "Memorus 首屏加 CLI 接入示意与试点下一步；Hub 显式挂「按量价格 / 私有部署」；Switch 下载区写清安装 → 登录 → 推广码路径。",
     tags: ["Web", "Memorus", "Hub", "Switch"],
   },
   {

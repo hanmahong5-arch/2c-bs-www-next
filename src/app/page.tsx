@@ -13,8 +13,8 @@ import {
 import { BrandMark } from "@/components/brand-mark";
 import { updates } from "@/app/blog/updates-data";
 
-// 首页：Urus 英雄图与 LURUS 剥层保留，先卖买方能买到的结果。
-// 受托运维（客户自有环境、可恢复、月报写明测量方式）→ 运维三件事 → 三层手段 → 一行证据 → 近况 → 边界。
+// 首页：个人项目站。Urus 英雄图与 LURUS 剥层保留。
+// 我在做的工具与底座 → 三件事 → 三层手段 → 一行证据 → 近况 → 边界。
 // 近况只取更新日志真源的前三条。不写价格、客户名、编造数字。
 
 const CONTACT = "mailto:contact@lurus.cn";
@@ -28,16 +28,15 @@ type Layer = {
 };
 
 /**
- * 三层仍是 Urus 命名（LURUS / URUS / RUS），但不当成可单买的货架。
- * 它们是受托运维里用到的手段。US 只作脚注，不进主列表。
- * 首页不挂 Hub 按量价格：受托运维不公开价目。
+ * 三层仍是 Urus 命名（LURUS / URUS / RUS），是个人项目站上的工具与底座地图。
+ * US 只作脚注，不进主列表。首页不挂 Hub 按量价格。
  */
 const LAYERS: readonly Layer[] = [
   {
     code: "LURUS",
     audience: "自助",
     title: "上手的工具",
-    line: "桌面与下载，给已经在用的人自己上手。按月受托运维在下面两层。",
+    line: "桌面与下载，给已经在用的人自己上手。",
     products: [
       { name: "Switch", href: "/switch" },
       { name: "下载", href: "/download" },
@@ -45,9 +44,9 @@ const LAYERS: readonly Layer[] = [
   },
   {
     code: "URUS",
-    audience: "客户环境",
+    audience: "环境里",
     title: "观测与方法",
-    line: "装进你自己的环境：看清状态、记住上下文，以及这份按月受托运维的方法。",
+    line: "装进你自己的环境：看清状态、记住上下文，以及怎么证明它稳。",
     products: [
       { name: "见证 Witness", href: "/witness", maturity: "早期试点" },
       { name: "Memorus", href: "/memorus", maturity: "早期试点" },
@@ -120,7 +119,7 @@ function Dash({ children }: { children: React.ReactNode }) {
 export default function Home() {
   return (
     <>
-      {/* ── Hero：买方能买到的结果，压在 Urus 山脊上 ── */}
+      {/* ── Hero：个人项目首屏，压在 Urus 山脊上 ── */}
       <section
         aria-labelledby="home-offer"
         className="relative isolate overflow-hidden border-b border-[var(--lt-rule)]"
@@ -152,27 +151,29 @@ export default function Home() {
               className="hero-enter-up mt-5 font-mono text-[11px] uppercase tracking-[0.16em] text-[var(--lt-accent)]"
               style={{ animationDelay: "60ms" }}
             >
-              企业 AI · 受托运维
+              个人项目 · 工具与底座
             </p>
             <h1
               id="home-offer"
               className="hero-enter-up mt-4 font-display text-[1.875rem] font-semibold leading-[1.25] tracking-[-0.03em] text-[var(--lt-ink)] md:text-[3.25rem] md:leading-[1.12]"
               style={{ animationDelay: "120ms" }}
             >
-              在你自己的环境里，按月受托运维。
+              我在做的 AI 工具与底座。
             </h1>
             <p
               className="hero-enter-up mt-5 max-w-[36rem] text-[15px] leading-[1.75] text-[var(--color-text-secondary)] md:text-base md:leading-[1.8]"
               style={{ animationDelay: "200ms" }}
             >
-              你的服务器上如果已经跑着 Dify、n8n
-              这类系统，我们按月接手，把它留在你自己的环境里稳住。可恢复；月报里每个数字都写明怎么测。备份要真的恢复一次才算数。
+              桌面端、记忆与执行、网关与账号——状态写明证据强度，备份只认真恢复一次才算数，成熟度各自标明。系统留在你自己的环境里。
             </p>
             <div
               className="hero-enter-up mt-8 flex flex-wrap items-center gap-3"
               style={{ animationDelay: "280ms" }}
             >
-              <Link href="/approach" className="btn-primary">
+              <Link href="/download" className="btn-primary">
+                下载与上手
+              </Link>
+              <Link href="/approach" className="btn-secondary">
                 阅读方法
               </Link>
               <a href={CONTACT} className="btn-secondary">
@@ -183,13 +184,13 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── 运维时的三件事 ── */}
+      {/* ── 做事时的三件判据 ── */}
       <Section id="how" labelledBy="how-title">
-        <SectionTitle id="how-title" eyebrow="运维时的三件事">
+        <SectionTitle id="how-title" eyebrow="做事时的三件判据">
           看清状态，执行留痕，用恢复证明备份。
         </SectionTitle>
         <Lead className="mt-6">
-          这三件事撑住受托运维：状态说得清来历，改动可以回放，备份用一次真恢复来证明。
+          这三件事撑住可信交付：状态说得清来历，改动可以回放，备份用一次真恢复来证明。
         </Lead>
         <div className="mt-10">
           <Disclosure summary={<span className="text-[1.0625rem]">观测：月报里的「正常」，要说清凭什么。</span>}>
@@ -227,11 +228,11 @@ export default function Home() {
       <Section id="layers" width="wide" labelledBy="layers-title">
         <div className="grid items-start gap-12 md:grid-cols-[minmax(0,20rem)_1fr]">
           <div>
-            <SectionTitle id="layers-title" eyebrow="交付时用到">
-              剥开 LURUS，服务于受托运维。
+            <SectionTitle id="layers-title" eyebrow="项目地图">
+              剥开 LURUS，看清在做的东西。
             </SectionTitle>
             <Lead className="mt-6">
-              名字仍取自原牛 Urus。对外这三层一起撑住客户自有环境里的受托运维。价目按范围报价，写在方法页。最里一层
+              名字仍取自原牛 Urus。三层是工具与底座的地图，不是公司货架。怎么证明稳，写在方法页。最里一层
               US 只留给自己用。
             </Lead>
             <figure className="mt-10 flex max-w-[16rem] flex-col items-start">
@@ -321,7 +322,7 @@ export default function Home() {
           />
         </EvidenceList>
         <p className="mt-8 text-[15px] leading-relaxed text-[var(--color-text-secondary)]">
-          硬化、按月受托运维和这份月报怎么衔接，写在 <QuietLink href="/approach">方法</QuietLink>
+          怎么硬化、怎么证明稳，写在 <QuietLink href="/approach">方法</QuietLink>
           。观测见 <QuietLink href="/witness">见证</QuietLink>。
         </p>
       </Section>
@@ -359,8 +360,8 @@ export default function Home() {
         <ul className="mt-8 space-y-4 text-base leading-[1.8] text-[var(--color-text-secondary)]">
           <Dash>不做机房与算力转售。系统留在你自有的环境里。</Dash>
           <Dash>不在你的环境里跑没有审批的写操作；事先批准的定时任务（如备份）除外。</Dash>
-          <Dash>不从零做一套新的应用。接手的是已经在你环境里跑着的系统。</Dash>
-          <Dash>不承诺我们证明不了的数字。US 内部层不对外售卖。</Dash>
+          <Dash>不从零做一套新的应用。优先接手已经在你环境里跑着的系统。</Dash>
+          <Dash>不承诺证明不了的数字。US 内部层不对外售卖。</Dash>
         </ul>
       </Section>
 
@@ -370,8 +371,8 @@ export default function Home() {
           id="invite-title"
           className="font-display text-xl leading-[1.5] text-[var(--lt-ink)] md:text-2xl"
         >
-          想看硬化、受托运维和月报怎么衔接，读 <QuietLink href="/approach">方法</QuietLink>
-          ；想让我们看你的环境，写信到{" "}
+          想看产品怎么证明稳，读 <QuietLink href="/approach">方法</QuietLink>
+          ；想聊环境或合作，写信到{" "}
           <a
             href={CONTACT}
             className="text-[var(--lt-ink)] underline decoration-[var(--lt-rule)] underline-offset-4 hover:decoration-[var(--lt-accent)]"
@@ -381,7 +382,7 @@ export default function Home() {
           。
         </p>
         <p className="mt-4 text-sm leading-[1.7] text-[var(--color-text-muted)]">
-          下一步：来信写清环境现状与目标；我们回复是否接、怎么分期。
+          下一步：来信写清环境现状与目标；我回复是否适合现阶段、怎么分期。
         </p>
       </Section>
     </>
