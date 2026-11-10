@@ -1,0 +1,55 @@
+import { DELIVERY_EXCLUDED, DELIVERY_INCLUDED, DELIVERY_NOTE } from "@/lib/engagement-delivery";
+import {
+  CONTACT_EMAIL,
+  INTAKE_EXCLUDED,
+  INTAKE_INCLUDED,
+  INTAKE_NOTE,
+  INTAKE_SUBJECT,
+} from "@/lib/engagement-intake";
+
+const PAGE = "https://www.lurus.cn/approach";
+
+function bullets(items: readonly string[]) {
+  return items.map((item) => `- ${item.replace(/\n/g, " ")}`).join("\n");
+}
+
+function columns(included: readonly string[], excluded: readonly string[]) {
+  return `## 包含
+
+${bullets(included)}
+
+## 不包含
+
+${bullets(excluded)}`;
+}
+
+/**
+ * /approach 的纯文本孪生。
+ * 句子只用首信与交付分界里已有的常量，不另写客户、价格或 SLA。
+ */
+export function renderApproachMarkdown(): string {
+  return `# 方法
+
+网页：${PAGE}
+
+本文件不代替合同，也不是价目。
+
+## 首信
+
+来信请先写清这些。
+
+写信到 ${CONTACT_EMAIL}，主题：${INTAKE_SUBJECT}。
+
+${columns(INTAKE_INCLUDED, INTAKE_EXCLUDED)}
+
+${INTAKE_NOTE}
+
+## 范围
+
+硬化与受托运维，各包含什么。
+
+${columns(DELIVERY_INCLUDED, DELIVERY_EXCLUDED)}
+
+${DELIVERY_NOTE}
+`;
+}

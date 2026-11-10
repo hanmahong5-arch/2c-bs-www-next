@@ -278,6 +278,24 @@ async function checkPricingPay(failures: string[]) {
   }
 }
 
+async function checkApproachMd(failures: string[]) {
+  const res = await fetch(`${base}/approach.md`);
+  const type = res.headers.get("content-type") ?? "";
+  const body = await res.text();
+  const reasons: string[] = [];
+  if (res.status !== 200) reasons.push(`HTTP ${res.status}`);
+  if (!type.includes("text/markdown")) reasons.push(`content-type ${type || "空"}`);
+  if (!body.includes("来信请先写清")) reasons.push("缺「来信请先写清」");
+  if (!body.includes("硬化与受托运维")) reasons.push("缺「硬化与受托运维」");
+  if (!body.includes("不代替合同")) reasons.push("缺「不代替合同」");
+  if (reasons.length) {
+    failures.push(`/approach.md: ${reasons.join("; ")}`);
+    console.log(`/approach.md`.padEnd(22), "✗", reasons.join("; "));
+  } else {
+    console.log(`/approach.md`.padEnd(22), "ok");
+  }
+}
+
 async function checkPricingMd(failures: string[]) {
   const res = await fetch(`${base}/hub/pricing.md`);
   const type = res.headers.get("content-type") ?? "";
@@ -305,6 +323,7 @@ async function main() {
   checkDiscovery(failures);
   await checkAllRoutes(failures);
   await checkPricingMd(failures);
+  await checkApproachMd(failures);
   await checkPricingPay(failures);
   await checkConversion(failures);
   await checkApproachIntake(failures);

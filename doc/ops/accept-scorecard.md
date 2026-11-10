@@ -23,7 +23,7 @@ bun scripts/accept.ts http://127.0.0.1:3000
    - Kova JSON-LD（首页）：`application/ld+json` 同时含「Kova」与「早期试点」。
 4. **价目纯文本。** `/hub/pricing.md` 返回 HTTP 200，`Content-Type` 含 `text/markdown`。正文恰好是二者之一：价目表（含 `| 模型 |`），或「暂时读不到」且「不另存价格」。不能同时有，也不能同时没有。仍须写明来源 `hub.lurus.cn/api/v1/models` 与「与钱包扣费同源」。这条路径不在 `SITE_ROUTES` 里，单独查。
 5. **日志标记。** `/blog?tag=` 分两支。已知标记：HTTP 200，出现带该标记的条目，且不出现「日志里没有这个标记」，也不出现不带该标记的条目。未知标记：HTTP 200，出现「日志里没有这个标记」，且不列出已知条目的标题。
-6. **首信与交付分界。** `/approach` 含「来信请先写清」、「写第一封邮件」与「硬化与受托运维，各包含什么」。
+6. **首信与交付分界。** `/approach` 含「来信请先写清」、「写第一封邮件」与「硬化与受托运维，各包含什么」。`/approach.md` 返回 HTTP 200，`Content-Type` 含 `text/markdown`，正文含「来信请先写清」「硬化与受托运维」与「不代替合同」。这条路径不在 `SITE_ROUTES` 里，单独查。
 7. **首页证据。** 首页仍把证据行标成示例：含「下面三行是示例，不是客户数据」与「上面三行仍是示例」。并链出这六个已核对入口（`href` 原样出现）：
    - `/memorus/benchmarks`
    - `/hub/pricing`
@@ -44,6 +44,7 @@ bun scripts/accept.ts http://127.0.0.1:3000
 | `pricingMarkdownFromRows`（`src/lib/hub-pricing-md.ts`） | `null` 与空数组都是「暂时读不到」、没有价目表；一行则只有这行的表，没有「暂时读不到」 |
 | `renderHubPricingMarkdown` | 仍调用 `fetchHubModels()`。响应当下返回的单价写入正文；请求失败时与 `null` 相同，不回放旧价 |
 | `intakeMailto`（`src/lib/engagement-intake.ts`） | 主题是「受托运维咨询」；正文有「环境在哪：」「跑着什么：」「目标：」「接入方式：」四条占位；整段不含密码赋值，也不含看起来像密钥的令牌 |
+| `renderApproachMarkdown`（`src/lib/approach-md.ts`） | 含主题「受托运维咨询」、列题「包含」「不包含」、两条小注；不含 `password=` |
 | `filterUpdates`（`src/app/blog/filter-updates.ts`） | 未知标记 → 空列表；已知标记 → 只留匹配；空标记（`null` / `undefined` / `""`）→ 全部 |
 
 `/blog` 的筛选走 `filterUpdates`。空标记在页面上先被读成「没有标记」，再交给这个函数。

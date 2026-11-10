@@ -133,6 +133,14 @@ export default function ApproachPage() {
             <Lead className="mt-7">
               这一页写接什么样的活、分几步做、认哪些判据、个人项目合作怎么计价，以及不做什么。
             </Lead>
+            <p className="mt-6 text-[13px] leading-[1.7]">
+              <a
+                href="/approach.md"
+                className="text-[var(--color-text-muted)] underline decoration-[var(--lt-rule)] underline-offset-4 hover:text-[var(--lt-ink)] hover:decoration-[var(--lt-accent)]"
+              >
+                同一份说明的纯文本
+              </a>
+            </p>
           </div>
         </div>
       </section>
