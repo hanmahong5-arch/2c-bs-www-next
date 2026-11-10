@@ -256,6 +256,7 @@ async function checkApproachIntake(failures: string[]) {
   const reasons: string[] = [];
   if (!text.includes("来信请先写清")) reasons.push("缺「来信请先写清」");
   if (!text.includes("写第一封邮件")) reasons.push("缺「写第一封邮件」");
+  if (!text.includes("硬化与受托运维，各包含什么")) reasons.push("缺「硬化与受托运维，各包含什么」");
   if (reasons.length) {
     failures.push(`/approach: ${reasons.join("; ")}`);
     console.log(`/approach intake`.padEnd(22), "✗", reasons.join("; "));

@@ -9,8 +9,10 @@ import {
   Lead,
   LedgerRow,
   NextStep,
+  ScopeSplit,
   Section,
 } from "@/components/site";
+import { DELIVERY_EXCLUDED, DELIVERY_INCLUDED, DELIVERY_NOTE } from "@/lib/engagement-delivery";
 import { CONTACT_EMAIL, intakeMailto } from "@/lib/engagement-intake";
 
 // 方法页：怎么证明系统稳（个人项目站）。
@@ -189,6 +191,30 @@ export default function ApproachPage() {
             </p>
           </Disclosure>
         </div>
+      </Section>
+
+      {/* 交付分界：阶段之后、判据之前。复用 ScopeSplit，不另做皮。 */}
+      <Section id="delivery" width="wide" labelledBy="delivery-title">
+        <div className="max-w-[44rem]">
+          <SectionTitle id="delivery-title" eyebrow="范围">
+            硬化与受托运维，各包含什么。
+          </SectionTitle>
+          <Lead className="mt-6">
+            每个环境不同，具体以合同约定为准。这里只写我们通常怎么分界，不是价目，也不是 SLA。
+          </Lead>
+        </div>
+        <ScopeSplit className="mt-10" included={DELIVERY_INCLUDED} excluded={DELIVERY_EXCLUDED} />
+        <p className="mt-8 max-w-[64ch] text-[13px] leading-[1.7] text-[var(--color-text-muted)]">
+          {DELIVERY_NOTE}
+        </p>
+        <p className="mt-3 text-[13px] leading-[1.7]">
+          <Link
+            href="/witness#report"
+            className="text-[var(--color-text-muted)] underline decoration-[var(--lt-rule)] underline-offset-4 hover:text-[var(--lt-ink)] hover:decoration-[var(--lt-accent)]"
+          >
+            报告结构见见证页
+          </Link>
+        </p>
       </Section>
 
       {/* 3. 判据 */}
