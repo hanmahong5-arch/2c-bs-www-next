@@ -166,6 +166,12 @@ function checkDiscovery(failures: string[]) {
   if (!cmdk.includes("updates-data")) {
     failures.push("cmdk: 更新日志未接 updates-data");
   }
+  if (!cmdk.includes("/approach.md")) {
+    failures.push("cmdk: 缺 /approach.md");
+  }
+  if (!cmdk.includes("/approach#delivery")) {
+    failures.push("cmdk: 缺 /approach#delivery");
+  }
 }
 
 async function checkBlogTags(failures: string[]) {

@@ -45,6 +45,7 @@ const GROUPS: Group[] = [
       { label: "Switch — AI CLI 管理器", href: "/switch", hint: "早期试点", Icon: CloudArrowDownIcon },
       { label: "方法", href: "/approach", Icon: WrenchScrewdriverIcon },
       { label: "方法 — 首信清单", href: "/approach#intake", Icon: EnvelopeIcon },
+      { label: "方法 — 交付范围", href: "/approach#delivery", hint: "包含 / 不包含", Icon: WrenchScrewdriverIcon },
       { label: "博客", href: "/blog", Icon: DocumentTextIcon },
       { label: "关于", href: "/about", Icon: EnvelopeIcon },
     ],
@@ -63,6 +64,7 @@ const GROUPS: Group[] = [
     items: [
       { label: "下载", href: "/download", Icon: CloudArrowDownIcon },
       { label: "Hub 价目纯文本", href: "/hub/pricing.md", hint: "text/markdown", Icon: DocumentTextIcon },
+      { label: "方法纯文本", href: "/approach.md", hint: "text/markdown", Icon: DocumentTextIcon },
       { label: "API 文档", href: "https://docs.lurus.cn", external: true, Icon: DocumentTextIcon, hint: "docs.lurus.cn" },
       { label: "GitHub", href: "https://github.com/hanmahong5-arch", external: true, Icon: CodeBracketIcon },
       { label: "联系我们", href: "/about#contact", Icon: EnvelopeIcon },
