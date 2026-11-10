@@ -41,7 +41,7 @@ function ThemeToggle() {
       type="button"
       onClick={() => setDarkMode(!dark)}
       aria-label={dark ? "切换到浅色模式" : "切换到深色模式"}
-      className="p-2 font-mono text-[11px] text-[var(--color-text-muted)] transition-colors hover:text-[var(--lt-ink)]"
+      className={`p-2 font-mono text-[11px] text-[var(--color-text-muted)] transition-colors hover:text-[var(--lt-ink)] ${focusInk}`}
     >
       <span aria-hidden="true">{dark ? "○" : "●"}</span>
     </button>
@@ -59,6 +59,8 @@ const nav: readonly NavItem[] = [
   { name: "方法", href: "/approach" },
   { name: "文档", href: "https://docs.lurus.cn", external: true },
 ];
+
+const focusInk = "focus-ink";
 
 const LOGIN_URL = "https://identity.lurus.cn";
 
@@ -82,7 +84,7 @@ function NavLink({
         href={item.href}
         target="_blank"
         rel="noopener noreferrer"
-        className={`${className} ${tone}`}
+        className={`${className} ${tone} ${focusInk}`}
       >
         {item.name}
         <span aria-hidden="true" className="ml-0.5 text-[var(--color-text-muted)]">
@@ -97,7 +99,7 @@ function NavLink({
       href={item.href}
       onClick={onNavigate}
       aria-current={active ? "page" : undefined}
-      className={`${className} ${tone}`}
+      className={`${className} ${tone} ${focusInk}`}
     >
       {item.name}
     </Link>
@@ -108,12 +110,14 @@ export function Header() {
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
   const isActive = (item: NavItem) =>
-    !item.external && (pathname === item.href || pathname.startsWith(`${item.href}/`));
+    !item.external &&
+    !!pathname &&
+    (pathname === item.href || pathname.startsWith(`${item.href}/`));
 
   return (
     <header className="sticky top-0 z-50 border-b border-[var(--lt-rule)] bg-[var(--lt-paper)]/90 backdrop-blur">
       <div className="mx-auto flex h-14 max-w-5xl items-center justify-between px-6">
-        <Link href="/" aria-label="LurusTech 个人项目站首页" className="inline-flex items-center">
+        <Link href="/" aria-label="LurusTech 个人项目站首页" className={`inline-flex items-center ${focusInk}`}>
           <BrandLockup />
         </Link>
 
@@ -134,7 +138,7 @@ export function Header() {
             href={LOGIN_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-xs text-[var(--color-text-muted)] transition-colors hover:text-[var(--lt-ink)]"
+            className={`text-xs text-[var(--color-text-muted)] transition-colors hover:text-[var(--lt-ink)] ${focusInk}`}
           >
             登录
             <NewWindowNote />
@@ -144,7 +148,7 @@ export function Header() {
 
         <button
           type="button"
-          className="p-2 text-sm text-[var(--color-text-secondary)] md:hidden"
+          className={`p-2 text-sm text-[var(--color-text-secondary)] md:hidden ${focusInk}`}
           onClick={() => setOpen((v) => !v)}
           aria-expanded={open}
           aria-controls="mobile-nav"
@@ -176,7 +180,7 @@ export function Header() {
               href={LOGIN_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-xs text-[var(--color-text-muted)]"
+              className={`text-xs text-[var(--color-text-muted)] ${focusInk}`}
             >
               登录
               <NewWindowNote />

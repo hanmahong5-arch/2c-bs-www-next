@@ -54,4 +54,5 @@ test("footer names the log 更新日志, the same name as the page", () => {
   expect(log?.[0]).toContain("更新日志");
   expect(log?.[0]).not.toContain("changelog");
   expect(html).not.toContain("博客");
+  expect(html.match(/focus-ink/g)?.length).toBe(21);
 });

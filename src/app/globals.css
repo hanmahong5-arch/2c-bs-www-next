@@ -586,6 +586,12 @@ header {
   outline: 1px solid var(--lt-ink);
 }
 
+/* 页眉页脚里原先没有焦点环的控件。已有 ring 的组件不套这一层。 */
+.focus-ink:focus-visible {
+  outline: 1px solid var(--lt-ink);
+  outline-offset: 4px;
+}
+
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   ::view-transition-old(root),

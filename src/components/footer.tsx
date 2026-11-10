@@ -47,7 +47,7 @@ const footerLinks: ReadonlyArray<{ title: string; links: readonly FooterLink[] }
 ];
 
 const linkClass =
-  "text-[13px] text-[var(--lt-ink)]/70 hover:text-[var(--lt-ink)] hover:underline underline-offset-4";
+  "focus-ink text-[13px] text-[var(--lt-ink)]/70 hover:text-[var(--lt-ink)] hover:underline underline-offset-4";
 
 function FooterAnchor({ link }: { link: FooterLink }) {
   const external = link.href.startsWith("http");
@@ -109,7 +109,7 @@ export function Footer() {
               href="https://beian.miit.gov.cn/"
               target="_blank"
               rel="noopener noreferrer"
-              className="hover:text-[var(--lt-ink)] hover:underline"
+              className="focus-ink hover:text-[var(--lt-ink)] hover:underline"
             >
               鲁ICP备2026000242号
               <NewWindowNote />
@@ -119,22 +119,22 @@ export function Footer() {
               href="https://www.beian.gov.cn/portal/registerSystemInfo?recordcode=37060002001239"
               target="_blank"
               rel="noopener noreferrer"
-              className="hover:text-[var(--lt-ink)] hover:underline"
+              className="focus-ink hover:text-[var(--lt-ink)] hover:underline"
             >
               鲁公网安备37060002001239号
               <NewWindowNote />
             </a>
           </div>
           <div className="flex min-h-8 flex-wrap items-center gap-x-6 gap-y-2">
-            <Link href="/terms" className="hover:text-[var(--lt-ink)] hover:underline">
+            <Link href="/terms" className="focus-ink hover:text-[var(--lt-ink)] hover:underline">
               《服务条款》
             </Link>
-            <Link href="/privacy" className="hover:text-[var(--lt-ink)] hover:underline">
+            <Link href="/privacy" className="focus-ink hover:text-[var(--lt-ink)] hover:underline">
               《隐私政策》
             </Link>
             <a
               href="mailto:contact@lurus.cn?subject=侵权投诉"
-              className="hover:text-[var(--lt-ink)] hover:underline"
+              className="focus-ink hover:text-[var(--lt-ink)] hover:underline"
             >
               《侵权投诉》
             </a>

@@ -346,7 +346,7 @@ export function CommandPaletteTrigger() {
       type="button"
       onClick={() => window.dispatchEvent(new Event(OPEN_COMMAND_PALETTE))}
       aria-label="打开命令面板"
-      className="hidden items-center gap-1.5 text-xs text-[var(--color-text-muted)] transition-colors hover:text-[var(--lt-ink)] md:inline-flex"
+      className={`hidden items-center gap-1.5 text-xs text-[var(--color-text-muted)] transition-colors hover:text-[var(--lt-ink)] focus-ink md:inline-flex`}
     >
       <span>搜索</span>
       <kbd className="font-mono text-[10px] tracking-tight text-[var(--color-text-muted)]">
