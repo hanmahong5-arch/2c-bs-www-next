@@ -6,12 +6,23 @@
  */
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
+import { updates } from "../src/app/blog/updates-data";
 import { CONVERSION_ROUTES, ROUTES } from "./routes";
 
 const base = (process.argv[2] ?? "http://localhost:3000").replace(/\/$/, "");
 const BRAND = "LurusTech";
 const MIN_TEXT = 120;
 const FORBIDDEN_FONT_HOSTS = ["fonts.googleapis.com", "fonts.gstatic.com"];
+const HOME_EXAMPLE_MARKS = ["下面三行是示例，不是客户数据", "上面三行仍是示例"] as const;
+const HOME_PROOF_HREFS = [
+  "/memorus/benchmarks",
+  "/hub/pricing",
+  "/hub/pricing.md",
+  "/blog",
+  "/witness",
+  "/approach#intake",
+] as const;
+const UNKNOWN_BLOG_TAG = "no-such-mark";
 
 interface CdpResult {
   result: { value: string };
@@ -157,6 +168,72 @@ function checkDiscovery(failures: string[]) {
   }
 }
 
+async function checkBlogTags(failures: string[]) {
+  const reasons: string[] = [];
+  const knownEntry = updates.find((entry) => entry.tags.length > 0);
+  if (!knownEntry) {
+    reasons.push("日志没有可用标记，无法核对已知分支");
+  } else {
+    const tag = knownEntry.tags[0];
+    const other = updates.find((entry) => !entry.tags.includes(tag));
+    try {
+      const res = await fetch(`${base}/blog?tag=${encodeURIComponent(tag)}`);
+      const html = await res.text();
+      if (res.status !== 200) reasons.push(`已知 HTTP ${res.status}`);
+      if (!html.includes(knownEntry.title)) reasons.push(`已知标记 ${tag} 未出现「${knownEntry.title}」`);
+      if (html.includes("日志里没有这个标记")) reasons.push("已知标记误报没有这个标记");
+      if (other && html.includes(other.title)) reasons.push(`已知标记仍出现无关条目「${other.title}」`);
+    } catch (e) {
+      reasons.push(`已知标记: ${(e as Error).message}`);
+    }
+  }
+
+  if (updates.some((entry) => entry.tags.includes(UNKNOWN_BLOG_TAG))) {
+    reasons.push(`未知标记样本 ${UNKNOWN_BLOG_TAG} 已是真标记`);
+  } else {
+    try {
+      const res = await fetch(`${base}/blog?tag=${encodeURIComponent(UNKNOWN_BLOG_TAG)}`);
+      const html = await res.text();
+      if (res.status !== 200) reasons.push(`未知 HTTP ${res.status}`);
+      if (!html.includes("日志里没有这个标记")) reasons.push("未知标记缺「日志里没有这个标记」");
+      if (knownEntry && html.includes(knownEntry.title)) reasons.push("未知标记仍列出日志条目");
+    } catch (e) {
+      reasons.push(`未知标记: ${(e as Error).message}`);
+    }
+  }
+
+  if (reasons.length) {
+    failures.push(`/blog?tag=: ${reasons.join("; ")}`);
+    console.log(`/blog?tag=`.padEnd(22), "✗", reasons.join("; "));
+  } else {
+    console.log(`/blog?tag=`.padEnd(22), "ok 已知 / 未知");
+  }
+}
+
+async function checkHomeProof(failures: string[]) {
+  const reasons: string[] = [];
+  try {
+    const res = await fetch(`${base}/`);
+    const html = await res.text();
+    if (res.status !== 200) reasons.push(`HTTP ${res.status}`);
+    for (const mark of HOME_EXAMPLE_MARKS) {
+      if (!html.includes(mark)) reasons.push(`缺「${mark}」`);
+    }
+    for (const href of HOME_PROOF_HREFS) {
+      if (!html.includes(`href="${href}"`)) reasons.push(`缺入口 ${href}`);
+    }
+  } catch (e) {
+    reasons.push((e as Error).message);
+  }
+
+  if (reasons.length) {
+    failures.push(`/ home proof: ${reasons.join("; ")}`);
+    console.log(`/ home proof`.padEnd(22), "✗", reasons.join("; "));
+  } else {
+    console.log(`/ home proof`.padEnd(22), "ok 示例 + 六个入口");
+  }
+}
+
 async function checkSitemapRobots(failures: string[]) {
   const robots = await (await fetch(`${base}/robots.txt`)).text();
   if (!robots.includes("sitemap")) {
@@ -217,6 +294,8 @@ async function main() {
   await checkLugo(failures);
   await checkJsonLd(failures);
   await checkSitemapRobots(failures);
+  await checkBlogTags(failures);
+  await checkHomeProof(failures);
 
   console.log("");
   if (failures.length) {

@@ -18,9 +18,10 @@ function table(rows: HubModelRow[]) {
   return [...head, ...body].join("\n");
 }
 
-/** 与 /hub/pricing 同源的纯文本价目。读不到接口时不写旧价。 */
-export async function renderHubPricingMarkdown(): Promise<string> {
-  const rows = await fetchHubModels();
+/**
+ * 由本次读到的行生成价目。`null` 与空数组都写「暂时读不到」，不代入上一份价格。
+ */
+export function pricingMarkdownFromRows(rows: HubModelRow[] | null): string {
   const prices =
     rows && rows.length > 0
       ? `${table(rows)}\n\n匿名访客默认分组。账号分组不同时，以控制台显示的单价为准。`
@@ -49,4 +50,10 @@ export async function renderHubPricingMarkdown(): Promise<string> {
 
 ${prices}
 `;
+}
+
+/** 与 /hub/pricing 同源的纯文本价目。每次现读接口；读不到时不写旧价。 */
+export async function renderHubPricingMarkdown(): Promise<string> {
+  const rows = await fetchHubModels();
+  return pricingMarkdownFromRows(rows);
 }

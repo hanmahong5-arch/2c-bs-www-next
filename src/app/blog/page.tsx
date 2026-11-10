@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Eyebrow, Lead, Section } from "@/components/site";
+import { filterUpdates } from "./filter-updates";
 import { updates, type ChangelogEntry } from "./updates-data";
 
 // 更新日志是历史记录：条目内容（updates-data.ts）按当时的原文保留，不回改事实。
@@ -59,9 +60,8 @@ const hairOn = "border-[var(--lt-ink)] text-[var(--lt-ink)]";
 export default async function BlogPage({ searchParams }: BlogPageProps) {
   const { tag } = await searchParams;
   const activeTag = readTag(tag);
-  const tagKnown = activeTag === null || updates.some((entry) => entry.tags.includes(activeTag));
-  const visible =
-    activeTag === null ? updates : tagKnown ? updates.filter((entry) => entry.tags.includes(activeTag)) : [];
+  const visible = filterUpdates(updates, activeTag);
+  const tagKnown = activeTag === null || visible.length > 0;
 
   const months = unique(updates.map((entry) => entry.date));
   const tags = unique(updates.flatMap((entry) => entry.tags));
