@@ -174,12 +174,13 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
                   {group.entries.map((entry) => (
                     <li key={entry.title} className="border-b border-[var(--lt-rule)] py-6 last:border-b-0">
                       <article className="grid gap-y-3 md:grid-cols-[7.5rem_1fr] md:gap-x-8">
-                        <time
-                          dateTime={entry.date}
-                          className="font-mono text-[12px] text-[var(--color-text-muted)]"
+                        <a
+                          href={`#${changelogAnchor(entry)}`}
+                          aria-label={`这条日志：${entry.title}`}
+                          className="font-mono text-[12px] text-[var(--color-text-muted)] underline decoration-[var(--lt-rule)] underline-offset-4 hover:text-[var(--lt-ink)] hover:decoration-[var(--lt-accent)]"
                         >
-                          {entry.date}
-                        </time>
+                          <time dateTime={entry.date}>{entry.date}</time>
+                        </a>
                         <div>
                           <h3
                             id={changelogAnchor(entry)}

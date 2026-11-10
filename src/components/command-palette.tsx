@@ -16,6 +16,7 @@ import {
   EnvelopeIcon,
 } from "@heroicons/react/24/outline";
 import { updates } from "@/app/blog/updates-data";
+import { changelogAnchor } from "@/lib/changelog-rss";
 
 type Item = {
   label: string;
@@ -59,7 +60,7 @@ const GROUPS: Group[] = [
     section: "更新",
     items: updates.slice(0, 5).map((entry) => ({
       label: entry.title,
-      href: "/blog",
+      href: `/blog#${changelogAnchor(entry)}`,
       hint: entry.date,
       Icon: DocumentTextIcon,
     })),
