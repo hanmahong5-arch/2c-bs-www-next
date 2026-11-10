@@ -28,7 +28,7 @@ export function Disclosure({
       open={defaultOpen}
       className={`group border-t border-[var(--lt-rule)] last:border-b ${className}`}
     >
-      <summary className="flex cursor-pointer list-none items-baseline justify-between gap-4 py-4 text-[var(--lt-ink)] outline-none marker:content-none focus-visible:ring-2 focus-visible:ring-[var(--lt-accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--lt-paper)] [&::-webkit-details-marker]:hidden">
+      <summary className="flex cursor-pointer list-none items-baseline justify-between gap-4 py-4 text-[var(--lt-ink)] marker:content-none focus-ink [&::-webkit-details-marker]:hidden">
         <span className="min-w-0">{summary}</span>
         <svg
           aria-hidden="true"

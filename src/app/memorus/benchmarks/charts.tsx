@@ -231,7 +231,7 @@ export function DataTable({
       role="region"
       aria-label={caption}
       tabIndex={0}
-      className="relative overflow-x-auto border-y border-[var(--lt-rule)] outline-none focus-visible:ring-2 focus-visible:ring-[var(--lt-accent)]"
+      className="relative overflow-x-auto border-y border-[var(--lt-rule)] focus-ink"
     >
       <table className="w-full border-collapse text-left text-[13px] leading-[1.6]" style={{ minWidth }}>
         <caption className="sr-only">{caption}</caption>

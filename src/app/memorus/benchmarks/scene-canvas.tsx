@@ -548,7 +548,7 @@ export function SceneCanvas({ children }: { children: ReactNode }) {
         role={active ? "group" : undefined}
         aria-label={active ? "三维检索场景：拖拽或用方向键旋转视角，Home 键重置。文字版见下方命中列表。" : undefined}
         tabIndex={active ? 0 : undefined}
-        className={`absolute inset-0 outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[var(--lt-accent)] ${
+        className={`absolute inset-0 focus-ink-inset ${
           active ? "cursor-grab touch-pan-y touch-pinch-zoom active:cursor-grabbing" : "pointer-events-none"
         }`}
       />
@@ -568,7 +568,7 @@ export function SceneCanvas({ children }: { children: ReactNode }) {
           <button
             type="button"
             onClick={() => apiRef.current?.reset()}
-            className="absolute bottom-2 right-2 inline-flex min-h-11 min-w-11 items-center justify-center border border-[var(--lt-rule)] bg-[var(--lt-paper)] px-3 font-mono text-[11px] text-[var(--lt-ink)] outline-none focus-visible:ring-2 focus-visible:ring-[var(--lt-accent)]"
+            className="absolute bottom-2 right-2 inline-flex min-h-11 min-w-11 items-center justify-center border border-[var(--lt-rule)] bg-[var(--lt-paper)] px-3 font-mono text-[11px] text-[var(--lt-ink)] focus-ink"
           >
             重置视角
           </button>

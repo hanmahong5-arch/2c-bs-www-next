@@ -773,7 +773,7 @@ export default function BenchmarksPage() {
         <pre
           tabIndex={0}
           aria-label="评测命令（形态）"
-          className="code-block mt-4 p-4 outline-none focus-visible:ring-2 focus-visible:ring-[var(--lt-accent)]"
+          className="code-block mt-4 p-4 focus-ink"
         >
           {COST.reproCommand}
         </pre>
