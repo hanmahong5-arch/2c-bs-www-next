@@ -113,3 +113,5 @@
 **本轮第四十六刀：** 页脚产品列改用页眉和产品页的名字：见证、Kova、Memorus、Hub、Lugo、Switch，文档站称为「文档」。底栏许可句与 Hub 页相同：「Lurus Hub 基于开源 New API，AGPLv3。」地址不变。
 
 **本轮第四十七刀：** 更新日志订阅源写进全站 metadata，标题与频道相同：「LurusTech 更新日志」。自己另写 alternates 的页面（日志、基准报告、缺失页）也带上这一条，避免把根上的订阅源盖掉。地址仍是 `/blog/rss.xml`。
+
+**本轮第四十八刀：** 浏览器顶栏跟页面铺的纸色走。浅色 `#F5F2E8`，暗色 `#16150F`（globals 里实际覆写的纸色）。切换深浅时改同一条 `theme-color`。滚动条跟 `color-scheme` 走。

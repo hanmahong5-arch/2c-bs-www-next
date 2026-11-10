@@ -6,6 +6,7 @@ import { useState, useSyncExternalStore } from "react";
 import { CommandPaletteTrigger } from "@/components/command-palette";
 import { BrandLockup } from "@/components/brand-mark";
 import { NewWindowNote } from "@/components/site/new-window-note";
+import { themeColor } from "@/lib/theme-chrome";
 
 // 深色模式切换 — 初始态由 layout.tsx 的 beforeInteractive script 同步应用在 <html>
 // 上。用 useSyncExternalStore（而非 effect 里 setState）读回当前值，SSR 快照固定为
@@ -23,6 +24,8 @@ function subscribeTheme(listener: () => void) {
 }
 function setDarkMode(next: boolean) {
   document.documentElement.classList.toggle("dark", next);
+  const meta = document.querySelector('meta[name="theme-color"]');
+  if (meta) meta.setAttribute("content", themeColor(next));
   try {
     localStorage.setItem("theme", next ? "dark" : "light");
   } catch {

@@ -20,6 +20,7 @@ html {
 }
 
 :root {
+  color-scheme: light;
   /* 品牌基色 token(--lt-paper/-bg/-ink/-rule/-ok/-warn/-err/-info/-accent/-accent-2)
      现由上面 import 的 vendor tokens.css 提供，本文件不再手写第二份。 */
 
@@ -97,7 +98,8 @@ html {
    4.51:1(AA)。改用真源值会让暗色下 accent-2 的 ~25 处引用点变亮 —— 这正是修复
    目的(原值在暗底上几乎看不清)，是一次有意的暗色视觉变更，不是意外漂移。 */
 .dark {
-  --lt-paper: #16150F; /* 表面色不承载文字对比度，保留本仓值 */
+  color-scheme: dark;
+  --lt-paper: #16150F; /* 表面色不承载文字对比度，保留本仓值。浏览器顶栏用同一个色，见 theme-chrome.ts */
   --lt-bg: #1E1C15; /* 同上 */
   --lt-rule: #35321F; /* 分隔线对 --lt-paper 实测 1.42:1，优于真源 #25221C 的 1.17:1，保留 */
   --lt-ok: #3FBE81; /* 对 --lt-paper 实测 7.75:1，优于真源 #3FA876 的 6.26:1，保留 */
