@@ -88,6 +88,31 @@ export const PALETTE_PANEL_CLASS =
   "w-full max-w-[600px] overflow-hidden border border-[var(--lt-rule)] bg-[var(--lt-paper)]";
 export const PALETTE_SEARCH_LABEL = "搜索页面、产品、文档";
 
+type InertNode = {
+  hasAttribute(name: string): boolean;
+  setAttribute(name: string, value: string): void;
+  removeAttribute(name: string): void;
+  parentElement: { children: ArrayLike<InertNode> } | null;
+};
+
+/**
+ * 面板打开时，同一层的页面不能再被点到或读到。
+ * 已经是 inert 的节点不动，关掉面板时只收回这次加上的。
+ */
+export function inertSiblings(keep: InertNode): () => void {
+  const parent = keep.parentElement;
+  if (!parent) return () => {};
+  const touched: InertNode[] = [];
+  for (const child of Array.from(parent.children)) {
+    if (child === keep || child.hasAttribute("inert")) continue;
+    child.setAttribute("inert", "");
+    touched.push(child);
+  }
+  return () => {
+    for (const el of touched) el.removeAttribute("inert");
+  };
+}
+
 /** 当前行用一条赭石左边线，不用填充块。 */
 export function paletteRowClass(active: boolean) {
   return `flex cursor-pointer items-center gap-3 border-l-2 px-5 py-2.5 text-sm ${
@@ -177,10 +202,12 @@ export function CommandPalette() {
     return () => window.removeEventListener("keydown", onKey);
   }, [open, filteredFlat, activeIdx, router, closePalette]);
 
-  // Focus trap: keep Tab/Shift+Tab cycling within the panel while open, so
-  // keyboard users can't tab out onto the dimmed background page.
+  // Tab 在面板两端折返。同一层的页面标成 inert，读屏和点击都进不来。
   useEffect(() => {
     if (!open) return;
+    const scrim = panelRef.current?.parentElement ?? null;
+    const release = scrim ? inertSiblings(scrim) : () => {};
+    inputRef.current?.focus();
     const onKey = (e: KeyboardEvent) => {
       if (e.key !== "Tab" || !panelRef.current) return;
       const focusable = panelRef.current.querySelectorAll<HTMLElement>(
@@ -198,7 +225,10 @@ export function CommandPalette() {
       }
     };
     window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
+    return () => {
+      release();
+      window.removeEventListener("keydown", onKey);
+    };
   }, [open]);
 
   return (

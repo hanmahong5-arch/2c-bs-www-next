@@ -3,6 +3,7 @@ import { updates } from "@/app/blog/updates-data";
 import { changelogAnchor } from "@/lib/changelog-rss";
 import {
   filterPaletteItems,
+  inertSiblings,
   PALETTE_PANEL_CLASS,
   PALETTE_SCRIM_CLASS,
   PALETTE_SEARCH_LABEL,
@@ -26,6 +27,38 @@ test("the palette sits on the same paper as the page", () => {
   expect(paletteRowClass(true)).not.toContain("rounded");
   expect(paletteRowClass(false)).toContain("border-transparent");
   expect(PALETTE_SEARCH_LABEL).toBe("搜索页面、产品、文档");
+});
+
+test("an open palette makes the rest of that layer inert and leaves prior inert nodes", () => {
+  function node(inert = false) {
+    const attrs = new Set(inert ? ["inert"] : []);
+    return {
+      parentElement: null as { children: ReturnType<typeof node>[] } | null,
+      hasAttribute: (name: string) => attrs.has(name),
+      setAttribute: (name: string) => {
+        attrs.add(name);
+      },
+      removeAttribute: (name: string) => {
+        attrs.delete(name);
+      },
+    };
+  }
+  const header = node();
+  const main = node();
+  const footer = node(true);
+  const scrim = node();
+  const parent = { children: [header, main, footer, scrim] };
+  for (const child of parent.children) child.parentElement = parent;
+
+  const release = inertSiblings(scrim);
+  expect(header.hasAttribute("inert")).toBe(true);
+  expect(main.hasAttribute("inert")).toBe(true);
+  expect(scrim.hasAttribute("inert")).toBe(false);
+  expect(footer.hasAttribute("inert")).toBe(true);
+  release();
+  expect(header.hasAttribute("inert")).toBe(false);
+  expect(main.hasAttribute("inert")).toBe(false);
+  expect(footer.hasAttribute("inert")).toBe(true);
 });
 
 test("llms.txt is one plain full document", () => {
