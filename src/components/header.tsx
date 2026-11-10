@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { useState, useSyncExternalStore } from "react";
 import { CommandPaletteTrigger } from "@/components/command-palette";
 import { BrandLockup } from "@/components/brand-mark";
+import { NewWindowNote } from "@/components/site/new-window-note";
 
 // 深色模式切换 — 初始态由 layout.tsx 的 beforeInteractive script 同步应用在 <html>
 // 上。用 useSyncExternalStore（而非 effect 里 setState）读回当前值，SSR 快照固定为
@@ -133,6 +134,7 @@ export function Header() {
             className="text-xs text-[var(--color-text-muted)] transition-colors hover:text-[var(--lt-ink)]"
           >
             登录
+            <NewWindowNote />
           </a>
           <ThemeToggle />
         </div>
@@ -174,6 +176,7 @@ export function Header() {
               className="text-xs text-[var(--color-text-muted)]"
             >
               登录
+              <NewWindowNote />
             </a>
             <ThemeToggle />
           </div>

@@ -18,5 +18,6 @@ test("missing page lists existing ways onward without a popularity claim", () =>
   expect(html).toContain('href="/approach"');
   expect(html).toContain('href="/memorus"');
   expect(html).toContain('href="https://docs.lurus.cn"');
+  expect(html).toContain("（新窗口打开）");
   expect(html).not.toContain("常有人去");
 });

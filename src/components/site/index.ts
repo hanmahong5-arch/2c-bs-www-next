@@ -43,6 +43,9 @@
  *
  * EvidenceReport({ input?, className? })
  *   月度证据报告的留空样子：发丝栏位，加 ScopeSplit 写明报告写下什么、不声称什么。
+ *
+ * NewWindowNote({ arrow?: boolean = false })
+ *   外链已 target=_blank 时的读屏说明「（新窗口打开）」。arrow 为真时另给眼睛一个隐藏箭头。
  */
 export { Section, type SectionProps } from "./section";
 export { Eyebrow, type EyebrowProps } from "./eyebrow";
@@ -69,3 +72,4 @@ export { IntakeBrief, type IntakeBriefProps } from "./intake-brief";
 export { LedgerRow, type LedgerRowProps } from "./ledger-row";
 export { RestoreReceipt, type RestoreReceiptProps } from "./restore-receipt";
 export { EvidenceReport, type EvidenceReportProps } from "./evidence-report";
+export { NewWindowNote, NEW_WINDOW_LABEL } from "./new-window-note";

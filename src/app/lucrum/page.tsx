@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Eyebrow, Lead, Section } from "@/components/site";
+import { NewWindowNote } from "@/components/site/new-window-note";
 
 // Lucrum 不在主导航。这里只做极简说明与外链，不写收益、准确率、延迟等断言。
 
@@ -46,6 +47,7 @@ export default function LucrumPage() {
             className="text-[var(--lt-ink)] underline decoration-[var(--lt-rule)] underline-offset-4 hover:decoration-[var(--lt-accent)]"
           >
             lucrum.lurus.cn ↗
+            <NewWindowNote />
           </a>
         </p>
       </Section>

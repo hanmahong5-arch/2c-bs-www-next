@@ -11,4 +11,9 @@ test("footer security row is a mailbox and does not name a DPA", () => {
   expect(html).toContain('href="/privacy"');
   expect(html).not.toContain("DPA");
   expect(html).not.toContain("/security");
+  expect(html.match(/（新窗口打开）/g)).toHaveLength(3);
+  const security = html.match(
+    /<a href="mailto:contact@lurus.cn\?subject=%E5%AE%89%E5%85%A8%E9%97%AE%E9%A2%98"[^>]*>[\s\S]*?<\/a>/,
+  );
+  expect(security?.[0]).not.toContain("新窗口");
 });

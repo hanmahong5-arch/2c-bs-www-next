@@ -11,6 +11,7 @@ import {
   ProductHeader,
   Section,
 } from "@/components/site";
+import { NewWindowNote } from "@/components/site/new-window-note";
 
 // Lugo 产品页：ProductHeader → 核心主张 → 四个展开（账号与登录 / 钱与账 / 权益 / 安装与交付就绪）
 // → 边界与现状。全部服务端渲染，无 JS 动效。
@@ -165,10 +166,12 @@ export default function LugoPage() {
               我们自己这套的接口规范公开可读，无需登录：{" "}
               <a href="https://identity.lurus.cn/docs/api" target="_blank" rel="noopener noreferrer" className={linkClass}>
                 在线 API 参考
+                <NewWindowNote />
               </a>
               {" · "}
               <a href="https://identity.lurus.cn/docs/openapi.yaml" target="_blank" rel="noopener noreferrer" className={linkClass}>
                 openapi.yaml
+                <NewWindowNote />
               </a>
               。
             </p>
@@ -241,6 +244,7 @@ export default function LugoPage() {
             className={linkClass}
           >
             文档
+            <NewWindowNote />
           </a>
           ，或先读{" "}
           <Link href="/approach" className={linkClass}>

@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { BrandLockup } from "@/components/brand-mark";
+import { NewWindowNote } from "@/components/site/new-window-note";
 
 // 个人项目站页脚：产品 → 资源 → 关于 → 法务。
 // 以个人备案现实为准（本仓无 brand-spec.md）；不挂 Careers、不挂未取得的算法备案。
@@ -58,11 +59,7 @@ function FooterAnchor({ link }: { link: FooterLink }) {
         className={linkClass}
       >
         {link.name}
-        {external && (
-          <span aria-hidden="true" className="ml-0.5">
-            ↗
-          </span>
-        )}
+        {external ? <NewWindowNote arrow /> : null}
       </a>
     );
   }
@@ -115,6 +112,7 @@ export function Footer() {
               className="hover:text-[var(--lt-ink)] hover:underline"
             >
               鲁ICP备2026000242号
+              <NewWindowNote />
             </a>
             <span aria-hidden="true">·</span>
             <a
@@ -124,6 +122,7 @@ export function Footer() {
               className="hover:text-[var(--lt-ink)] hover:underline"
             >
               鲁公网安备37060002001239号
+              <NewWindowNote />
             </a>
           </div>
           <div className="flex min-h-8 flex-wrap items-center gap-x-6 gap-y-2">

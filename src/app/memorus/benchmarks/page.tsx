@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Disclosure, Eyebrow, Lead, Section } from "@/components/site";
+import { NewWindowNote } from "@/components/site/new-window-note";
 import {
   BarChart,
   ChartBlock,
@@ -151,7 +152,7 @@ function ExtLink({
   return (
     <a href={href} target="_blank" rel="noopener noreferrer" className={`${LINK_CLASS} ${EXT_LAYOUT[layout]}`}>
       {children}
-      <span className="sr-only">（在新窗口打开）</span>
+      <NewWindowNote />
     </a>
   );
 }

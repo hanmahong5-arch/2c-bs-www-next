@@ -17,6 +17,7 @@ import {
 } from "@heroicons/react/24/outline";
 import { updates } from "@/app/blog/updates-data";
 import { changelogAnchor } from "@/lib/changelog-rss";
+import { NewWindowNote } from "@/components/site/new-window-note";
 
 type Item = {
   label: string;
@@ -257,8 +258,11 @@ export function CommandPalette() {
                               <span className="text-[10px] font-mono text-[var(--color-text-muted)]/60 truncate">{item.hint}</span>
                             )}
                             {item.external && (
-                              <span className="text-[10px] font-mono text-[var(--color-text-muted)]/70">↗</span>
+                              <span aria-hidden="true" className="text-[10px] font-mono text-[var(--color-text-muted)]/70">
+                                ↗
+                              </span>
                             )}
+                            {item.external ? <NewWindowNote /> : null}
                           </>
                         );
                         if (item.external) {

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Eyebrow, Lead, Section } from "@/components/site";
+import { NewWindowNote } from "@/components/site/new-window-note";
 import { changelogAnchor } from "@/lib/changelog-rss";
 import { blogPageMetadata } from "./blog-metadata";
 import { filterUpdates } from "./filter-updates";
@@ -214,6 +215,7 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
             className="text-[var(--lt-ink)] underline decoration-[var(--lt-rule)] underline-offset-4 hover:decoration-[var(--lt-accent)]"
           >
             docs.lurus.cn ↗
+            <NewWindowNote />
           </a>
           。
         </p>
