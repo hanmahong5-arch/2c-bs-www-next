@@ -6,6 +6,7 @@ import { Eyebrow } from "@/components/site/eyebrow";
 import { Lead } from "@/components/site/lead";
 
 const CONTACT = "contact@lurus.cn";
+export const ERROR_TITLE = "页面出错了 — LurusTech";
 
 // 路由级错误边界。捕获 page/嵌套 layout 渲染期抛出的异常；根 layout 自身的错误
 // 由 global-error.tsx 兜底（本站根 layout 无数据依赖，暂不需要）。
@@ -18,6 +19,8 @@ export default function Error({
 }) {
   useEffect(() => {
     // 生产环境 message 会被 Next 脱敏，digest 才是能和服务端日志对上的线索。
+    // 浏览器标签用文档里的第一个 title。这里改掉它，避免出错后仍显示原来那一页的名字。
+    document.title = ERROR_TITLE;
     console.error(error);
   }, [error]);
 
@@ -28,6 +31,8 @@ export default function Error({
 
   return (
     <div className="px-6">
+      {/* 客户端边界不能导出 metadata。用 title 把标签页改成这一页自己的名字。 */}
+      <title>{ERROR_TITLE}</title>
       <div className="mx-auto flex min-h-[70vh] max-w-5xl flex-col justify-center py-24">
         <div className="max-w-[36rem]">
           <Eyebrow>出错</Eyebrow>

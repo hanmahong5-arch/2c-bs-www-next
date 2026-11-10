@@ -1,11 +1,12 @@
 import { expect, test } from "bun:test";
 import { renderToStaticMarkup } from "react-dom/server";
-import ErrorPage from "./error";
+import ErrorPage, { ERROR_TITLE } from "./error";
 
 test("error page names the contact address and does not invent a digest", () => {
   const html = renderToStaticMarkup(<ErrorPage error={new Error("boom")} reset={() => {}} />);
 
   expect(html).toContain("页面出错了");
+  expect(html).toContain(ERROR_TITLE);
   expect(html).toContain('href="mailto:contact@lurus.cn"');
   expect(html).toContain("重试");
   expect(html).toContain('href="/"');
