@@ -16,6 +16,14 @@ test("approach markdown has the intake subject and both column headings", () => 
   expect(md).toContain("## 恢复演练回执");
   expect(md).toContain("（留空）");
   expect(md).toContain("这张回执不是合同。");
+  expect(md).toContain("## 月度证据报告");
+  expect(md).toContain("报告期：（留空）");
+  expect(md).toContain("跑了什么：（留空）");
+  expect(md).toContain("核对了什么：（留空）");
+  expect(md).toContain("失败仍开着：（留空）");
+  expect(md).toContain("谁签了这份说明：（留空）");
+  expect(md).toContain("不写可用率百分比。");
+  expect(md).toContain("这不代替演练回执。");
   expect(md).not.toContain("password=");
   expect(md).not.toMatch(/\d+(?:\.\d+)?\s*[%％]/);
 });

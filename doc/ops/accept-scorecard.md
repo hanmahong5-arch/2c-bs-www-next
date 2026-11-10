@@ -25,7 +25,7 @@ bun scripts/accept.ts http://127.0.0.1:3000
 5. **日志标记。** `/blog?tag=` 分两支。已知标记：HTTP 200，出现带该标记的条目，且不出现「日志里没有这个标记」，也不出现不带该标记的条目。未知标记：HTTP 200，出现「日志里没有这个标记」，且不列出已知条目的标题。
 6. **首信与交付分界。** `/approach` 含「来信请先写清」、「写第一封邮件」与「硬化与受托运维，各包含什么」。`/approach.md` 返回 HTTP 200，`Content-Type` 含 `text/markdown`，正文含「来信请先写清」「硬化与受托运维」与「不代替合同」。这条路径不在 `SITE_ROUTES` 里，单独查。
 7. **恢复演练回执。** `/approach` 含「演练之后，写下这一张」、「（留空）」、「不写可用率」、「不写客户名」与「不是合同」。`/approach.md` 含「恢复演练回执」、「（留空）」、「不写可用率」、「不写客户名」与「这张回执不是合同。」。两处正文都不含可用性百分比。
-8. **见证页的演练测量。** `/witness` 含「是否恢复成功」、「恢复了什么」、「哪一类备份」、「谁见证」、「核对了什么」、「不写可用率」、「不写客户名」、「不是合同」与「不是常设 SLA」。正文不含可用性百分比。
+8. **见证页的演练测量与月报留空。** `/witness` 含「是否恢复成功」、「恢复了什么」、「哪一类备份」、「谁见证」、「核对了什么」、「不写可用率」、「不写客户名」、「不是合同」与「不是常设 SLA」，以及月报留空句「不是某一个月的结果」、「报告期」、「跑了什么」、「失败仍开着」、「谁签了这份说明」、「（留空）」、「不写可用率百分比」与「这不代替演练回执」。正文不含可用性百分比。
 9. **首页证据。** 首页仍把证据行标成示例：含「下面三行是示例，不是客户数据」与「上面三行仍是示例」。并链出这六个已核对入口（`href` 原样出现）：
    - `/memorus/benchmarks`
    - `/hub/pricing`
@@ -46,9 +46,10 @@ bun scripts/accept.ts http://127.0.0.1:3000
 | `pricingMarkdownFromRows`（`src/lib/hub-pricing-md.ts`） | `null` 与空数组都是「暂时读不到」、没有价目表；一行则只有这行的表，没有「暂时读不到」 |
 | `renderHubPricingMarkdown` | 仍调用 `fetchHubModels()`。响应当下返回的单价写入正文；请求失败时与 `null` 相同，不回放旧价 |
 | `intakeMailto`（`src/lib/engagement-intake.ts`） | 主题是「受托运维咨询」；正文有「环境在哪：」「跑着什么：」「目标：」「接入方式：」四条占位；整段不含密码赋值，也不含看起来像密钥的令牌 |
-| `renderApproachMarkdown`（`src/lib/approach-md.ts`） | 含主题「受托运维咨询」、列题「包含」「不包含」、两条小注、回执标题与「（留空）」；不含 `password=`，也不含可用性百分比 |
+| `renderApproachMarkdown`（`src/lib/approach-md.ts`） | 含主题「受托运维咨询」、列题「包含」「不包含」、两条小注、回执标题与「（留空）」、月报标题与「这不代替演练回执」；不含 `password=`，也不含可用性百分比 |
 | `renderRestoreReceiptMarkdown`（`src/lib/restore-receipt.ts`） | 不传参时五个栏位都是「（留空）」并带三条不声称；空白、`null`、缺省仍留空，写了的栏只出现写下的字；不声称的句子仍在；默认正文不含可用性百分比 |
 | `drillMeasure` / `renderDrillMeasureText`（`src/lib/witness-drill.ts`） | 记下与不记下两条列表都在，且不含可用性百分比；`outcome` 为空白、`null`、缺省时是「（留空）」，不写成通过；写了的结果只出现写下的字，列表不随之改写 |
+| `renderEvidenceReportMarkdown`（`src/lib/evidence-report.ts`） | 不传参时五个栏位都是「（留空）」并带四条不声称；空白、`null`、缺省仍留空，写了的栏只出现写下的字；不声称的句子仍在；默认正文不含可用性百分比 |
 | `filterUpdates`（`src/app/blog/filter-updates.ts`） | 未知标记 → 空列表；已知标记 → 只留匹配；空标记（`null` / `undefined` / `""`）→ 全部 |
 
 `/blog` 的筛选走 `filterUpdates`。空标记在页面上先被读成「没有标记」，再交给这个函数。

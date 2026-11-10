@@ -4,6 +4,7 @@ import {
   Disclosure,
   EvidenceLine,
   EvidenceList,
+  EvidenceReport,
   Eyebrow,
   Lead,
   NextStep,
@@ -11,6 +12,7 @@ import {
   ScopeSplit,
   Section,
 } from "@/components/site";
+import { EVIDENCE_REPORT_INTRO } from "@/lib/evidence-report";
 import { drillMeasure } from "@/lib/witness-drill";
 
 // 见证：先一句话，细节进展开。事实来源见 2l-svc-fleet README / business-reading-guide、
@@ -234,14 +236,20 @@ export default function WitnessPage() {
       </Section>
 
       {/* 月度证据报告 */}
-      <Section id="report" labelledBy="report-title">
-        <SectionTitle id="report-title" eyebrow="月度证据报告">
-          每个数字旁边，写着它是怎么测的。
-        </SectionTitle>
-        <Lead className="mt-6">
-          可用率分本机与外部两路并列；外部一路缺样本的时段记为「未采样」，不计为成功。
-        </Lead>
-        <div className="mt-8">
+      <Section id="report" width="wide" labelledBy="report-title">
+        <div className="max-w-[44rem]">
+          <SectionTitle id="report-title" eyebrow="月度证据报告">
+            每个数字旁边，写着它是怎么测的。
+          </SectionTitle>
+          <Lead className="mt-6">{EVIDENCE_REPORT_INTRO}</Lead>
+        </div>
+        <EvidenceReport className="mt-10" />
+        <div className="mt-10 max-w-[44rem]">
+          <Lead>
+            可用率分本机与外部两路并列；外部一路缺样本的时段记为「未采样」，不计为成功。
+          </Lead>
+        </div>
+        <div className="mt-8 max-w-[44rem]">
           <Disclosure summary="报告里有什么">
             <ul className="space-y-2">
               <Dash>外部探测每 5 分钟一次；报告同时写出成功、失败、未采样三个数。</Dash>

@@ -292,6 +292,14 @@ async function checkWitnessDrill(failures: string[]) {
     "不写客户名",
     "不是合同",
     "不是常设 SLA",
+    "不是某一个月的结果",
+    "报告期",
+    "跑了什么",
+    "失败仍开着",
+    "谁签了这份说明",
+    "（留空）",
+    "不写可用率百分比",
+    "这不代替演练回执",
   ] as const;
   const reasons: string[] = [];
   for (const line of required) {
