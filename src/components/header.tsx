@@ -156,7 +156,7 @@ export function Header() {
   }, [open]);
 
   return (
-    <header className="sticky top-0 z-50 border-b border-[var(--lt-rule)] bg-[var(--lt-paper)]/90 backdrop-blur">
+    <header className="sticky top-0 z-50 border-b border-[var(--lt-rule)] bg-[var(--lt-paper)]">
       <div className="mx-auto flex h-14 max-w-5xl items-center justify-between px-6">
         <Link
           href="/"

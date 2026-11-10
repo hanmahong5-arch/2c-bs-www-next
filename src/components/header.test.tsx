@@ -3,6 +3,13 @@ import { renderToStaticMarkup } from "react-dom/server";
 import { Header, escapeClosesMenu, pathClosesMenu, closeMenuFromEscape } from "./header";
 import { MobilePaletteButton } from "./command-palette";
 
+test("the header is a solid sheet of paper", () => {
+  const html = renderToStaticMarkup(<Header />);
+  expect(html).toContain('class="sticky top-0 z-50 border-b border-[var(--lt-rule)] bg-[var(--lt-paper)]"');
+  expect(html).not.toContain("backdrop-blur");
+  expect(html).not.toContain("bg-[var(--lt-paper)]/90");
+});
+
 test("header controls show the ink focus ring", () => {
   const html = renderToStaticMarkup(<Header />);
   // 首页、七个导航、搜索、登录、深浅切换、目录。移动菜单默认关着。
