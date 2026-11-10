@@ -52,7 +52,7 @@ const GROUPS: Group[] = [
       { label: "方法 — 首信清单", href: "/approach#intake", Icon: EnvelopeIcon },
       { label: "方法 — 交付范围", href: "/approach#delivery", hint: "包含 / 不包含", Icon: WrenchScrewdriverIcon },
       { label: "方法 — 回执", href: "/approach#receipt", hint: "演练之后", Icon: DocumentTextIcon },
-      { label: "博客", href: "/blog", Icon: DocumentTextIcon },
+      { label: "更新日志", href: "/blog", Icon: DocumentTextIcon },
       { label: "关于", href: "/about", Icon: EnvelopeIcon },
     ],
   },

@@ -26,6 +26,14 @@ test("buyer words find the three in-app anchors without plain document navigatio
   }
 });
 
+test("the log itself is named 更新日志, the same name as the page", () => {
+  const hits = filterPaletteItems("更新日志").filter((row) => row.item.href === "/blog");
+  expect(hits).toHaveLength(1);
+  expect(hits[0]?.item.label).toBe("更新日志");
+  expect(hits[0]?.group).toBe("导航");
+  expect(filterPaletteItems("博客").some((row) => row.item.href === "/blog")).toBe(false);
+});
+
 test("the five newest changelog rows open that entry, not the top of the log", () => {
   const newest = updates.slice(0, 5);
   const hrefs = newest.map((entry) => {
