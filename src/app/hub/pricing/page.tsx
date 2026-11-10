@@ -77,6 +77,11 @@ export default function HubPricingPage() {
           <p className="mt-4 text-base leading-[1.8] text-[var(--color-text-secondary)]">
             对话类模型按 token 计价，输入与输出分开算；图像等按次计价的模型看最后一列。
             表中是匿名访客可用的默认分组价格，账号所在分组不同时单价可能不同，以控制台里显示的为准。
+            同一份价目的纯文本在{" "}
+            <Link href="/hub/pricing.md" className={linkClass}>
+              /hub/pricing.md
+            </Link>
+            。
           </p>
           <ScopeSplit
             className="mt-8"

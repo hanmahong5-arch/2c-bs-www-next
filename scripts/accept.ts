@@ -168,12 +168,33 @@ async function checkSitemapRobots(failures: string[]) {
   console.log(`discovery`.padEnd(22), failures.some((f) => f.startsWith("sitemap") || f.startsWith("robots") || f.startsWith("cmdk")) ? "✗" : "ok");
 }
 
+async function checkPricingMd(failures: string[]) {
+  const res = await fetch(`${base}/hub/pricing.md`);
+  const type = res.headers.get("content-type") ?? "";
+  const body = await res.text();
+  const reasons: string[] = [];
+  if (res.status !== 200) reasons.push(`HTTP ${res.status}`);
+  if (!type.includes("text/markdown")) reasons.push(`content-type ${type || "空"}`);
+  if (!body.includes("hub.lurus.cn/api/v1/models")) reasons.push("缺价目来源");
+  if (!body.includes("与钱包扣费同源")) reasons.push("缺同源说明");
+  const hasTable = body.includes("| 模型 |");
+  const honestEmpty = body.includes("暂时读不到") && body.includes("不另存价格");
+  if (hasTable === honestEmpty) reasons.push("价目表与「读不到」必须二选一");
+  if (reasons.length) {
+    failures.push(`/hub/pricing.md: ${reasons.join("; ")}`);
+    console.log(`/hub/pricing.md`.padEnd(22), "✗", reasons.join("; "));
+  } else {
+    console.log(`/hub/pricing.md`.padEnd(22), "ok");
+  }
+}
+
 async function main() {
   console.log(`accept @ ${base}\n`);
   const failures: string[] = [];
 
   checkDiscovery(failures);
   await checkAllRoutes(failures);
+  await checkPricingMd(failures);
   await checkConversion(failures);
   await checkMemorus(failures);
   await checkLugo(failures);
