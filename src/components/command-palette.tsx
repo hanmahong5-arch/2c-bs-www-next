@@ -205,6 +205,17 @@ export function filterPaletteItems(query: string) {
   return out;
 }
 
+/** 面板上写的快捷键，与真正打开它的键相同。 */
+export function paletteShortcut(isMac: boolean) {
+  return isMac ? "⌘K" : "Ctrl+K";
+}
+
+// SSR-safe platform detection — useSyncExternalStore avoids setState-in-effect.
+function getIsMac() {
+  return typeof navigator !== "undefined" && /Mac|iPhone|iPad/.test(navigator.platform);
+}
+const noopSubscribe = () => () => {};
+
 export function CommandPalette() {
   const [open, setOpen] = useState(false);
   const [query, setQuery] = useState("");
@@ -213,6 +224,7 @@ export function CommandPalette() {
   const inputRef = useRef<HTMLInputElement>(null);
   const panelRef = useRef<HTMLDivElement>(null);
   const enter = paletteMotion(useReducedMotion() === true);
+  const shortcut = paletteShortcut(useSyncExternalStore(noopSubscribe, getIsMac, () => false));
 
   // Single close path: reset query + active index alongside open=false.
   const closePalette = useCallback(() => {
@@ -325,7 +337,7 @@ export function CommandPalette() {
           >
             {/* Search input */}
             <div className="flex items-center gap-3 border-b border-[var(--lt-rule)] px-5 py-4">
-              <span className="font-mono text-sm text-[var(--color-text-muted)]">⌘</span>
+              <span className="font-mono text-sm text-[var(--color-text-muted)]">{shortcut}</span>
               <input
                 ref={inputRef}
                 autoFocus
@@ -445,7 +457,7 @@ export function CommandPalette() {
                 <kbd className="border border-[var(--lt-rule)] bg-[var(--lt-paper)] px-1.5 py-0.5">↵</kbd>
                 打开
               </span>
-              <span className="ml-auto">Lurus ⌘K</span>
+              <span className="ml-auto">Lurus {shortcut}</span>
             </div>
           </motion.div>
         </motion.div>
@@ -453,12 +465,6 @@ export function CommandPalette() {
     </AnimatePresence>
   );
 }
-
-// SSR-safe platform detection — useSyncExternalStore avoids setState-in-effect.
-function getIsMac() {
-  return typeof navigator !== "undefined" && /Mac|iPhone|iPad/.test(navigator.platform);
-}
-const noopSubscribe = () => () => {};
 
 /** 桌面顶栏触发；与键盘快捷键同开命令面板。 */
 export function CommandPaletteTrigger() {
@@ -473,7 +479,7 @@ export function CommandPaletteTrigger() {
     >
       <span>搜索</span>
       <kbd className="font-mono text-[10px] tracking-tight text-[var(--color-text-muted)]">
-        {isMac ? "⌘K" : "Ctrl+K"}
+        {paletteShortcut(isMac)}
       </kbd>
     </button>
   );

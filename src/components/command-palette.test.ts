@@ -14,6 +14,7 @@ import {
   OPEN_COMMAND_PALETTE,
   openPaletteFromMenu,
   paletteMotion,
+  paletteShortcut,
 } from "./command-palette";
 
 const ANCHORS = [
@@ -158,4 +159,9 @@ test("the five newest changelog rows open that entry, not the top of the log", (
     return hits[0]?.item.href;
   });
   expect(new Set(hrefs).size).toBe(newest.length);
+});
+
+test("the shortcut matches the key that opens the palette", () => {
+  expect(paletteShortcut(true)).toBe("⌘K");
+  expect(paletteShortcut(false)).toBe("Ctrl+K");
 });
