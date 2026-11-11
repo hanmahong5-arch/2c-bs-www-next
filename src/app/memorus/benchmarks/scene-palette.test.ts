@@ -35,3 +35,11 @@ test("other-session dots clear non-text contrast on both papers", () => {
   expect(scene).not.toContain("opacity={0.6}");
   expect(canvas).toContain("alpha: 1, fill: 1, ringW: 0, transparent: false");
 });
+
+test("the reset control uses the measured gray edge", () => {
+  const canvas = readFileSync("src/app/memorus/benchmarks/scene-canvas.tsx", "utf8");
+  expect(canvas).toContain(
+    "border border-[var(--color-text-muted)] bg-[var(--lt-paper)] px-3 font-mono text-[11px] text-[var(--lt-ink)] focus-ink",
+  );
+  expect(canvas).not.toContain("border border-[var(--lt-rule)] bg-[var(--lt-paper)] px-3");
+});

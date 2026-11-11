@@ -565,10 +565,11 @@ export function SceneCanvas({ children }: { children: ReactNode }) {
           <p className="pointer-events-none absolute bottom-2 left-2 bg-[var(--lt-paper)] px-1.5 py-0.5 font-mono text-[11px] text-[var(--color-text-muted)]">
             拖拽 / 方向键旋转
           </p>
+          {/* 边用已经量过的灰色。发丝线在纸面上只有 1.35:1。字仍是墨色。 */}
           <button
             type="button"
             onClick={() => apiRef.current?.reset()}
-            className="absolute bottom-2 right-2 inline-flex min-h-11 min-w-11 items-center justify-center border border-[var(--lt-rule)] bg-[var(--lt-paper)] px-3 font-mono text-[11px] text-[var(--lt-ink)] focus-ink"
+            className="absolute bottom-2 right-2 inline-flex min-h-11 min-w-11 items-center justify-center border border-[var(--color-text-muted)] bg-[var(--lt-paper)] px-3 font-mono text-[11px] text-[var(--lt-ink)] focus-ink"
           >
             重置视角
           </button>
