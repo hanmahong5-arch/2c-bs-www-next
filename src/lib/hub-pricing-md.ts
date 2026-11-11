@@ -46,6 +46,14 @@ export function pricingMarkdownFromRows(rows: HubModelRow[] | null): string {
 - 私有部署与受托运维的报价
 - 读不到接口时的旧价兜底
 
+## 怎么付
+
+登录后钱包充值，余额以人民币计。用 API Key 调 hub.lurus.cn，按上表单价从钱包扣费。余额不足时请求会被拒绝，不会先欠费再催缴。
+
+经 hub.lurus.cn 发出的模型调用（含鹿途等归档客户端）按上表同价扣费，从同一个钱包扣。私有部署写信说明上游与网络约束，见 https://www.lurus.cn/hub 。
+
+单价会随上游调整；以调用发生时的单价为准，这一份与网页一样，最多晚 5 分钟反映改价。
+
 ## 价目
 
 ${prices}
