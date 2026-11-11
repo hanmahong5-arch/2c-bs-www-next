@@ -8,6 +8,13 @@ test("the recommended Switch download is underlined in ink", () => {
   expect(src).toContain("decoration-[var(--color-text-muted)] hover:decoration-[var(--lt-ink)]");
 });
 
+test("the download page states the same Switch path", () => {
+  const download = readFileSync("src/app/download/page.tsx", "utf8");
+  expect(download).toContain("在 Switch 里登录");
+  expect(download).toContain("在 Switch 中打开");
+  expect(download).toContain("目前只有 Windows 版经过启动验证");
+});
+
 test("the download section does not repeat the page path", () => {
   const src = readFileSync("src/app/switch/switch-download.tsx", "utf8");
   const page = readFileSync("src/app/switch/page.tsx", "utf8");
