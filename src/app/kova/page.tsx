@@ -19,7 +19,7 @@ import { NewWindowNote } from "@/components/site/new-window-note";
 export const metadata: Metadata = {
   title: "Kova · 可证明的 Agent 执行",
   description:
-    "在不能出错、不能出境、必须举证的场景里，Agent 每一步可被第三方离线核验，并可主权部署。Forge 编排 · Kova 证明 · Lumen 看见。早期试点。",
+    "在不能出错、不能出境、必须举证的场景里，Agent 每一步可被第三方离线核验。部署到你自己的机器，先写信。Forge 编排 · Kova 证明 · Lumen 看见。早期试点。",
 };
 
 const DOCS = "https://docs.lurus.cn/kova/";
@@ -60,7 +60,7 @@ export default function KovaPage() {
       <ProductHeader
         name="Kova"
         maturity="早期试点"
-        tagline="在不能出错、不能出境、必须举证的场景里，Agent 跑过的每一步都能被第三方离线核验——且可部署在你自己的机器上。"
+        tagline="在不能出错、不能出境、必须举证的场景里，Agent 跑过的每一步都能被第三方离线核验。部署到你自己的机器，先写信。"
         note="专有软件，按商业许可提供；目前只在我们自己的环境里运行（含生产集群）。文档站 Kova 页给出调度延迟、吞吐和代码量，本页不转述那些数字。Forge 编排 · Kova 证明 · Lumen 看见。"
         access={{
           actions: [
