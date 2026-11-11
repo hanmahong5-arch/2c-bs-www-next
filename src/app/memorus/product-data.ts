@@ -271,7 +271,7 @@ export const LATENCY: {
 export const DEPLOY_FACTS = [
   { key: "binary", title: "单个二进制文件", body: "一个可执行文件即可运行，不需要先装运行时或数据库。" },
   { key: "sqlite", title: "默认 SQLite", body: "数据落在本地一个文件里；默认零外部依赖。" },
-  { key: "no-db", title: "无需外部数据库", body: "需要时可换成其他向量存储后端，改一行配置。" },
+  { key: "no-db", title: "无需外部数据库", body: "默认构建只链接 SQLite。其他向量库后端要在构建时显式开启。" },
   {
     key: "surfaces",
     title: "REST · MCP · CLI · 绑定",
