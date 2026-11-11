@@ -55,7 +55,7 @@ function tagHref(tag: string | null): string {
 const hair =
   "inline-block border-b pb-px font-mono text-[12px] leading-none";
 const hairIdle =
-  "border-[var(--lt-rule)] text-[var(--color-text-muted)] hover:border-[var(--lt-ink)] hover:text-[var(--lt-ink)]";
+  "border-[var(--color-text-muted)] text-[var(--color-text-muted)] hover:border-[var(--lt-ink)] hover:text-[var(--lt-ink)]";
 const hairOn = "border-[var(--lt-ink)] text-[var(--lt-ink)]";
 
 export default async function BlogPage({ searchParams }: BlogPageProps) {

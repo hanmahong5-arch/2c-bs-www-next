@@ -1,4 +1,5 @@
 import { expect, test } from "bun:test";
+import { readFileSync } from "node:fs";
 import { blogPageMetadata } from "./blog-metadata";
 
 test("the full log and a known tag both canonicalize to /blog", () => {
@@ -29,4 +30,12 @@ test("an unknown tag is not indexed and does not claim to be the full log", () =
 test("an unknown tag keeps its characters inside the canonical query", () => {
   const meta = blogPageMetadata("a b&c", 0);
   expect(meta.alternates?.canonical).toBe("/blog?tag=a%20b%26c");
+});
+
+test("idle log chips use the measured gray line", () => {
+  const src = readFileSync("src/app/blog/page.tsx", "utf8");
+  expect(src).toContain(
+    "border-[var(--color-text-muted)] text-[var(--color-text-muted)] hover:border-[var(--lt-ink)]",
+  );
+  expect(src).not.toContain("border-[var(--lt-rule)] text-[var(--color-text-muted)]");
 });
