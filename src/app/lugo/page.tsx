@@ -163,7 +163,7 @@ export default function LugoPage() {
           <Disclosure summary={<Summary>安装与交付就绪：装完，看板全绿才算完。</Summary>}>
             <p>
               一条命令安装：单机用 Docker Compose，集群用 Helm。每一步要么跳过、要么收敛，
-              失败后重跑同一条命令就从断点继续。
+              失败后重跑同一条命令就从断点继续。文档站把安装器写成随交付提供；那条命令假定安装器已经在手里。本页不提供公开安装包。
             </p>
             <p className="mt-2">
               安装终点是控制台里的「交付就绪」看板：数据库迁移、内部鉴权、登录回跳、

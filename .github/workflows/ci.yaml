@@ -74,12 +74,18 @@ jobs:
             sleep 2
           done
       - name: Start headless Chrome (:9222)
+        # 端口没开时不能把这一步标成成功。冒烟会立刻对 9222 收到 ECONNREFUSED，
+        # 十九个路由一起红，看起来像页面坏了。
         run: |
           google-chrome --headless=new --remote-debugging-port=9222 --no-sandbox --disable-gpu &
-          for _ in $(seq 1 15); do
-            curl -sf http://127.0.0.1:9222/json/version >/dev/null && break
+          for _ in $(seq 1 45); do
+            if curl -sf http://127.0.0.1:9222/json/version >/dev/null; then
+              exit 0
+            fi
             sleep 1
           done
+          echo "chrome did not open :9222" >&2
+          exit 1
       - name: Smoke — HTTP 200 + render markers
         run: bun scripts/smoke.ts http://localhost:3000
       - name: Mobile overflow audit (375px)

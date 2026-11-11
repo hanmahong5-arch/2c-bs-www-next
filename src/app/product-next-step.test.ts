@@ -24,6 +24,9 @@ test("lugo states the path once", () => {
   expect(src).toContain("身份源 / 商户号 / 网络");
   expect(src).toContain('href="/approach#intake"');
   expect(src).toContain('const DOCS_DEPLOY = "https://docs.lurus.cn/platform/self-host"');
+  expect(src).toContain("文档站把安装器写成随交付提供");
+  expect(src).toContain("本页不提供公开安装包");
+  expect(src).not.toContain("zita");
   expect(src).not.toContain('https://docs.lurus.cn/platform/"');
   expect(src.match(/DOCS_DEPLOY/g)).toHaveLength(3);
 });
