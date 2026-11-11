@@ -39,6 +39,14 @@ test("the command sample uses the measured gray edge", () => {
   expect(links.match(/WASM 绑定是另一套独立实现/g)).toHaveLength(2);
   expect(links).not.toContain("Python / Node / WASM");
   expect(links).not.toContain("Python、Node、WASM，在你自己的进程里直接调用");
+  expect(src).toContain("旧值留作历史");
+  expect(src).toContain("旧记忆标成已被取代，检索时排在后面");
+  expect(src).not.toContain("可按时点追问");
+  expect(src).not.toContain("问「当时」，就答「当时」");
+  expect(links.match(/旧记忆标成已被取代，检索时排在后面/g)).toHaveLength(2);
+  expect(links).not.toContain("可以按时点追问");
+  expect(links).not.toContain("按任一时点");
+  expect(links).not.toContain("问「当时」，答「当时」");
   expect(src).toContain(
     'className="mt-10 max-w-[36rem] border border-[var(--color-text-muted)] bg-[var(--lt-paper)] px-4 py-3"',
   );
