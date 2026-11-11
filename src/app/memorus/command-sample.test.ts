@@ -47,6 +47,12 @@ test("the command sample uses the measured gray edge", () => {
   expect(links).not.toContain("可以按时点追问");
   expect(links).not.toContain("按任一时点");
   expect(links).not.toContain("问「当时」，答「当时」");
+  expect(src).toContain("带团队作用域");
+  expect(src).not.toContain("团队可治理");
+  expect(links).toContain("按团队检索时，返回该团队与全局的并集");
+  expect(links).not.toContain("提名");
+  expect(links).not.toContain("经评审");
+  expect(links).not.toContain("管理员权限");
   expect(src).toContain(
     'className="mt-10 max-w-[36rem] border border-[var(--color-text-muted)] bg-[var(--lt-paper)] px-4 py-3"',
   );
