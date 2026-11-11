@@ -19,4 +19,10 @@ test("home recent titles open that changelog entry and the index link stays", ()
   expect(html).not.toContain("text-[var(--lt-accent)]");
   expect(html).toContain('text-[var(--color-text-muted)]">LUR');
   expect(html).not.toContain("text-[var(--lt-ink)]/50");
+  expect(html).toContain('class="sr-only">LURUS</span>');
+  expect(html).toContain('class="sr-only">URUS</span>');
+  expect(html).toContain('class="sr-only">RUS</span>');
+  expect(html).not.toContain('aria-label="LURUS"');
+  expect(html).not.toContain('aria-label="URUS"');
+  expect(html).not.toContain('aria-label="RUS"');
 });

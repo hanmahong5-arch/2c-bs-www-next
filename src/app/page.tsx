@@ -146,16 +146,19 @@ function SectionTitle({ id, eyebrow, children }: { id: string; eyebrow: string; 
   );
 }
 
-/** Typographic peel: highlight the active syllable inside LURUS */
+/** Typographic peel: the faint letters are a graphic. The active syllable is the name. */
 function LayerWord({ code }: { code: Layer["code"] }) {
   const full = "LURUS";
   const start = code === "LURUS" ? 0 : full.indexOf(code);
   const end = start + code.length;
   return (
-    <span className="font-display text-[2rem] font-semibold tracking-[0.12em] md:text-[2.75rem]" aria-label={code}>
-      <span className="text-[var(--lt-ink)]/25">{full.slice(0, start)}</span>
-      <span className="text-[var(--lt-ink)]">{full.slice(start, end)}</span>
-      <span className="text-[var(--lt-ink)]/25">{full.slice(end)}</span>
+    <span className="font-display text-[2rem] font-semibold tracking-[0.12em] md:text-[2.75rem]">
+      <span className="sr-only">{code}</span>
+      <span aria-hidden="true">
+        <span className="text-[var(--lt-ink)]/25">{full.slice(0, start)}</span>
+        <span className="text-[var(--lt-ink)]">{full.slice(start, end)}</span>
+        <span className="text-[var(--lt-ink)]/25">{full.slice(end)}</span>
+      </span>
     </span>
   );
 }
