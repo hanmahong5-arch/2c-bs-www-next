@@ -13,6 +13,12 @@ test("home recent titles open that changelog entry and the index link stays", ()
   expect(html).toContain('href="/blog"');
   expect(html).toContain("全部更新");
   expect(html).toContain("个人项目 · 工具与底座");
+  const hero = html.slice(html.indexOf("我在做的 AI 工具与底座"), html.indexOf("下载 Switch"));
+  expect(hero).toContain("的试点先写信");
+  expect(hero).toContain('href="/witness"');
+  expect(hero).toContain('href="/memorus"');
+  expect(hero).toContain('href="/kova"');
+  expect(hero).not.toContain("系统留在你自己的环境里");
   expect(html).toContain(">自助<");
   expect(html).toContain(">环境里<");
   expect(html).toContain(">底座<");
