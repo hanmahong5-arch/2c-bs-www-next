@@ -6,6 +6,8 @@ import {
   EvidenceLine,
   EvidenceList,
   Lead,
+  Lineage,
+  NextStep,
   ProductHeader,
   Section,
 } from "@/components/site";
@@ -66,7 +68,18 @@ export default function HubPage() {
         name="Lurus Hub"
         maturity="内部生产使用"
         tagline="部署在你自己环境里的多租户 LLM 网关：多家上游模型服务走同一个入口，用量按租户记账，调用日志默认开启。"
-        note="基于开源 New API（源自 One API），AGPLv3。我们运营的 hub.lurus.cn 按量收费。"
+        note={
+          <>
+            基于开源 New API（源自 One API），AGPLv3。我们运营的 hub.lurus.cn 按量单价见{" "}
+            <Link
+              href="/hub/pricing"
+              className="underline decoration-[var(--color-text-muted)] underline-offset-4 hover:decoration-[var(--lt-ink)]"
+            >
+              价格
+            </Link>
+            。
+          </>
+        }
         access={{
           actions: [
             { label: "查看按量价格", href: "/hub/pricing", primary: true },
@@ -82,7 +95,7 @@ export default function HubPage() {
               自营网关按表扣费，先看{" "}
               <Link
                 href="/hub/pricing"
-                className="underline decoration-[var(--lt-rule)] underline-offset-4 hover:decoration-[var(--lt-accent)]"
+                className="underline decoration-[var(--color-text-muted)] underline-offset-4 hover:decoration-[var(--lt-ink)]"
               >
                 按量价格
               </Link>
@@ -173,17 +186,28 @@ export default function HubPage() {
         <SectionTitle id="license-title" eyebrow="许可与来源">
           基于开源 New API，AGPLv3。
         </SectionTitle>
-        <div className="mt-6 space-y-4 text-base leading-[1.8] text-[var(--color-text-secondary)]">
-          <p>
-            Lurus Hub 不是从零写起的。它是开源项目 New API 的定制衍生版本，New API 本身源自
-            One API（MIT）。我们在转发层之上加了通道评分、用量汇总、多租户与审计。
-          </p>
-          <p>
-            许可沿用上游：默认 AGPLv3。按 AGPLv3，修改后的版本通过网络提供服务或对外分发时，
-            须向用户提供相应的完整源代码。在只用开源许可的情况下，上游的品牌标识与版权声明须完整保留。
-          </p>
-          <p>具体条款以仓库中的 LICENSE 与 NOTICE 为准。</p>
-        </div>
+        <Lead className="mt-6">
+          Lurus Hub 不是从零写起的。谱系写在表里，方便核对许可，而不是藏在一段话里。
+        </Lead>
+        <Lineage
+          className="mt-8"
+          product="Lurus Hub"
+          facts={[
+            { label: "本产品", value: "Lurus Hub" },
+            { label: "直接上游", value: "New API（定制衍生）" },
+            { label: "再上游", value: "One API · MIT" },
+            { label: "许可", value: "AGPLv3（沿用上游默认许可）" },
+            {
+              label: "我们加上",
+              value: "通道评分、用量汇总、多租户与审计。转发层仍是上游的。",
+            },
+            {
+              label: "必须保留",
+              value: "上游品牌标识与版权声明；网络提供或分发修改版时须提供完整源代码。",
+            },
+          ]}
+          note="具体条款以仓库中的 LICENSE 与 NOTICE 为准。"
+        />
       </Section>
 
       {/* 边界与现状 */}
@@ -205,7 +229,7 @@ export default function HubPage() {
             按量收费，单价见{" "}
             <Link
               href="/hub/pricing"
-              className="text-[var(--lt-ink)] underline decoration-[var(--lt-rule)] underline-offset-4 hover:decoration-[var(--lt-accent)]"
+              className="text-[var(--lt-ink)] underline decoration-[var(--color-text-muted)] underline-offset-4 hover:decoration-[var(--lt-ink)]"
             >
               价格
             </Link>
@@ -217,29 +241,29 @@ export default function HubPage() {
           想了解它放进你的环境会是什么样，写信到{" "}
           <a
             href={CONTACT}
-            className="text-[var(--lt-ink)] underline decoration-[var(--lt-rule)] underline-offset-4 hover:decoration-[var(--lt-accent)]"
+            className="text-[var(--lt-ink)] underline decoration-[var(--color-text-muted)] underline-offset-4 hover:decoration-[var(--lt-ink)]"
           >
             contact@lurus.cn
           </a>
           ；或先读{" "}
           <Link
             href="/approach"
-            className="text-[var(--lt-ink)] underline decoration-[var(--lt-rule)] underline-offset-4 hover:decoration-[var(--lt-accent)]"
+            className="text-[var(--lt-ink)] underline decoration-[var(--color-text-muted)] underline-offset-4 hover:decoration-[var(--lt-ink)]"
           >
             方法
           </Link>
           。
         </p>
-        <p className="mt-4 text-sm leading-[1.7] text-[var(--color-text-muted)]">
-          下一步：先看{" "}
+        <NextStep>
+          先看{" "}
           <Link
             href="/hub/pricing"
-            className="text-[var(--lt-ink)] underline decoration-[var(--lt-rule)] underline-offset-4 hover:decoration-[var(--lt-accent)]"
+            className="text-[var(--lt-ink)] underline decoration-[var(--color-text-muted)] underline-offset-4 hover:decoration-[var(--lt-ink)]"
           >
             按量价格
           </Link>
           ；私有部署写信说明上游与网络约束。
-        </p>
+        </NextStep>
       </Section>
     </>
   );

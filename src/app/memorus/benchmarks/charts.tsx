@@ -57,8 +57,9 @@ export interface BarDatum {
   strong?: boolean;
 }
 
+/** 轨道的边用已经量过的灰色。发丝线在纸面上只有 1.35:1，空出来的刻度看不清。数值仍写在右边。 */
 const TRACK =
-  "relative block h-3.5 border border-[var(--lt-rule)] bg-[var(--lt-bg)]";
+  "relative block h-3.5 border border-[var(--color-text-muted)] bg-[var(--lt-bg)]";
 
 /** 参照刻度：墨色竖线伸出轨道上下，外描一圈纸色，落在墨色条上也分得清（非文本对比 ≥ 3:1）。 */
 const REF_TICK = "w-[3px] bg-[var(--lt-ink)] shadow-[0_0_0_1px_var(--lt-paper)]";
@@ -231,7 +232,7 @@ export function DataTable({
       role="region"
       aria-label={caption}
       tabIndex={0}
-      className="relative overflow-x-auto border-y border-[var(--lt-rule)] outline-none focus-visible:ring-2 focus-visible:ring-[var(--lt-accent)]"
+      className="relative overflow-x-auto border-y border-[var(--lt-rule)] focus-ink"
     >
       <table className="w-full border-collapse text-left text-[13px] leading-[1.6]" style={{ minWidth }}>
         <caption className="sr-only">{caption}</caption>
@@ -376,7 +377,8 @@ const STEPS: readonly Step[] = [
   { no: "04", title: "判分", lines: ["另一厂商的通用", "对话模型（关闭推理）", "官方判分提示逐字节"] },
 ];
 
-const BOX = "fill-[var(--lt-bg)] stroke-[var(--lt-rule)]";
+/** 格子的边用已经量过的灰色。发丝线贴在区块底上只有 1.19:1，四步的框看不清。字仍写在格子里。 */
+const BOX = "fill-[var(--lt-bg)] stroke-[var(--color-text-muted)]";
 const T_INK = "fill-[var(--lt-ink)]";
 const T_SEC = "fill-[var(--color-text-secondary)]";
 

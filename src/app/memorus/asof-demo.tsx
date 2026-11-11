@@ -15,7 +15,8 @@ const STATE_LABEL: Record<EventState, string> = {
   future: "当时尚未发生",
 };
 
-/** 值的样式：成立=墨色；之后被改=删除线；尚未发生=次级色。不用透明度，保证文字对比度。 */
+/** 值的样式：成立=墨色；之后被改=删除线；尚未发生=次级色。不用透明度，保证文字对比度。
+ *  成立那一条的顶线、以及原文左侧的线，也用墨色。赭石在纸面上只有 2.74:1。 */
 const VALUE_CLASS: Record<EventState, string> = {
   valid: "text-[var(--lt-ink)]",
   superseded: "text-[var(--color-text-secondary)] line-through decoration-[var(--color-text-muted)]",
@@ -50,10 +51,10 @@ export function AsOfDemo() {
                 type="button"
                 aria-pressed={active}
                 onClick={() => setViewKey(v.key)}
-                className={`inline-flex min-h-11 items-center rounded-sm border px-4 font-mono text-[13px] transition-colors duration-200 motion-reduce:transition-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--lt-accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--lt-paper)] ${
+                className={`inline-flex min-h-11 items-center border px-4 font-mono text-[13px] transition-colors duration-200 motion-reduce:transition-none focus-ink ${
                   active
                     ? "border-[var(--lt-ink)] bg-[var(--lt-ink)] text-[var(--lt-paper)]"
-                    : "border-[var(--lt-rule)] text-[var(--lt-ink)] hover:border-[var(--color-border-hover)]"
+                    : "border-[var(--color-text-muted)] text-[var(--lt-ink)] hover:border-[var(--lt-ink)]"
                 }`}
               >
                 {v.label}
@@ -71,7 +72,7 @@ export function AsOfDemo() {
             <li
               key={e.key}
               className={`border-t-2 pt-3 transition-colors duration-200 motion-reduce:transition-none ${
-                state === "valid" ? "border-[var(--lt-accent)]" : "border-[var(--lt-rule)]"
+                state === "valid" ? "border-[var(--lt-ink)]" : "border-[var(--lt-rule)]"
               }`}
             >
               <p className="font-mono text-[11px] text-[var(--color-text-muted)]">
@@ -96,7 +97,7 @@ export function AsOfDemo() {
         </div>
         <div>
           <p className="font-mono text-[11px] uppercase tracking-[0.12em] text-[var(--color-text-muted)]">当时成立的那条原文</p>
-          <blockquote className="mt-2 border-l-2 border-[var(--lt-accent)] pl-4 text-[1.0625rem] leading-[1.7] text-[var(--lt-ink)]">
+          <blockquote className="mt-2 border-l-2 border-[var(--lt-ink)] pl-4 text-[1.0625rem] leading-[1.7] text-[var(--lt-ink)]">
             「{valid.quote}」
           </blockquote>
           <p className="mt-2 font-mono text-[11px] text-[var(--color-text-secondary)]">

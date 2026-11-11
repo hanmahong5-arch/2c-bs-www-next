@@ -8,15 +8,15 @@ export const metadata: Metadata = {
 
 export default function TermsPage() {
   return (
-    <div className="mx-auto max-w-3xl px-6 py-20 md:py-28">
-      <h1 className="text-3xl md:text-4xl font-bold text-[var(--color-text-primary)] mb-4">
+    <div className="mx-auto max-w-3xl px-6 pb-20 pt-24 md:pb-28 md:pt-32">
+      <h1 className="font-display text-[2.125rem] font-semibold leading-[1.2] tracking-[-0.025em] text-[var(--lt-ink)] md:text-[2.75rem] md:leading-[1.15]">
         服务条款
       </h1>
-      <p className="text-sm text-[var(--color-text-muted)] mb-12">
+      <p className="mt-5 text-sm leading-[1.7] text-[var(--color-text-muted)]">
         最后更新：2026 年 4 月
       </p>
 
-      <div className="space-y-10 text-[var(--color-text-secondary)] leading-relaxed">
+      <div className="mt-12 space-y-10 text-base leading-[1.8] text-[var(--color-text-secondary)]">
         <Section title="1. 服务说明">
           Lurus 提供企业 AI 基础设施服务，包括但不限于：LLM API
           网关、账户计费系统、AI 记忆引擎、通知服务。服务内容可能随产品迭代调整，
@@ -33,11 +33,11 @@ export default function TermsPage() {
           按量付费部分以实际使用量计算；项目制或订阅约定以合同为准。
           逾期未付款可能导致服务降级或暂停。我们运营的 hub.lurus.cn
           公开单价见
-          <Link href="/hub/pricing" className="text-[var(--color-ochre)] hover:underline mx-1">
+          <Link href="/hub/pricing" className="mx-1 text-[var(--lt-ink)] underline decoration-[var(--color-text-muted)] underline-offset-4 hover:decoration-[var(--lt-ink)]">
             Hub 价格
           </Link>
           ；其余交付面议，写信到{" "}
-          <a href="mailto:contact@lurus.cn" className="text-[var(--color-ochre)] hover:underline">
+          <a href="mailto:contact@lurus.cn" className="text-[var(--lt-ink)] underline decoration-[var(--color-text-muted)] underline-offset-4 hover:decoration-[var(--lt-ink)]">
             contact@lurus.cn
           </a>
           。
@@ -63,10 +63,10 @@ export default function TermsPage() {
         </Section>
       </div>
 
-      <div className="mt-16 pt-8 border-t border-[var(--color-border)]">
+      <div className="mt-16 border-t border-[var(--lt-rule)] pt-8">
         <Link
           href="/"
-          className="text-sm text-[var(--color-text-muted)] hover:text-[var(--color-text-secondary)] transition-colors"
+          className="text-sm text-[var(--lt-ink)] underline decoration-[var(--color-text-muted)] underline-offset-4 hover:decoration-[var(--lt-ink)]"
         >
           ← 返回首页
         </Link>
@@ -84,7 +84,7 @@ function Section({
 }) {
   return (
     <div>
-      <h2 className="text-lg font-semibold text-[var(--color-text-primary)] mb-3">
+      <h2 className="mb-3 font-display text-[1.25rem] font-semibold leading-[1.35] tracking-[-0.02em] text-[var(--lt-ink)]">
         {title}
       </h2>
       <p>{children}</p>

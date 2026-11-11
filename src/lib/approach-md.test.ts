@@ -1,0 +1,36 @@
+import { expect, test } from "bun:test";
+import { renderApproachMarkdown } from "./approach-md";
+import { DELIVERY_NOTE } from "./engagement-delivery";
+import { INTAKE_NOTE, INTAKE_SUBJECT } from "./engagement-intake";
+
+test("approach markdown has the intake subject and both column headings", () => {
+  const md = renderApproachMarkdown();
+  expect(md).toContain(INTAKE_SUBJECT);
+  expect(md).toContain("来信请先写清这些");
+  expect(md).toContain("硬化与受托运维，各包含什么");
+  expect(md).toContain("\n## 包含\n");
+  expect(md).toContain("\n## 不包含\n");
+  expect(md).toContain(INTAKE_NOTE);
+  expect(md).toContain(DELIVERY_NOTE);
+  expect(md).toContain("不代替合同");
+  expect(md).toContain("## 恢复演练回执");
+  expect(md).toContain("（留空）");
+  expect(md).toContain("这张回执不是合同。");
+  expect(md).toContain("## 月度证据报告");
+  expect(md).toContain("报告期：（留空）");
+  expect(md).toContain("跑了什么：（留空）");
+  expect(md).toContain("核对了什么：（留空）");
+  expect(md).toContain("失败仍开着：（留空）");
+  expect(md).toContain("谁签了这份说明：（留空）");
+  expect(md).toContain("不写可用率百分比。");
+  expect(md).toContain("这不代替演练回执。");
+  expect(md).toContain("\n\n月度证据报告 /witness#report：五栏留空，不代替回执。\n\n");
+  expect(md).toContain("\n\n索引 /llms.txt：六条已有入口。\n\n");
+  expect(md).toContain("\n\n演练回执 /approach#receipt：字段留空，不写可用率。\n");
+  expect(md).toContain("/llms.txt");
+  expect(md).toContain("六条已有入口");
+  expect(md).toContain("/approach#receipt");
+  expect(md).toContain("字段留空，不写可用率");
+  expect(md).not.toContain("password=");
+  expect(md).not.toMatch(/\d+(?:\.\d+)?\s*[%％]/);
+});

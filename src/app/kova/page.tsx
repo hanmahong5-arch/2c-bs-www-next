@@ -1,13 +1,16 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import type { ReactNode } from "react";
 import {
   Disclosure,
   Eyebrow,
   Lead,
   MaturityChip,
+  NextStep,
   ProductHeader,
   Section,
 } from "@/components/site";
+import { NewWindowNote } from "@/components/site/new-window-note";
 
 // /kova：见证体系里的「执行」层。
 // 结构：ProductHeader → 核心主张 → 三个展开（崩溃恢复 / 执行留痕与回放 / 嵌入方式）
@@ -122,7 +125,7 @@ export default function KovaPage() {
               按智能体和模型汇总花费并标出离群的那一次。细节见本页{" "}
               <a
                 href="#lumen"
-                className="text-[var(--lt-ink)] underline decoration-[var(--lt-rule)] underline-offset-4 hover:decoration-[var(--lt-accent)]"
+                className="text-[var(--lt-ink)] underline decoration-[var(--color-text-muted)] underline-offset-4 hover:decoration-[var(--lt-ink)]"
               >
                 Lumen · 看见
               </a>
@@ -212,7 +215,7 @@ export default function KovaPage() {
             下一步：要联测或嵌入，先读{" "}
             <a
               href={DOCS_JOINT}
-              className="text-[var(--lt-ink)] underline decoration-[var(--lt-rule)] underline-offset-4 hover:decoration-[var(--lt-accent)]"
+              className="text-[var(--lt-ink)] underline decoration-[var(--color-text-muted)] underline-offset-4 hover:decoration-[var(--lt-ink)]"
             >
               联测账本
             </a>
@@ -242,9 +245,12 @@ export default function KovaPage() {
             完整腿表与失败原文见{" "}
             <a
               href={DOCS_JOINT}
-              className="text-[var(--lt-ink)] underline decoration-[var(--lt-rule)] underline-offset-4 hover:decoration-[var(--lt-accent)]"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-[var(--lt-ink)] underline decoration-[var(--color-text-muted)] underline-offset-4 hover:decoration-[var(--lt-ink)]"
             >
               文档站 · 联测账本
+              <NewWindowNote />
             </a>
             。
           </Dash>
@@ -282,22 +288,32 @@ export default function KovaPage() {
           接口、配置与恢复语义的细节，见{" "}
           <a
             href={DOCS}
-            className="text-[var(--lt-ink)] underline decoration-[var(--lt-rule)] underline-offset-4 hover:decoration-[var(--lt-accent)]"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-[var(--lt-ink)] underline decoration-[var(--color-text-muted)] underline-offset-4 hover:decoration-[var(--lt-ink)]"
           >
             Kova 文档
+            <NewWindowNote />
           </a>
           。
         </p>
-        <p className="mt-4 text-sm leading-[1.7] text-[var(--color-text-muted)]">
-          下一步：先读文档；要进你的环境试，邮件说明工作流形态与约束。来信{" "}
+        <NextStep>
+          先读文档；要进你的环境试，邮件说明工作流形态与约束。来信{" "}
           <a
             href="mailto:contact@lurus.cn"
-            className="text-[var(--lt-ink)] underline decoration-[var(--lt-rule)] underline-offset-4 hover:decoration-[var(--lt-accent)]"
+            className="text-[var(--lt-ink)] underline decoration-[var(--color-text-muted)] underline-offset-4 hover:decoration-[var(--lt-ink)]"
           >
             contact@lurus.cn
           </a>
+          。范围见{" "}
+          <Link
+            href="/approach#intake"
+            className="text-[var(--lt-ink)] underline decoration-[var(--color-text-muted)] underline-offset-4 hover:decoration-[var(--lt-ink)]"
+          >
+            首信清单
+          </Link>
           。
-        </p>
+        </NextStep>
       </Section>
     </>
   );

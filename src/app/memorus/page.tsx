@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { EvidenceLine, EvidenceList, Eyebrow, Lead, ProductHeader, Section } from "@/components/site";
+import { EvidenceLine, EvidenceList, Eyebrow, Lead, NextStep, ProductHeader, Section } from "@/components/site";
+import { NewWindowNote } from "@/components/site/new-window-note";
 import { AsOfDemo } from "./asof-demo";
 import { DataTable, fmt } from "./benchmarks/charts";
 import { LOCOMO } from "./benchmarks/data";
@@ -61,7 +62,7 @@ function Code({ children }: { children: React.ReactNode }) {
 }
 
 const LINK_CLASS =
-  "text-[var(--lt-ink)] underline decoration-[var(--lt-rule)] underline-offset-4 hover:decoration-[var(--lt-accent)]";
+  "text-[var(--lt-ink)] underline decoration-[var(--color-text-muted)] underline-offset-4 hover:decoration-[var(--lt-ink)]";
 
 const th = "font-mono text-[11px] uppercase tracking-[0.12em] text-[var(--color-text-muted)]";
 
@@ -130,7 +131,8 @@ export default function MemorusPage() {
               </div>
             ))}
           </dl>
-          <figure className="mt-10 max-w-[36rem] border border-[var(--lt-rule)] bg-[var(--lt-paper)] px-4 py-3">
+          {/* 示意框的边用已经量过的灰色。发丝线在纸面上只有 1.35:1。命令仍是墨色。 */}
+          <figure className="mt-10 max-w-[36rem] border border-[var(--color-text-muted)] bg-[var(--lt-paper)] px-4 py-3">
             <figcaption className="font-mono text-[11px] uppercase tracking-[0.12em] text-[var(--color-text-muted)]">
               接入示意 · 尚未上包仓库，安装见文档
             </figcaption>
@@ -418,20 +420,25 @@ export default function MemorusPage() {
           想把它放进你的系统，先读文档；想在你的环境里试，写信给我们。
         </p>
         <div className="mt-8 flex flex-wrap gap-3">
-          <a href={LINKS.docs} className="btn-secondary">
+          <a href={LINKS.docs} target="_blank" rel="noopener noreferrer" className="btn-secondary">
             阅读文档
+            <NewWindowNote />
           </a>
           <a href={LINKS.pilot} className="btn-primary">
             申请试点
           </a>
         </div>
-        <p className="mt-4 text-sm leading-[1.7] text-[var(--color-text-muted)]">
-          下一步：邮件说明你的环境与目标；我们回复是否适合现阶段试点。申请发至{" "}
+        <NextStep>
+          邮件说明你的环境与目标；我们回复是否适合现阶段试点。申请发至{" "}
           <a href={LINKS.pilot} className={LINK_CLASS}>
             {LINKS.pilotLabel}
           </a>
+          。范围见{" "}
+          <Link href="/approach#intake" className={LINK_CLASS}>
+            首信清单
+          </Link>
           。
-        </p>
+        </NextStep>
       </Section>
     </>
   );

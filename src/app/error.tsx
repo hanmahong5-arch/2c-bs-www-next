@@ -2,7 +2,11 @@
 
 import { useEffect } from "react";
 import Link from "next/link";
-import { ExclamationTriangleIcon } from "@heroicons/react/24/outline";
+import { Eyebrow } from "@/components/site/eyebrow";
+import { Lead } from "@/components/site/lead";
+
+const CONTACT = "contact@lurus.cn";
+export const ERROR_TITLE = "页面出错了 — LurusTech";
 
 // 路由级错误边界。捕获 page/嵌套 layout 渲染期抛出的异常；根 layout 自身的错误
 // 由 global-error.tsx 兜底（本站根 layout 无数据依赖，暂不需要）。
@@ -15,39 +19,58 @@ export default function Error({
 }) {
   useEffect(() => {
     // 生产环境 message 会被 Next 脱敏，digest 才是能和服务端日志对上的线索。
+    // 浏览器标签用文档里的第一个 title。这里改掉它，避免出错后仍显示原来那一页的名字。
+    document.title = ERROR_TITLE;
     console.error(error);
   }, [error]);
 
+  const digest = error.digest;
+  const mail = digest
+    ? `mailto:${CONTACT}?subject=${encodeURIComponent(`页面错误 ${digest}`)}`
+    : `mailto:${CONTACT}`;
+
   return (
-    <div className="min-h-[70vh] flex items-center justify-center px-6">
-      <div className="text-center max-w-lg">
-        <ExclamationTriangleIcon
-          className="w-14 h-14 mx-auto mb-6 text-[var(--lt-accent)]"
-          aria-hidden="true"
-        />
-        <h1 className="text-2xl font-semibold text-[var(--color-text-primary)] mb-3">
-          页面出错了
-        </h1>
-        <p className="text-[var(--color-text-secondary)] mb-8">
-          这一页没能正常加载。多数情况重试一次就好；如果反复出现，把下面的错误编号发给我们，能直接定位到日志。
-        </p>
+    <div className="px-6">
+      {/* 客户端边界不能导出 metadata。用 title 把标签页改成这一页自己的名字。 */}
+      <title>{ERROR_TITLE}</title>
+      <div className="mx-auto flex min-h-[70vh] max-w-5xl flex-col justify-center py-24">
+        <div className="max-w-[36rem]">
+          <Eyebrow>出错</Eyebrow>
+          <h1 className="mt-5 font-display text-[2.125rem] font-semibold leading-[1.2] tracking-[-0.025em] text-[var(--lt-ink)] md:text-[2.75rem]">
+            页面出错了
+          </h1>
+          <Lead className="mt-6">
+            这一页没能正常加载。多数情况重试一次就好；如果反复出现，写信到{" "}
+            <a
+              href={mail}
+              className="text-[var(--lt-ink)] underline decoration-[var(--color-text-muted)] underline-offset-4 hover:decoration-[var(--lt-ink)]"
+            >
+              {CONTACT}
+            </a>
+            ，并附上错误编号（有的话）和打开的地址。
+          </Lead>
 
-        {error.digest && (
-          <div className="card-flat px-4 py-3 mb-8 text-xs text-[var(--color-text-muted)]">
-            错误编号{" "}
-            <code className="font-mono break-all text-[var(--color-text-primary)]">
-              {error.digest}
-            </code>
-          </div>
-        )}
+          {digest ? (
+            <p className="mt-8 border-y border-[var(--lt-rule)] py-3 font-mono text-[12px] leading-[1.6] text-[var(--color-text-muted)]">
+              错误编号 <span className="text-[var(--lt-ink)]">{digest}</span>
+            </p>
+          ) : null}
 
-        <div className="flex flex-wrap items-center justify-center gap-3">
-          <button type="button" onClick={reset} className="btn-primary">
-            重试
-          </button>
-          <Link href="/" className="btn-secondary">
-            返回首页
-          </Link>
+          <p className="mt-10 flex flex-wrap items-baseline gap-x-8 gap-y-3 text-sm">
+            <button
+              type="button"
+              onClick={reset}
+              className="text-[var(--lt-ink)] underline decoration-[var(--color-text-muted)] underline-offset-4 outline-offset-4 hover:decoration-[var(--lt-ink)] focus-visible:outline focus-visible:outline-1 focus-visible:outline-[var(--lt-ink)]"
+            >
+              重试
+            </button>
+            <Link
+              href="/"
+              className="text-[var(--lt-ink)] underline decoration-[var(--color-text-muted)] underline-offset-4 hover:decoration-[var(--lt-ink)]"
+            >
+              返回首页
+            </Link>
+          </p>
         </div>
       </div>
     </div>

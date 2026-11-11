@@ -1,7 +1,8 @@
 import { Suspense } from "react";
 import type { Metadata } from "next";
 import Link from "next/link";
-import { Eyebrow, Lead, Section } from "@/components/site";
+import { Eyebrow, Lead, LedgerRow, NextStep, ScopeSplit, Section } from "@/components/site";
+import { NewWindowNote } from "@/components/site/new-window-note";
 import { HubPriceTable, HubPriceTableSkeleton } from "./price-table";
 
 // Hub 按量价格页：标题 → 价目表（实时读取）→ 怎么付 → 鹿途 → 边界。
@@ -19,7 +20,7 @@ const TOPUP_URL = "https://identity.lurus.cn/topup";
 const CONTACT = "mailto:contact@lurus.cn";
 
 const linkClass =
-  "text-[var(--lt-ink)] underline decoration-[var(--lt-rule)] underline-offset-4 hover:decoration-[var(--lt-accent)]";
+  "text-[var(--lt-ink)] underline decoration-[var(--color-text-muted)] underline-offset-4 hover:decoration-[var(--lt-ink)]";
 
 export const revalidate = 300;
 
@@ -77,7 +78,25 @@ export default function HubPricingPage() {
           <p className="mt-4 text-base leading-[1.8] text-[var(--color-text-secondary)]">
             对话类模型按 token 计价，输入与输出分开算；图像等按次计价的模型看最后一列。
             表中是匿名访客可用的默认分组价格，账号所在分组不同时单价可能不同，以控制台里显示的为准。
+            同一份价目的纯文本在{" "}
+            <a href="/hub/pricing.md" className={linkClass}>
+              /hub/pricing.md
+            </a>
+            。
           </p>
+          <ScopeSplit
+            className="mt-8"
+            included={[
+              "自营 hub.lurus.cn 的按量单价，与钱包扣费同源",
+              "对话按输入 / 输出 token；图像等按次",
+              "同一个钱包，不另设会员套餐",
+            ]}
+            excluded={[
+              "延迟、可用率的承诺数字",
+              "私有部署与受托运维的报价（写信说明约束）",
+              "读不到接口时的旧价兜底",
+            ]}
+          />
         </div>
         <Suspense fallback={<HubPriceTableSkeleton />}>
           <HubPriceTable />
@@ -91,16 +110,29 @@ export default function HubPricingPage() {
         <ul className="mt-8 space-y-4 text-base leading-[1.8] text-[var(--color-text-secondary)]">
           <Dash>
             用 Lurus 账号登录后在{" "}
-            <a href={TOPUP_URL} className={linkClass}>
+            <a href={TOPUP_URL} target="_blank" rel="noopener noreferrer" className={linkClass}>
               钱包充值
+              <NewWindowNote />
             </a>
             ，余额以人民币计。
           </Dash>
           <Dash>调用时按上表单价从钱包扣费；余额不足时请求会被拒绝，不会先欠费再催缴。</Dash>
         </ul>
-        <p className="mt-4 text-sm leading-[1.7] text-[var(--color-text-muted)]">
-          下一步：登录后钱包充值 → 用 API Key 调 hub.lurus.cn；私有部署写信说明上游与网络约束。
-        </p>
+        <LedgerRow
+          href={TOPUP_URL}
+          label="钱包充值"
+          meta="余额以人民币计"
+          className="mt-8"
+        />
+        <LedgerRow
+          href={CONTACT}
+          label="私有部署"
+          meta="写信说明上游与网络约束"
+          className="-mt-px"
+        />
+        <NextStep>
+          登录后钱包充值 → 用 API Key 调 hub.lurus.cn；私有部署写信说明上游与网络约束。
+        </NextStep>
       </Section>
 
       <Section id="other" labelledBy="other-title">

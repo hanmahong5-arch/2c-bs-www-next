@@ -16,15 +16,15 @@ type SceneData = typeof import("./scene-data.json");
 // 与 scene-projection.tsx 的色板保持一致（此文件不能引它，否则 JSON 会进首屏 chunk）
 const PALETTE = [
   "#4E79A7",
-  "#59A14F",
-  "#B07AA1",
-  "#3FA7A0",
-  "#8C8C8C",
-  "#7A8CD6",
+  "#55994B",
+  "#AE79A0",
+  "#399791",
+  "#898989",
+  "#7586CD",
   "#9C755F",
-  "#84A03A",
-  "#6FA8DC",
-  "#A98FC9",
+  "#799335",
+  "#5E8EBA",
+  "#9780B3",
 ];
 
 const DEFAULT_THETA = 0.5;
@@ -59,8 +59,7 @@ function readTheme() {
   return {
     ink: pick("--lt-ink", "#14130F"),
     accent: pick("--lt-accent", "#FF5D1F"),
-    rule: pick("--lt-rule", "#D6D2C2"),
-    muted: pick("--color-text-muted", "#6B6860"),
+    muted: pick("--color-text-muted", "#66635B"),
     paper: pick("--lt-paper", "#F5F2E8"),
   };
 }
@@ -202,7 +201,7 @@ function buildScene(
     return p;
   };
 
-  const otherMat = makeMaterial({ alpha: 0.6, fill: 1, ringW: 0, transparent: true });
+  const otherMat = makeMaterial({ alpha: 1, fill: 1, ringW: 0, transparent: false });
   const evMat = makeMaterial({ alpha: 1, fill: 1, ringW: 0.14, transparent: false });
   const hitMat = makeMaterial({ alpha: 1, fill: 0, ringW: 0.07, transparent: true });
   hitMat.depthTest = false;
@@ -249,7 +248,7 @@ function buildScene(
   dashLines.computeLineDistances();
   scene.add(solidLines, dashLines);
 
-  // 淡包围盒：只示意坐标范围
+  // 包围盒用已经量过的灰色。发丝线在纸面上只有 1.35:1。只示意坐标范围。
   const boxGeo = new T.EdgesGeometry(new T.BoxGeometry(2, 2, 2));
   const boxMat = new T.LineBasicMaterial({ color: 0x000000 });
   const box = new T.LineSegments(boxGeo, boxMat);
@@ -269,7 +268,7 @@ function buildScene(
     octaEdgeMat.color.set(th.paper);
     solidMat.color.set(th.ink);
     dashMat.color.set(th.muted);
-    boxMat.color.set(th.rule);
+    boxMat.color.set(th.muted);
   };
   applyTheme();
 
@@ -548,7 +547,7 @@ export function SceneCanvas({ children }: { children: ReactNode }) {
         role={active ? "group" : undefined}
         aria-label={active ? "三维检索场景：拖拽或用方向键旋转视角，Home 键重置。文字版见下方命中列表。" : undefined}
         tabIndex={active ? 0 : undefined}
-        className={`absolute inset-0 outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[var(--lt-accent)] ${
+        className={`absolute inset-0 focus-ink-inset ${
           active ? "cursor-grab touch-pan-y touch-pinch-zoom active:cursor-grabbing" : "pointer-events-none"
         }`}
       />
@@ -565,10 +564,11 @@ export function SceneCanvas({ children }: { children: ReactNode }) {
           <p className="pointer-events-none absolute bottom-2 left-2 bg-[var(--lt-paper)] px-1.5 py-0.5 font-mono text-[11px] text-[var(--color-text-muted)]">
             拖拽 / 方向键旋转
           </p>
+          {/* 边用已经量过的灰色。发丝线在纸面上只有 1.35:1。字仍是墨色。 */}
           <button
             type="button"
             onClick={() => apiRef.current?.reset()}
-            className="absolute bottom-2 right-2 inline-flex min-h-11 min-w-11 items-center justify-center border border-[var(--lt-rule)] bg-[var(--lt-paper)] px-3 font-mono text-[11px] text-[var(--lt-ink)] outline-none focus-visible:ring-2 focus-visible:ring-[var(--lt-accent)]"
+            className="absolute bottom-2 right-2 inline-flex min-h-11 min-w-11 items-center justify-center border border-[var(--color-text-muted)] bg-[var(--lt-paper)] px-3 font-mono text-[11px] text-[var(--lt-ink)] focus-ink"
           >
             重置视角
           </button>
