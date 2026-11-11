@@ -67,11 +67,12 @@ export default function WitnessPage() {
         tagline="回答一个问题：你环境里的这套系统现在是什么状态，以及我们对这个判断有多确定。"
         access={{
           actions: [
-            { label: "阅读文档", href: DOCS, primary: true, external: true },
-            { label: "联系试点", href: "mailto:contact@lurus.cn", external: true },
+            { label: "联系试点", href: "mailto:contact@lurus.cn", primary: true, external: true },
+            { label: "阅读文档", href: DOCS, external: true },
             { label: "阅读方法", href: "/approach" },
           ],
-          nextStep: "邮件说明被观测环境与值班诉求；我们回复是否适合现阶段试点。",
+          nextStep:
+            "要进你的环境试点，先写信说明被观测环境与值班诉求。我们回复是否适合现阶段；文档站里的构建命令还不是公开发布的安装包。",
         }}
         evidence={{
           name: "platform-core",
