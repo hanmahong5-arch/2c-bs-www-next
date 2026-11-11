@@ -263,7 +263,8 @@ body {
    light-on-dark colors, not the page's dark ink tokens. */
 .code-block {
   background: #1A1712;
-  border: 1px solid #2C271E;
+  /* 边用已经量过的灰色。#2C271E 贴在这块深底上只有 1.20:1，暗色纸面上只有 1.23:1。字仍是浅色。 */
+  border: 1px solid var(--color-text-muted);
   border-radius: 0;
   color: #CBC4B4;
   font-family: var(--font-mono);

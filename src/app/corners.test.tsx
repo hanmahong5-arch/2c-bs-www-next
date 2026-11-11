@@ -22,6 +22,8 @@ test("the remaining frames are square", () => {
   const block = css.slice(css.indexOf(".code-block {"), css.indexOf(".code-block .line-number"));
   expect(block).toContain("border-radius: 0");
   expect(block).not.toContain("border-radius: 12px");
+  expect(block).toContain("border: 1px solid var(--color-text-muted)");
+  expect(block).not.toContain("border: 1px solid #2C271E");
   for (const name of [
     ".text-gradient-gold",
     ".bg-gradient-gold",
