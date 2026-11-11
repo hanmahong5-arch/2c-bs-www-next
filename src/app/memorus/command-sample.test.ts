@@ -36,6 +36,9 @@ test("the command sample uses the measured gray edge", () => {
   expect(links).not.toContain("数据落在本地一个文件里");
   expect(links).toContain("对陈旧记忆默认只标注");
   expect(links).not.toContain("旧结论不会悄悄混进回答");
+  expect(links.match(/WASM 绑定是另一套独立实现/g)).toHaveLength(2);
+  expect(links).not.toContain("Python / Node / WASM");
+  expect(links).not.toContain("Python、Node、WASM，在你自己的进程里直接调用");
   expect(src).toContain(
     'className="mt-10 max-w-[36rem] border border-[var(--color-text-muted)] bg-[var(--lt-paper)] px-4 py-3"',
   );
