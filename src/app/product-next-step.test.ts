@@ -34,6 +34,9 @@ test("kova states the page path once", () => {
   expect(src.match(/nextStep/g)).toHaveLength(1);
   expect(src).toContain("外部客户流量尚未承接");
   expect(src).toContain("文档站里的安装命令还不是这条路径");
+  expect(src).toContain("文档站 Kova 页给出调度延迟、吞吐和代码量，本页不转述那些数字。");
+  expect(src).not.toContain("3.17");
+  expect(src).not.toContain("315K");
   expect(src).not.toContain("先读文档");
   expect(src).toContain('{ label: "联系试用", href: "mailto:contact@lurus.cn", primary: true, external: true }');
   expect(src).toContain('href="/approach#intake"');
