@@ -160,13 +160,18 @@ export function inertSiblings(keep: InertNode): () => void {
   };
 }
 
-/** 当前行用一条赭石左边线，不用填充块。 */
+/** 当前行用一条 2px 墨色左边线，不用填充块。赭石在纸面上只有 2.74:1。 */
 export function paletteRowClass(active: boolean) {
   return `flex cursor-pointer items-center gap-3 border-l-2 px-5 py-2.5 text-sm ${
     active
-      ? "border-[var(--lt-accent)] text-[var(--lt-ink)]"
+      ? "border-[var(--lt-ink)] text-[var(--lt-ink)]"
       : "border-transparent text-[var(--color-text-secondary)] hover:text-[var(--lt-ink)]"
   }`;
+}
+
+/** 当前行的图标用墨色。没选中时用已经量过的灰色。 */
+export function paletteIconClass(active: boolean) {
+  return `h-4 w-4 shrink-0 ${active ? "text-[var(--lt-ink)]" : "text-[var(--color-text-muted)]"}`;
 }
 
 export const PALETTE_LIST_ID = "palette-list";
@@ -393,7 +398,7 @@ export function CommandPalette() {
                         };
                         const inner = (
                           <>
-                            <Icon className={`h-4 w-4 shrink-0 ${isActive ? "text-[var(--lt-accent)]" : "text-[var(--color-text-muted)]"}`} />
+                            <Icon className={paletteIconClass(isActive)} />
                             <span className="flex-1 truncate">{item.label}</span>
                             {item.hint && (
                               <span className="text-[10px] font-mono text-[var(--color-text-muted)] truncate">{item.hint}</span>

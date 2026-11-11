@@ -9,6 +9,7 @@ import {
   PALETTE_SCRIM_CLASS,
   PALETTE_SEARCH_LABEL,
   paletteRowClass,
+  paletteIconClass,
   paletteOptionId,
   paletteActiveDescendant,
   scrollPaletteOptionIntoView,
@@ -31,9 +32,12 @@ test("the palette sits on the same paper as the page", () => {
   expect(PALETTE_SCRIM_CLASS).toContain("bg-[var(--lt-ink)]/20");
   expect(PALETTE_SCRIM_CLASS).not.toContain("bg-black");
   expect(PALETTE_SCRIM_CLASS).not.toContain("backdrop-blur");
-  expect(paletteRowClass(true)).toContain("border-[var(--lt-accent)]");
+  expect(paletteRowClass(true)).toContain("border-[var(--lt-ink)]");
+  expect(paletteRowClass(true)).not.toContain("border-[var(--lt-accent)]");
   expect(paletteRowClass(true)).not.toContain("rounded");
   expect(paletteRowClass(false)).toContain("border-transparent");
+  expect(paletteIconClass(true)).toBe("h-4 w-4 shrink-0 text-[var(--lt-ink)]");
+  expect(paletteIconClass(false)).toBe("h-4 w-4 shrink-0 text-[var(--color-text-muted)]");
   expect(PALETTE_SEARCH_LABEL).toBe("搜索页面、产品、文档");
 });
 
