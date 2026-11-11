@@ -69,7 +69,7 @@ export const PAIN_POINTS = [
   {
     key: "facts-change",
     pain: "事实会变",
-    painDetail: "预算改了三次，只记住最后一次，就答不了「当时是多少」。",
+    painDetail: "预算改了三次，只留下最后一次，更早的说法就没了。",
     answer: "旧值留作历史",
     answerDetail: "同一事实出现新值时，旧记忆标成已被取代，检索时排在后面。变更历史可以按条查询。",
   },

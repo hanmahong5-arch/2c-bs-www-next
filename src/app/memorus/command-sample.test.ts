@@ -72,6 +72,9 @@ test("the command sample uses the measured gray edge", () => {
   expect(links).not.toContain("不是二手摘要");
   expect(links).not.toContain("无信息损失");
   expect(links).not.toContain("原文可回查");
+  expect(links).toContain("预算改了三次，只留下最后一次，更早的说法就没了。");
+  expect(links).not.toContain("当时是多少");
+  expect(links).not.toContain("就答不了");
   expect(src).toContain(
     'className="mt-10 max-w-[36rem] border border-[var(--color-text-muted)] bg-[var(--lt-paper)] px-4 py-3"',
   );
