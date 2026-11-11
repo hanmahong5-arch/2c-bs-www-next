@@ -24,7 +24,9 @@ test("action buttons are a hairline on the paper", () => {
 
   const html = renderToStaticMarkup(<Home />);
   expect(html).toContain('class="btn-primary"');
-  expect(html).toContain("下载与上手");
+  expect(html).toContain('href="/switch#download"');
+  expect(html).toContain("下载 Switch");
+  expect(html).toContain('href="/download"');
   expect(html).toContain("阅读方法");
   expect(html).toContain("写信给 contact@lurus.cn");
 });
