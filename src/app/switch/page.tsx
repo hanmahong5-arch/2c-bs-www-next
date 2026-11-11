@@ -11,7 +11,7 @@ import { SwitchDownloadSection, SwitchDownloadSkeleton } from "./switch-download
 export const metadata: Metadata = {
   title: "Switch — 桌面 AI CLI 管家",
   description:
-    "桌面应用：在一处配置 Claude Code、Codex、Gemini CLI 等 AI 编程 CLI，本地网关统一转发与记账，管理 MCP 服务器，配置快照随时还原。Windows 版可下载。",
+    "桌面应用：在一处配置 Claude Code、Codex、Gemini CLI 等 AI 编程 CLI，本地网关统一转发与记账，管理 MCP 服务器，配置快照随时还原。Windows 版可下载。文档站写着当前不在主动开发中。",
 };
 
 function SectionTitle({ id, eyebrow, children }: { id: string; eyebrow: string; children: React.ReactNode }) {
@@ -46,7 +46,7 @@ export default function SwitchPage() {
         name="Switch"
         eyebrow="桌面客户端"
         maturity="早期试点"
-        tagline="桌面上的 AI CLI 管家：主流 AI 编程 CLI 的配置、代理、MCP、快照与账单，在一处管。"
+        tagline="桌面上的 AI CLI 管家：主流 AI 编程 CLI 的配置、代理、MCP、快照与账单，在一处管。文档站写着当前不在主动开发中。"
         access={{
           actions: [
             { label: "前往下载", href: "#download", primary: true },

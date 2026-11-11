@@ -13,8 +13,11 @@ test("the download page states the same Switch path", () => {
   expect(download).toContain("在 Switch 里登录");
   expect(download).toContain("在 Switch 中打开");
   expect(download).toContain("目前只有 Windows 版经过启动验证");
+  expect(download).toContain("文档站写着当前不在主动开发中");
   expect(download).toContain("文档站的 Switch 页写着「当前不在主动开发中」");
   expect(download).toContain("本页不转述那些数字");
+  expect(download).not.toContain("正在维护");
+  expect(download).not.toContain(">在维护<");
   expect(download).not.toContain("docs.lurus.cn/switch");
   expect(download).toContain('href="/switch#download"');
   expect(download).toMatch(/<a[^>]*href="\/switch#download"[^>]*>\s*Switch 产品页\s*<\/a>/);
@@ -27,6 +30,8 @@ test("the download section does not repeat the page path", () => {
   expect(src).not.toContain("只能一次");
   expect(page.match(/nextStep/g)).toHaveLength(1);
   expect(page).toContain("在 Switch 中打开");
+  expect(page).toContain("文档站写着当前不在主动开发中。");
+  expect(page).not.toContain("docs.lurus.cn/switch");
 });
 
 test("the Windows verification is written before the file list", () => {
