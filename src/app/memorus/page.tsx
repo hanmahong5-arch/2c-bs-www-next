@@ -135,14 +135,14 @@ export default function MemorusPage() {
           {/* 示意框的边用已经量过的灰色。发丝线在纸面上只有 1.35:1。命令仍是墨色。 */}
           <figure className="mt-10 max-w-[36rem] border border-[var(--color-text-muted)] bg-[var(--lt-paper)] px-4 py-3">
             <figcaption className="font-mono text-[11px] uppercase tracking-[0.12em] text-[var(--color-text-muted)]">
-              接入示意 · 尚未上包仓库，安装见{" "}
+              接入示意 · 尚未上包仓库，命令见{" "}
               <a
                 href={LINKS.quickstart}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-[var(--lt-ink)] underline decoration-[var(--color-text-muted)] underline-offset-4 hover:decoration-[var(--lt-ink)]"
               >
-                文档
+                快速开始
                 <NewWindowNote />
               </a>
             </figcaption>
@@ -298,7 +298,7 @@ export default function MemorusPage() {
               <h3 className="font-display text-lg font-semibold leading-[1.4] text-[var(--lt-ink)]">进客户环境</h3>
               <p className="mt-2 text-[15px] leading-[1.8] text-[var(--color-text-secondary)]">
                 有面向客户环境的 Docker Compose 部署包：一个应用容器加一个一次性初始化容器，内置 SQLite 存储，
-                不依赖我们这边的任何基础设施；镜像可随交付以离线包提供，并附校验和。
+                不依赖我们这边的任何基础设施；镜像可随交付以离线包提供，并附校验和。快速开始里的命令假定交付包已经在手里。本页不提供公开镜像。
               </p>
             </li>
           </ul>
