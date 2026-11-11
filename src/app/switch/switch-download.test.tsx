@@ -13,6 +13,9 @@ test("the download page states the same Switch path", () => {
   expect(download).toContain("在 Switch 里登录");
   expect(download).toContain("在 Switch 中打开");
   expect(download).toContain("目前只有 Windows 版经过启动验证");
+  expect(download).toContain("文档站的 Switch 页写着「当前不在主动开发中」");
+  expect(download).toContain("本页不转述那些数字");
+  expect(download).not.toContain("docs.lurus.cn/switch");
   expect(download).toContain('href="/switch#download"');
   expect(download).toMatch(/<a[^>]*href="\/switch#download"[^>]*>\s*Switch 产品页\s*<\/a>/);
 });
