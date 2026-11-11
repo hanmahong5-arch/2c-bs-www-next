@@ -15,7 +15,8 @@ test("the remaining frames are square", () => {
   expect(demo).not.toContain("rounded");
 
   const lugo = readFileSync("src/app/lugo/page.tsx", "utf8");
-  expect(lugo).toContain('className="h-auto w-full border border-[var(--lt-rule)]"');
+  expect(lugo).toContain('className="h-auto w-full border border-[var(--color-text-muted)]"');
+  expect(lugo).not.toContain('className="h-auto w-full border border-[var(--lt-rule)]"');
   expect(lugo).not.toContain("rounded");
 
   const css = readFileSync("src/app/globals.css", "utf8");

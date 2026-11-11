@@ -191,12 +191,13 @@ export default function LugoPage() {
           </Lead>
         </div>
         <figure className="mt-10 max-w-[51rem]">
+          {/* 图的边用已经量过的灰色。发丝线在纸面上只有 1.35:1。图仍是方的。 */}
           <Image
             src="/images/lugo/wallet-spend-by-product.png"
             alt="钱包页的「本月各产品花费」卡片：多个产品各自的本月花费与笔数，共用一个余额。"
             width={818}
             height={300}
-            className="h-auto w-full border border-[var(--lt-rule)]"
+            className="h-auto w-full border border-[var(--color-text-muted)]"
           />
           <figcaption className="mt-2 font-mono text-[11px] text-[var(--color-text-muted)]">
             示例 · 演示数据渲染的真实页面。产品名单以现网为准；代码已完成，尚未部署到线上。
