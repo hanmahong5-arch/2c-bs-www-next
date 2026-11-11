@@ -23,3 +23,12 @@ test("link hover underlines use ink", () => {
   });
   expect(hits).toEqual([]);
 });
+
+test("link underlines at rest use the measured gray", () => {
+  const forbidden = "decoration-[var(--lt-rule)]";
+  const hits = sourceFiles("src").flatMap((path) => {
+    const text = readFileSync(path, "utf8");
+    return text.includes(forbidden) ? [path] : [];
+  });
+  expect(hits).toEqual([]);
+});

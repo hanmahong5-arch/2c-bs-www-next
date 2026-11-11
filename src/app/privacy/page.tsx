@@ -45,7 +45,7 @@ export default function PrivacyPage() {
           如有隐私相关问题，请联系{" "}
           <a
             href="mailto:privacy@lurus.cn"
-            className="text-[var(--lt-ink)] underline decoration-[var(--lt-rule)] underline-offset-4 hover:decoration-[var(--lt-ink)]"
+            className="text-[var(--lt-ink)] underline decoration-[var(--color-text-muted)] underline-offset-4 hover:decoration-[var(--lt-ink)]"
           >
             privacy@lurus.cn
           </a>
@@ -55,7 +55,7 @@ export default function PrivacyPage() {
       <div className="mt-16 border-t border-[var(--lt-rule)] pt-8">
         <Link
           href="/"
-          className="text-sm text-[var(--lt-ink)] underline decoration-[var(--lt-rule)] underline-offset-4 hover:decoration-[var(--lt-ink)]"
+          className="text-sm text-[var(--lt-ink)] underline decoration-[var(--color-text-muted)] underline-offset-4 hover:decoration-[var(--lt-ink)]"
         >
           ← 返回首页
         </Link>

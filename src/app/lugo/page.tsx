@@ -27,7 +27,7 @@ export const metadata: Metadata = {
 const CONTACT = "mailto:contact@lurus.cn";
 
 const linkClass =
-  "text-[var(--lt-ink)] underline decoration-[var(--lt-rule)] underline-offset-4 hover:decoration-[var(--lt-ink)]";
+  "text-[var(--lt-ink)] underline decoration-[var(--color-text-muted)] underline-offset-4 hover:decoration-[var(--lt-ink)]";
 
 function SectionTitle({
   id,

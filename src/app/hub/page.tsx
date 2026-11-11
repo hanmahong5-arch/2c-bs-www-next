@@ -73,7 +73,7 @@ export default function HubPage() {
             基于开源 New API（源自 One API），AGPLv3。我们运营的 hub.lurus.cn 按量单价见{" "}
             <Link
               href="/hub/pricing"
-              className="underline decoration-[var(--lt-rule)] underline-offset-4 hover:decoration-[var(--lt-ink)]"
+              className="underline decoration-[var(--color-text-muted)] underline-offset-4 hover:decoration-[var(--lt-ink)]"
             >
               价格
             </Link>
@@ -217,7 +217,7 @@ export default function HubPage() {
             按量收费，单价见{" "}
             <Link
               href="/hub/pricing"
-              className="text-[var(--lt-ink)] underline decoration-[var(--lt-rule)] underline-offset-4 hover:decoration-[var(--lt-ink)]"
+              className="text-[var(--lt-ink)] underline decoration-[var(--color-text-muted)] underline-offset-4 hover:decoration-[var(--lt-ink)]"
             >
               价格
             </Link>
@@ -229,14 +229,14 @@ export default function HubPage() {
           想了解它放进你的环境会是什么样，写信到{" "}
           <a
             href={CONTACT}
-            className="text-[var(--lt-ink)] underline decoration-[var(--lt-rule)] underline-offset-4 hover:decoration-[var(--lt-ink)]"
+            className="text-[var(--lt-ink)] underline decoration-[var(--color-text-muted)] underline-offset-4 hover:decoration-[var(--lt-ink)]"
           >
             contact@lurus.cn
           </a>
           ；或先读{" "}
           <Link
             href="/approach"
-            className="text-[var(--lt-ink)] underline decoration-[var(--lt-rule)] underline-offset-4 hover:decoration-[var(--lt-ink)]"
+            className="text-[var(--lt-ink)] underline decoration-[var(--color-text-muted)] underline-offset-4 hover:decoration-[var(--lt-ink)]"
           >
             方法
           </Link>
@@ -246,7 +246,7 @@ export default function HubPage() {
           先看{" "}
           <Link
             href="/hub/pricing"
-            className="text-[var(--lt-ink)] underline decoration-[var(--lt-rule)] underline-offset-4 hover:decoration-[var(--lt-ink)]"
+            className="text-[var(--lt-ink)] underline decoration-[var(--color-text-muted)] underline-offset-4 hover:decoration-[var(--lt-ink)]"
           >
             按量价格
           </Link>

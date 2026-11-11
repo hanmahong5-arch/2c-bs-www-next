@@ -91,13 +91,13 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
             <p className="mt-6 flex flex-wrap gap-x-4 gap-y-2 text-[13px] leading-[1.7]">
               <a
                 href="/blog.md"
-                className="text-[var(--color-text-muted)] underline decoration-[var(--lt-rule)] underline-offset-4 hover:text-[var(--lt-ink)] hover:decoration-[var(--lt-ink)]"
+                className="text-[var(--color-text-muted)] underline decoration-[var(--color-text-muted)] underline-offset-4 hover:text-[var(--lt-ink)] hover:decoration-[var(--lt-ink)]"
               >
                 同一份日志的纯文本
               </a>
               <a
                 href="/blog/rss.xml"
-                className="text-[var(--color-text-muted)] underline decoration-[var(--lt-rule)] underline-offset-4 hover:text-[var(--lt-ink)] hover:decoration-[var(--lt-ink)]"
+                className="text-[var(--color-text-muted)] underline decoration-[var(--color-text-muted)] underline-offset-4 hover:text-[var(--lt-ink)] hover:decoration-[var(--lt-ink)]"
               >
                 订阅源
               </a>
@@ -175,7 +175,7 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
                         <a
                           href={`#${changelogAnchor(entry)}`}
                           aria-label={`这条日志：${entry.title}`}
-                          className="font-mono text-[12px] text-[var(--color-text-muted)] underline decoration-[var(--lt-rule)] underline-offset-4 hover:text-[var(--lt-ink)] hover:decoration-[var(--lt-ink)]"
+                          className="font-mono text-[12px] text-[var(--color-text-muted)] underline decoration-[var(--color-text-muted)] underline-offset-4 hover:text-[var(--lt-ink)] hover:decoration-[var(--lt-ink)]"
                         >
                           <time dateTime={entry.date}>{entry.date}</time>
                         </a>
@@ -212,7 +212,7 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
             href="https://docs.lurus.cn"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-[var(--lt-ink)] underline decoration-[var(--lt-rule)] underline-offset-4 hover:decoration-[var(--lt-ink)]"
+            className="text-[var(--lt-ink)] underline decoration-[var(--color-text-muted)] underline-offset-4 hover:decoration-[var(--lt-ink)]"
           >
             docs.lurus.cn ↗
             <NewWindowNote />

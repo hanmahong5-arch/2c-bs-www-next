@@ -51,7 +51,7 @@ export default function SwitchPage() {
           <>
             <a
               href="#download"
-              className="text-[var(--lt-ink)] underline decoration-[var(--lt-rule)] underline-offset-4 hover:decoration-[var(--lt-ink)]"
+              className="text-[var(--lt-ink)] underline decoration-[var(--color-text-muted)] underline-offset-4 hover:decoration-[var(--lt-ink)]"
             >
               前往下载
             </a>

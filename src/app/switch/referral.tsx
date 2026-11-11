@@ -68,7 +68,7 @@ export function ReferralNotice() {
         安装并登录 Switch 后，在首页填入这个推广码即可（注册 7 天内有效）。已安装？
         <a
           href={switchReferralLink(ref)}
-          className="ml-1 underline decoration-[var(--lt-rule)] underline-offset-4 hover:text-[var(--lt-ink)]"
+          className="ml-1 underline decoration-[var(--color-text-muted)] underline-offset-4 hover:text-[var(--lt-ink)]"
         >
           在 Switch 中打开
         </a>

@@ -101,7 +101,7 @@ function ProofLink({
   const className = "group flex items-baseline justify-between gap-x-6 py-3";
   const inner = (
     <>
-      <span className="text-[15px] leading-[1.6] text-[var(--lt-ink)] underline decoration-[var(--lt-rule)] underline-offset-4 group-hover:decoration-[var(--lt-ink)]">
+      <span className="text-[15px] leading-[1.6] text-[var(--lt-ink)] underline decoration-[var(--color-text-muted)] underline-offset-4 group-hover:decoration-[var(--lt-ink)]">
         {title}
       </span>
       <span className="shrink-0 font-mono text-[12px] text-[var(--color-text-muted)]">{kind}</span>
@@ -125,7 +125,7 @@ function QuietLink({ href, children }: { href: string; children: React.ReactNode
   return (
     <Link
       href={href}
-      className="text-[var(--lt-ink)] underline decoration-[var(--lt-rule)] underline-offset-4 hover:decoration-[var(--lt-ink)]"
+      className="text-[var(--lt-ink)] underline decoration-[var(--color-text-muted)] underline-offset-4 hover:decoration-[var(--lt-ink)]"
     >
       {children}
     </Link>
@@ -459,7 +459,7 @@ export default function Home() {
           ；想聊环境或合作，写信到{" "}
           <a
             href={CONTACT}
-            className="text-[var(--lt-ink)] underline decoration-[var(--lt-rule)] underline-offset-4 hover:decoration-[var(--lt-ink)]"
+            className="text-[var(--lt-ink)] underline decoration-[var(--color-text-muted)] underline-offset-4 hover:decoration-[var(--lt-ink)]"
           >
             contact@lurus.cn
           </a>
