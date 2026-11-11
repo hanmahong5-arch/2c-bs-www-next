@@ -77,7 +77,7 @@ export const PAIN_POINTS = [
     key: "erasure",
     pain: "用户要求删除",
     painDetail: "删了原文，检索时还能搜出来，等于没删。",
-    answer: "删除可传播",
+    answer: "原文和索引一并移除",
     answerDetail: "一次删除请求，原文和检索索引一并移除。备份中的副本尚未纳入删除传播。",
   },
 ] as const;
@@ -99,9 +99,9 @@ export const CAPABILITIES = [
   },
   {
     key: "erasure",
-    title: "删除可传播",
+    title: "按用户或按条删除",
     tagline: "原文和索引一并移除",
-    body: "按用户或按条删除，原文和检索索引一并移除；删除只作用于本租户。备份中的副本尚未纳入删除传播。",
+    body: "按用户或按条删除，原文和检索索引一并移除。备份中的副本尚未纳入删除传播。",
   },
   {
     key: "tenant",
