@@ -31,9 +31,14 @@ test("the internal footnote names Founder outside the self-serve row", () => {
   const html = renderToStaticMarkup(<Home />);
   const selfServe = html.slice(0, html.indexOf(">环境里<"));
   expect(selfServe).not.toContain('href="/founder"');
+  expect(selfServe).not.toContain('href="/lux"');
+  expect(selfServe).toContain('href="/switch"');
+  expect(selfServe).toContain('href="/download"');
   expect(html).toContain('href="/founder"');
+  expect(html).toContain('href="/lux"');
   expect(html).toContain("不对外售卖");
   expect(html).toContain("不对外部自助分发");
+  expect(html).toContain("没有公开安装命令");
   expect(html).toContain(">早期试点<");
   expect(html).toContain('href="/about"');
 });
