@@ -12,6 +12,9 @@ test("the command sample uses the measured gray edge", () => {
   expect(links).toContain('quickstart: "https://docs.lurus.cn/memx/quickstart"');
   expect(links).toContain("其他向量库后端要在构建时显式开启");
   expect(links).not.toContain("改一行配置");
+  expect(src).toContain("这时语义层不起作用，检索主要靠关键词");
+  expect(src).toContain("onnx-embedding");
+  expect(src).not.toContain("零配置默认不带真实的语义嵌入");
   expect(src).toContain(
     'className="mt-10 max-w-[36rem] border border-[var(--color-text-muted)] bg-[var(--lt-paper)] px-4 py-3"',
   );
