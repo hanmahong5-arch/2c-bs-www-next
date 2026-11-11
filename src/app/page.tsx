@@ -294,7 +294,8 @@ export default function Home() {
               US 只留给自己用。
             </Lead>
             <figure className="mt-10 flex max-w-[16rem] flex-col items-start">
-              <div className="flex h-40 w-40 items-center justify-center bg-[var(--lt-bg)] ring-1 ring-[var(--lt-rule)]">
+              {/* 商标框的边用已经量过的灰色。发丝线贴在区块底上只有 1.19:1。标记仍是墨色。 */}
+              <div className="flex h-40 w-40 items-center justify-center bg-[var(--lt-bg)] ring-1 ring-[var(--color-text-muted)]">
                 <BrandMark className="h-24 w-24 text-[var(--lt-ink)]" />
               </div>
               <figcaption className="mt-3 font-mono text-[11px] leading-relaxed text-[var(--color-text-muted)]">

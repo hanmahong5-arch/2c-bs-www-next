@@ -14,6 +14,12 @@ test("the remaining frames are square", () => {
   const demo = renderToStaticMarkup(<AsOfDemo />);
   expect(demo).not.toContain("rounded");
 
+  const home = readFileSync("src/app/page.tsx", "utf8");
+  expect(home).toContain(
+    'className="flex h-40 w-40 items-center justify-center bg-[var(--lt-bg)] ring-1 ring-[var(--color-text-muted)]"',
+  );
+  expect(home).not.toContain("ring-1 ring-[var(--lt-rule)]");
+
   const lugo = readFileSync("src/app/lugo/page.tsx", "utf8");
   expect(lugo).toContain('className="h-auto w-full border border-[var(--color-text-muted)]"');
   expect(lugo).not.toContain('className="h-auto w-full border border-[var(--lt-rule)]"');
