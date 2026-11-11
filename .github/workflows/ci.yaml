@@ -76,12 +76,13 @@ jobs:
       - name: Start headless Chrome (:9222)
         # 端口没开时不能把这一步标成成功。冒烟会立刻对 9222 收到 ECONNREFUSED，
         # 十九个路由一起红，看起来像页面坏了。偶发没绑上端口时再拉起一次。
+        # 在当前 shell 里后台启动。不用命令替换取 PID，避免 Chrome 占住管道。
         run: |
           start_chrome() {
-            google-chrome --headless=new --remote-debugging-port=9222 --no-sandbox --disable-gpu &
-            echo $!
+            google-chrome --headless=new --remote-debugging-port=9222 --no-sandbox --disable-gpu >/dev/null &
+            pid=$!
           }
-          pid=$(start_chrome)
+          start_chrome
           for attempt in 1 2; do
             for _ in $(seq 1 30); do
               if curl -sf http://127.0.0.1:9222/json/version >/dev/null; then
@@ -93,7 +94,7 @@ jobs:
               echo "chrome did not open :9222, starting it again" >&2
               kill "$pid" >/dev/null 2>&1 || true
               sleep 1
-              pid=$(start_chrome)
+              start_chrome
             fi
           done
           echo "chrome did not open :9222" >&2
