@@ -35,7 +35,7 @@ export default function DownloadPage() {
                   external: true,
                 },
               ]}
-              nextStep="安装 Switch → 登录 Lurus 账号 →（若有推广码）在「开始」页填写（注册 7 天内、只能一次）。目前只有 Windows 版经过启动验证。"
+              nextStep="安装 Switch → 在 Switch 里登录 Lurus 账号 →（若有推广码）在「开始」页填写，注册 7 天内、只能填一次；已安装可用推广链接里的「在 Switch 中打开」。目前只有 Windows 版经过启动验证。"
             />
           </div>
         </div>
