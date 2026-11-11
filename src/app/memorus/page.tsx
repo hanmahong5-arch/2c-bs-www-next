@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { EvidenceLine, EvidenceList, Eyebrow, Lead, NextStep, ProductHeader, Section } from "@/components/site";
-import { NewWindowNote } from "@/components/site/new-window-note";
+import { EvidenceLine, EvidenceList, Eyebrow, Lead, ProductHeader, Section } from "@/components/site";
 import { AsOfDemo } from "./asof-demo";
 import { DataTable, fmt } from "./benchmarks/charts";
 import { LOCOMO } from "./benchmarks/data";
@@ -20,7 +19,7 @@ import {
 
 // Memorus 产品页：给 AI 系统的长期记忆。
 // 叙事：首屏（主张 + 三个带区间的数字）→ 痛点与能力 → 六个能力 → 时点查询演示 → 同口径基准表
-//       → 性能与部署 → 接入 → 边界与现状 → 文档与试点。
+//       → 性能与部署 → 接入 → 边界与现状 → 一封信。路径只在页首写一次。
 // 只写「做到什么」（功能层），不写实现机制；数据全部取自 ./product-data（基准数字再往上取自 ./benchmarks/data）。
 // 除时点查询演示（asof-demo.tsx，客户端组件）外全部服务端渲染，无 JS 动效。
 
@@ -109,7 +108,8 @@ export default function MemorusPage() {
             { label: "阅读文档", href: LINKS.docs, external: true },
             { label: "申请试点", href: LINKS.pilot, external: true },
           ],
-          nextStep: "先看基准与文档；要试点，邮件说明现有 AI 栈与记忆需求。尚未上公共包仓库。",
+          nextStep:
+            "先看基准与文档；要试点，邮件说明现有 AI 栈与记忆需求。我们回复是否适合现阶段试点。尚未上公共包仓库。",
         }}
       />
       <div className="px-6">
@@ -414,22 +414,9 @@ export default function MemorusPage() {
         </ul>
       </Section>
 
-      {/* S9 文档与试点 */}
       <Section labelledBy="cta-title">
         <p id="cta-title" className="font-display text-xl leading-[1.5] text-[var(--lt-ink)] md:text-2xl">
-          想把它放进你的系统，先读文档；想在你的环境里试，写信给我们。
-        </p>
-        <div className="mt-8 flex flex-wrap gap-3">
-          <a href={LINKS.docs} target="_blank" rel="noopener noreferrer" className="btn-secondary">
-            阅读文档
-            <NewWindowNote />
-          </a>
-          <a href={LINKS.pilot} className="btn-primary">
-            申请试点
-          </a>
-        </div>
-        <NextStep>
-          邮件说明你的环境与目标；我们回复是否适合现阶段试点。申请发至{" "}
+          想把它放进你的系统，写信到{" "}
           <a href={LINKS.pilot} className={LINK_CLASS}>
             {LINKS.pilotLabel}
           </a>
@@ -438,7 +425,7 @@ export default function MemorusPage() {
             首信清单
           </Link>
           。
-        </NextStep>
+        </p>
       </Section>
     </>
   );
