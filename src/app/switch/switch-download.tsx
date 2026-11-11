@@ -82,6 +82,10 @@ export async function SwitchDownloadSection() {
     <Section id="download" labelledBy="download-title">
       <SectionHeader />
 
+      <p className="mt-6 max-w-[44rem] text-sm leading-[1.8] text-[var(--color-text-secondary)]">
+        文档站的 Switch 页写着「当前不在主动开发中」，并给出启动时间、包体积和全平台支持。本页不转述那些数字。
+      </p>
+
       {manifest && files.length > 0 ? (
         <div className="mt-8">
           <p className="font-mono text-sm text-[var(--lt-ink)]">

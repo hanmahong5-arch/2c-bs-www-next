@@ -32,4 +32,10 @@ test("the Windows verification is written before the file list", () => {
   const list = src.indexOf("<ul");
   expect(warn).toBeGreaterThan(0);
   expect(list).toBeGreaterThan(warn);
+  expect(src).toContain("文档站的 Switch 页写着「当前不在主动开发中」");
+  expect(src).toContain("本页不转述那些数字");
+  expect(src).not.toContain("docs.lurus.cn/switch");
+  const note = src.indexOf("当前不在主动开发中");
+  expect(note).toBeGreaterThan(0);
+  expect(note).toBeLessThan(warn);
 });
