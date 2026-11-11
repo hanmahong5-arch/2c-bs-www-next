@@ -29,6 +29,9 @@ test("kova states the page path once", () => {
   expect(src).not.toContain("<NextStep");
   expect(src.match(/nextStep/g)).toHaveLength(1);
   expect(src).toContain("外部客户流量尚未承接");
+  expect(src).toContain("文档站里的安装命令还不是这条路径");
+  expect(src).not.toContain("先读文档");
+  expect(src).toContain('{ label: "联系试用", href: "mailto:contact@lurus.cn", primary: true, external: true }');
   expect(src).toContain('href="/approach#intake"');
   expect(src).toContain("要联测或嵌入");
   expect(src).toContain("公开记录见");

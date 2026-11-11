@@ -64,11 +64,12 @@ export default function KovaPage() {
         note="专有软件，按商业许可提供；目前只在我们自己的环境里运行（含生产集群）。Forge 编排 · Kova 证明 · Lumen 看见。"
         access={{
           actions: [
-            { label: "阅读文档", href: DOCS, primary: true, external: true },
+            { label: "联系试用", href: "mailto:contact@lurus.cn", primary: true, external: true },
+            { label: "阅读文档", href: DOCS, external: true },
             { label: "联测账本", href: DOCS_JOINT, external: true },
-            { label: "联系试用", href: "mailto:contact@lurus.cn", external: true },
           ],
-          nextStep: "先读文档；要进你的环境试，邮件说明工作流形态与约束。外部客户流量尚未承接。",
+          nextStep:
+            "要进你的环境试，先写信说明工作流形态与约束。外部客户流量尚未承接；文档站里的安装命令还不是这条路径。",
         }}
         evidence={{
           name: "workflow #42",
