@@ -107,6 +107,8 @@ test("hub states the path once", () => {
   expect(src).not.toContain("<NextStep");
   expect(src.match(/nextStep/g)).toHaveLength(1);
   expect(src).toContain("写信说明上游与网络约束");
+  expect(src).toContain("装进你自己的环境，先写信。");
+  expect(src).not.toContain("部署在你自己环境里的多租户");
   expect(src).toContain("网关首页写着兼容 OpenAI，并给出厂商与模型数量。本页不转述那些数字。");
   expect(src).not.toContain("对接所有模型厂商");
   expect(src).not.toContain("已定价模型");
