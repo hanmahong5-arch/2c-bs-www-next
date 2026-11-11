@@ -61,7 +61,7 @@ const LAYERS: readonly Layer[] = [
     code: "RUS",
     audience: "底座",
     title: "执行与账号",
-    line: "被上层共同依赖的持久执行、网关与账号。成熟度各自标明；今天的写操作仍多由独立脚本完成。",
+    line: "被上层共同依赖的持久执行、网关与账号。成熟度各自标明。要在环境里动手，今天仍由独立脚本完成；Kova 尚未承接外部客户流量。",
     products: [
       { name: "Kova", href: "/kova", maturity: "早期试点" },
       { name: "Forge", href: "/forge", maturity: "内部生产使用" },
