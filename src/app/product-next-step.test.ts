@@ -19,6 +19,9 @@ test("lugo states the path once", () => {
   expect(src.match(/nextStep/g)).toHaveLength(1);
   expect(src).toContain("身份源 / 商户号 / 网络");
   expect(src).toContain('href="/approach#intake"');
+  expect(src).toContain('const DOCS_DEPLOY = "https://docs.lurus.cn/platform/self-host"');
+  expect(src).not.toContain('https://docs.lurus.cn/platform/"');
+  expect(src.match(/DOCS_DEPLOY/g)).toHaveLength(3);
 });
 
 test("kova states the page path once", () => {
