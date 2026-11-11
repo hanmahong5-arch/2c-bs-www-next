@@ -6,7 +6,6 @@ import {
   Eyebrow,
   Lead,
   MaturityChip,
-  NextStep,
   ProductHeader,
   Section,
 } from "@/components/site";
@@ -295,10 +294,7 @@ export default function KovaPage() {
             Kova 文档
             <NewWindowNote />
           </a>
-          。
-        </p>
-        <NextStep>
-          先读文档；要进你的环境试，邮件说明工作流形态与约束。来信{" "}
+          。来信{" "}
           <a
             href="mailto:contact@lurus.cn"
             className="text-[var(--lt-ink)] underline decoration-[var(--color-text-muted)] underline-offset-4 hover:decoration-[var(--lt-ink)]"
@@ -313,7 +309,7 @@ export default function KovaPage() {
             首信清单
           </Link>
           。
-        </NextStep>
+        </p>
       </Section>
     </>
   );
