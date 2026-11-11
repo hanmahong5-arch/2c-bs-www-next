@@ -223,7 +223,9 @@ export default function Home() {
               className="hero-enter-up mt-5 max-w-[36rem] text-[15px] leading-[1.75] text-[var(--color-text-secondary)] md:text-base md:leading-[1.8]"
               style={{ animationDelay: "200ms" }}
             >
-              桌面端、记忆与执行、网关与账号——状态写明证据强度，备份只认真恢复一次才算数，成熟度各自标明。系统留在你自己的环境里。
+              桌面端、记忆与执行、网关与账号——状态写明证据强度，备份只认真恢复一次才算数，成熟度各自标明。
+              <QuietLink href="/witness">见证</QuietLink>、<QuietLink href="/memorus">Memorus</QuietLink> 和{" "}
+              <QuietLink href="/kova">Kova</QuietLink> 的试点先写信。
             </p>
             <div
               className="hero-enter-up mt-8 flex flex-wrap items-center gap-3"
