@@ -61,7 +61,7 @@ export default function KovaPage() {
         name="Kova"
         maturity="早期试点"
         tagline="在不能出错、不能出境、必须举证的场景里，Agent 跑过的每一步都能被第三方离线核验——且可部署在你自己的机器上。"
-        note="专有软件，按商业许可提供；目前只在我们自己的环境里运行（含生产集群）。Forge 编排 · Kova 证明 · Lumen 看见。"
+        note="专有软件，按商业许可提供；目前只在我们自己的环境里运行（含生产集群）。文档站 Kova 页给出调度延迟、吞吐和代码量，本页不转述那些数字。Forge 编排 · Kova 证明 · Lumen 看见。"
         access={{
           actions: [
             { label: "联系试用", href: "mailto:contact@lurus.cn", primary: true, external: true },
@@ -286,6 +286,7 @@ export default function KovaPage() {
             不保证「恰好一次」。中断时正在执行的那一步会重做，写操作需要自己做到可安全重试。
           </Dash>
           <Dash>不是开源软件，也没有发布到公共包仓库。</Dash>
+          <Dash>文档站 Kova 页给出调度延迟、吞吐和代码量。本页不转述那些数字。</Dash>
         </ul>
       </Section>
 
