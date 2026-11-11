@@ -13,6 +13,16 @@ test("forge, lux, and founder state the path once", () => {
   expect(forge).toContain("是否需要 Kova");
 });
 
+test("memorus states the path once", () => {
+  const src = readFileSync("src/app/memorus/page.tsx", "utf8");
+  expect(src).not.toContain("<NextStep");
+  expect(src).not.toContain('className="btn-primary"');
+  expect(src.match(/nextStep/g)).toHaveLength(1);
+  expect(src).toContain("尚未上公共包仓库");
+  expect(src).toContain("我们回复是否适合现阶段试点");
+  expect(src).toContain("首信清单");
+});
+
 test("hub states the path once", () => {
   const src = readFileSync("src/app/hub/page.tsx", "utf8");
   expect(src).not.toContain("<NextStep");
