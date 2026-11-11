@@ -151,7 +151,7 @@ export default function KovaPage() {
           <Disclosure summary={<span className="text-[1.0625rem]">嵌入方式</span>}>
             <p>
               核心是一个 Rust 库，直接链接进你的程序，不需要单独部署的调度服务；
-              日志就是本地目录里的文件，外部数据库是可选项。
+              日志就是本地目录里的文件，外部数据库是可选项。文档站快速开始写着五分钟和三种安装方式，并给出容器命令。要链接进你的程序，先写信；那些命令还不是这条路径。
             </p>
             <p className="mt-3">
               在同一套持久化内核之上，另有 REST、MCP 与 Python 绑定几种接入方式；gRPC 服务标注为实验性，
