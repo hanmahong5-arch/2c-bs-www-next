@@ -50,7 +50,7 @@ const LAYERS: readonly Layer[] = [
     code: "URUS",
     audience: "环境里",
     title: "观测与方法",
-    line: "装进你自己的环境：看清状态、记住上下文，以及怎么证明它稳。",
+    line: "看清状态、记住上下文，以及怎么证明它稳。见证和 Memorus 的安装包尚未公开发布，试点先写信。",
     products: [
       { name: "见证 Witness", href: "/witness", maturity: "早期试点" },
       { name: "Memorus", href: "/memorus", maturity: "早期试点" },

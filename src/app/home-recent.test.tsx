@@ -41,4 +41,10 @@ test("the internal footnote names Founder outside the self-serve row", () => {
   expect(html).toContain("没有公开安装命令");
   expect(html).toContain(">早期试点<");
   expect(html).toContain('href="/about"');
+  const environment = html.slice(html.indexOf(">环境里<"), html.indexOf(">底座<"));
+  expect(environment).toContain("安装包尚未公开发布");
+  expect(environment).toContain("试点先写信");
+  expect(environment).toContain('href="/witness"');
+  expect(environment).toContain('href="/memorus"');
+  expect(environment).not.toContain("装进你自己的环境");
 });
