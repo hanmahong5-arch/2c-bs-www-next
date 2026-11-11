@@ -19,7 +19,7 @@ const suggestions = [
 ] as const;
 
 const linkClass =
-  "block border-b border-[var(--lt-rule)] py-4 text-left transition-colors hover:border-[var(--lt-accent)]";
+  "block border-b border-[var(--lt-rule)] py-4 text-left transition-colors hover:border-[var(--lt-ink)]";
 
 export default function NotFound() {
   return (
