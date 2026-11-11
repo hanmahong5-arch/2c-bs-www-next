@@ -131,9 +131,8 @@ export interface AsOfEvent {
   month: string;
   date: string;
   value: string;
-  /** 当时那句原话 */
+  /** 示例里的这一句 */
   quote: string;
-  source: string;
 }
 
 export const ASOF_EVENTS: readonly AsOfEvent[] = [
@@ -143,7 +142,6 @@ export const ASOF_EVENTS: readonly AsOfEvent[] = [
     date: "2026-01-08",
     value: "10 万",
     quote: "项目预算先按 10 万来，后面再看。",
-    source: "会话 #12 · 第 4 轮 · 用户",
   },
   {
     key: "mar",
@@ -151,7 +149,6 @@ export const ASOF_EVENTS: readonly AsOfEvent[] = [
     date: "2026-03-14",
     value: "15 万",
     quote: "预算批下来了，改成 15 万。",
-    source: "会话 #31 · 第 2 轮 · 用户",
   },
   {
     key: "may",
@@ -159,7 +156,6 @@ export const ASOF_EVENTS: readonly AsOfEvent[] = [
     date: "2026-05-20",
     value: "12 万",
     quote: "砍掉一部分需求，预算调到 12 万。",
-    source: "会话 #47 · 第 7 轮 · 用户",
   },
 ];
 

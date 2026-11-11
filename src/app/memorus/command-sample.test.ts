@@ -77,6 +77,8 @@ test("the command sample uses the measured gray edge", () => {
   expect(links).not.toContain("就答不了");
   expect(links).toContain("learn / search / forget / list 等子命令");
   expect(links).not.toContain("forget / team");
+  expect(links).not.toContain("会话 #");
+  expect(links).not.toContain("第 4 轮");
   expect(src).toContain(
     'className="mt-10 max-w-[36rem] border border-[var(--color-text-muted)] bg-[var(--lt-paper)] px-4 py-3"',
   );
