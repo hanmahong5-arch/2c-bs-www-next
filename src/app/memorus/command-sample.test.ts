@@ -84,6 +84,10 @@ test("the command sample uses the measured gray edge", () => {
   expect(src).not.toContain("智能体框架");
   expect(links).toContain("记忆操作以工具形式暴露");
   expect(links).not.toContain("主流编码助手");
+  expect(src).toContain("无召回时，记忆权重默认 30 天减半");
+  expect(src).toContain("新记忆有 7 天保护期，权重保持满值");
+  expect(src).toContain("memorus-r sweep");
+  expect(src).toContain("run_decay_sweep");
   expect(src).toContain(
     'className="mt-10 max-w-[36rem] border border-[var(--color-text-muted)] bg-[var(--lt-paper)] px-4 py-3"',
   );
