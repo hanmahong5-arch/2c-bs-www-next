@@ -383,9 +383,11 @@ export default function MemorusPage() {
       {/* S7 接入 */}
       <Section id="integrate" labelledBy="integrate-title" width="wide">
         <SectionTitle id="integrate-title" eyebrow="接入">
-          四种接入，同一个引擎。
+          命令行、REST 与 MCP 是同一套引擎。
         </SectionTitle>
-        <Lead className="mt-6">可通过 MCP 接入主流编码助手与智能体框架；也可以用命令行、REST 或语言绑定直接调用。</Lead>
+        <Lead className="mt-6">
+          Python 与 Node 绑定调用这一套。WASM 绑定是另一套独立实现。可通过 MCP 接入主流编码助手与智能体框架。
+        </Lead>
         <ul className="mt-10 grid gap-x-10 gap-y-10 sm:grid-cols-2">
           {INTEGRATIONS.map((g) => (
             <li key={g.key} className="border-t border-[var(--lt-rule)] pt-5">
