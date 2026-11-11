@@ -7,7 +7,8 @@ import { AsOfDemo } from "@/app/memorus/asof-demo";
 test("the remaining frames are square", () => {
   const chip = renderToStaticMarkup(<MaturityChip level="早期试点" />);
   expect(chip).toContain("早期试点");
-  expect(chip).toContain("border-[var(--lt-rule)]");
+  expect(chip).toContain("border-[var(--color-text-muted)]");
+  expect(chip).not.toContain("border-[var(--lt-rule)]");
   expect(chip).not.toContain("rounded");
 
   const demo = renderToStaticMarkup(<AsOfDemo />);

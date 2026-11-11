@@ -7,11 +7,11 @@ export interface MaturityChipProps {
   className?: string;
 }
 
-/** 成熟度标注：细边框等宽小字，不用强调色。 */
+/** 成熟度标注：等宽小字，边用已经量过的灰色。发丝线在纸面上只有 1.35:1。不用强调色。 */
 export function MaturityChip({ level, className = "" }: MaturityChipProps) {
   return (
     <span
-      className={`inline-flex items-center whitespace-nowrap border border-[var(--lt-rule)] px-1.5 py-px align-middle font-mono text-[11px] leading-5 text-[var(--color-text-muted)] ${className}`}
+      className={`inline-flex items-center whitespace-nowrap border border-[var(--color-text-muted)] px-1.5 py-px align-middle font-mono text-[11px] leading-5 text-[var(--color-text-muted)] ${className}`}
     >
       <span className="sr-only">成熟度：</span>
       {level}
