@@ -54,7 +54,7 @@ export function AsOfDemo() {
                 className={`inline-flex min-h-11 items-center border px-4 font-mono text-[13px] transition-colors duration-200 motion-reduce:transition-none focus-ink ${
                   active
                     ? "border-[var(--lt-ink)] bg-[var(--lt-ink)] text-[var(--lt-paper)]"
-                    : "border-[var(--lt-rule)] text-[var(--lt-ink)] hover:border-[var(--lt-ink)]"
+                    : "border-[var(--color-text-muted)] text-[var(--lt-ink)] hover:border-[var(--lt-ink)]"
                 }`}
               >
                 {v.label}
