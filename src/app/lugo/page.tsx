@@ -7,7 +7,6 @@ import {
   EvidenceLine,
   EvidenceList,
   Lead,
-  NextStep,
   ProductHeader,
   Section,
 } from "@/components/site";
@@ -263,15 +262,12 @@ export default function LugoPage() {
           <Link href="/approach" className={linkClass}>
             方法
           </Link>
-          。
-        </p>
-        <NextStep>
-          私有部署写信说明安装边界（身份源 / 商户号 / 网络）。范围见{" "}
+          。范围见{" "}
           <Link href="/approach#intake" className={linkClass}>
             首信清单
           </Link>
           。
-        </NextStep>
+        </p>
       </Section>
     </>
   );

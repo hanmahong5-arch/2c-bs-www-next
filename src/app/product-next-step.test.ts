@@ -13,6 +13,14 @@ test("forge, lux, and founder state the path once", () => {
   expect(forge).toContain("是否需要 Kova");
 });
 
+test("lugo states the path once", () => {
+  const src = readFileSync("src/app/lugo/page.tsx", "utf8");
+  expect(src).not.toContain("<NextStep");
+  expect(src.match(/nextStep/g)).toHaveLength(1);
+  expect(src).toContain("身份源 / 商户号 / 网络");
+  expect(src).toContain('href="/approach#intake"');
+});
+
 test("kova states the page path once", () => {
   const src = readFileSync("src/app/kova/page.tsx", "utf8");
   expect(src).not.toContain("<NextStep");
