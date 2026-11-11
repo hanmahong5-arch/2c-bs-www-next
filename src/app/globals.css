@@ -272,9 +272,9 @@ body {
   line-height: 1.7;
   overflow-x: auto;
   max-width: 100%; /* grid/flex 子项中防 nowrap 代码撑破容器 (移动端横向溢出) */
-  /* 面板是暖深色，滚动条必须跟着深，否则浅灰滚动条横在窗底非常扎眼 */
+  /* 滚动条用已经量过的暗色灰。#3A342A 贴在这块深底上只有 1.45:1。窗底仍是深色，所以这灰色不随纸面翻转。 */
   scrollbar-width: thin;
-  scrollbar-color: #3A342A transparent;
+  scrollbar-color: #A19C89 transparent;
 }
 
 .code-block .line-number {

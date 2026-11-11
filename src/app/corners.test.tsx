@@ -31,6 +31,8 @@ test("the remaining frames are square", () => {
   expect(block).not.toContain("border-radius: 12px");
   expect(block).toContain("border: 1px solid var(--color-text-muted)");
   expect(block).not.toContain("border: 1px solid #2C271E");
+  expect(block).toContain("scrollbar-color: #A19C89 transparent");
+  expect(block).not.toContain("scrollbar-color: #3A342A transparent");
   for (const name of [
     ".text-gradient-gold",
     ".bg-gradient-gold",
