@@ -13,6 +13,15 @@ test("forge, lux, and founder state the path once", () => {
   expect(forge).toContain("是否需要 Kova");
 });
 
+test("witness states the path once", () => {
+  const src = readFileSync("src/app/witness/page.tsx", "utf8");
+  expect(src).not.toContain("<NextStep");
+  expect(src.match(/nextStep/g)).toHaveLength(1);
+  expect(src).toContain("被观测环境与值班诉求");
+  expect(src).toContain('href="/approach#intake"');
+  expect(src).toContain("contact@lurus.cn");
+});
+
 test("memorus states the path once", () => {
   const src = readFileSync("src/app/memorus/page.tsx", "utf8");
   expect(src).not.toContain("<NextStep");

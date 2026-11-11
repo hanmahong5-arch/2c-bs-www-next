@@ -7,7 +7,6 @@ import {
   EvidenceReport,
   Eyebrow,
   Lead,
-  NextStep,
   ProductHeader,
   ScopeSplit,
   Section,
@@ -307,10 +306,7 @@ export default function WitnessPage() {
           <Link href="/approach" className={linkClass}>
             方法
           </Link>
-          。
-        </p>
-        <NextStep>
-          邮件说明被观测环境与值班诉求；我们回复是否适合现阶段试点。来信{" "}
+          。来信{" "}
           <a href="mailto:contact@lurus.cn" className={linkClass}>
             contact@lurus.cn
           </a>
@@ -319,7 +315,7 @@ export default function WitnessPage() {
             首信清单
           </Link>
           。
-        </NextStep>
+        </p>
       </Section>
     </>
   );
