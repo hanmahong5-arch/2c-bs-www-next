@@ -22,6 +22,18 @@ const row: HubModelRow = {
   perRequest: 0,
 };
 
+test("pricing markdown states the same pay path as the page", () => {
+  const md = pricingMarkdownFromRows(null);
+  expect(md).toContain("## 怎么付");
+  expect(md).toContain("登录后钱包充值，余额以人民币计");
+  expect(md).toContain("用 API Key 调 hub.lurus.cn");
+  expect(md).toContain("余额不足时请求会被拒绝，不会先欠费再催缴");
+  expect(md).toContain("鹿途等归档客户端");
+  expect(md).toContain("私有部署写信说明上游与网络约束");
+  expect(md).toContain("最多晚 5 分钟反映改价");
+  expect(md).not.toMatch(/\d+(?:\.\d+)?\s*[%％]/);
+});
+
 test("pricingMarkdownFromRows: null has no price table", () => {
   const md = pricingMarkdownFromRows(null);
   expect(md).toContain("暂时读不到");
