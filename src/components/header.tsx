@@ -131,21 +131,17 @@ function NavLink({
 export function Header() {
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
-  const pathRef = useRef(pathname);
+  // 地址变了就在这次渲染里收起目录。effect 里同步 setState 会连环渲染，lint 不过。
+  const [menuPath, setMenuPath] = useState(pathname);
+  if (menuPath !== pathname) {
+    setMenuPath(pathname);
+    if (pathClosesMenu(open, menuPath, pathname)) setOpen(false);
+  }
   const menuButtonRef = useRef<HTMLButtonElement>(null);
   const isActive = (item: NavItem) =>
     !item.external &&
     !!pathname &&
     (pathname === item.href || pathname.startsWith(`${item.href}/`));
-
-  useEffect(() => {
-    if (!pathClosesMenu(open, pathRef.current, pathname)) {
-      pathRef.current = pathname;
-      return;
-    }
-    pathRef.current = pathname;
-    setOpen(false);
-  }, [open, pathname]);
 
   useEffect(() => {
     if (!open) return;
