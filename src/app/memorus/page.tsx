@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { EvidenceLine, EvidenceList, Eyebrow, Lead, ProductHeader, Section } from "@/components/site";
+import { NewWindowNote } from "@/components/site/new-window-note";
 import { AsOfDemo } from "./asof-demo";
 import { DataTable, fmt } from "./benchmarks/charts";
 import { LOCOMO } from "./benchmarks/data";
@@ -134,7 +135,16 @@ export default function MemorusPage() {
           {/* 示意框的边用已经量过的灰色。发丝线在纸面上只有 1.35:1。命令仍是墨色。 */}
           <figure className="mt-10 max-w-[36rem] border border-[var(--color-text-muted)] bg-[var(--lt-paper)] px-4 py-3">
             <figcaption className="font-mono text-[11px] uppercase tracking-[0.12em] text-[var(--color-text-muted)]">
-              接入示意 · 尚未上包仓库，安装见文档
+              接入示意 · 尚未上包仓库，安装见{" "}
+              <a
+                href={LINKS.quickstart}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-[var(--lt-ink)] underline decoration-[var(--color-text-muted)] underline-offset-4 hover:decoration-[var(--lt-ink)]"
+              >
+                文档
+                <NewWindowNote />
+              </a>
             </figcaption>
             <pre className="mt-2 overflow-x-auto font-mono text-[13px] leading-[1.7] text-[var(--lt-ink)]">
               <code>{`memorus-r search "项目预算"`}</code>
