@@ -106,8 +106,8 @@ export const CAPABILITIES = [
   {
     key: "tenant",
     title: "跨租户隔离",
-    tagline: "任何统计量不跨租户",
-    body: "数据、检索与各类统计按租户隔开，一个租户的内容与用词分布不会影响、也推不出另一个租户的结果。",
+    tagline: "默认关闭",
+    body: "服务端可以按密钥区分租户，默认关闭。",
   },
   {
     key: "team",
@@ -303,7 +303,7 @@ export const INTEGRATIONS = [
   {
     key: "rest",
     title: "REST",
-    body: "非本机地址启动时必须配置 API 密钥，否则拒绝启动；可按密钥区分租户，提供按用户擦除数据的接口。",
+    body: "非本机地址启动时必须配置 API 密钥，否则拒绝启动。按密钥区分租户，默认关闭。另有按用户擦除数据的接口。",
     code: "GET /api/v1/status",
   },
   {

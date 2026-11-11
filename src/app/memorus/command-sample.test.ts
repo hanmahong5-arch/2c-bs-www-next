@@ -29,6 +29,9 @@ test("the command sample uses the measured gray edge", () => {
   expect(links).toContain("服务是 memorus-server，命令行是 memorus-r");
   expect(links).not.toContain("单个二进制");
   expect(links).not.toContain("一个可执行文件即可运行");
+  expect(links.match(/按密钥区分租户，默认关闭/g)).toHaveLength(2);
+  expect(links).not.toContain("任何统计量不跨租户");
+  expect(links).not.toContain("用词分布");
   expect(src).toContain(
     'className="mt-10 max-w-[36rem] border border-[var(--color-text-muted)] bg-[var(--lt-paper)] px-4 py-3"',
   );
