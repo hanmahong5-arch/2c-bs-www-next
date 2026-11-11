@@ -64,6 +64,14 @@ test("the command sample uses the measured gray edge", () => {
   expect(src).toContain("Python 与 Node 绑定调用这一套。WASM 绑定是另一套独立实现。");
   expect(src).not.toContain("四种接入，同一个引擎");
   expect(src).not.toContain("语言绑定直接调用");
+  expect(src).toContain("先脱敏再抽取");
+  expect(src).not.toContain("保留原文");
+  expect(links).toContain("默认写入前先脱敏，再从对话里抽取值得留下的事实");
+  expect(links).toContain("脱敏失败时这次写入不落库");
+  expect(links).not.toContain("原话完整保留");
+  expect(links).not.toContain("不是二手摘要");
+  expect(links).not.toContain("无信息损失");
+  expect(links).not.toContain("原文可回查");
   expect(src).toContain(
     'className="mt-10 max-w-[36rem] border border-[var(--color-text-muted)] bg-[var(--lt-paper)] px-4 py-3"',
   );
