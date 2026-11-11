@@ -50,8 +50,14 @@ export default function DownloadPage() {
           Switch — 桌面 AI CLI 管家
         </h2>
         <Lead className="mt-6">
-          Windows 版可下载：配置、代理、MCP、快照与账单，在一处管多个 AI 编程 CLI。安装包与校验信息在
-          Switch 产品页读取 releases.lurus.cn 清单。
+          Windows 版可下载：配置、代理、MCP、快照与账单，在一处管多个 AI 编程 CLI。安装包与校验信息在{" "}
+          <a
+            href="/switch#download"
+            className="text-[var(--lt-ink)] underline decoration-[var(--color-text-muted)] underline-offset-4 hover:decoration-[var(--lt-ink)]"
+          >
+            Switch 产品页
+          </a>
+          读取 releases.lurus.cn 清单。
         </Lead>
       </Section>
 
