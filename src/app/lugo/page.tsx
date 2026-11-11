@@ -20,7 +20,7 @@ import { NewWindowNote } from "@/components/site/new-window-note";
 export const metadata: Metadata = {
   title: "Lugo · 账号与计费",
   description:
-    "装进你自己环境的账号、钱包与收款底座：一套登录、一个钱包、多家支付渠道统一落账，退款与对账留痕。每个客户独立一套，自己的域名、数据库、身份源与密钥。",
+    "账号、钱包与收款底座：一套登录、一个钱包、多家支付渠道统一落账，退款与对账留痕。每个客户独立一套，自己的域名、数据库、身份源与密钥。装进你自己的环境，先写信。",
 };
 
 const CONTACT = "mailto:contact@lurus.cn";
@@ -72,7 +72,7 @@ export default function LugoPage() {
       <ProductHeader
         name="Lugo · 账号与计费"
         maturity="内部生产使用"
-        tagline="装进你自己环境的账号、钱包与收款底座：一套登录通行你的所有应用，一个钱包承接所有扣费，每一笔钱从下单到退款都有账可查。"
+        tagline="一套登录通行你的所有应用，一个钱包承接所有扣费，每一笔钱从下单到退款都有账可查。装进你自己的环境，先写信。"
         note="每个客户独立一套：自己的域名、数据库、身份源与密钥。我们自己的全部产品也跑在它上面。"
         access={{
           actions: [
