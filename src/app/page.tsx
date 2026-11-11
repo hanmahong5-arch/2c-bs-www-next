@@ -40,7 +40,7 @@ const LAYERS: readonly Layer[] = [
     code: "LURUS",
     audience: "自助",
     title: "上手的工具",
-    line: "桌面与下载，给已经在用的人自己上手。",
+    line: "桌面与下载，给已经在用的人自己上手。文档站写着 Switch 当前不在主动开发中。",
     products: [
       { name: "Switch", href: "/switch", maturity: "早期试点" },
       { name: "下载入口", href: "/download" },
@@ -224,6 +224,7 @@ export default function Home() {
               style={{ animationDelay: "200ms" }}
             >
               桌面端、记忆与执行、网关与账号——状态写明证据强度，备份只认真恢复一次才算数，成熟度各自标明。
+              文档站写着 <QuietLink href="/switch">Switch</QuietLink> 当前不在主动开发中。
               <QuietLink href="/witness">见证</QuietLink>、<QuietLink href="/memorus">Memorus</QuietLink> 和{" "}
               <QuietLink href="/kova">Kova</QuietLink> 的试点先写信。
             </p>

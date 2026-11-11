@@ -15,6 +15,9 @@ test("home recent titles open that changelog entry and the index link stays", ()
   expect(html).toContain("个人项目 · 工具与底座");
   const hero = html.slice(html.indexOf("我在做的 AI 工具与底座"), html.indexOf("下载 Switch"));
   expect(hero).toContain("的试点先写信");
+  expect(hero).toContain("当前不在主动开发中");
+  expect(hero).toMatch(/href="\/switch"/);
+  expect(hero).not.toContain("docs.lurus.cn/switch");
   expect(hero).toContain('href="/witness"');
   expect(hero).toContain('href="/memorus"');
   expect(hero).toContain('href="/kova"');
@@ -40,6 +43,9 @@ test("the internal footnote names Founder outside the self-serve row", () => {
   expect(selfServe).not.toContain('href="/lux"');
   expect(selfServe).toContain('href="/switch"');
   expect(selfServe).toContain('href="/download"');
+  const selfServeRow = html.slice(html.indexOf(">自助<"), html.indexOf(">环境里<"));
+  expect(selfServeRow).toContain("文档站写着 Switch 当前不在主动开发中");
+  expect(selfServeRow).toContain("给已经在用的人自己上手");
   expect(html).toContain('href="/founder"');
   expect(html).toContain('href="/lux"');
   expect(html).toContain("不对外售卖");
