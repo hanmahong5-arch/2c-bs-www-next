@@ -20,6 +20,7 @@ test("remaining focus targets use the ink line, not an accent ring", () => {
     expect(text).toContain("focus-ink");
   }
   const css = readFileSync("src/app/globals.css", "utf8");
+  expect(css).toContain("a:focus-visible");
   expect(css).toContain(".focus-ink:focus-visible");
   expect(css).toContain(".focus-ink-inset:focus-visible");
   expect(css).toContain("outline-offset: -1px");
