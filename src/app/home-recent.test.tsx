@@ -47,4 +47,11 @@ test("the internal footnote names Founder outside the self-serve row", () => {
   expect(environment).toContain('href="/witness"');
   expect(environment).toContain('href="/memorus"');
   expect(environment).not.toContain("装进你自己的环境");
+  const base = html.slice(html.indexOf(">底座<"), html.indexOf("内部全站全线"));
+  expect(base).toContain("今天仍由独立脚本完成");
+  expect(base).toContain("Kova 尚未承接外部客户流量");
+  expect(base).not.toContain("写操作仍多由独立脚本完成");
+  expect(base).toContain('href="/kova"');
+  expect(base).toContain('href="/hub"');
+  expect(base).toContain('href="/lugo"');
 });
