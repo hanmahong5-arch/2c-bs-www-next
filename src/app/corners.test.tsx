@@ -21,4 +21,21 @@ test("the remaining frames are square", () => {
   const block = css.slice(css.indexOf(".code-block {"), css.indexOf(".code-block .line-number"));
   expect(block).toContain("border-radius: 0");
   expect(block).not.toContain("border-radius: 12px");
+  for (const name of [
+    ".text-gradient-gold",
+    ".bg-gradient-gold",
+    ".card {",
+    ".card-elevated",
+    ".card-flat",
+    ".card-spotlight",
+    ".grid-bg",
+    ".noise::after",
+    ".section-divider",
+    ".pill {",
+    ".sketch-shadow-accent",
+    ".sketch-underline",
+    ".sketch-divider",
+  ]) {
+    expect(css).not.toContain(name);
+  }
 });
