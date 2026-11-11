@@ -53,7 +53,8 @@ function SectionHeader() {
         下载
       </h2>
       <p className="mt-3 text-base leading-[1.8] text-[var(--color-text-secondary)]">
-        安装包信息读取自 releases.lurus.cn 的发布清单。下一步：安装 → 登录 →（若有推广码）在首页粘贴。
+        安装包信息读取自 releases.lurus.cn 的发布清单。下一步：安装 → 登录 Lurus
+        账号 →（若有推广码）在「开始」页填写（注册 7 天内、只能一次）。
       </p>
     </>
   );

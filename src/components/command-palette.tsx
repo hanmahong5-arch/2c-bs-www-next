@@ -14,6 +14,8 @@ import {
   DocumentTextIcon,
   CodeBracketIcon,
   EnvelopeIcon,
+  MegaphoneIcon,
+  CommandLineIcon,
 } from "@heroicons/react/24/outline";
 
 type Item = {
@@ -36,6 +38,9 @@ const GROUPS: Group[] = [
       { label: "首页", href: "/", Icon: HomeIcon },
       { label: "见证 — 状态可核查", href: "/witness", Icon: CubeTransparentIcon },
       { label: "Kova — 持久执行引擎", href: "/kova", Icon: WrenchScrewdriverIcon },
+      { label: "Forge — 工作流编排壳", href: "/forge", Icon: WrenchScrewdriverIcon },
+      { label: "Founder — 获客桌面（内部）", href: "/founder", Icon: MegaphoneIcon },
+      { label: "Lux — 编码 Agent CLI", href: "/lux", Icon: CommandLineIcon },
       { label: "Memorus — AI 记忆引擎", href: "/memorus", Icon: ChartBarIcon },
       { label: "Memorus 公开基准报告", href: "/memorus/benchmarks", Icon: DocumentTextIcon },
       { label: "Hub — 私有 LLM 网关", href: "/hub", Icon: CloudArrowDownIcon },

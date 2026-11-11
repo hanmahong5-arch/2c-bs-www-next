@@ -72,6 +72,18 @@ export default function LugoPage() {
         maturity="内部生产使用"
         tagline="装进你自己环境的账号、钱包与收款底座：一套登录通行你的所有应用，一个钱包承接所有扣费，每一笔钱从下单到退款都有账可查。"
         note="每个客户独立一套：自己的域名、数据库、身份源与密钥。我们自己的全部产品也跑在它上面。"
+        access={{
+          actions: [
+            { label: "联系私有部署", href: CONTACT, primary: true, external: true },
+            {
+              label: "阅读部署文档",
+              href: "https://docs.lurus.cn/platform/",
+              external: true,
+            },
+            { label: "阅读方法", href: "/approach" },
+          ],
+          nextStep: "写信说明安装边界（身份源 / 商户号 / 网络）；我们回复是否适合现阶段与怎么分期。",
+        }}
         evidence={{
           name: "交付就绪 · internal_auth",
           status: "warn",

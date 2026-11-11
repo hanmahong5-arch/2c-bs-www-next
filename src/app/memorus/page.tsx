@@ -102,6 +102,14 @@ export default function MemorusPage() {
             </span>
           </>
         }
+        access={{
+          actions: [
+            { label: "看完整基准", href: LINKS.benchmarks, primary: true },
+            { label: "阅读文档", href: LINKS.docs, external: true },
+            { label: "申请试点", href: LINKS.pilot, external: true },
+          ],
+          nextStep: "先看基准与文档；要试点，邮件说明现有 AI 栈与记忆需求。尚未上公共包仓库。",
+        }}
       />
       <div className="px-6">
         <div className="mx-auto max-w-5xl pb-16 md:pb-24">
@@ -122,14 +130,6 @@ export default function MemorusPage() {
               </div>
             ))}
           </dl>
-          <div className="mt-8 flex flex-wrap gap-3">
-            <Link href={LINKS.benchmarks} className="btn-primary">
-              看完整基准
-            </Link>
-            <a href={LINKS.docs} className="btn-secondary">
-              阅读文档
-            </a>
-          </div>
           <figure className="mt-10 max-w-[36rem] border border-[var(--lt-rule)] bg-[var(--lt-paper)] px-4 py-3">
             <figcaption className="font-mono text-[11px] uppercase tracking-[0.12em] text-[var(--color-text-muted)]">
               接入示意 · 尚未上包仓库，安装见文档
