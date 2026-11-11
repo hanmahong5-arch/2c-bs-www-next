@@ -97,7 +97,7 @@ export async function LutuAndroidSection() {
                 <li key={a.abi} className={rowClass}>
                   <a
                     href={`${manifest.baseUrl}${a.filename}`}
-                    className="text-[var(--lt-ink)] underline decoration-[var(--lt-rule)] underline-offset-4 hover:decoration-[var(--lt-accent)]"
+                    className="text-[var(--lt-ink)] underline decoration-[var(--lt-rule)] underline-offset-4 hover:decoration-[var(--lt-ink)]"
                   >
                     {a.abi}
                   </a>

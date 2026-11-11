@@ -106,7 +106,7 @@ export async function SwitchDownloadSection() {
                     className={`underline underline-offset-4 ${
                       isPrimary
                         ? "font-semibold text-[var(--lt-ink)] decoration-[var(--lt-ink)]"
-                        : "text-[var(--lt-ink)] decoration-[var(--lt-rule)] hover:decoration-[var(--lt-accent)]"
+                        : "text-[var(--lt-ink)] decoration-[var(--lt-rule)] hover:decoration-[var(--lt-ink)]"
                     }`}
                   >
                     {meta?.label ?? f.filename}

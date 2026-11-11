@@ -56,7 +56,7 @@ function Dash({ children }: { children: React.ReactNode }) {
 }
 
 const linkClass =
-  "text-[var(--lt-ink)] underline decoration-[var(--lt-rule)] underline-offset-4 hover:decoration-[var(--lt-accent)]";
+  "text-[var(--lt-ink)] underline decoration-[var(--lt-rule)] underline-offset-4 hover:decoration-[var(--lt-ink)]";
 
 export default function WitnessPage() {
   const measure = drillMeasure();

@@ -62,7 +62,7 @@ function Code({ children }: { children: React.ReactNode }) {
 }
 
 const LINK_CLASS =
-  "text-[var(--lt-ink)] underline decoration-[var(--lt-rule)] underline-offset-4 hover:decoration-[var(--lt-accent)]";
+  "text-[var(--lt-ink)] underline decoration-[var(--lt-rule)] underline-offset-4 hover:decoration-[var(--lt-ink)]";
 
 const th = "font-mono text-[11px] uppercase tracking-[0.12em] text-[var(--color-text-muted)]";
 

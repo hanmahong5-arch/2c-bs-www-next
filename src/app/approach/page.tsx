@@ -63,7 +63,7 @@ function ProofLink({
   const className = "group flex items-baseline justify-between gap-x-6 py-3";
   const inner = (
     <>
-      <span className="text-[15px] leading-[1.6] text-[var(--lt-ink)] underline decoration-[var(--lt-rule)] underline-offset-4 group-hover:decoration-[var(--lt-accent)]">
+      <span className="text-[15px] leading-[1.6] text-[var(--lt-ink)] underline decoration-[var(--lt-rule)] underline-offset-4 group-hover:decoration-[var(--lt-ink)]">
         {title}
       </span>
       <span className="shrink-0 font-mono text-[12px] text-[var(--color-text-muted)]">{kind}</span>
@@ -140,7 +140,7 @@ export default function ApproachPage() {
             <p className="mt-6 text-[13px] leading-[1.7]">
               <a
                 href="/approach.md"
-                className="text-[var(--color-text-muted)] underline decoration-[var(--lt-rule)] underline-offset-4 hover:text-[var(--lt-ink)] hover:decoration-[var(--lt-accent)]"
+                className="text-[var(--color-text-muted)] underline decoration-[var(--lt-rule)] underline-offset-4 hover:text-[var(--lt-ink)] hover:decoration-[var(--lt-ink)]"
               >
                 同一份说明的纯文本
               </a>
@@ -196,7 +196,7 @@ export default function ApproachPage() {
             <p className="mt-2">
               <Link
                 href="/witness"
-                className="text-[var(--lt-ink)] underline decoration-[var(--lt-rule)] underline-offset-4 hover:decoration-[var(--lt-accent)]"
+                className="text-[var(--lt-ink)] underline decoration-[var(--lt-rule)] underline-offset-4 hover:decoration-[var(--lt-ink)]"
               >
                 见证 →
               </Link>
@@ -222,7 +222,7 @@ export default function ApproachPage() {
         <p className="mt-3 text-[13px] leading-[1.7]">
           <Link
             href="/witness#report"
-            className="text-[var(--color-text-muted)] underline decoration-[var(--lt-rule)] underline-offset-4 hover:text-[var(--lt-ink)] hover:decoration-[var(--lt-accent)]"
+            className="text-[var(--color-text-muted)] underline decoration-[var(--lt-rule)] underline-offset-4 hover:text-[var(--lt-ink)] hover:decoration-[var(--lt-ink)]"
           >
             报告结构见见证页
           </Link>
@@ -398,7 +398,7 @@ export default function ApproachPage() {
           想聊聊你的环境，写信到{" "}
           <a
             href={`mailto:${CONTACT_EMAIL}`}
-            className="text-[var(--lt-ink)] underline decoration-[var(--lt-rule)] underline-offset-4 hover:decoration-[var(--lt-accent)]"
+            className="text-[var(--lt-ink)] underline decoration-[var(--lt-rule)] underline-offset-4 hover:decoration-[var(--lt-ink)]"
           >
             {CONTACT_EMAIL}
           </a>

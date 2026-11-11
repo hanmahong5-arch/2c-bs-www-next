@@ -43,7 +43,7 @@ export default function Error({
             这一页没能正常加载。多数情况重试一次就好；如果反复出现，写信到{" "}
             <a
               href={mail}
-              className="text-[var(--lt-ink)] underline decoration-[var(--lt-rule)] underline-offset-4 hover:decoration-[var(--lt-accent)]"
+              className="text-[var(--lt-ink)] underline decoration-[var(--lt-rule)] underline-offset-4 hover:decoration-[var(--lt-ink)]"
             >
               {CONTACT}
             </a>
@@ -60,13 +60,13 @@ export default function Error({
             <button
               type="button"
               onClick={reset}
-              className="text-[var(--lt-ink)] underline decoration-[var(--lt-rule)] underline-offset-4 outline-offset-4 hover:decoration-[var(--lt-accent)] focus-visible:outline focus-visible:outline-1 focus-visible:outline-[var(--lt-ink)]"
+              className="text-[var(--lt-ink)] underline decoration-[var(--lt-rule)] underline-offset-4 outline-offset-4 hover:decoration-[var(--lt-ink)] focus-visible:outline focus-visible:outline-1 focus-visible:outline-[var(--lt-ink)]"
             >
               重试
             </button>
             <Link
               href="/"
-              className="text-[var(--lt-ink)] underline decoration-[var(--lt-rule)] underline-offset-4 hover:decoration-[var(--lt-accent)]"
+              className="text-[var(--lt-ink)] underline decoration-[var(--lt-rule)] underline-offset-4 hover:decoration-[var(--lt-ink)]"
             >
               返回首页
             </Link>

@@ -33,11 +33,11 @@ export default function TermsPage() {
           按量付费部分以实际使用量计算；项目制或订阅约定以合同为准。
           逾期未付款可能导致服务降级或暂停。我们运营的 hub.lurus.cn
           公开单价见
-          <Link href="/hub/pricing" className="mx-1 text-[var(--lt-ink)] underline decoration-[var(--lt-rule)] underline-offset-4 hover:decoration-[var(--lt-accent)]">
+          <Link href="/hub/pricing" className="mx-1 text-[var(--lt-ink)] underline decoration-[var(--lt-rule)] underline-offset-4 hover:decoration-[var(--lt-ink)]">
             Hub 价格
           </Link>
           ；其余交付面议，写信到{" "}
-          <a href="mailto:contact@lurus.cn" className="text-[var(--lt-ink)] underline decoration-[var(--lt-rule)] underline-offset-4 hover:decoration-[var(--lt-accent)]">
+          <a href="mailto:contact@lurus.cn" className="text-[var(--lt-ink)] underline decoration-[var(--lt-rule)] underline-offset-4 hover:decoration-[var(--lt-ink)]">
             contact@lurus.cn
           </a>
           。
@@ -66,7 +66,7 @@ export default function TermsPage() {
       <div className="mt-16 border-t border-[var(--lt-rule)] pt-8">
         <Link
           href="/"
-          className="text-sm text-[var(--lt-ink)] underline decoration-[var(--lt-rule)] underline-offset-4 hover:decoration-[var(--lt-accent)]"
+          className="text-sm text-[var(--lt-ink)] underline decoration-[var(--lt-rule)] underline-offset-4 hover:decoration-[var(--lt-ink)]"
         >
           ← 返回首页
         </Link>

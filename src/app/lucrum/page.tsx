@@ -44,7 +44,7 @@ export default function LucrumPage() {
             href={LUCRUM_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-[var(--lt-ink)] underline decoration-[var(--lt-rule)] underline-offset-4 hover:decoration-[var(--lt-accent)]"
+            className="text-[var(--lt-ink)] underline decoration-[var(--lt-rule)] underline-offset-4 hover:decoration-[var(--lt-ink)]"
           >
             lucrum.lurus.cn ↗
             <NewWindowNote />

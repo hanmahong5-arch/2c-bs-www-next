@@ -20,7 +20,7 @@ const TOPUP_URL = "https://identity.lurus.cn/topup";
 const CONTACT = "mailto:contact@lurus.cn";
 
 const linkClass =
-  "text-[var(--lt-ink)] underline decoration-[var(--lt-rule)] underline-offset-4 hover:decoration-[var(--lt-accent)]";
+  "text-[var(--lt-ink)] underline decoration-[var(--lt-rule)] underline-offset-4 hover:decoration-[var(--lt-ink)]";
 
 export const revalidate = 300;
 

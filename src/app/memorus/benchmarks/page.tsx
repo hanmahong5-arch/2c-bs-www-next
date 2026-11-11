@@ -130,7 +130,7 @@ function Mono({ children }: { children: React.ReactNode }) {
 }
 
 const LINK_CLASS =
-  "text-[var(--lt-ink)] underline decoration-[var(--lt-rule)] underline-offset-4 hover:decoration-[var(--lt-accent)]";
+  "text-[var(--lt-ink)] underline decoration-[var(--lt-rule)] underline-offset-4 hover:decoration-[var(--lt-ink)]";
 
 const EXT_LAYOUT = {
   /** 独立成行：触控高度 ≥ 44px，文字垂直居中 */
@@ -232,7 +232,7 @@ export default function BenchmarksPage() {
                 <li key={t.id}>
                   <a
                     href={`#${t.id}`}
-                    className="inline-flex min-h-11 items-center px-2 font-mono text-[12px] text-[var(--lt-ink)] underline decoration-[var(--lt-rule)] underline-offset-4 hover:decoration-[var(--lt-accent)]"
+                    className="inline-flex min-h-11 items-center px-2 font-mono text-[12px] text-[var(--lt-ink)] underline decoration-[var(--lt-rule)] underline-offset-4 hover:decoration-[var(--lt-ink)]"
                   >
                     {t.label}
                   </a>

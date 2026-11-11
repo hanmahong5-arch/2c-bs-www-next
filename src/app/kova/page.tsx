@@ -198,7 +198,7 @@ export default function KovaPage() {
               href={DOCS_JOINT}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-[var(--lt-ink)] underline decoration-[var(--lt-rule)] underline-offset-4 hover:decoration-[var(--lt-accent)]"
+              className="text-[var(--lt-ink)] underline decoration-[var(--lt-rule)] underline-offset-4 hover:decoration-[var(--lt-ink)]"
             >
               文档站 · 联测账本
               <NewWindowNote />
@@ -241,7 +241,7 @@ export default function KovaPage() {
             href={DOCS}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-[var(--lt-ink)] underline decoration-[var(--lt-rule)] underline-offset-4 hover:decoration-[var(--lt-accent)]"
+            className="text-[var(--lt-ink)] underline decoration-[var(--lt-rule)] underline-offset-4 hover:decoration-[var(--lt-ink)]"
           >
             Kova 文档
             <NewWindowNote />
@@ -252,14 +252,14 @@ export default function KovaPage() {
           先读文档；要进你的环境试，邮件说明工作流形态与约束。来信{" "}
           <a
             href="mailto:contact@lurus.cn"
-            className="text-[var(--lt-ink)] underline decoration-[var(--lt-rule)] underline-offset-4 hover:decoration-[var(--lt-accent)]"
+            className="text-[var(--lt-ink)] underline decoration-[var(--lt-rule)] underline-offset-4 hover:decoration-[var(--lt-ink)]"
           >
             contact@lurus.cn
           </a>
           。范围见{" "}
           <Link
             href="/approach#intake"
-            className="text-[var(--lt-ink)] underline decoration-[var(--lt-rule)] underline-offset-4 hover:decoration-[var(--lt-accent)]"
+            className="text-[var(--lt-ink)] underline decoration-[var(--lt-rule)] underline-offset-4 hover:decoration-[var(--lt-ink)]"
           >
             首信清单
           </Link>
