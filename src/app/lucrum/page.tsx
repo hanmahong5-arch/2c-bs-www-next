@@ -41,7 +41,7 @@ export default function LucrumPage() {
                 },
                 { label: "写信询问", href: "mailto:contact@lurus.cn", external: true },
               ]}
-              nextStep="仅模拟盘；页面结果是历史计算，不代表未来收益。需要账号或报障，写信说明用途即可。"
+              nextStep="仅模拟盘；结果是历史计算，不代表未来收益。现网首页写着免费注册，并另有价目；本页不转述那些额度与行情数字。报障写信说明用途。"
             />
           </div>
         </div>
@@ -54,6 +54,7 @@ export default function LucrumPage() {
         <ul className="space-y-4 text-base leading-[1.8] text-[var(--color-text-secondary)]">
           <li>交易只支持模拟盘，没有接入真实券商账户。</li>
           <li>页面上的回测结果是历史数据上的计算，不代表未来收益。</li>
+          <li>现网首页写着免费注册，并另有价目。本页不转述那些额度与行情数字。</li>
           <li>产品线冻结：不承诺新功能时间表。</li>
         </ul>
       </Section>

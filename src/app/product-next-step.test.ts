@@ -91,3 +91,14 @@ test("hub states the path once", () => {
   expect(src.match(/nextStep/g)).toHaveLength(1);
   expect(src).toContain("写信说明上游与网络约束");
 });
+
+test("lucrum points at the live signup instead of a letter for an account", () => {
+  const src = readFileSync("src/app/lucrum/page.tsx", "utf8");
+  expect(src).toContain("现网首页写着免费注册，并另有价目");
+  expect(src).toContain("本页不转述那些额度与行情数字");
+  expect(src).not.toContain("需要账号或报障，写信说明用途即可");
+  expect(src).toContain("仅模拟盘");
+  expect(src).toContain("不代表未来收益");
+  expect(src).toContain("primary: true");
+  expect(src).toContain("href: LUCRUM_URL");
+});
