@@ -5,7 +5,7 @@ import { LutuAndroidSection, LutuAndroidSkeleton } from "./lutu-android";
 
 export const metadata: Metadata = {
   title: "下载",
-  description: "Switch 桌面客户端，以及已归档、不在主动开发中的历史客户端。",
+  description: "Switch 桌面客户端，以及已归档的历史客户端。文档站写着 Switch 当前不在主动开发中。",
 };
 
 export default function DownloadPage() {
@@ -22,7 +22,7 @@ export default function DownloadPage() {
               客户端下载
             </h1>
             <Lead className="mt-7">
-              正在维护的桌面客户端是 Switch；下面另有已归档、不在主动开发中的历史包。
+              桌面客户端是 Switch。文档站写着当前不在主动开发中。下面另有已归档的历史包。
             </Lead>
             <AccessStation
               className="mt-8"
@@ -42,7 +42,7 @@ export default function DownloadPage() {
       </section>
 
       <Section id="switch" labelledBy="switch-title">
-        <Eyebrow>在维护</Eyebrow>
+        <Eyebrow>桌面客户端</Eyebrow>
         <h2
           id="switch-title"
           className="mt-3 font-display text-[1.625rem] font-semibold leading-[1.25] tracking-[-0.02em] text-[var(--lt-ink)] md:text-[1.875rem]"
