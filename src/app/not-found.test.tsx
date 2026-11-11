@@ -26,6 +26,8 @@ test("missing page lists existing ways onward without a popularity claim", () =>
   expect(html).toContain('href="https://docs.lurus.cn"');
   expect(html).toContain("（新窗口打开）");
   expect(html).not.toContain("常有人去");
+  expect(html).toContain("border-b border-[var(--color-text-muted)]");
+  expect(html).not.toContain("border-b border-[var(--lt-rule)]");
   expect(html).toContain("hover:border-[var(--lt-ink)]");
   expect(html).not.toContain("hover:border-[var(--lt-accent)]");
 });
