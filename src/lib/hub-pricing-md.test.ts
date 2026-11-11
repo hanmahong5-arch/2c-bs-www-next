@@ -1,3 +1,4 @@
+import { readFileSync } from "node:fs";
 import { afterEach, expect, test } from "bun:test";
 import type { HubModelRow } from "./hub-models";
 import { pricingMarkdownFromRows, renderHubPricingMarkdown } from "./hub-pricing-md";
@@ -29,7 +30,10 @@ test("pricing markdown states the same pay path as the page", () => {
   expect(md).toContain("用 API Key 调 hub.lurus.cn");
   expect(md).toContain("余额不足时请求会被拒绝，不会先欠费再催缴");
   expect(md).toContain("鹿途等归档客户端");
-  expect(md).toContain("私有部署写信说明上游与网络约束");
+  expect(md).toContain("装进你自己的环境，先写信说明上游与网络约束");
+  const page = readFileSync("src/app/hub/pricing/page.tsx", "utf8");
+  expect(page).toContain("先写信到");
+  expect(page).not.toContain("或写信");
   expect(md).toContain("最多晚 5 分钟反映改价");
   expect(md).not.toMatch(/\d+(?:\.\d+)?\s*[%％]/);
 });
