@@ -331,7 +331,7 @@ export default function Home() {
             </ol>
 
             <p className="mt-8 max-w-[40rem] text-[13px] leading-[1.7] text-[var(--color-text-muted)]">
-              <span className="font-mono tracking-[0.12em] text-[var(--lt-ink)]/50">LUR</span>
+              <span className="font-mono tracking-[0.12em] text-[var(--color-text-muted)]">LUR</span>
               <span className="font-mono tracking-[0.12em] text-[var(--lt-ink)]">US</span>
               <span className="ml-3">
                 内部全站全线 · 设计 / 开发 / 经营用，不对外售卖。见{" "}

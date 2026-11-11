@@ -17,4 +17,6 @@ test("home recent titles open that changelog entry and the index link stays", ()
   expect(html).toContain(">环境里<");
   expect(html).toContain(">底座<");
   expect(html).not.toContain("text-[var(--lt-accent)]");
+  expect(html).toContain('text-[var(--color-text-muted)]">LUR');
+  expect(html).not.toContain("text-[var(--lt-ink)]/50");
 });

@@ -367,7 +367,7 @@ export function CommandPalette() {
               {filteredFlat.length === 0 ? (
                 <div className="px-5 py-12 text-center">
                   <p className="text-sm text-[var(--color-text-muted)]">没有匹配项</p>
-                  <p className="mt-1 text-xs text-[var(--color-text-muted)]/60">试试输入产品名或页面名</p>
+                  <p className="mt-1 text-xs text-[var(--color-text-muted)]">试试输入产品名或页面名</p>
                 </div>
               ) : (
                 GROUPS.map((g) => {
@@ -375,7 +375,7 @@ export function CommandPalette() {
                   if (itemsInGroup.length === 0) return null;
                   return (
                     <div key={g.section} className="mb-1">
-                      <div className="px-5 pt-2 pb-1 text-[10px] font-mono uppercase tracking-widest text-[var(--color-text-muted)]/70">
+                      <div className="px-5 pt-2 pb-1 text-[10px] font-mono uppercase tracking-widest text-[var(--color-text-muted)]">
                         {g.section}
                       </div>
                       {itemsInGroup.map(({ item, flatIdx }) => {
@@ -396,10 +396,10 @@ export function CommandPalette() {
                             <Icon className={`h-4 w-4 shrink-0 ${isActive ? "text-[var(--lt-accent)]" : "text-[var(--color-text-muted)]"}`} />
                             <span className="flex-1 truncate">{item.label}</span>
                             {item.hint && (
-                              <span className="text-[10px] font-mono text-[var(--color-text-muted)]/60 truncate">{item.hint}</span>
+                              <span className="text-[10px] font-mono text-[var(--color-text-muted)] truncate">{item.hint}</span>
                             )}
                             {item.external && (
-                              <span aria-hidden="true" className="text-[10px] font-mono text-[var(--color-text-muted)]/70">
+                              <span aria-hidden="true" className="text-[10px] font-mono text-[var(--color-text-muted)]">
                                 ↗
                               </span>
                             )}

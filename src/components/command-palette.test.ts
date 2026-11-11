@@ -1,4 +1,5 @@
 import { expect, test } from "bun:test";
+import { readFileSync } from "node:fs";
 import { updates } from "@/app/blog/updates-data";
 import { changelogAnchor } from "@/lib/changelog-rss";
 import {
@@ -164,4 +165,12 @@ test("the five newest changelog rows open that entry, not the top of the log", (
 test("the shortcut matches the key that opens the palette", () => {
   expect(paletteShortcut(true)).toBe("⌘K");
   expect(paletteShortcut(false)).toBe("Ctrl+K");
+});
+
+test("palette hints use the measured muted color", () => {
+  const src = readFileSync("src/components/command-palette.tsx", "utf8");
+  expect(src).toContain('text-xs text-[var(--color-text-muted)]">试试输入产品名或页面名');
+  expect(src).toContain("text-[10px] font-mono text-[var(--color-text-muted)] truncate");
+  expect(src).not.toContain("text-[var(--color-text-muted)]/60");
+  expect(src).not.toContain("text-[var(--color-text-muted)]/70");
 });
