@@ -103,10 +103,10 @@ export async function SwitchDownloadSection() {
                 <li key={f.filename} className={rowClass}>
                   <a
                     href={assetUrl(manifest.baseUrl, f.filename)}
-                    className={`underline underline-offset-4 hover:decoration-[var(--lt-accent)] ${
+                    className={`underline underline-offset-4 ${
                       isPrimary
-                        ? "font-semibold text-[var(--lt-ink)] decoration-[var(--lt-accent)]"
-                        : "text-[var(--lt-ink)] decoration-[var(--lt-rule)]"
+                        ? "font-semibold text-[var(--lt-ink)] decoration-[var(--lt-ink)]"
+                        : "text-[var(--lt-ink)] decoration-[var(--lt-rule)] hover:decoration-[var(--lt-accent)]"
                     }`}
                   >
                     {meta?.label ?? f.filename}
