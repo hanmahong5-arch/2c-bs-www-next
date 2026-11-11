@@ -69,6 +69,8 @@ test("witness states the path once", () => {
   const src = readFileSync("src/app/witness/page.tsx", "utf8");
   expect(src).not.toContain("<NextStep");
   expect(src.match(/nextStep/g)).toHaveLength(1);
+  const header = src.slice(0, src.indexOf('id="evidence"'));
+  expect(header).toContain("试点目前只运行在我们自己的环境里");
   expect(src).toContain("被观测环境与值班诉求");
   expect(src).toContain("文档站里的构建命令还不是公开发布的安装包");
   expect(src).toContain(

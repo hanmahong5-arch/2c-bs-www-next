@@ -22,7 +22,7 @@ import { drillMeasure } from "@/lib/witness-drill";
 export const metadata: Metadata = {
   title: "Lurus Witness · 见证",
   description:
-    "只读采集、外部探测、每月真实恢复演练与月度证据报告。每条读数都写明证据强度。早期试点。",
+    "只读采集、外部探测、每月真实恢复演练与月度证据报告。每条读数都写明证据强度。试点目前只运行在我们自己的环境里。早期试点。",
 };
 
 const DOCS = "https://docs.lurus.cn/witness/";
@@ -64,7 +64,7 @@ export default function WitnessPage() {
       <ProductHeader
         name="Lurus Witness · 见证"
         maturity="早期试点"
-        tagline="回答一个问题：你环境里的这套系统现在是什么状态，以及我们对这个判断有多确定。"
+        tagline="回答一个问题：你环境里的这套系统现在是什么状态，以及我们对这个判断有多确定。试点目前只运行在我们自己的环境里。"
         access={{
           actions: [
             { label: "联系试点", href: "mailto:contact@lurus.cn", primary: true, external: true },
