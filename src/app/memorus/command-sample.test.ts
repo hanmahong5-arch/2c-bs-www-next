@@ -32,6 +32,8 @@ test("the command sample uses the measured gray edge", () => {
   expect(links.match(/按密钥区分租户，默认关闭/g)).toHaveLength(2);
   expect(links).not.toContain("任何统计量不跨租户");
   expect(links).not.toContain("用词分布");
+  expect(links).toContain("未设路径时为内存态");
+  expect(links).not.toContain("数据落在本地一个文件里");
   expect(src).toContain(
     'className="mt-10 max-w-[36rem] border border-[var(--color-text-muted)] bg-[var(--lt-paper)] px-4 py-3"',
   );

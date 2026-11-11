@@ -270,7 +270,7 @@ export const LATENCY: {
 
 export const DEPLOY_FACTS = [
   { key: "binary", title: "两个可执行文件", body: "服务是 memorus-server，命令行是 memorus-r。不需要先装运行时或数据库。" },
-  { key: "sqlite", title: "默认 SQLite", body: "数据落在本地一个文件里；默认零外部依赖。" },
+  { key: "sqlite", title: "默认 SQLite", body: "未设路径时为内存态。默认零外部依赖。" },
   { key: "no-db", title: "无需外部数据库", body: "默认构建只链接 SQLite。其他向量库后端要在构建时显式开启。" },
   {
     key: "surfaces",
