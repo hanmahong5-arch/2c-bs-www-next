@@ -190,7 +190,7 @@ export default function MemorusPage() {
         </ul>
         <div className="mt-12">
           <p className={th}>可信度核验 · 检索结果里的样子</p>
-          <EvidenceList className="mt-3" caption="示例 · 每条记忆随结果返回出处与核验状态">
+          <EvidenceList className="mt-3" caption="示例 · 锚定到源文件的标成已核验或源头已变；没有可比对的源文件则无法核验。">
             <EvidenceLine
               name="记忆 · 服务默认端口 8080"
               status="ok"
