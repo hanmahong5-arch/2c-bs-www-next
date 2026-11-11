@@ -47,6 +47,11 @@ test("witness states the path once", () => {
   expect(src).not.toContain("<NextStep");
   expect(src.match(/nextStep/g)).toHaveLength(1);
   expect(src).toContain("被观测环境与值班诉求");
+  expect(src).toContain("文档站里的构建命令还不是公开发布的安装包");
+  expect(src).toContain(
+    '{ label: "联系试点", href: "mailto:contact@lurus.cn", primary: true, external: true }',
+  );
+  expect(src).not.toContain('{ label: "阅读文档", href: DOCS, primary: true, external: true }');
   expect(src).toContain('href="/approach#intake"');
   expect(src).toContain("contact@lurus.cn");
 });
