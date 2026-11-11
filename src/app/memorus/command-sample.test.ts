@@ -22,6 +22,13 @@ test("the command sample uses the measured gray edge", () => {
   expect(links).not.toContain("每条结果带出处");
   expect(links).not.toContain("哪段会话、哪一轮、谁说的");
   expect(links).not.toContain("可审计");
+  expect(src).toContain("服务是 memorus-server，命令行是 memorus-r");
+  expect(src).toContain("两个可执行文件，默认零外部依赖");
+  expect(src).not.toContain("单个二进制");
+  expect(src).not.toContain("一个文件，默认零依赖");
+  expect(links).toContain("服务是 memorus-server，命令行是 memorus-r");
+  expect(links).not.toContain("单个二进制");
+  expect(links).not.toContain("一个可执行文件即可运行");
   expect(src).toContain(
     'className="mt-10 max-w-[36rem] border border-[var(--color-text-muted)] bg-[var(--lt-paper)] px-4 py-3"',
   );

@@ -27,7 +27,7 @@ import {
 export const metadata: Metadata = {
   title: "Memorus — AI 系统的长期记忆",
   description:
-    "记得住，也查得清：保留原文、可按时点追问、删除可传播、团队可治理。单个二进制文件，默认零外部依赖。LongMemEval-S held-out 问答 0.837（95% 区间 0.769–0.888，n=147）。早期试点。",
+    "记得住，也查得清：保留原文、可按时点追问、删除可传播、团队可治理。服务是 memorus-server，命令行是 memorus-r。默认零外部依赖。LongMemEval-S held-out 问答 0.837（95% 区间 0.769–0.888，n=147）。早期试点。",
 };
 
 // ───────────────────────── 小组件 ─────────────────────────
@@ -99,7 +99,7 @@ export default function MemorusPage() {
               记得住，也查得清。
             </span>
             <span className="mt-4 block">
-              AI 系统的长期记忆：保留原文、可按时点追问、删除可传播、团队可治理。单个二进制文件，默认零外部依赖。
+              AI 系统的长期记忆：保留原文、可按时点追问、删除可传播、团队可治理。服务是 memorus-server，命令行是 memorus-r。默认零外部依赖。
             </span>
           </>
         }
@@ -284,7 +284,7 @@ export default function MemorusPage() {
       {/* S6 性能与部署 */}
       <Section id="deploy" labelledBy="deploy-title" width="wide">
         <SectionTitle id="deploy-title" eyebrow="性能与部署">
-          一个文件，默认零依赖。
+          两个可执行文件，默认零外部依赖。
         </SectionTitle>
         <div className="mt-10 grid gap-x-12 gap-y-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,22rem)]">
           <ul className="grid gap-x-10 gap-y-8 sm:grid-cols-2">
