@@ -253,7 +253,8 @@ body {
 
 /* ── Button variants（全站统一，杜绝散装按钮样式）──
    发丝线，无圆角，无填充。白字铺在 #FF5D1F 上对比度只有 3.07:1，
-   所以主按钮用墨色边，字用纸上的墨色。悬停时边改成赭石。 */
+   所以主按钮用墨色边，字用纸上的墨色。悬停时铺成墨色、字改纸色。
+   赭石边在纸面上只有 2.74:1，不再拿来当悬停。 */
 .btn-primary,
 .btn-secondary,
 .btn-ghost {
@@ -274,7 +275,9 @@ body {
   color: var(--lt-ink);
 }
 .btn-primary:hover {
-  border-color: var(--lt-accent);
+  background: var(--lt-ink);
+  border-color: var(--lt-ink);
+  color: var(--lt-paper);
 }
 .btn-secondary {
   border: 1px solid var(--lt-rule);
