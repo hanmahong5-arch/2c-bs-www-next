@@ -62,7 +62,10 @@ export function RetrievalScene() {
           <dt className="font-mono text-[11px] uppercase tracking-[0.16em] leading-[1.9rem] text-[var(--color-text-muted)]">
             判分
           </dt>
-          <dd className={judged ? "text-[var(--lt-ok)]" : "text-[var(--lt-err)]"}>
+          <dd className="text-[var(--lt-ink)]">
+            <span aria-hidden="true" className={judged ? "text-[var(--lt-ok)]" : "text-[var(--lt-err)]"}>
+              {judged ? "✓" : "✗"}
+            </span>{" "}
             {judged ? "判对" : "判错"}
           </dd>
         </dl>
