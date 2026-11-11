@@ -377,7 +377,8 @@ const STEPS: readonly Step[] = [
   { no: "04", title: "判分", lines: ["另一厂商的通用", "对话模型（关闭推理）", "官方判分提示逐字节"] },
 ];
 
-const BOX = "fill-[var(--lt-bg)] stroke-[var(--lt-rule)]";
+/** 格子的边用已经量过的灰色。发丝线贴在区块底上只有 1.19:1，四步的框看不清。字仍写在格子里。 */
+const BOX = "fill-[var(--lt-bg)] stroke-[var(--color-text-muted)]";
 const T_INK = "fill-[var(--lt-ink)]";
 const T_SEC = "fill-[var(--color-text-secondary)]";
 
