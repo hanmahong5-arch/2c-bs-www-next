@@ -90,6 +90,9 @@ test("hub states the path once", () => {
   expect(src).not.toContain("<NextStep");
   expect(src.match(/nextStep/g)).toHaveLength(1);
   expect(src).toContain("写信说明上游与网络约束");
+  expect(src).toContain("网关首页写着兼容 OpenAI，并给出厂商与模型数量。本页不转述那些数字。");
+  expect(src).not.toContain("对接所有模型厂商");
+  expect(src).not.toContain("已定价模型");
 });
 
 test("lucrum points at the live signup instead of a letter for an account", () => {

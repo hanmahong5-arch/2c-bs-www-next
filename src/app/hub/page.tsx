@@ -76,7 +76,7 @@ export default function HubPage() {
             >
               价格
             </Link>
-            。
+            。网关首页写着兼容 OpenAI，并给出厂商与模型数量。本页不转述那些数字。
           </>
         }
         access={{
@@ -235,6 +235,7 @@ export default function HubPage() {
             。
           </Dash>
           <Dash>不对延迟、可用率或成本给出承诺数字。</Dash>
+          <Dash>hub.lurus.cn 首页写着兼容 OpenAI，并给出厂商与模型数量。本页不转述那些数字。</Dash>
         </ul>
         <p className="mt-10 text-base leading-[1.8] text-[var(--color-text-secondary)]">
           想了解它放进你的环境会是什么样，写信到{" "}
