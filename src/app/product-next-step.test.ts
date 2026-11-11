@@ -11,6 +11,10 @@ test("forge, lux, and founder state the path once", () => {
   }
   const forge = readFileSync("src/app/forge/page.tsx", "utf8");
   expect(forge).toContain("是否需要 Kova");
+  expect(forge).toContain("页上有注册表单");
+  expect(forge).not.toContain("不提供自助注册入口");
+  expect(forge).not.toContain("现网可打开看编排面");
+  expect(forge).toContain('{ label: "写信询问", href: CONTACT, primary: true, external: true }');
 });
 
 test("lugo states the path once", () => {
