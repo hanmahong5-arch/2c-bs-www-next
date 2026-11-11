@@ -157,14 +157,14 @@ export default function HubPricingPage() {
           <Dash>价目表读不到时，本页宁可空着，也不显示一份可能过期的旧价格。</Dash>
           <Dash>不对延迟、可用率给出承诺数字。</Dash>
           <Dash>
-            想把 Hub 装进你自己的环境、用自己的上游与价格，见{" "}
-            <Link href="/hub" className={linkClass}>
-              Hub 产品页
-            </Link>
-            ，或写信到{" "}
+            想把 Hub 装进你自己的环境、用自己的上游与价格，先写信到{" "}
             <a href={CONTACT} className={linkClass}>
               contact@lurus.cn
             </a>
+            。同一句在{" "}
+            <Link href="/hub" className={linkClass}>
+              Hub 产品页
+            </Link>
             。
           </Dash>
         </ul>
