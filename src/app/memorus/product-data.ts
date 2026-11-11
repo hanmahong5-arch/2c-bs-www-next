@@ -303,7 +303,7 @@ export const INTEGRATIONS = [
   {
     key: "mcp",
     title: "MCP",
-    body: "本地 stdio 或服务端 HTTP 端点；可通过 MCP 接入主流编码助手与智能体框架。",
+    body: "本地 stdio，或服务端 HTTP 端点。记忆操作以工具形式暴露。",
     code: null,
   },
   { key: "bindings", title: "语言绑定", body: "Python 与 Node 在你自己的进程里调用同一套引擎。WASM 绑定是另一套独立实现。", code: null },
