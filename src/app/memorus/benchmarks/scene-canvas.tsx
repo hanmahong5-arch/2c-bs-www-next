@@ -59,7 +59,6 @@ function readTheme() {
   return {
     ink: pick("--lt-ink", "#14130F"),
     accent: pick("--lt-accent", "#FF5D1F"),
-    rule: pick("--lt-rule", "#D6D2C2"),
     muted: pick("--color-text-muted", "#66635B"),
     paper: pick("--lt-paper", "#F5F2E8"),
   };
@@ -249,7 +248,7 @@ function buildScene(
   dashLines.computeLineDistances();
   scene.add(solidLines, dashLines);
 
-  // 淡包围盒：只示意坐标范围
+  // 包围盒用已经量过的灰色。发丝线在纸面上只有 1.35:1。只示意坐标范围。
   const boxGeo = new T.EdgesGeometry(new T.BoxGeometry(2, 2, 2));
   const boxMat = new T.LineBasicMaterial({ color: 0x000000 });
   const box = new T.LineSegments(boxGeo, boxMat);
@@ -269,7 +268,7 @@ function buildScene(
     octaEdgeMat.color.set(th.paper);
     solidMat.color.set(th.ink);
     dashMat.color.set(th.muted);
-    boxMat.color.set(th.rule);
+    boxMat.color.set(th.muted);
   };
   applyTheme();
 

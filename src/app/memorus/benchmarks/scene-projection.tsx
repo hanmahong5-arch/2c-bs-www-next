@@ -75,8 +75,8 @@ export function SceneProjection() {
       preserveAspectRatio="xMidYMid meet"
       className="block h-full w-full"
     >
-      {/* 淡坐标轴：只示意投影平面，没有刻度 */}
-      <g style={{ stroke: "var(--lt-rule)" }} strokeWidth={1}>
+      {/* 坐标轴用已经量过的灰色。发丝线在纸面上只有 1.35:1。点、连线和星仍按原来的颜色。 */}
+      <g style={{ stroke: "var(--color-text-muted)" }} strokeWidth={1}>
         <line x1={-1.05} y1={0} x2={1.05} y2={0} vectorEffect="non-scaling-stroke" />
         <line x1={0} y1={-1.05} x2={0} y2={1.05} vectorEffect="non-scaling-stroke" />
       </g>

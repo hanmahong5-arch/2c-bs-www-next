@@ -36,6 +36,15 @@ test("other-session dots clear non-text contrast on both papers", () => {
   expect(canvas).toContain("alpha: 1, fill: 1, ringW: 0, transparent: false");
 });
 
+test("the plot frame uses the measured gray", () => {
+  const projection = readFileSync("src/app/memorus/benchmarks/scene-projection.tsx", "utf8");
+  expect(projection).toContain('style={{ stroke: "var(--color-text-muted)" }}');
+  expect(projection).not.toContain('style={{ stroke: "var(--lt-rule)" }}');
+  const canvas = readFileSync("src/app/memorus/benchmarks/scene-canvas.tsx", "utf8");
+  expect(canvas).toContain("boxMat.color.set(th.muted)");
+  expect(canvas).not.toContain("boxMat.color.set(th.rule)");
+});
+
 test("the reset control uses the measured gray edge", () => {
   const canvas = readFileSync("src/app/memorus/benchmarks/scene-canvas.tsx", "utf8");
   expect(canvas).toContain(
