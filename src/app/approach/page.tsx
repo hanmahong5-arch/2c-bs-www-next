@@ -377,7 +377,7 @@ export default function ApproachPage() {
             来信请先写清这些。
           </SectionTitle>
           <Lead className="mt-6">
-            每个环境不一样，我们不在这页报价，也不收集密码。下面是要在你第一封邮件里说清的范围；我们读后回复是否接、硬化与受托运维怎么分期。具体以合同约定为准。
+            每个环境不一样，我们不在这页报价，也不收集密码。下面是要在你第一封邮件里说清的范围。具体以合同约定为准。
           </Lead>
         </div>
         <IntakeBrief className="mt-10" />
@@ -387,6 +387,9 @@ export default function ApproachPage() {
           meta="不报价，不收集密码"
           className="mt-8"
         />
+        <NextStep className="max-w-[44rem]">
+          按上面的清单写清环境现状与目标，寄到 {CONTACT_EMAIL}；我回复是否适合现阶段，以及硬化与受托运维怎么分期。
+        </NextStep>
       </Section>
 
       {/* 结尾 */}
@@ -404,9 +407,6 @@ export default function ApproachPage() {
           </a>
           。
         </p>
-        <NextStep>
-          按上方清单来信，写清环境现状与目标，寄到 {CONTACT_EMAIL}；我回复是否适合现阶段，以及硬化与受托运维怎么分期。
-        </NextStep>
       </Section>
     </>
   );
