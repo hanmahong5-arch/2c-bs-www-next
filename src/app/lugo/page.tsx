@@ -24,6 +24,7 @@ export const metadata: Metadata = {
 };
 
 const CONTACT = "mailto:contact@lurus.cn";
+const DOCS_DEPLOY = "https://docs.lurus.cn/platform/self-host";
 
 const linkClass =
   "text-[var(--lt-ink)] underline decoration-[var(--color-text-muted)] underline-offset-4 hover:decoration-[var(--lt-ink)]";
@@ -78,7 +79,7 @@ export default function LugoPage() {
             { label: "联系私有部署", href: CONTACT, primary: true, external: true },
             {
               label: "阅读部署文档",
-              href: "https://docs.lurus.cn/platform/",
+              href: DOCS_DEPLOY,
               external: true,
             },
             { label: "阅读方法", href: "/approach" },
@@ -250,7 +251,7 @@ export default function LugoPage() {
           </a>
           ；部署与接入细节见{" "}
           <a
-            href="https://docs.lurus.cn/platform/"
+            href={DOCS_DEPLOY}
             target="_blank"
             rel="noopener noreferrer"
             className={linkClass}
