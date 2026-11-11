@@ -1,16 +1,12 @@
 import { Suspense } from "react";
 import type { Metadata } from "next";
-import Link from "next/link";
-import { Eyebrow, Lead, NextStep, Section } from "@/components/site";
+import { AccessStation, Eyebrow, Lead, Section } from "@/components/site";
 import { LutuAndroidSection, LutuAndroidSkeleton } from "./lutu-android";
 
 export const metadata: Metadata = {
   title: "下载",
   description: "Switch 桌面客户端，以及已归档、不在主动开发中的历史客户端。",
 };
-
-const linkClass =
-  "text-[var(--lt-ink)] underline decoration-[var(--color-text-muted)] underline-offset-4 hover:decoration-[var(--lt-ink)]";
 
 export default function DownloadPage() {
   return (
@@ -28,6 +24,19 @@ export default function DownloadPage() {
             <Lead className="mt-7">
               正在维护的桌面客户端是 Switch；下面另有已归档、不在主动开发中的历史包。
             </Lead>
+            <AccessStation
+              className="mt-8"
+              actions={[
+                { label: "前往 Switch 下载", href: "/switch#download", primary: true },
+                { label: "Switch 介绍", href: "/switch" },
+                {
+                  label: "登录 Lurus 账号",
+                  href: "https://identity.lurus.cn",
+                  external: true,
+                },
+              ]}
+              nextStep="安装 Switch → 登录 Lurus 账号 →（若有推广码）在「开始」页填写（注册 7 天内、只能一次）。目前只有 Windows 版经过启动验证。"
+            />
           </div>
         </div>
       </section>
@@ -41,14 +50,9 @@ export default function DownloadPage() {
           Switch — 桌面 AI CLI 管家
         </h2>
         <Lead className="mt-6">
-          Windows 版可下载：配置、代理、MCP、快照与账单，在一处管多个 AI 编程 CLI。
+          Windows 版可下载：配置、代理、MCP、快照与账单，在一处管多个 AI 编程 CLI。安装包与校验信息在
+          Switch 产品页读取 releases.lurus.cn 清单。
         </Lead>
-        <NextStep>安装 → 登录 →（若有推广码）在首页粘贴。</NextStep>
-        <p className="mt-6 text-base leading-[1.8] text-[var(--color-text-secondary)]">
-          <Link href="/switch" className={linkClass}>
-            前往 Switch 介绍与下载 →
-          </Link>
-        </p>
       </Section>
 
       {/* 只有这一段依赖外部 releases.lurus.cn 的 manifest；用 Suspense 圈住，

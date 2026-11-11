@@ -40,7 +40,7 @@ test("footer uses the page's own name for about, terms, and privacy", () => {
 test("footer product names and the Hub license match the pages", () => {
   const html = renderToStaticMarkup(<Footer />);
 
-  for (const name of ["见证", "Kova", "Memorus", "Hub", "Lugo", "Switch", "文档"]) {
+  for (const name of ["见证", "Kova", "Forge", "Founder", "Lux", "Memorus", "Hub", "Lugo", "Switch", "文档"]) {
     expect(html).toContain(`>${name}<`);
   }
   expect(html).toContain("Lurus Hub 基于开源 New API，AGPLv3。");
@@ -62,5 +62,5 @@ test("footer names the log 更新日志, the same name as the page", () => {
   const pricing = html.match(/<a[^>]*href="\/hub\/pricing"[^>]*>[\s\S]*?<\/a>/);
   expect(pricing?.[0]).toContain(">Hub 按量价格</a>");
   expect(pricing?.[0]).not.toContain(">Hub 价格<");
-  expect(html.match(/focus-ink/g)?.length).toBe(21);
+  expect(html.match(/focus-ink/g)?.length).toBe(24);
 });

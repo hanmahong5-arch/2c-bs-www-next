@@ -47,18 +47,24 @@ export default function SwitchPage() {
         eyebrow="桌面客户端"
         maturity="早期试点"
         tagline="桌面上的 AI CLI 管家：主流 AI 编程 CLI 的配置、代理、MCP、快照与账单，在一处管。"
-        note={
-          <>
-            <a
-              href="#download"
-              className="text-[var(--lt-ink)] underline decoration-[var(--color-text-muted)] underline-offset-4 hover:decoration-[var(--lt-ink)]"
-            >
-              前往下载
-            </a>
-            <ReferralNotice />
-          </>
-        }
+        access={{
+          actions: [
+            { label: "前往下载", href: "#download", primary: true },
+            {
+              label: "登录 Lurus 账号",
+              href: "https://identity.lurus.cn",
+              external: true,
+            },
+          ],
+          nextStep:
+            "安装 → 在 Switch 里登录 Lurus 账号 →（若有推广码）在「开始」页填写，注册 7 天内、只能填一次；已安装可用推广链接里的「在 Switch 中打开」。",
+        }}
       />
+      <div className="px-6">
+        <div className="mx-auto max-w-5xl pb-2">
+          <ReferralNotice />
+        </div>
+      </div>
 
       <Section id="what" labelledBy="what-title">
         <SectionTitle id="what-title" eyebrow="能做什么">

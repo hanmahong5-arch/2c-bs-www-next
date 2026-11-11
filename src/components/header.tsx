@@ -51,6 +51,7 @@ function ThemeToggle() {
 type NavItem = { name: string; href: string; external?: boolean };
 
 const nav: readonly NavItem[] = [
+  { name: "Switch", href: "/switch" },
   { name: "见证", href: "/witness" },
   { name: "Kova", href: "/kova" },
   { name: "Memorus", href: "/memorus" },

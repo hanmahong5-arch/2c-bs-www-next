@@ -42,8 +42,9 @@ const LAYERS: readonly Layer[] = [
     title: "上手的工具",
     line: "桌面与下载，给已经在用的人自己上手。",
     products: [
-      { name: "Switch", href: "/switch" },
-      { name: "下载", href: "/download" },
+      { name: "Switch", href: "/switch", maturity: "早期试点" },
+      { name: "Lux CLI", href: "/lux", maturity: "早期试点" },
+      { name: "下载入口", href: "/download" },
     ],
   },
   {
@@ -64,6 +65,7 @@ const LAYERS: readonly Layer[] = [
     line: "被上层共同依赖的持久执行、网关与账号。成熟度各自标明；今天的写操作仍多由独立脚本完成。",
     products: [
       { name: "Kova", href: "/kova", maturity: "早期试点" },
+      { name: "Forge", href: "/forge", maturity: "内部生产使用" },
       { name: "Hub 私有部署", href: "/hub", maturity: "内部生产使用" },
       { name: "Lugo", href: "/lugo", maturity: "内部生产使用" },
     ],

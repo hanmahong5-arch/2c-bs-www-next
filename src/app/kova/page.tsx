@@ -63,6 +63,14 @@ export default function KovaPage() {
         maturity="早期试点"
         tagline="在不能出错、不能出境、必须举证的场景里，Agent 跑过的每一步都能被第三方离线核验——且可部署在你自己的机器上。"
         note="专有软件，按商业许可提供；目前只在我们自己的环境里运行（含生产集群）。Forge 编排 · Kova 证明 · Lumen 看见。"
+        access={{
+          actions: [
+            { label: "阅读文档", href: DOCS, primary: true, external: true },
+            { label: "联测账本", href: DOCS_JOINT, external: true },
+            { label: "联系试用", href: "mailto:contact@lurus.cn", external: true },
+          ],
+          nextStep: "先读文档；要进你的环境试，邮件说明工作流形态与约束。外部客户流量尚未承接。",
+        }}
         evidence={{
           name: "workflow #42",
           version: null,
@@ -114,8 +122,14 @@ export default function KovaPage() {
             <p className="mt-5">
               <span className="text-[var(--lt-ink)]">Lumen</span>{" "}
               是配套的回放与成本审计命令行：从运行记录逐步回放一次历史运行（不产生新的模型调用费用），
-              按智能体和模型汇总花费并标出离群的那一次。它仍在早期试点，没有发布到任何包仓库；
-              目前回放读的是运行记录文件，直接从预写日志回放还在计划中。
+              按智能体和模型汇总花费并标出离群的那一次。细节见本页{" "}
+              <a
+                href="#lumen"
+                className="text-[var(--lt-ink)] underline decoration-[var(--color-text-muted)] underline-offset-4 hover:decoration-[var(--lt-ink)]"
+              >
+                Lumen · 看见
+              </a>
+              ；直接从 Kova 预写日志回放仍在计划中。
             </p>
           </Disclosure>
 
@@ -171,6 +185,41 @@ export default function KovaPage() {
               <MaturityChip level="设计中" className="ml-1.5" />
               。今天仍多为独立脚本；演示路径走 Forge HITL + 证据包。
             </span>
+          </Dash>
+        </ul>
+      </Section>
+
+      {/* Lumen：看见层，不单独售卖（Fleet seed: archive / product_console none） */}
+      <Section id="lumen" labelledBy="lumen-title">
+        <SectionTitle id="lumen-title" eyebrow="看见 · 不单卖">
+          Lumen 是配套回放与成本审计，不是另一张产品单。
+        </SectionTitle>
+        <Lead className="mt-6">
+          「看见」走 Lumen，「证明」走 Kova 证据包——两件事不要混。Lumen 是 Agent 运行的黑匣子：
+          读落盘 trace、零新模型费用回放、按智能体/模型汇总花费。它是 Kova / Forge 联测叙事里的看见层，
+          本站不设独立售卖页，也不进主导航。
+        </Lead>
+        <ul className="mt-8 space-y-4 text-base leading-[1.8] text-[var(--color-text-secondary)]">
+          <Dash>
+            形态：Python SDK（埋点）+ Rust CLI/仪表盘；Fleet 登记为 CLI · archive，无产品控制台。
+          </Dash>
+          <Dash>
+            成熟度 <MaturityChip level="早期试点" className="ml-1" />
+            （仓内 alpha）：核心 trace / 成本 / replay 有测试；CrewAI/AutoGen 等尚未完整。
+          </Dash>
+          <Dash>
+            分发：CLI 可走上游 GitHub Release 二进制；SDK 从本仓库安装。不是 npm/crates 上的
+            Lurus 商店 SKU；crates.io 上同名包是无关项目。
+          </Dash>
+          <Dash>
+            下一步：要联测或嵌入，先读{" "}
+            <a
+              href={DOCS_JOINT}
+              className="text-[var(--lt-ink)] underline decoration-[var(--color-text-muted)] underline-offset-4 hover:decoration-[var(--lt-ink)]"
+            >
+              联测账本
+            </a>
+            ；外部试用跟 Kova 同一条联系路径，不要当单独采购项来问。
           </Dash>
         </ul>
       </Section>

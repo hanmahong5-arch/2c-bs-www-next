@@ -12,6 +12,8 @@ const nextConfig: NextConfig = {
       { source: "/platform", destination: "/lugo", permanent: true },
       { source: "/pricing", destination: "/approach", permanent: true },
       { source: "/solutions", destination: "/approach", permanent: true },
+      // Lumen 不单独售卖：并入 Kova「看见」层（Fleet seed archive / console none）。
+      { source: "/lumen", destination: "/kova#lumen", permanent: true },
     ];
   },
 };

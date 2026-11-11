@@ -3,11 +3,13 @@
 import { useEffect, useSyncExternalStore } from "react";
 import { CopyButton } from "./copy-button";
 
-// 推广链接 https://lurus.cn/switch?ref=<code> 的落地处理。
-// 只做两件事：展示推荐人代码；把它记在本机（localStorage + 一方 cookie），
-// 换页、稍后再来都还在。不上报、不做其他追踪。
-// 新用户在 Switch 登录后于首页填入推广码即记为该推荐人邀请；已装 Switch 的
-// 用户可点 switch:// 链接把码直接交给客户端（type=referral）。
+// 推广链接落地：桌面 PromoterHub 生成 https://lurus.cn/switch?ref=<code>
+// （shareLinkBase）。线上 apex → www 为 308，且保留 ?ref=（2026-11-10 实测
+// Location: https://www.lurus.cn/switch?ref=…）——与本站真源一致，无需改桌面
+// 域名或 www 再写一条假跳转。
+// 本组件只做两件事：展示推荐人代码；记在本机（localStorage + 一方 cookie）。
+// 桌面路径（ReferrerBindCard）：安装并登录 Lurus 账号后，在「开始」页填写
+// （注册 7 天内、选填、只能一次）；已装可用 switch://import?type=referral。
 
 const REF_PATTERN = /^[A-Za-z0-9_-]{1,32}$/;
 const STORAGE_KEY = "lurus_switch_ref";
@@ -65,7 +67,8 @@ export function ReferralNotice() {
       </span>
       <CopyButton value={ref} label="复制推广码" />
       <span className="mt-1 block">
-        安装并登录 Switch 后，在首页填入这个推广码即可（注册 7 天内有效）。已安装？
+        安装后在 Switch 登录 Lurus 账号，于「开始」页填写这个推广码（注册 7
+        天内、选填、只能一次）。已安装？
         <a
           href={switchReferralLink(ref)}
           className="ml-1 underline decoration-[var(--color-text-muted)] underline-offset-4 hover:text-[var(--lt-ink)]"

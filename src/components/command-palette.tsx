@@ -14,6 +14,8 @@ import {
   DocumentTextIcon,
   CodeBracketIcon,
   EnvelopeIcon,
+  MegaphoneIcon,
+  CommandLineIcon,
 } from "@heroicons/react/24/outline";
 import { updates } from "@/app/blog/updates-data";
 import { changelogAnchor } from "@/lib/changelog-rss";
@@ -56,6 +58,9 @@ const GROUPS: Group[] = [
       { label: "见证 — 演练", href: "/witness#restore", hint: "只认真恢复", Icon: CubeTransparentIcon },
       { label: "见证 — 月报", href: "/witness#report", hint: "月度证据报告", Icon: DocumentTextIcon },
       { label: "Kova — 持久执行引擎", href: "/kova", hint: "早期试点", Icon: WrenchScrewdriverIcon },
+      { label: "Forge — 工作流编排壳", href: "/forge", hint: "内部生产使用", Icon: WrenchScrewdriverIcon },
+      { label: "Founder — 获客桌面（内部）", href: "/founder", hint: "早期试点", Icon: MegaphoneIcon },
+      { label: "Lux — 编码 Agent CLI", href: "/lux", hint: "早期试点", Icon: CommandLineIcon },
       { label: "Memorus — AI 记忆引擎", href: "/memorus", hint: "早期试点", Icon: ChartBarIcon },
       { label: "Memorus 公开基准报告", href: "/memorus/benchmarks", Icon: DocumentTextIcon },
       { label: "Hub — 私有 LLM 网关", href: "/hub", hint: "内部生产使用", Icon: CloudArrowDownIcon },

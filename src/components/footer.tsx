@@ -13,6 +13,9 @@ const footerLinks: ReadonlyArray<{ title: string; links: readonly FooterLink[] }
     links: [
       { name: "见证", href: "/witness" },
       { name: "Kova", href: "/kova" },
+      { name: "Forge", href: "/forge" },
+      { name: "Founder", href: "/founder" },
+      { name: "Lux", href: "/lux" },
       { name: "Memorus", href: "/memorus" },
       { name: "Hub", href: "/hub" },
       { name: "Lugo", href: "/lugo" },

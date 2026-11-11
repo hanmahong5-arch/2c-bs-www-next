@@ -2,6 +2,7 @@ import type { ReactNode } from "react";
 import { Eyebrow } from "./eyebrow";
 import { MaturityChip, type Maturity } from "./maturity-chip";
 import { EvidenceLine, type EvidenceLineProps } from "./evidence-line";
+import { AccessStation, type AccessStationProps } from "./access-station";
 
 export interface ProductHeaderProps {
   /** 产品名，如 "Lurus Witness · 见证" */
@@ -17,9 +18,11 @@ export interface ProductHeaderProps {
   evidenceCaption?: ReactNode;
   /** 可选：补充一行（如许可声明） */
   note?: ReactNode;
+  /** 可选：首屏接入站（主 CTA + 下一步） */
+  access?: AccessStationProps;
 }
 
-/** 产品页顶部（含页面唯一 <h1>）：名称、成熟度、一句话、可选证据样例。无动效，首屏直接可见。 */
+/** 产品页顶部（含页面唯一 <h1>）：名称、成熟度、一句话、可选接入站、可选证据样例。无动效，首屏直接可见。 */
 export function ProductHeader({
   name,
   tagline,
@@ -28,6 +31,7 @@ export function ProductHeader({
   evidence,
   evidenceCaption = "示例",
   note,
+  access,
 }: ProductHeaderProps) {
   return (
     <div className="px-6">
@@ -46,6 +50,7 @@ export function ProductHeader({
           {note && (
             <p className="mt-3 text-sm text-[var(--color-text-muted)]">{note}</p>
           )}
+          {access && <AccessStation {...access} className="mt-8" />}
         </div>
         {evidence && (
           <figure className="mt-10">

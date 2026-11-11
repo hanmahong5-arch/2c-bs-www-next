@@ -66,6 +66,14 @@ export default function WitnessPage() {
         name="Lurus Witness · 见证"
         maturity="早期试点"
         tagline="回答一个问题：你环境里的这套系统现在是什么状态，以及我们对这个判断有多确定。"
+        access={{
+          actions: [
+            { label: "阅读文档", href: DOCS, primary: true, external: true },
+            { label: "联系试点", href: "mailto:contact@lurus.cn", external: true },
+            { label: "阅读方法", href: "/approach" },
+          ],
+          nextStep: "邮件说明被观测环境与值班诉求；我们回复是否适合现阶段试点。",
+        }}
         evidence={{
           name: "platform-core",
           version: "v1.4.2",
