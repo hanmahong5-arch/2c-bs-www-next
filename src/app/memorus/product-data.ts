@@ -10,6 +10,7 @@ import { DATASETS, HEADLINE, HELDOUT, LOCOMO, type Ci95 } from "./benchmarks/dat
 export const LINKS = {
   benchmarks: "/memorus/benchmarks",
   docs: "https://docs.lurus.cn/memx/",
+  quickstart: "https://docs.lurus.cn/memx/quickstart",
   pilot: "mailto:contact@lurus.cn?subject=Memorus%20%E8%AF%95%E7%82%B9%E7%94%B3%E8%AF%B7",
   pilotLabel: "contact@lurus.cn",
 } as const;
