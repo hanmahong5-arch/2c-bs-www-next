@@ -16,15 +16,15 @@ type SceneData = typeof import("./scene-data.json");
 // 与 scene-projection.tsx 的色板保持一致（此文件不能引它，否则 JSON 会进首屏 chunk）
 const PALETTE = [
   "#4E79A7",
-  "#59A14F",
-  "#B07AA1",
-  "#3FA7A0",
-  "#8C8C8C",
-  "#7A8CD6",
+  "#55994B",
+  "#AE79A0",
+  "#399791",
+  "#898989",
+  "#7586CD",
   "#9C755F",
-  "#84A03A",
-  "#6FA8DC",
-  "#A98FC9",
+  "#799335",
+  "#5E8EBA",
+  "#9780B3",
 ];
 
 const DEFAULT_THETA = 0.5;
@@ -202,7 +202,7 @@ function buildScene(
     return p;
   };
 
-  const otherMat = makeMaterial({ alpha: 0.6, fill: 1, ringW: 0, transparent: true });
+  const otherMat = makeMaterial({ alpha: 1, fill: 1, ringW: 0, transparent: false });
   const evMat = makeMaterial({ alpha: 1, fill: 1, ringW: 0.14, transparent: false });
   const hitMat = makeMaterial({ alpha: 1, fill: 0, ringW: 0.07, transparent: true });
   hitMat.depthTest = false;

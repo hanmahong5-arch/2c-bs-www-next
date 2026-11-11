@@ -111,7 +111,7 @@ export function RetrievalScene() {
           swatch={
             <>
               {SCENE_PALETTE.slice(0, 3).map((c, i) => (
-                <circle key={c} cx={6 + i * 8} cy={7} r={2.2} fill={c} opacity={0.6} />
+                <circle key={c} cx={6 + i * 8} cy={7} r={2.2} fill={c} />
               ))}
             </>
           }

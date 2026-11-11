@@ -10,15 +10,15 @@ import data from "./scene-data.json";
  */
 export const SCENE_PALETTE = [
   "#4E79A7",
-  "#59A14F",
-  "#B07AA1",
-  "#3FA7A0",
-  "#8C8C8C",
-  "#7A8CD6",
+  "#55994B",
+  "#AE79A0",
+  "#399791",
+  "#898989",
+  "#7586CD",
   "#9C755F",
-  "#84A03A",
-  "#6FA8DC",
-  "#A98FC9",
+  "#799335",
+  "#5E8EBA",
+  "#9780B3",
 ] as const;
 
 /** 五角星顶点串（SVG points），供场景与图例共用。 */
@@ -81,8 +81,8 @@ export function SceneProjection() {
         <line x1={0} y1={-1.05} x2={0} y2={1.05} vectorEffect="non-scaling-stroke" />
       </g>
 
-      {/* 其他会话：小点、低不透明度 */}
-      <g opacity={0.5}>
+      {/* 其他会话：小点、实色。浅色纸上至少 3.1:1 */}
+      <g>
         {groups.map((d, i) =>
           d.length === 0 ? null : (
             <path
