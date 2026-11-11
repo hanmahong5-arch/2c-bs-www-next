@@ -18,6 +18,10 @@ test("the command sample uses the measured gray edge", () => {
   expect(links).toContain("备份中的副本尚未纳入删除传播");
   expect(links).not.toContain("删一次，删干净");
   expect(links).not.toContain("再也检索不到");
+  expect(links).toContain("经服务接口写入的记忆目前还没有来源记录");
+  expect(links).not.toContain("每条结果带出处");
+  expect(links).not.toContain("哪段会话、哪一轮、谁说的");
+  expect(links).not.toContain("可审计");
   expect(src).toContain(
     'className="mt-10 max-w-[36rem] border border-[var(--color-text-muted)] bg-[var(--lt-paper)] px-4 py-3"',
   );

@@ -64,7 +64,7 @@ export const PAIN_POINTS = [
     pain: "摘要会丢信息",
     painDetail: "只存摘要的记忆，丢掉的细节再也找不回来，也说不清答案从哪来。",
     answer: "原文可回查",
-    answerDetail: "原话完整保留；每条答案都能追到出处：哪段会话、哪一轮、谁说的。",
+    answerDetail: "原话完整保留。经服务接口写入的记忆目前还没有来源记录。",
   },
   {
     key: "facts-change",
@@ -88,8 +88,8 @@ export const CAPABILITIES = [
   {
     key: "raw",
     title: "原文检索",
-    tagline: "无信息损失 · 可审计",
-    body: "检索的是原话本身，不是二手摘要。每条结果带出处，答案可以逐条回查。",
+    tagline: "无信息损失",
+    body: "检索的是原话本身，不是二手摘要。经服务接口写入的记忆目前还没有来源记录。",
   },
   {
     key: "asof",
