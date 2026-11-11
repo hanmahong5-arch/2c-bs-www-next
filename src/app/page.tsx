@@ -33,7 +33,7 @@ type Layer = {
 
 /**
  * 三层仍是 Urus 命名（LURUS / URUS / RUS），是个人项目站上的工具与底座地图。
- * US 只作脚注，不进主列表。首页不挂 Hub 按量价格。
+ * US 只作脚注，不进主列表。脚注点出已有页面的 Founder，不放进自助那一行。首页不挂 Hub 按量价格。
  */
 const LAYERS: readonly Layer[] = [
   {
@@ -340,7 +340,10 @@ export default function Home() {
               <span className="font-mono tracking-[0.12em] text-[var(--color-text-muted)]">LUR</span>
               <span className="font-mono tracking-[0.12em] text-[var(--lt-ink)]">US</span>
               <span className="ml-3">
-                内部全站全线 · 设计 / 开发 / 经营用，不对外售卖。见{" "}
+                内部全站全线 · 设计 / 开发 / 经营用，不对外售卖。获客桌面见{" "}
+                <QuietLink href="/founder">Founder</QuietLink>
+                <MaturityChip level="早期试点" className="ml-2" />
+                ，默认不对外部自助分发。另见{" "}
                 <QuietLink href="/about">关于</QuietLink>。
               </span>
             </p>
