@@ -25,6 +25,16 @@ const ANCHORS = [
   { query: "月报", href: "/witness#report", label: "见证 — 月报" },
 ] as const;
 
+test("palette keycaps use the measured gray edge", () => {
+  const src = readFileSync("src/components/command-palette.tsx", "utf8");
+  expect(src).toContain(
+    'className="border border-[var(--color-text-muted)] bg-[var(--lt-paper)] px-2 py-1 font-mono text-[10px] text-[var(--color-text-muted)]"',
+  );
+  expect(src.match(/border border-\[var\(--color-text-muted\)\] bg-\[var\(--lt-paper\)\] px-1\.5 py-0\.5/g)).toHaveLength(3);
+  expect(src).not.toContain("border border-[var(--lt-rule)] bg-[var(--lt-paper)] px-");
+  expect(PALETTE_PANEL_CLASS).toContain("border-[var(--lt-rule)]");
+});
+
 test("the palette sits on the same paper as the page", () => {
   expect(PALETTE_PANEL_CLASS).toContain("bg-[var(--lt-paper)]");
   expect(PALETTE_PANEL_CLASS).toContain("border-[var(--lt-rule)]");

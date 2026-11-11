@@ -357,7 +357,7 @@ export function CommandPalette() {
                 aria-label={PALETTE_SEARCH_LABEL}
                 className="focus-ink flex-1 bg-transparent text-sm text-[var(--lt-ink)] placeholder:text-[var(--color-text-muted)]"
               />
-              <kbd className="border border-[var(--lt-rule)] bg-[var(--lt-paper)] px-2 py-1 font-mono text-[10px] text-[var(--color-text-muted)]">
+              <kbd className="border border-[var(--color-text-muted)] bg-[var(--lt-paper)] px-2 py-1 font-mono text-[10px] text-[var(--color-text-muted)]">
                 ESC
               </kbd>
             </div>
@@ -454,12 +454,12 @@ export function CommandPalette() {
             {/* Footer */}
             <div className="flex flex-wrap items-center gap-x-4 gap-y-2 border-t border-[var(--lt-rule)] px-5 py-3 font-mono text-[10px] text-[var(--color-text-muted)]">
               <span className="flex items-center gap-1.5">
-                <kbd className="border border-[var(--lt-rule)] bg-[var(--lt-paper)] px-1.5 py-0.5">↑</kbd>
-                <kbd className="border border-[var(--lt-rule)] bg-[var(--lt-paper)] px-1.5 py-0.5">↓</kbd>
+                <kbd className="border border-[var(--color-text-muted)] bg-[var(--lt-paper)] px-1.5 py-0.5">↑</kbd>
+                <kbd className="border border-[var(--color-text-muted)] bg-[var(--lt-paper)] px-1.5 py-0.5">↓</kbd>
                 选择
               </span>
               <span className="flex items-center gap-1.5">
-                <kbd className="border border-[var(--lt-rule)] bg-[var(--lt-paper)] px-1.5 py-0.5">↵</kbd>
+                <kbd className="border border-[var(--color-text-muted)] bg-[var(--lt-paper)] px-1.5 py-0.5">↵</kbd>
                 打开
               </span>
               <span className="ml-auto">Lurus {shortcut}</span>
