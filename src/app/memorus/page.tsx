@@ -27,7 +27,7 @@ import {
 export const metadata: Metadata = {
   title: "Memorus — AI 系统的长期记忆",
   description:
-    "记得住，也查得清：保留原文、可按时点追问、删除可传播、团队可治理。服务是 memorus-server，命令行是 memorus-r。默认零外部依赖。LongMemEval-S held-out 问答 0.837（95% 区间 0.769–0.888，n=147）。早期试点。",
+    "记得住，也查得清：保留原文、旧值留作历史、删除可传播、团队可治理。服务是 memorus-server，命令行是 memorus-r。默认零外部依赖。LongMemEval-S held-out 问答 0.837（95% 区间 0.769–0.888，n=147）。早期试点。",
 };
 
 // ───────────────────────── 小组件 ─────────────────────────
@@ -99,7 +99,7 @@ export default function MemorusPage() {
               记得住，也查得清。
             </span>
             <span className="mt-4 block">
-              AI 系统的长期记忆：保留原文、可按时点追问、删除可传播、团队可治理。服务是 memorus-server，命令行是 memorus-r。默认零外部依赖。
+              AI 系统的长期记忆：保留原文、旧值留作历史、删除可传播、团队可治理。服务是 memorus-server，命令行是 memorus-r。默认零外部依赖。
             </span>
           </>
         }
@@ -215,11 +215,11 @@ export default function MemorusPage() {
 
       {/* S4 时点查询演示 */}
       <Section id="as-of" labelledBy="as-of-title" width="wide">
-        <SectionTitle id="as-of-title" eyebrow="时点查询">
-          问「当时」，就答「当时」。
+        <SectionTitle id="as-of-title" eyebrow="变更历史">
+          旧值标成已被取代，检索时排在后面。
         </SectionTitle>
         <Lead className="mt-6">
-          同一件事前后改过几次，默认回答以现值为准；也可以指定一个时点，得到那时的答案，以及那时成立的那句原话。
+          同一事实出现新值时，旧记忆标成已被取代，检索时排在后面。变更历史可以按条查询。
         </Lead>
         <div className="mt-10">
           <AsOfDemo />

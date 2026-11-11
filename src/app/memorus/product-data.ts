@@ -70,8 +70,8 @@ export const PAIN_POINTS = [
     key: "facts-change",
     pain: "事实会变",
     painDetail: "预算改了三次，只记住最后一次，就答不了「当时是多少」。",
-    answer: "可以按时点追问",
-    answerDetail: "能问「三月份时预算是多少」；默认回答以现值为准，也能回到过去任一时点。",
+    answer: "旧值留作历史",
+    answerDetail: "同一事实出现新值时，旧记忆标成已被取代，检索时排在后面。变更历史可以按条查询。",
   },
   {
     key: "erasure",
@@ -93,9 +93,9 @@ export const CAPABILITIES = [
   },
   {
     key: "asof",
-    title: "时点查询",
-    tagline: "问「当时」，答「当时」",
-    body: "同一件事前后说法不同时，能区分新旧说法；默认答现值，也能按任一时点回答，并给出当时成立的原文。",
+    title: "旧值留作历史",
+    tagline: "检索时排在后面",
+    body: "同一事实出现新值时，旧记忆标成已被取代，检索时排在后面。变更历史可以按条查询。",
   },
   {
     key: "erasure",
@@ -123,7 +123,7 @@ export const CAPABILITIES = [
   },
 ] as const;
 
-// ───────────────────────── S4 时点查询演示（示例数据，纯前端）─────────────────────────
+// ───────────────────────── S4 示例时间轴（纯前端）─────────────────────────
 
 export interface AsOfEvent {
   key: string;
@@ -135,8 +135,6 @@ export interface AsOfEvent {
   quote: string;
   source: string;
 }
-
-export const ASOF_QUESTION = "项目预算是多少？";
 
 export const ASOF_EVENTS: readonly AsOfEvent[] = [
   {
