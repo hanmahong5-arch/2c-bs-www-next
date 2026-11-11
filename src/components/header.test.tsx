@@ -1,6 +1,6 @@
 import { expect, test } from "bun:test";
 import { renderToStaticMarkup } from "react-dom/server";
-import { Header, escapeClosesMenu, pathClosesMenu, closeMenuFromEscape } from "./header";
+import { Header, escapeClosesMenu, pathClosesMenu, closeMenuFromEscape, navTone } from "./header";
 import { MobilePaletteButton } from "./command-palette";
 
 test("the header is a solid sheet of paper", () => {
@@ -29,6 +29,14 @@ test("escape and a new address close the menu, and escape returns focus", () => 
   closeMenuFromEscape(true, "Escape", () => order.push("close"), () => order.push("focus"));
   closeMenuFromEscape(true, "Tab", () => order.push("close"), () => order.push("focus"));
   expect(order).toEqual(["close", "focus"]);
+});
+
+test("the current page mark is an ink underline", () => {
+  const on = navTone(true);
+  expect(on).toContain("decoration-[var(--lt-ink)]");
+  expect(on).toContain("decoration-2");
+  expect(on).not.toContain("decoration-[var(--lt-accent)]");
+  expect(navTone(false)).not.toContain("underline");
 });
 
 test("the mobile menu search is a plain word and carries no shortcut", () => {

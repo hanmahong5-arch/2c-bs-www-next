@@ -62,6 +62,13 @@ const nav: readonly NavItem[] = [
 
 const focusInk = "focus-ink";
 
+/** 当前页用 2px 墨色下划线。赭石在纸面上只有 2.74:1，不够当当前位置。 */
+export function navTone(active: boolean) {
+  return active
+    ? "text-[var(--lt-ink)] underline decoration-[var(--lt-ink)] decoration-2 underline-offset-[6px]"
+    : "text-[var(--color-text-secondary)] hover:text-[var(--lt-ink)]";
+}
+
 /** 目录开着时，Esc 把它收起。 */
 export function escapeClosesMenu(open: boolean, key: string) {
   return open && key === "Escape";
@@ -91,9 +98,7 @@ function NavLink({
   onNavigate?: () => void;
   className: string;
 }) {
-  const tone = active
-    ? "text-[var(--lt-ink)] underline decoration-[var(--lt-accent)] decoration-2 underline-offset-[6px]"
-    : "text-[var(--color-text-secondary)] hover:text-[var(--lt-ink)]";
+  const tone = navTone(active);
   if (item.external) {
     return (
       <a
