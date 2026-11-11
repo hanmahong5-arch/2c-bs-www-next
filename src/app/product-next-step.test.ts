@@ -47,6 +47,10 @@ test("kova states the page path once", () => {
   expect(src).toContain('{ label: "联系试用", href: "mailto:contact@lurus.cn", primary: true, external: true }');
   expect(src).toContain('href="/approach#intake"');
   expect(src).toContain("要联测或嵌入");
+  expect(src).toContain("禁止 cargo install lumen-cli");
+  expect(src).toContain("lumen-ai");
+  expect(src).toContain("文档站 Lumen 简介把「中断后从检查点继续」写在开头");
+  expect(src).not.toContain("LumenCheckpointer");
   expect(src).toContain("公开记录见");
   expect(src).not.toContain("客户故事见文档站");
   expect(src).not.toContain("联测与场景页");
