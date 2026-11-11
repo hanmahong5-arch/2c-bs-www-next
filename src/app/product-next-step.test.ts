@@ -37,6 +37,10 @@ test("kova states the page path once", () => {
   expect(src.match(/nextStep/g)).toHaveLength(1);
   expect(src).toContain("外部客户流量尚未承接");
   expect(src).toContain("文档站里的安装命令还不是这条路径");
+  expect(src).toContain("文档站快速开始写着五分钟和三种安装方式，并给出容器命令");
+  expect(src).toContain("要链接进你的程序，先写信");
+  expect(src).not.toContain("ghcr.io");
+  expect(src).not.toContain("docker run");
   expect(src).toContain("文档站 Kova 页给出调度延迟、吞吐和代码量，本页不转述那些数字。");
   expect(src).toContain("部署到你自己的机器，先写信。");
   expect(src).not.toContain("且可部署在你自己的机器上");
