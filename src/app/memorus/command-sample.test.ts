@@ -75,6 +75,8 @@ test("the command sample uses the measured gray edge", () => {
   expect(links).toContain("预算改了三次，只留下最后一次，更早的说法就没了。");
   expect(links).not.toContain("当时是多少");
   expect(links).not.toContain("就答不了");
+  expect(links).toContain("learn / search / forget / list 等子命令");
+  expect(links).not.toContain("forget / team");
   expect(src).toContain(
     'className="mt-10 max-w-[36rem] border border-[var(--color-text-muted)] bg-[var(--lt-paper)] px-4 py-3"',
   );
