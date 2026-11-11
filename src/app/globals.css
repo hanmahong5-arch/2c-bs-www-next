@@ -594,8 +594,10 @@ header {
 }
 
 /* 键盘焦点：1px 墨色线，外偏 4px。铺满容器的用内侧那条，避免被裁掉。
-   正文链接没有单独的类，聚焦时也走这一条，不再用浏览器的自动环。 */
+   链接、按钮和摘要没有单独的类时，聚焦也走这一条，不再用浏览器的自动环。 */
 a:focus-visible,
+button:focus-visible,
+summary:focus-visible,
 .focus-ink:focus-visible {
   outline: 1px solid var(--lt-ink);
   outline-offset: 4px;
