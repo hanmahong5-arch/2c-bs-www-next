@@ -18,7 +18,7 @@ import {
 export const metadata: Metadata = {
   title: "Lurus Hub",
   description:
-    "部署在你自己环境里的多租户 LLM 网关：统一接入多家上游模型服务，按租户计量，调用日志可检索，管理操作留审计。基于开源 New API，AGPLv3。",
+    "多租户 LLM 网关：统一接入多家上游模型服务，按租户计量，调用日志可检索，管理操作留审计。装进你自己的环境，先写信。基于开源 New API，AGPLv3。",
 };
 
 const CONTACT = "mailto:contact@lurus.cn";
@@ -66,7 +66,7 @@ export default function HubPage() {
       <ProductHeader
         name="Lurus Hub"
         maturity="内部生产使用"
-        tagline="部署在你自己环境里的多租户 LLM 网关：多家上游模型服务走同一个入口，用量按租户记账，调用日志默认开启。"
+        tagline="多家上游模型服务走同一个入口，用量按租户记账，调用日志默认开启。装进你自己的环境，先写信。"
         note={
           <>
             基于开源 New API（源自 One API），AGPLv3。我们运营的 hub.lurus.cn 按量单价见{" "}
