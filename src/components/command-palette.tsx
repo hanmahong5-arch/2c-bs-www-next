@@ -63,7 +63,7 @@ const GROUPS: Group[] = [
       { label: "Lux — 编码 Agent CLI", href: "/lux", hint: "早期试点", Icon: CommandLineIcon },
       { label: "Memorus — AI 记忆引擎", href: "/memorus", hint: "早期试点", Icon: ChartBarIcon },
       { label: "Memorus 公开基准报告", href: "/memorus/benchmarks", Icon: DocumentTextIcon },
-      { label: "Hub — 私有 LLM 网关", href: "/hub", hint: "内部生产使用", Icon: CloudArrowDownIcon },
+      { label: "Hub — 多租户 LLM 网关", href: "/hub", hint: "内部生产使用", Icon: CloudArrowDownIcon },
       { label: "Hub 按量价格", href: "/hub/pricing", hint: "与扣费同源", Icon: CurrencyYenIcon },
       { label: "Lugo — 账号与计费", href: "/lugo", hint: "内部生产使用", Icon: CurrencyYenIcon },
       { label: "Switch — AI CLI 管理器", href: "/switch", hint: "早期试点", Icon: CloudArrowDownIcon },
