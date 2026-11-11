@@ -59,6 +59,9 @@ export default function DownloadPage() {
           </a>
           读取 releases.lurus.cn 清单。
         </Lead>
+        <p className="mt-6 max-w-[44rem] text-sm leading-[1.8] text-[var(--color-text-secondary)]">
+          文档站的 Switch 页写着「当前不在主动开发中」，并给出启动时间、包体积和全平台支持。本页不转述那些数字。
+        </p>
       </Section>
 
       {/* 只有这一段依赖外部 releases.lurus.cn 的 manifest；用 Suspense 圈住，
