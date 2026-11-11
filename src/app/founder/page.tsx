@@ -139,11 +139,6 @@ export default async function FounderPage() {
           </a>
           。
         </p>
-        <p className="mt-4 text-sm leading-[1.7] text-[var(--color-text-muted)]">
-          {hasRelease
-            ? "下一步：下载后本机运行；外部合作仍先来信。"
-            : "下一步：外部先来信；内部从本机仓构建。有公开安装通道后再挂下载。"}
-        </p>
       </Section>
 
       {hasRelease && manifest ? (

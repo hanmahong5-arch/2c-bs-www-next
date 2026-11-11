@@ -118,9 +118,6 @@ export default function LuxPage() {
           </a>
           。
         </p>
-        <p className="mt-4 text-sm leading-[1.7] text-[var(--color-text-muted)]">
-          下一步：内部配好 LUX_BASE_URL 与 lux-control 再跑；外部先来信。有公开包或安装通道后再改本页 CTA。
-        </p>
       </Section>
     </>
   );
