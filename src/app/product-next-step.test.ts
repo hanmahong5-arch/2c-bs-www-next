@@ -28,6 +28,12 @@ test("kova states the page path once", () => {
   expect(src).toContain("外部客户流量尚未承接");
   expect(src).toContain('href="/approach#intake"');
   expect(src).toContain("要联测或嵌入");
+  expect(src).toContain("公开记录见");
+  expect(src).not.toContain("客户故事见文档站");
+  expect(src).not.toContain("联测与场景页");
+  const scene = src.slice(src.indexOf('id="why-ops"'), src.indexOf('id="lumen"'));
+  expect(scene).toContain("href={DOCS_JOINT}");
+  expect(scene).toContain("文档站 · 联测账本");
 });
 
 test("witness states the path once", () => {

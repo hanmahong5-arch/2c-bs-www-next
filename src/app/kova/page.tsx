@@ -168,7 +168,17 @@ export default function KovaPage() {
         <Lead className="mt-6">
           续证书、做备份、跑恢复演练，都是多步操作。中途断掉时，应该能知道做到了哪一步，
           从那里继续；事后能说清每一步做了什么；动到客户数据之前，先有人批准。
-          客户故事见文档站联测与场景页（Forge 编排 · 人批闸 · 公钥验包）。
+          公开记录见{" "}
+          <a
+            href={DOCS_JOINT}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-[var(--lt-ink)] underline decoration-[var(--color-text-muted)] underline-offset-4 hover:decoration-[var(--lt-ink)]"
+          >
+            文档站 · 联测账本
+            <NewWindowNote />
+          </a>
+          。
         </Lead>
         <ul className="mt-8 space-y-4 text-base leading-[1.8] text-[var(--color-text-secondary)]">
           <Dash>
