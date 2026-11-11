@@ -230,9 +230,10 @@ export default function Home() {
               className="hero-enter-up mt-8 flex flex-wrap items-center gap-3"
               style={{ animationDelay: "280ms" }}
             >
-              <Link href="/download" className="btn-primary">
-                下载与上手
-              </Link>
+              {/* 普通链接：整页打开后浏览器才滚到下载区。站内跳转时这一节还在加载，会停在页首。 */}
+              <a href="/switch#download" className="btn-primary">
+                下载 Switch
+              </a>
               <Link href="/approach" className="btn-secondary">
                 阅读方法
               </Link>
