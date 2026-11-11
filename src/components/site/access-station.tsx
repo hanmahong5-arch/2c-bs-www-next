@@ -18,19 +18,23 @@ export type AccessStationProps = {
   className?: string;
 };
 
+/** 带锚点或邮箱的动作整页打开。跨页锚点若走站内跳转，目标段还在加载时会停在页首。 */
+export function stationOpensAsDocument(href: string) {
+  return href.startsWith("mailto:") || href.includes("#");
+}
+
 function ActionLink({ action }: { action: AccessAction }) {
   const className = action.primary ? "btn-primary" : "btn-secondary";
-  if (action.external || action.href.startsWith("mailto:") || action.href.startsWith("#")) {
+  if (action.external || stationOpensAsDocument(action.href)) {
+    const newWindow = Boolean(action.external) && !stationOpensAsDocument(action.href);
     return (
       <a
         href={action.href}
-        {...(action.external && !action.href.startsWith("mailto:") && !action.href.startsWith("#")
-          ? { target: "_blank", rel: "noopener noreferrer" }
-          : {})}
+        {...(newWindow ? { target: "_blank", rel: "noopener noreferrer" } : {})}
         className={className}
       >
         {action.label}
-        {action.external && !action.href.startsWith("mailto:") ? (
+        {newWindow ? (
           <>
             <span aria-hidden="true">↗</span>
             <span className="sr-only">（新窗口打开）</span>
