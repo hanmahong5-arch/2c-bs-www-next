@@ -9,7 +9,7 @@ import { Eyebrow, Lead, ProductHeader, Section } from "@/components/site";
 export const metadata: Metadata = {
   title: "Forge · 工作流编排壳",
   description:
-    "可视化画布上搭建、运行与追踪 MCP-native Agent 工作流；执行留痕与崩溃恢复由 Kova 承担。现阶段为 Lurus 内部使用，不是自助注册的公开产品。",
+    "可视化画布上搭建、运行与追踪 MCP-native Agent 工作流；执行留痕与崩溃恢复由 Kova 承担。现阶段为 Lurus 内部使用。现网登录页有注册表单，本页不把它当作自助开通。",
 };
 
 const CONTACT = "mailto:contact@lurus.cn";
@@ -60,21 +60,16 @@ export default function ForgePage() {
         eyebrow="编排壳"
         maturity="内部生产使用"
         tagline="在画布上搭建、运行并追踪 MCP-native 的 AI Agent 工作流：连线成 flow，计量 token 成本，需要崩溃恢复的少数步骤交给 Kova。"
-        note="代码库以 Apache-2.0 授权；GitHub 仓目前私有。现网实例在 forge.lurus.cn。按仓库定位，这是内部工作流工具与网关路由演示，不是自助注册的公开产品。"
+        note="代码库以 Apache-2.0 授权；GitHub 仓目前私有。现网实例在 forge.lurus.cn。按仓库定位，这是内部工作流工具与网关路由演示。未登录会到登录页，页上有注册表单。"
         access={{
           actions: [
-            {
-              label: "打开现网 Forge",
-              href: FORGE_URL,
-              primary: true,
-              external: true,
-            },
+            { label: "写信询问", href: CONTACT, primary: true, external: true },
+            { label: "打开现网 Forge", href: FORGE_URL, external: true },
             { label: "了解 Kova", href: "/kova" },
             { label: "联测账本", href: DOCS_JOINT, external: true },
-            { label: "写信询问", href: CONTACT, external: true },
           ],
           nextStep:
-            "现网可打开看编排面；要自建，写信说明上游网关、工作流形态，以及是否需要 Kova。不提供自助注册入口。",
+            "要自建，先写信说明上游网关、工作流形态，以及是否需要 Kova。未登录打开现网会到登录页，页上有注册表单；本页不把它当作自助开通。",
         }}
       />
 

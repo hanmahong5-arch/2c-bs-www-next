@@ -6,7 +6,7 @@
 
 - [Lurus Witness · 见证](https://www.lurus.cn/witness): 只读采集、外部探测、真恢复演练与证据报告。成熟度：早期试点。
 - [Kova](https://www.lurus.cn/kova): 嵌入式持久执行引擎——预写日志崩溃恢复、执行留痕、可回放。成熟度：早期试点。
-- [Forge](https://www.lurus.cn/forge): 可视化工作流编排壳；崩溃恢复交给 Kova。现网可打开看编排面，不是自助注册的公开产品。成熟度：内部生产使用。
+- [Forge](https://www.lurus.cn/forge): 可视化工作流编排壳；崩溃恢复交给 Kova。现网登录页有注册表单，本站不把它当作自助开通。成熟度：内部生产使用。
 - [Founder · 获客桌面](https://www.lurus.cn/founder): 公司内部获客桌面，默认不对外部自助分发。无公网安装包时不挂下载。成熟度：早期试点。
 - [Lux](https://www.lurus.cn/lux): 编码 Agent 命令行，只走公司网关，不是桌面 GUI，也没有公开安装命令。成熟度：早期试点。
 - [Memorus](https://www.lurus.cn/memorus): AI 记忆引擎——抽取、去重、衰减、混合检索；CLI / REST / MCP。成熟度：早期试点。
