@@ -13,7 +13,8 @@ test("action buttons are a hairline on the paper", () => {
   expect(block).not.toContain("background: var(--color-ochre-dark)");
   expect(block).not.toContain("color: #fff");
   expect(block).toContain("border: 1px solid var(--lt-ink)");
-  expect(block).toContain("border: 1px solid var(--lt-rule)");
+  expect(block).toContain("border: 1px solid var(--color-text-muted)");
+  expect(block).not.toContain("border: 1px solid var(--lt-rule)");
   const hover = css.slice(css.indexOf(".btn-primary:hover"), css.indexOf(".btn-secondary {"));
   expect(hover).toContain("background: var(--lt-ink)");
   expect(hover).toContain("color: var(--lt-paper)");
