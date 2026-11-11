@@ -132,7 +132,8 @@ export default function MemorusPage() {
               <NewWindowNote />
             </a>
           </div>
-          <figure className="mt-10 max-w-[36rem] border border-[var(--lt-rule)] bg-[var(--lt-paper)] px-4 py-3">
+          {/* 示意框的边用已经量过的灰色。发丝线在纸面上只有 1.35:1。命令仍是墨色。 */}
+          <figure className="mt-10 max-w-[36rem] border border-[var(--color-text-muted)] bg-[var(--lt-paper)] px-4 py-3">
             <figcaption className="font-mono text-[11px] uppercase tracking-[0.12em] text-[var(--color-text-muted)]">
               接入示意 · 尚未上包仓库，安装见文档
             </figcaption>
