@@ -138,6 +138,15 @@ test("reduced motion shows the palette in place", () => {
   expect(moving.panel.transition.duration).toBe(0.18);
 });
 
+test("the docs row names the docs site", () => {
+  const hits = filterPaletteItems("文档站").filter((row) => row.item.href === "https://docs.lurus.cn");
+  expect(hits).toHaveLength(1);
+  expect(hits[0]?.item.label).toBe("文档站");
+  expect(hits[0]?.item.external).toBe(true);
+  expect(hits[0]?.item.hint).toBe("docs.lurus.cn");
+  expect(filterPaletteItems("API 文档").some((row) => row.item.href === "https://docs.lurus.cn")).toBe(false);
+});
+
 test("llms.txt is one plain full document", () => {
   const hits = filterPaletteItems("llms").filter((row) => row.item.href === "/llms.txt");
   expect(hits).toHaveLength(1);
