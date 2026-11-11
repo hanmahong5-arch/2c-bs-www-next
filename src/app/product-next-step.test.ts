@@ -12,3 +12,10 @@ test("forge, lux, and founder state the path once", () => {
   const forge = readFileSync("src/app/forge/page.tsx", "utf8");
   expect(forge).toContain("是否需要 Kova");
 });
+
+test("hub states the path once", () => {
+  const src = readFileSync("src/app/hub/page.tsx", "utf8");
+  expect(src).not.toContain("<NextStep");
+  expect(src.match(/nextStep/g)).toHaveLength(1);
+  expect(src).toContain("写信说明上游与网络约束");
+});
