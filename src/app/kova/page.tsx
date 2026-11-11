@@ -219,7 +219,11 @@ export default function KovaPage() {
           </Dash>
           <Dash>
             分发：CLI 可走上游 GitHub Release 二进制；SDK 从本仓库安装。不是 npm/crates 上的
-            Lurus 商店 SKU；crates.io 上同名包是无关项目。
+            Lurus 商店 SKU。文档站写明禁止 cargo install lumen-cli：那是 crates.io 上的无关包。PyPI
+            上的名字是 lumen-ai，未发布时从源码安装。
+          </Dash>
+          <Dash>
+            文档站 Lumen 简介把「中断后从检查点继续」写在开头。本页的 Kova 预写日志回放仍在计划中。
           </Dash>
           <Dash>
             下一步：要联测或嵌入，先读{" "}
