@@ -53,6 +53,7 @@ test("approach states the letter path once, beside the intake list", () => {
   const src = readFileSync("src/app/approach/page.tsx", "utf8");
   expect(src.match(/<NextStep/g)).toHaveLength(1);
   expect(src).toContain("按上面的清单写清环境现状与目标");
+  expect(src.slice(src.indexOf("<NextStep"), src.indexOf("</NextStep>"))).toContain("max-w-[44rem]");
   expect(src).not.toContain("按上方清单来信");
   expect(src).not.toContain("我们读后回复是否接");
   const intake = src.indexOf('id="intake"');

@@ -387,7 +387,7 @@ export default function ApproachPage() {
           meta="不报价，不收集密码"
           className="mt-8"
         />
-        <NextStep>
+        <NextStep className="max-w-[44rem]">
           按上面的清单写清环境现状与目标，寄到 {CONTACT_EMAIL}；我回复是否适合现阶段，以及硬化与受托运维怎么分期。
         </NextStep>
       </Section>
