@@ -33,12 +33,40 @@ const ENTRIES = [
   },
 ] as const;
 
+const PRODUCTS = [
+  {
+    path: "/forge",
+    title: "Forge",
+    note: "可视化工作流编排壳；崩溃恢复交给 Kova。现网可打开看编排面，不是自助注册的公开产品。成熟度：内部生产使用。",
+  },
+  {
+    path: "/founder",
+    title: "Founder · 获客桌面",
+    note: "公司内部获客桌面，默认不对外部自助分发。无公网安装包时不挂下载。成熟度：早期试点。",
+  },
+  {
+    path: "/lux",
+    title: "Lux",
+    note: "编码 Agent 命令行，只走公司网关，不是桌面 GUI，也没有公开安装命令。成熟度：早期试点。",
+  },
+  {
+    path: "/switch",
+    title: "Switch",
+    note: "桌面 AI CLI 管家：配置、本地网关、MCP 与快照。目前只有 Windows 版经过启动验证。成熟度：早期试点。",
+  },
+] as const;
+
 /**
  * `/llms.txt` 里给采购与模型看的六行。
  * `public/llms.txt` 手写同一行；请求时不生成文件。
  */
 export function llmsIndexLines(): readonly string[] {
   return ENTRIES.map((entry) => `- [${entry.title}](${ORIGIN}${entry.path}): ${entry.note}`);
+}
+
+/** 构件段里补上已经有页面的四条。可核对入口仍是上面六行。 */
+export function llmsProductLines(): readonly string[] {
+  return PRODUCTS.map((entry) => `- [${entry.title}](${ORIGIN}${entry.path}): ${entry.note}`);
 }
 
 export function llmsIndexPaths(): readonly string[] {
