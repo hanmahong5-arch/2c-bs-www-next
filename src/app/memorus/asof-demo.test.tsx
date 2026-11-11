@@ -8,4 +8,6 @@ test("the valid event and its quote are marked in ink", () => {
   expect(html).toContain("border-t-2 pt-3 transition-colors duration-200 motion-reduce:transition-none border-[var(--lt-ink)]");
   expect(html).toContain("border-l-2 border-[var(--lt-ink)]");
   expect(html).not.toContain("border-[var(--lt-accent)]");
+  expect(html).toContain("hover:border-[var(--lt-ink)]");
+  expect(html).not.toContain("color-border-hover");
 });
