@@ -97,6 +97,10 @@ export async function SwitchDownloadSection() {
             </p>
           )}
 
+          <p className="mt-6 text-sm leading-[1.8] text-[var(--color-text-secondary)]">
+            目前只有 Windows 版经过启动验证；macOS 与 Linux 版只保证能构建，还没有做运行验证。
+          </p>
+
           <ul className="mt-6 border-t border-[var(--lt-rule)]">
             {files.map((f) => {
               const meta = FILE_LABELS[f.filename];
@@ -135,10 +139,6 @@ export async function SwitchDownloadSection() {
               ))}
             </div>
           </details>
-
-          <p className="mt-6 text-sm leading-[1.8] text-[var(--color-text-secondary)]">
-            目前只有 Windows 版经过启动验证；macOS 与 Linux 版只保证能构建，还没有做运行验证。
-          </p>
         </div>
       ) : (
         <div className="mt-8 text-sm text-[var(--color-text-muted)]">
