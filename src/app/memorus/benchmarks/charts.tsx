@@ -57,8 +57,9 @@ export interface BarDatum {
   strong?: boolean;
 }
 
+/** 轨道的边用已经量过的灰色。发丝线在纸面上只有 1.35:1，空出来的刻度看不清。数值仍写在右边。 */
 const TRACK =
-  "relative block h-3.5 border border-[var(--lt-rule)] bg-[var(--lt-bg)]";
+  "relative block h-3.5 border border-[var(--color-text-muted)] bg-[var(--lt-bg)]";
 
 /** 参照刻度：墨色竖线伸出轨道上下，外描一圈纸色，落在墨色条上也分得清（非文本对比 ≥ 3:1）。 */
 const REF_TICK = "w-[3px] bg-[var(--lt-ink)] shadow-[0_0_0_1px_var(--lt-paper)]";
