@@ -416,7 +416,10 @@ export default function MemorusPage() {
             LoCoMo 的短轮次检索仍是短板（轮次级 any@10 {fmt(LOCOMO.turnRetrieval[1].any10)}）；
             评测里用到的词法清理与「整本会话 + 尾部命中轮」目前只在评测链路里，尚未进产品默认配置。
           </Item>
-          <Item>零配置默认不带真实的语义嵌入；要做语义检索，需要配置嵌入服务。</Item>
+          <Item>
+            零配置默认是确定性的哈希向量，不带语义。这时语义层不起作用，检索主要靠关键词。要做语义检索，需要配置嵌入服务，或用{" "}
+            <Code>onnx-embedding</Code> 构建选项打开本地嵌入。
+          </Item>
           <Item>数据模型带来源字段；目前经服务接口写入的记忆还没有来源记录。</Item>
           <Item>MCP 的服务端 HTTP 端点目前仅支持单租户；多租户请走 REST。</Item>
           <Item>备份中的副本尚未纳入删除传播，正在建设。</Item>
