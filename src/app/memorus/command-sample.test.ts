@@ -34,6 +34,8 @@ test("the command sample uses the measured gray edge", () => {
   expect(links).not.toContain("用词分布");
   expect(links).toContain("未设路径时为内存态");
   expect(links).not.toContain("数据落在本地一个文件里");
+  expect(links).toContain("对陈旧记忆默认只标注");
+  expect(links).not.toContain("旧结论不会悄悄混进回答");
   expect(src).toContain(
     'className="mt-10 max-w-[36rem] border border-[var(--color-text-muted)] bg-[var(--lt-paper)] px-4 py-3"',
   );
