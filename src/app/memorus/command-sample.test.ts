@@ -12,7 +12,8 @@ test("the command sample uses the measured gray edge", () => {
   expect(links).toContain('quickstart: "https://docs.lurus.cn/memx/quickstart"');
   expect(links).toContain("其他向量库后端要在构建时显式开启");
   expect(links).not.toContain("改一行配置");
-  expect(src).toContain("这时语义层不起作用，检索主要靠关键词");
+  expect(src).toContain("这时语义层不起作用。没有查询向量时，融合权重变为 1.0 / 0.0，退化为纯关键词。");
+  expect(src).not.toContain("检索主要靠关键词");
   expect(src).toContain("中文按字符二元组切词，不是词典分词。");
   expect(src).toContain("onnx-embedding");
   expect(src).not.toContain("零配置默认不带真实的语义嵌入");
