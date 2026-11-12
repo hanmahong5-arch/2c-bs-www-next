@@ -104,6 +104,7 @@ test("the command sample uses the measured gray edge", () => {
   expect(links).not.toContain("REDACTED");
   expect(links.match(/默认抽取是本地规则，不调用外部模型/g)).toHaveLength(2);
   expect(links.match(/hybrid 与 llm 需要另行开启并配置模型服务/g)).toHaveLength(2);
+  expect(links.match(/默认的 rules 模式由这五条规则识别：错误修复（ErrorFix）、多次重试后成功（RetrySuccess）、配置变更（ConfigChange）、首次使用新工具（NewTool）、重复操作（RepetitiveOp）。/g)).toHaveLength(2);
   expect(links.match(/关掉之后，写入不再脱敏、不再抽取，也不再去重/g)).toHaveLength(2);
   expect(links).not.toContain("原话完整保留");
   expect(links).not.toContain("不是二手摘要");
