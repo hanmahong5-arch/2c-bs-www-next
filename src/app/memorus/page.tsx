@@ -298,7 +298,7 @@ export default function MemorusPage() {
               <h3 className="font-display text-lg font-semibold leading-[1.4] text-[var(--lt-ink)]">进客户环境</h3>
               <p className="mt-2 text-[15px] leading-[1.8] text-[var(--color-text-secondary)]">
                 有面向客户环境的 Docker Compose 部署包：一个应用容器加一个一次性初始化容器，内置 SQLite 存储。
-                所有持久数据落在一个命名卷上。不依赖我们这边的任何基础设施；镜像可随交付以离线包提供，并附 SHA256 校验和。校验命令是 sha256sum -c SHA256SUMS。快速开始里的命令假定交付包已经在手里。本页不提供公开镜像。
+                所有持久数据落在一个命名卷上。不依赖我们这边的任何基础设施；镜像可随交付以离线包提供，并附 SHA256 校验和。校验命令是 sha256sum -c SHA256SUMS。没有离线包时，可以从源码构建，步骤在交付包内的 deploy/customer/INSTALL.md。快速开始里的命令假定交付包已经在手里。本页不提供公开镜像。
               </p>
             </li>
           </ul>
