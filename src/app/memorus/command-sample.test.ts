@@ -107,6 +107,9 @@ test("the command sample uses the measured gray edge", () => {
   expect(src).not.toContain("主流编码助手");
   expect(src).not.toContain("智能体框架");
   expect(links).toContain("记忆操作以工具形式暴露");
+  expect(links).toContain(
+    "目前是这 9 个：search_memory、add_memory、list_memories、forget_memory、memory_status、detect_conflicts、run_decay_sweep、export_memories、import_memories。",
+  );
   expect(links).not.toContain("主流编码助手");
   expect(src).toContain("无召回时，记忆权重默认 30 天减半");
   expect(src).toContain("每次召回的回升系数默认是 0.1，权重上限仍是满值。");
