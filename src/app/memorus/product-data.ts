@@ -263,7 +263,7 @@ export const LATENCY: {
 };
 
 export const DEPLOY_FACTS = [
-  { key: "binary", title: "两个可执行文件", body: "服务是 memorus-server，命令行是 memorus-r。后台进程的命令是 memorus-server daemon。引擎是 Rust 实现的原创工作区，不是任何上游项目的分支或移植。不需要先装运行时或数据库。" },
+  { key: "binary", title: "两个可执行文件", body: "服务是 memorus-server，命令行是 memorus-r。后台进程的命令是 memorus-server daemon。引擎是 Rust 实现的原创工作区，不是任何上游项目的分支或移植。文档里称它为 MemX，工程名是 memorus。不需要先装运行时或数据库。" },
   { key: "sqlite", title: "默认 SQLite", body: "未设路径时为内存态。默认不依赖外部数据库、缓存或消息队列。配置文件在 ~/.memorus-r/config.toml，各项归到 [memory]、[ace] 等表下。" },
   { key: "no-db", title: "无需外部数据库", body: "默认构建只链接 SQLite。其他向量库后端要在构建时显式开启。" },
   {
