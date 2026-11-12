@@ -64,7 +64,7 @@ export const PAIN_POINTS = [
     pain: "什么都存下来",
     painDetail: "密钥和整段对话会一起留下。",
     answer: "先脱敏，再抽取",
-    answerDetail: "默认写入前先脱敏，再从对话里抽取值得留下的事实。默认抽取是本地规则，不调用外部模型；hybrid 与 llm 需要另行开启并配置模型服务。配置键是 [ace.reflector] mode，默认 rules，也可以是 hybrid 或 llm。默认的 rules 模式由这五条规则识别：错误修复（ErrorFix）、多次重试后成功（RetrySuccess）、配置变更（ConfigChange）、首次使用新工具（NewTool）、重复操作（RepetitiveOp）。每条候选有 0 到 100 的教学价值评分，低于 [ace.reflector] min_score（默认 30）的会被丢弃。留下的记忆按两个维度分类。主题（Section）是 commands、debugging、architecture、workflow、tools、patterns、preferences、general。性质（KnowledgeType）是 method、trick、pitfall、preference、knowledge。脱敏失败时这次写入不落库，不会把原文存进去。默认脱敏是 13 层内置规则，自定义正则是另外加上的。这 13 层内置规则不能单独关闭或移除，只能通过 [privacy] redaction_patterns 追加。这 13 层覆盖密钥与令牌、邮箱、电话、银行卡号、社会保障号、私钥、数据库连接串和本地用户路径。配置里的自定义正则无法编译时，服务直接报错，不会静默跳过。这套默认流程可以关掉；关掉之后，写入不再脱敏、不再抽取，也不再去重。经服务接口写入的记忆目前还没有来源记录。",
+    answerDetail: "默认写入前先脱敏，再从对话里抽取值得留下的事实。默认抽取是本地规则，不调用外部模型；hybrid 与 llm 需要另行开启并配置模型服务。配置键是 [ace.reflector] mode，默认 rules，也可以是 hybrid 或 llm。默认的 rules 模式由这五条规则识别：错误修复（ErrorFix）、多次重试后成功（RetrySuccess）、配置变更（ConfigChange）、首次使用新工具（NewTool）、重复操作（RepetitiveOp）。每条候选有 0 到 100 的教学价值评分，低于 [ace.reflector] min_score（默认 30）的会被丢弃。留下的记忆按两个维度分类。主题（Section）是 commands、debugging、architecture、workflow、tools、patterns、preferences、general。性质（KnowledgeType）是 method、trick、pitfall、preference、knowledge。脱敏失败时这次写入不落库，不会把原文存进去。默认脱敏是 13 层内置规则，自定义正则是另外加上的。这 13 层内置规则不能单独关闭或移除，只能通过 [privacy] redaction_patterns 追加。这 13 层覆盖密钥与令牌、邮箱、电话、银行卡号、社会保障号、私钥、数据库连接串和本地用户路径。这 13 层按从具体到一般的顺序依次应用。配置里的自定义正则无法编译时，服务直接报错，不会静默跳过。这套默认流程可以关掉；关掉之后，写入不再脱敏、不再抽取，也不再去重。经服务接口写入的记忆目前还没有来源记录。",
   },
   {
     key: "facts-change",
@@ -89,7 +89,7 @@ export const CAPABILITIES = [
     key: "raw",
     title: "先脱敏，再抽取",
     tagline: "默认从对话里抽取",
-    body: "默认写入前先脱敏，再从对话里抽取值得留下的事实。默认抽取是本地规则，不调用外部模型；hybrid 与 llm 需要另行开启并配置模型服务。配置键是 [ace.reflector] mode，默认 rules，也可以是 hybrid 或 llm。默认的 rules 模式由这五条规则识别：错误修复（ErrorFix）、多次重试后成功（RetrySuccess）、配置变更（ConfigChange）、首次使用新工具（NewTool）、重复操作（RepetitiveOp）。每条候选有 0 到 100 的教学价值评分，低于 [ace.reflector] min_score（默认 30）的会被丢弃。留下的记忆按两个维度分类。主题（Section）是 commands、debugging、architecture、workflow、tools、patterns、preferences、general。性质（KnowledgeType）是 method、trick、pitfall、preference、knowledge。脱敏失败时这次写入不落库，不会把原文存进去。默认脱敏是 13 层内置规则，自定义正则是另外加上的。这 13 层内置规则不能单独关闭或移除，只能通过 [privacy] redaction_patterns 追加。这 13 层覆盖密钥与令牌、邮箱、电话、银行卡号、社会保障号、私钥、数据库连接串和本地用户路径。配置里的自定义正则无法编译时，服务直接报错，不会静默跳过。这套默认流程可以关掉；关掉之后，写入不再脱敏、不再抽取，也不再去重。经服务接口写入的记忆目前还没有来源记录。",
+    body: "默认写入前先脱敏，再从对话里抽取值得留下的事实。默认抽取是本地规则，不调用外部模型；hybrid 与 llm 需要另行开启并配置模型服务。配置键是 [ace.reflector] mode，默认 rules，也可以是 hybrid 或 llm。默认的 rules 模式由这五条规则识别：错误修复（ErrorFix）、多次重试后成功（RetrySuccess）、配置变更（ConfigChange）、首次使用新工具（NewTool）、重复操作（RepetitiveOp）。每条候选有 0 到 100 的教学价值评分，低于 [ace.reflector] min_score（默认 30）的会被丢弃。留下的记忆按两个维度分类。主题（Section）是 commands、debugging、architecture、workflow、tools、patterns、preferences、general。性质（KnowledgeType）是 method、trick、pitfall、preference、knowledge。脱敏失败时这次写入不落库，不会把原文存进去。默认脱敏是 13 层内置规则，自定义正则是另外加上的。这 13 层内置规则不能单独关闭或移除，只能通过 [privacy] redaction_patterns 追加。这 13 层覆盖密钥与令牌、邮箱、电话、银行卡号、社会保障号、私钥、数据库连接串和本地用户路径。这 13 层按从具体到一般的顺序依次应用。配置里的自定义正则无法编译时，服务直接报错，不会静默跳过。这套默认流程可以关掉；关掉之后，写入不再脱敏、不再抽取，也不再去重。经服务接口写入的记忆目前还没有来源记录。",
   },
   {
     key: "asof",
