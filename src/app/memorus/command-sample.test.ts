@@ -28,6 +28,7 @@ test("the command sample uses the measured gray edge", () => {
   expect(src.match(/默认不依赖外部数据库、缓存或消息队列。/g)).toHaveLength(3);
   expect(src).not.toContain("零外部依赖");
   expect(links).toContain("未设路径时为内存态。默认不依赖外部数据库、缓存或消息队列。");
+  expect(links).toContain("配置文件在 ~/.memorus-r/config.toml，各项归到 [memory]、[ace] 等表下。");
   expect(links).not.toContain("零外部依赖");
   expect(src).not.toContain("单个二进制");
   expect(src).not.toContain("一个文件，默认零依赖");
