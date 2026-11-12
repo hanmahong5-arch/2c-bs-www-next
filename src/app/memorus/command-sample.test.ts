@@ -99,6 +99,7 @@ test("the command sample uses the measured gray edge", () => {
   expect(links.match(/不会把原文存进去。/g)).toHaveLength(2);
   expect(links.match(/配置里的自定义正则无法编译时，服务直接报错，不会静默跳过。/g)).toHaveLength(2);
   expect(links.match(/默认脱敏是 13 层内置规则，自定义正则是另外加上的。/g)).toHaveLength(2);
+  expect(links.match(/这 13 层内置规则不能单独关闭或移除，只能通过 \[privacy\] redaction_patterns 追加。/g)).toHaveLength(2);
   expect(links.match(/这 13 层覆盖密钥与令牌、邮箱、电话、银行卡号、社会保障号、私钥、数据库连接串和本地用户路径。/g)).toHaveLength(2);
   expect(links).not.toContain("REDACTED");
   expect(links.match(/默认抽取是本地规则，不调用外部模型/g)).toHaveLength(2);

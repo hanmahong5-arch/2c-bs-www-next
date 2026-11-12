@@ -425,3 +425,5 @@
 **本轮第二百零二刀：** Memorus 写明导出和导入的命令是 memorus-r export、memorus-r import。看完整基准仍是主按钮。
 
 **本轮第二百零三刀：** Memorus 写明只核对陈旧锚点时用 memorus-r verify --stale-only。看完整基准仍是主按钮。
+
+**本轮第二百零四刀：** Memorus 写明 13 层内置脱敏不能单独关闭或移除，只能通过 [privacy] redaction_patterns 追加。看完整基准仍是主按钮。
