@@ -32,6 +32,7 @@ test("the command sample uses the measured gray edge", () => {
   expect(src).not.toContain("单个二进制");
   expect(src).not.toContain("一个文件，默认零依赖");
   expect(links).toContain("服务是 memorus-server，命令行是 memorus-r");
+  expect(links).toContain("后台进程的命令是 memorus-server daemon。");
   expect(links).not.toContain("单个二进制");
   expect(links).not.toContain("一个可执行文件即可运行");
   expect(links.match(/按密钥区分租户，默认关闭/g)).toHaveLength(2);
