@@ -423,6 +423,10 @@ export default function MemorusPage() {
             <Code>onnx-embedding</Code> 构建选项打开本地嵌入。
           </Item>
           <Item>数据模型带来源字段；目前经服务接口写入的记忆还没有来源记录。</Item>
+          <Item>
+            无召回时，记忆权重默认 30 天减半。新记忆有 7 天保护期，权重保持满值。清理要另外触发：命令行{" "}
+            <Code>memorus-r sweep</Code>，或 MCP 工具 <Code>run_decay_sweep</Code>。
+          </Item>
           <Item>MCP 的服务端 HTTP 端点目前仅支持单租户；多租户请走 REST。</Item>
           <Item>备份中的副本尚未纳入删除传播，正在建设。</Item>
           <Item>读写延迟尚未系统测量，所以不报。</Item>
