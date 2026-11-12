@@ -303,7 +303,7 @@ export const INTEGRATIONS = [
   {
     key: "mcp",
     title: "MCP",
-    body: "本地 stdio，命令是 memorus-server mcp；或服务端 HTTP 端点。记忆操作以工具形式暴露。目前是这 9 个：search_memory、add_memory、list_memories、forget_memory、memory_status、detect_conflicts、run_decay_sweep、export_memories、import_memories。",
+    body: "本地 stdio，命令是 memorus-server mcp。服务端 HTTP 端点随 memorus-server serve 提供，路径是 POST /mcp。记忆操作以工具形式暴露。目前是这 9 个：search_memory、add_memory、list_memories、forget_memory、memory_status、detect_conflicts、run_decay_sweep、export_memories、import_memories。",
     code: null,
   },
   { key: "bindings", title: "语言绑定", body: "Python、Node 与 C FFI 在你自己的进程里调用同一套引擎。WASM 绑定是另一套独立实现。", code: null },

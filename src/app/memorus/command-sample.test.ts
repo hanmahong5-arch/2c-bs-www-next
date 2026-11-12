@@ -107,7 +107,8 @@ test("the command sample uses the measured gray edge", () => {
   expect(src).not.toContain("主流编码助手");
   expect(src).not.toContain("智能体框架");
   expect(links).toContain("记忆操作以工具形式暴露");
-  expect(links).toContain("本地 stdio，命令是 memorus-server mcp；或服务端 HTTP 端点。");
+  expect(links).toContain("本地 stdio，命令是 memorus-server mcp。");
+  expect(links).toContain("服务端 HTTP 端点随 memorus-server serve 提供，路径是 POST /mcp。");
   expect(links).toContain(
     "目前是这 9 个：search_memory、add_memory、list_memories、forget_memory、memory_status、detect_conflicts、run_decay_sweep、export_memories、import_memories。",
   );
