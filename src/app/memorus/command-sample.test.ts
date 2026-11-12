@@ -83,7 +83,8 @@ test("the command sample uses the measured gray edge", () => {
   expect(src).toContain("先脱敏再抽取");
   expect(src).not.toContain("保留原文");
   expect(links).toContain("默认写入前先脱敏，再从对话里抽取值得留下的事实");
-  expect(links).toContain("脱敏失败时这次写入不落库");
+  expect(links).toContain("脱敏失败时这次写入不落库，不会把原文存进去。");
+  expect(links.match(/不会把原文存进去。/g)).toHaveLength(2);
   expect(links.match(/配置里的自定义正则无法编译时，服务直接报错，不会静默跳过。/g)).toHaveLength(2);
   expect(links.match(/默认脱敏是 13 层内置规则，自定义正则是另外加上的。/g)).toHaveLength(2);
   expect(links.match(/这 13 层覆盖密钥与令牌、邮箱、电话、银行卡号、社会保障号、私钥、数据库连接串和本地用户路径。/g)).toHaveLength(2);
