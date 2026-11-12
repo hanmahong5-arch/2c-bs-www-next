@@ -433,7 +433,7 @@ export default function MemorusPage() {
             <Code>memorus-r conflicts</Code> 可以查看。有嵌入时用余弦相似度，没有嵌入时用词集合的 Jaccard 相似度。
           </Item>
           <Item>
-            无召回时，记忆权重默认 30 天减半。一次命中让这条记忆的召回次数加一。每次召回的回升系数默认是 0.1，权重上限仍是满值。新记忆有 7 天保护期，权重保持满值。召回次数达到 15 次后，这条记忆不再衰减。清理要另外触发：命令行{" "}
+            无召回时，记忆权重默认 30 天减半。一次命中让这条记忆的召回次数加一。每次召回的回升系数默认是 0.1，权重上限仍是满值。权重等于 2 的负（已过天数 / 半衰期）次方，乘以（1 + 回升系数 × 召回次数），上限 1.0。新记忆有 7 天保护期，权重保持满值。召回次数达到 15 次后，这条记忆不再衰减。清理要另外触发：命令行{" "}
             <Code>memorus-r sweep</Code>，或 MCP 工具 <Code>run_decay_sweep</Code>。权重低于 0.02 的记忆，清理时移出活跃检索，不是删除。半衰期、回升系数、保护期、停止衰减的次数，以及移出活跃检索的阈值，在配置里是 [ace.decay] 的 half_life、boost_factor、protection_days、permanent_threshold、archive_threshold。
           </Item>
           <Item>检索打分时，7 天内的新记忆最多加成 20%，随天数线性归零。</Item>
