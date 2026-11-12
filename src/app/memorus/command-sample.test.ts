@@ -50,6 +50,7 @@ test("the command sample uses the measured gray edge", () => {
   expect(links).toContain("未设路径时为内存态");
   expect(links).not.toContain("数据落在本地一个文件里");
   expect(links).toContain("对陈旧记忆默认只标注，也可以配置为降权或剔除。");
+  expect(links).toContain("结果标成 verified（已核验）、stale（陈旧）或 unverifiable（无法核验）。");
   expect(links).toContain("配置项是 [ace.verification] policy，默认 flag 只标注，demote 降权，drop 剔除。");
   expect(links).toContain("命令行 memorus-r verify 可以批量核对。");
   expect(links).toContain("只核对陈旧的锚点记忆时，命令是 memorus-r verify --stale-only。");

@@ -445,3 +445,5 @@
 **本轮第二百一十二刀：** Memorus 写明导出时输出文件用 -o 指定。看完整基准仍是主按钮。
 
 **本轮第二百一十三刀：** Memorus 写明作用域因子的配置键是 [ace.retrieval] scope_boost，命中时乘以 1.5。看完整基准仍是主按钮。
+
+**本轮第二百一十四刀：** Memorus 写明核验状态是 verified（已核验）、stale（陈旧）、unverifiable（无法核验）。看完整基准仍是主按钮。
