@@ -297,7 +297,7 @@ export const INTEGRATIONS = [
   {
     key: "rest",
     title: "REST",
-    body: "非本机地址启动时必须配置 API 密钥，否则拒绝启动。按密钥区分租户，默认关闭。按用户擦除的接口是 POST /api/v1/users/{user_id}/erase。",
+    body: "非本机地址启动时必须配置 API 密钥，否则拒绝启动。请求头用 Authorization: Bearer <key>，或 X-API-Key: <key>。按密钥区分租户，默认关闭。按用户擦除的接口是 POST /api/v1/users/{user_id}/erase。",
     code: "GET /api/v1/status",
   },
   {
