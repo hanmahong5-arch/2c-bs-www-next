@@ -339,3 +339,5 @@
 **本轮第一百五十九刀：** Memorus 命令行不再把 team 写成子命令。文档里的常用子命令是 learn、search、forget、list，另有 status、sweep、conflicts、verify、export、import。示例命令仍是 memorus-r search。看完整基准仍是主按钮。
 
 **本轮第一百六十刀：** Memorus 示例时间轴不再在原话下面写「会话、第几轮、谁说的」。经服务接口写入的记忆目前还没有来源记录。时间轴只留下日期和这一句。看完整基准仍是主按钮。
+
+**本轮第一百六十一刀：** Memorus 接入段不再写「可通过 MCP 接入主流编码助手与智能体框架」。MCP 把记忆操作暴露为工具：本地 stdio，或服务端 HTTP 端点。看完整基准仍是主按钮。

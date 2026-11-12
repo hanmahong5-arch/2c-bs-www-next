@@ -79,6 +79,11 @@ test("the command sample uses the measured gray edge", () => {
   expect(links).not.toContain("forget / team");
   expect(links).not.toContain("会话 #");
   expect(links).not.toContain("第 4 轮");
+  expect(src).toContain("MCP 把记忆操作暴露为工具");
+  expect(src).not.toContain("主流编码助手");
+  expect(src).not.toContain("智能体框架");
+  expect(links).toContain("记忆操作以工具形式暴露");
+  expect(links).not.toContain("主流编码助手");
   expect(src).toContain(
     'className="mt-10 max-w-[36rem] border border-[var(--color-text-muted)] bg-[var(--lt-paper)] px-4 py-3"',
   );
