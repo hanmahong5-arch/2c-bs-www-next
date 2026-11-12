@@ -9,6 +9,7 @@ test("the command sample uses the measured gray edge", () => {
   expect(src).toContain("本页不提供公开镜像");
   expect(src).toContain("所有持久数据落在一个命名卷上。");
   expect(src).toContain("并附 SHA256 校验和。校验命令是 sha256sum -c SHA256SUMS。");
+  expect(src).toContain("加载离线镜像后，把输出的镜像标签填入 .env 的 MEMORUS_IMAGE。");
   expect(src).toContain("没有离线包时，可以从源码构建，步骤在交付包内的 deploy/customer/INSTALL.md。");
   expect(src).toContain(
     "使用随交付提供的离线镜像包时，需要 Docker Engine 与 Docker Compose v2，不需要外网，也不需要 Rust 工具链。",
