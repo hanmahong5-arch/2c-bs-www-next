@@ -269,7 +269,7 @@ export const DEPLOY_FACTS = [
   {
     key: "surfaces",
     title: "REST · MCP · CLI · 绑定",
-    body: "REST 接口、MCP 服务和命令行是同一套引擎，并有 Python / Node 绑定。WASM 绑定是另一套独立实现。",
+    body: "REST 接口、MCP 服务和命令行是同一套引擎，并有 Python、Node 与 C FFI 绑定。WASM 绑定是另一套独立实现。",
   },
 ] as const;
 
@@ -306,5 +306,5 @@ export const INTEGRATIONS = [
     body: "本地 stdio，或服务端 HTTP 端点。记忆操作以工具形式暴露。",
     code: null,
   },
-  { key: "bindings", title: "语言绑定", body: "Python 与 Node 在你自己的进程里调用同一套引擎。WASM 绑定是另一套独立实现。", code: null },
+  { key: "bindings", title: "语言绑定", body: "Python、Node 与 C FFI 在你自己的进程里调用同一套引擎。WASM 绑定是另一套独立实现。", code: null },
 ] as const;
