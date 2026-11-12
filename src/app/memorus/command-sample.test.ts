@@ -101,6 +101,7 @@ test("the command sample uses the measured gray edge", () => {
   expect(src).toContain("无召回时，记忆权重默认 30 天减半");
   expect(src).toContain("每次召回的回升系数默认是 0.1，权重上限仍是满值。");
   expect(src).toContain("新记忆有 7 天保护期，权重保持满值");
+  expect(src).toContain("检索打分时，7 天内的新记忆最多加成 20%，随天数线性归零。");
   expect(src).toContain("召回次数达到 15 次后，这条记忆不再衰减。");
   expect(src).toContain("memorus-r sweep");
   expect(src).toContain("run_decay_sweep");
