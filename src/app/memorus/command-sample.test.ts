@@ -95,6 +95,7 @@ test("the command sample uses the measured gray edge", () => {
   expect(src).toContain("落在 0.5 到 0.8 且互相矛盾的会被标出");
   expect(src).toContain("memorus-r conflicts");
   expect(src).toContain("没有嵌入时用词集合的 Jaccard 相似度");
+  expect(src).toContain("写入时显式带了源文件锚点的记忆不走抽取，但仍先经过同一套脱敏。");
   expect(src).toContain(
     'className="mt-10 max-w-[36rem] border border-[var(--color-text-muted)] bg-[var(--lt-paper)] px-4 py-3"',
   );

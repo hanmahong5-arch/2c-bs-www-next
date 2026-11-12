@@ -423,6 +423,7 @@ export default function MemorusPage() {
             <Code>onnx-embedding</Code> 构建选项打开本地嵌入。
           </Item>
           <Item>数据模型带来源字段；目前经服务接口写入的记忆还没有来源记录。</Item>
+          <Item>写入时显式带了源文件锚点的记忆不走抽取，但仍先经过同一套脱敏。</Item>
           <Item>
             新记忆与已有记忆比对相似度。默认达到 0.9 时合并，几乎相同时直接跳过。落在 0.5 到 0.8 且互相矛盾的会被标出，命令行{" "}
             <Code>memorus-r conflicts</Code> 可以查看。有嵌入时用余弦相似度，没有嵌入时用词集合的 Jaccard 相似度。
