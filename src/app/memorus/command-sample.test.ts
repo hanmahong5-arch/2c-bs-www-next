@@ -59,6 +59,7 @@ test("the command sample uses the measured gray edge", () => {
   expect(links).toContain("请求头用 Authorization: Bearer <key>，或 X-API-Key: <key>。");
   expect(links).toContain("密钥用启动参数 --api-key，或环境变量 MEMORUS_API_KEY。");
   expect(links).toContain("健康检查是 GET /health。");
+  expect(links).toContain("写入是 POST /api/v1/memories。检索是 GET /api/v1/memories/search。");
   expect(links).not.toContain("GET /api/v1/status");
   expect(links).not.toContain("任何统计量不跨租户");
   expect(links).not.toContain("用词分布");
