@@ -142,6 +142,7 @@ test("the command sample uses the measured gray edge", () => {
   expect(links).toContain(
     "记错了的内容，用 memorus-r list 或 memorus-r conflicts 找到，用 memorus-r forget 带上记忆编号删除，用 memorus-r learn 手动写入正确内容。",
   );
+  expect(links).toContain("列出时，条数用 --limit 指定。");
   expect(links).not.toContain("forget / team");
   expect(links).not.toContain("会话 #");
   expect(links).not.toContain("第 4 轮");
