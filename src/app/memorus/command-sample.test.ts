@@ -10,6 +10,9 @@ test("the command sample uses the measured gray edge", () => {
   expect(src).toContain("所有持久数据落在一个命名卷上。");
   expect(src).toContain("并附 SHA256 校验和。校验命令是 sha256sum -c SHA256SUMS。");
   expect(src).toContain("没有离线包时，可以从源码构建，步骤在交付包内的 deploy/customer/INSTALL.md。");
+  expect(src).toContain(
+    "使用随交付提供的离线镜像包时，需要 Docker Engine 与 Docker Compose v2，不需要外网，也不需要 Rust 工具链。",
+  );
   expect(src).not.toContain("安装见");
   expect(src).toContain("href={LINKS.quickstart}");
   expect(links).toContain('quickstart: "https://docs.lurus.cn/memx/quickstart"');

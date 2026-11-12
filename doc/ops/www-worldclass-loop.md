@@ -471,3 +471,5 @@
 **本轮第二百二十五刀：** Memorus 写明离线镜像附 SHA256 校验和，校验命令是 sha256sum -c SHA256SUMS。看完整基准仍是主按钮。
 
 **本轮第二百二十六刀：** Memorus 写明没有离线包时可以从源码构建，步骤在交付包内的 deploy/customer/INSTALL.md。看完整基准仍是主按钮。
+
+**本轮第二百二十七刀：** Memorus 写明离线镜像包需要 Docker Engine 与 Compose v2，不需要外网，也不需要 Rust 工具链。看完整基准仍是主按钮。
