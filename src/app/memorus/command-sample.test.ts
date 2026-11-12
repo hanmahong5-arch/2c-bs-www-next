@@ -127,7 +127,7 @@ test("the command sample uses the measured gray edge", () => {
   expect(links).not.toContain("主流编码助手");
   expect(src).toContain("无召回时，记忆权重默认 30 天减半");
   expect(src).toContain(
-    "半衰期、回升系数、保护期和停止衰减的次数，在配置里是 [ace.decay] 的 half_life、boost_factor、protection_days、permanent_threshold。",
+    "半衰期、回升系数、保护期、停止衰减的次数，以及移出活跃检索的阈值，在配置里是 [ace.decay] 的 half_life、boost_factor、protection_days、permanent_threshold、archive_threshold。",
   );
   expect(src).toContain("每次召回的回升系数默认是 0.1，权重上限仍是满值。");
   expect(src).toContain("新记忆有 7 天保护期，权重保持满值");

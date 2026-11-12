@@ -8,8 +8,8 @@ on:
       - 'README.md'
       - 'CLAUDE.md'
       - 'LICENSE'
+  # 叠放的拉取请求基线是上一条分支，不是 main。lint、构建和端到端检查仍要跑。
   pull_request:
-    branches: [main]
   # 手动补建通道:CI-only 改动(paths-ignore/workflow 文件)不触发 docker,
   # 修完 CI 后 main 会出现"源码新但无对应镜像"的断档,dispatch 跑全链补建。
   workflow_dispatch:
