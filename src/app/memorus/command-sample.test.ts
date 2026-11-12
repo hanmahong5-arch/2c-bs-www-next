@@ -18,6 +18,7 @@ test("the command sample uses the measured gray edge", () => {
   expect(src).not.toContain("检索主要靠关键词");
   expect(src).toContain("中文按字符二元组切词，不是词典分词。");
   expect(src).toContain("onnx-embedding");
+  expect(src).toContain("默认配置不需要 GPU：规则抽取与关键词检索都在 CPU 上完成。");
   expect(src).not.toContain("零配置默认不带真实的语义嵌入");
   expect(links).toContain("备份中的副本尚未纳入删除传播");
   expect(links).not.toContain("删一次，删干净");
