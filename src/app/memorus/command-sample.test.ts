@@ -53,6 +53,8 @@ test("the command sample uses the measured gray edge", () => {
   expect(links).not.toContain("提名");
   expect(links).not.toContain("经评审");
   expect(links).not.toContain("管理员权限");
+  expect(src).toContain("没有可比对的源文件则无法核验");
+  expect(src).not.toContain("每条记忆随结果返回出处");
   expect(src).toContain(
     'className="mt-10 max-w-[36rem] border border-[var(--color-text-muted)] bg-[var(--lt-paper)] px-4 py-3"',
   );
