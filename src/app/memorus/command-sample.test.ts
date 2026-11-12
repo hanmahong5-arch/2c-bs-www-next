@@ -68,6 +68,9 @@ test("the command sample uses the measured gray edge", () => {
   expect(src).not.toContain("保留原文");
   expect(links).toContain("默认写入前先脱敏，再从对话里抽取值得留下的事实");
   expect(links).toContain("脱敏失败时这次写入不落库");
+  expect(links.match(/默认抽取是本地规则，不调用外部模型/g)).toHaveLength(2);
+  expect(links.match(/hybrid 与 llm 需要另行开启并配置模型服务/g)).toHaveLength(2);
+  expect(links.match(/关掉之后，写入不再脱敏、不再抽取，也不再去重/g)).toHaveLength(2);
   expect(links).not.toContain("原话完整保留");
   expect(links).not.toContain("不是二手摘要");
   expect(links).not.toContain("无信息损失");
