@@ -27,7 +27,7 @@ import {
 export const metadata: Metadata = {
   title: "Memorus — AI 系统的长期记忆",
   description:
-    "记得住，也查得清：先脱敏再抽取、旧值留作历史、删除原文和索引、带团队作用域。服务是 memorus-server，命令行是 memorus-r。默认零外部依赖。LongMemEval-S held-out 问答 0.837（95% 区间 0.769–0.888，n=147）。早期试点。",
+    "记得住，也查得清：先脱敏再抽取、旧值留作历史、删除原文和索引、带团队作用域。服务是 memorus-server，命令行是 memorus-r。默认不依赖外部数据库、缓存或消息队列。LongMemEval-S held-out 问答 0.837（95% 区间 0.769–0.888，n=147）。早期试点。",
 };
 
 // ───────────────────────── 小组件 ─────────────────────────
@@ -99,7 +99,7 @@ export default function MemorusPage() {
               记得住，也查得清。
             </span>
             <span className="mt-4 block">
-              AI 系统的长期记忆：先脱敏再抽取、旧值留作历史、删除原文和索引、带团队作用域。服务是 memorus-server，命令行是 memorus-r。默认零外部依赖。
+              AI 系统的长期记忆：先脱敏再抽取、旧值留作历史、删除原文和索引、带团队作用域。服务是 memorus-server，命令行是 memorus-r。默认不依赖外部数据库、缓存或消息队列。
             </span>
           </>
         }
@@ -284,7 +284,7 @@ export default function MemorusPage() {
       {/* S6 性能与部署 */}
       <Section id="deploy" labelledBy="deploy-title" width="wide">
         <SectionTitle id="deploy-title" eyebrow="性能与部署">
-          两个可执行文件，默认零外部依赖。
+          两个可执行文件，默认不依赖外部数据库、缓存或消息队列。
         </SectionTitle>
         <div className="mt-10 grid gap-x-12 gap-y-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,22rem)]">
           <ul className="grid gap-x-10 gap-y-8 sm:grid-cols-2">
