@@ -62,7 +62,12 @@ test("the command sample uses the measured gray edge", () => {
   expect(links).not.toContain("只作用于本租户");
   expect(links).toContain("按用户或按条删除，原文和检索索引一并移除。");
   expect(src).toContain("命令行、REST 与 MCP 是同一套引擎");
-  expect(src).toContain("Python 与 Node 绑定调用这一套。WASM 绑定是另一套独立实现。");
+  expect(src).toContain("Python、Node 与 C FFI 调用这一套。WASM 绑定是另一套独立实现。");
+  expect(src).not.toContain("Python 与 Node 绑定调用这一套");
+  expect(links).toContain("并有 Python、Node 与 C FFI 绑定");
+  expect(links).toContain("Python、Node 与 C FFI 在你自己的进程里调用同一套引擎");
+  expect(links).not.toContain("Python / Node 绑定");
+  expect(links).not.toContain("Python 与 Node 在你自己的进程里");
   expect(src).not.toContain("四种接入，同一个引擎");
   expect(src).not.toContain("语言绑定直接调用");
   expect(src).toContain("先脱敏再抽取");
