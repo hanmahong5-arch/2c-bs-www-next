@@ -433,7 +433,7 @@ export default function MemorusPage() {
             <Code>memorus-r conflicts</Code> 可以查看。有嵌入时用余弦相似度，没有嵌入时用词集合的 Jaccard 相似度。
           </Item>
           <Item>
-            无召回时，记忆权重默认 30 天减半。新记忆有 7 天保护期，权重保持满值。清理要另外触发：命令行{" "}
+            无召回时，记忆权重默认 30 天减半。新记忆有 7 天保护期，权重保持满值。召回次数达到 15 次后，这条记忆不再衰减。清理要另外触发：命令行{" "}
             <Code>memorus-r sweep</Code>，或 MCP 工具 <Code>run_decay_sweep</Code>。权重低于 0.02 的记忆，清理时移出活跃检索，不是删除。
           </Item>
           <Item>MCP 的服务端 HTTP 端点目前仅支持单租户；多租户请走 REST。</Item>
