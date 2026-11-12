@@ -69,6 +69,7 @@ test("the command sample uses the measured gray edge", () => {
   expect(src).toContain("带团队作用域");
   expect(src).not.toContain("团队可治理");
   expect(links).toContain("按项目检索时，返回该项目与全局的并集；按团队检索同理。");
+  expect(links).toContain("每条记忆带用户、Agent 标识，以及一个作用域：全局、某个项目或某个团队。");
   expect(links).not.toContain("按团队检索时，返回该团队与全局的并集");
   expect(links).not.toContain("提名");
   expect(links).not.toContain("经评审");
