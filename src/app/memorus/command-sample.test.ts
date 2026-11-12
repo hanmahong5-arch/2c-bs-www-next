@@ -86,6 +86,8 @@ test("the command sample uses the measured gray edge", () => {
   expect(links).toContain("脱敏失败时这次写入不落库");
   expect(links.match(/配置里的自定义正则无法编译时，服务直接报错，不会静默跳过。/g)).toHaveLength(2);
   expect(links.match(/默认脱敏是 13 层内置规则，自定义正则是另外加上的。/g)).toHaveLength(2);
+  expect(links.match(/这 13 层覆盖密钥与令牌、邮箱、电话、银行卡号、社会保障号、私钥、数据库连接串和本地用户路径。/g)).toHaveLength(2);
+  expect(links).not.toContain("REDACTED");
   expect(links.match(/默认抽取是本地规则，不调用外部模型/g)).toHaveLength(2);
   expect(links.match(/hybrid 与 llm 需要另行开启并配置模型服务/g)).toHaveLength(2);
   expect(links.match(/关掉之后，写入不再脱敏、不再抽取，也不再去重/g)).toHaveLength(2);
