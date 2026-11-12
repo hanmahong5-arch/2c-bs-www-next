@@ -22,6 +22,7 @@ test("the command sample uses the measured gray edge", () => {
   expect(src).toContain("有查询向量时，精确关键词、词干模糊和元数据合起来占 0.6，语义层占 0.4。");
   expect(src).toContain("元数据层看查询词是否命中工具、实体、标签字段。");
   expect(src).toContain("精确关键词看查询词是否原样出现在正文。");
+  expect(src).toContain("词干模糊对查询与正文取词干后比较。");
   expect(src).toContain("语义层是查询向量与记忆向量的余弦相似度。");
   expect(src).toContain("「混合检索优于纯向量检索」目前没有可复现的基准数字支撑。");
   expect(src).toContain("融合之后再乘以衰减权重、时效因子和作用域因子，结果截断到 0 到 1。");
