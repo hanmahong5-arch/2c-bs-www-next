@@ -219,7 +219,7 @@ export default function MemorusPage() {
           旧值标成已被取代，检索时排在后面。
         </SectionTitle>
         <Lead className="mt-6">
-          同一事实出现新值时，旧记忆标成已被取代，检索时排在后面。变更历史可以按条查询。
+          同一事实出现新值时，旧记忆标成已被取代，检索时排在后面。变更历史可以按条查询，接口是 GET /api/v1/memories/{"{id}"}/history。
         </Lead>
         <div className="mt-10">
           <AsOfDemo />
