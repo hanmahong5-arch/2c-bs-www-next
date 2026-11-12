@@ -143,6 +143,7 @@ test("the command sample uses the measured gray edge", () => {
   expect(src).toContain("新记忆有 7 天保护期，权重保持满值");
   expect(src).toContain("检索打分时，7 天内的新记忆最多加成 20%，随天数线性归零。");
   expect(src).toContain("检索打分时，命中查询所指定作用域的记忆乘以 1.5。");
+  expect(src).toContain("这个因子在配置里是 [ace.retrieval] scope_boost。");
   expect(src).toContain("召回次数达到 15 次后，这条记忆不再衰减。");
   expect(src).toContain("memorus-r sweep");
   expect(src).toContain("run_decay_sweep");

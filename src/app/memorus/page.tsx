@@ -437,7 +437,7 @@ export default function MemorusPage() {
             <Code>memorus-r sweep</Code>，或 MCP 工具 <Code>run_decay_sweep</Code>。权重低于 0.02 的记忆，清理时移出活跃检索，不是删除。半衰期、回升系数、保护期、停止衰减的次数，以及移出活跃检索的阈值，在配置里是 [ace.decay] 的 half_life、boost_factor、protection_days、permanent_threshold、archive_threshold。
           </Item>
           <Item>检索打分时，7 天内的新记忆最多加成 20%，随天数线性归零。</Item>
-          <Item>检索打分时，命中查询所指定作用域的记忆乘以 1.5。</Item>
+          <Item>检索打分时，命中查询所指定作用域的记忆乘以 1.5。这个因子在配置里是 [ace.retrieval] scope_boost。</Item>
           <Item>MCP 的服务端 HTTP 端点目前仅支持单租户；多租户请走 REST。</Item>
           <Item>备份中的副本尚未纳入删除传播，正在建设。</Item>
           <Item>读写延迟尚未系统测量，所以不报。</Item>

@@ -443,3 +443,5 @@
 **本轮第二百一十一刀：** Memorus 写明抽取模式的配置键是 [ace.reflector] mode，默认 rules，也可以是 hybrid 或 llm。看完整基准仍是主按钮。
 
 **本轮第二百一十二刀：** Memorus 写明导出时输出文件用 -o 指定。看完整基准仍是主按钮。
+
+**本轮第二百一十三刀：** Memorus 写明作用域因子的配置键是 [ace.retrieval] scope_boost，命中时乘以 1.5。看完整基准仍是主按钮。
