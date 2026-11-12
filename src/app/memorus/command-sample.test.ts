@@ -104,6 +104,7 @@ test("the command sample uses the measured gray edge", () => {
   expect(links).not.toContain("REDACTED");
   expect(links.match(/默认抽取是本地规则，不调用外部模型/g)).toHaveLength(2);
   expect(links.match(/hybrid 与 llm 需要另行开启并配置模型服务/g)).toHaveLength(2);
+  expect(links.match(/配置键是 \[ace\.reflector\] mode，默认 rules，也可以是 hybrid 或 llm。/g)).toHaveLength(2);
   expect(links.match(/默认的 rules 模式由这五条规则识别：错误修复（ErrorFix）、多次重试后成功（RetrySuccess）、配置变更（ConfigChange）、首次使用新工具（NewTool）、重复操作（RepetitiveOp）。/g)).toHaveLength(2);
   expect(links.match(/每条候选有 0 到 100 的教学价值评分，低于 \[ace\.reflector\] min_score（默认 30）的会被丢弃。/g)).toHaveLength(2);
   expect(links.match(/留下的记忆按两个维度分类。主题（Section）是 commands、debugging、architecture、workflow、tools、patterns、preferences、general。性质（KnowledgeType）是 method、trick、pitfall、preference、knowledge。/g)).toHaveLength(2);
