@@ -35,6 +35,7 @@ test("the command sample uses the measured gray edge", () => {
   expect(links).not.toContain("单个二进制");
   expect(links).not.toContain("一个可执行文件即可运行");
   expect(links.match(/按密钥区分租户，默认关闭/g)).toHaveLength(2);
+  expect(links).toContain("按用户擦除的接口是 POST /api/v1/users/{user_id}/erase。");
   expect(links).not.toContain("任何统计量不跨租户");
   expect(links).not.toContain("用词分布");
   expect(links).toContain("未设路径时为内存态");
