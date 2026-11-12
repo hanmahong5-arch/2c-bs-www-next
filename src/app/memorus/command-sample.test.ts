@@ -111,6 +111,7 @@ test("the command sample uses the measured gray edge", () => {
   expect(links).not.toContain("当时是多少");
   expect(links).not.toContain("就答不了");
   expect(links).toContain("learn / search / forget / list 等子命令");
+  expect(links).toContain("memorus-r status 给出知识库统计。");
   expect(links).not.toContain("forget / team");
   expect(links).not.toContain("会话 #");
   expect(links).not.toContain("第 4 轮");

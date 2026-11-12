@@ -415,3 +415,5 @@
 **本轮第一百九十七刀：** Memorus 写明每条记忆带用户和 Agent 标识。看完整基准仍是主按钮。
 
 **本轮第一百九十八刀：** Memorus 写明陈旧策略的配置项是 [ace.verification] policy。看完整基准仍是主按钮。
+
+**本轮第一百九十九刀：** Memorus 写明 memorus-r status 给出知识库统计。看完整基准仍是主按钮。

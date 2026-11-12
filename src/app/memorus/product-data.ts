@@ -293,7 +293,7 @@ export const ENGINEERING = {
 // ───────────────────────── S7 接入 ─────────────────────────
 
 export const INTEGRATIONS = [
-  { key: "cli", title: "命令行", body: "learn / search / forget / list 等子命令，适合脚本与本地使用。", code: "memorus-r search \"项目预算\"" },
+  { key: "cli", title: "命令行", body: "learn / search / forget / list 等子命令，适合脚本与本地使用。memorus-r status 给出知识库统计。", code: "memorus-r search \"项目预算\"" },
   {
     key: "rest",
     title: "REST",
