@@ -439,3 +439,5 @@
 **本轮第二百零九刀：** Memorus 写明导出 JSON 的命令是 memorus-r export --format json。看完整基准仍是主按钮。
 
 **本轮第二百一十刀：** Memorus 写明从文件导入的命令是 memorus-r import -i。看完整基准仍是主按钮。
+
+**本轮第二百一十一刀：** Memorus 写明抽取模式的配置键是 [ace.reflector] mode，默认 rules，也可以是 hybrid 或 llm。看完整基准仍是主按钮。
