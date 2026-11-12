@@ -167,13 +167,13 @@ jobs:
         run: |
           SHA7=$(echo "${{ github.sha }}" | cut -c1-7)
           TAG="main-${SHA7}"
-          sed -i "s|image: ghcr.io/hanmahong5-arch/2c-bs-www-next:.*|image: ghcr.io/hanmahong5-arch/2c-bs-www-next:${TAG}|" deploy/k8s/deployment.yaml
+          sed -i "s|image: ghcr.io/hanmahong5-arch/2c-bs-www-next:.*|image: ghcr.io/hanmahong5-arch/2c-bs-www-next:${TAG}|" deploy/k8s/deployment.yaml deploy/k8s/ailurus-www.yaml
 
       - name: Commit & push updated tag
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add deploy/k8s/deployment.yaml
+          git add deploy/k8s/deployment.yaml deploy/k8s/ailurus-www.yaml
           git diff --cached --quiet && exit 0
           git commit -m "deploy: update image tag to main-$(echo ${{ github.sha }} | cut -c1-7)"
           # main 上并发 push（例如紧随其后的产品 PR）会拒绝非快进；拉齐后再推。

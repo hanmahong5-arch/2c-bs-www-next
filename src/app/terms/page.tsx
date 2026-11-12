@@ -1,12 +1,51 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { siteProfile } from "@/lib/site-profile";
 
-export const metadata: Metadata = {
-  title: "服务条款",
-  description: "Lurus 服务条款 — 使用 Lurus 服务的条件和协议。",
-};
+export async function generateMetadata(): Promise<Metadata> {
+  if (siteProfile().id === "company") {
+    return {
+      title: "合同",
+      description: "受托运维以双方签署的合同为准。本站不另附一份工具站服务条款。",
+    };
+  }
+  return {
+    title: "服务条款",
+    description: "Lurus 服务条款 — 使用 Lurus 服务的条件和协议。",
+  };
+}
 
 export default function TermsPage() {
+  const site = siteProfile();
+  if (site.id === "company") {
+    return (
+      <div className="mx-auto max-w-3xl px-6 py-20 md:py-28">
+        <h1 className="mb-4 font-display text-3xl font-semibold tracking-[-0.02em] text-[var(--lt-ink)] md:text-4xl">
+          合同
+        </h1>
+        <div className="space-y-6 text-[var(--color-text-secondary)] leading-relaxed">
+          <p>
+            {site.legalName}的受托运维，以双方签署的合同为准。范围、费用、验收和保密都写在那份合同里。
+          </p>
+          <p>
+            本站不把工具站的服务条款当成那份合同。www.lurus.cn 上的条款只覆盖那边的账户与调用，不覆盖客户自有环境里的受托运维。
+          </p>
+          <p>
+            要谈现在跑的系统，写信到{" "}
+            <a href={`mailto:${site.contactEmail}`} className="text-[var(--lt-ink)] underline underline-offset-4">
+              {site.contactEmail}
+            </a>
+            。
+          </p>
+        </div>
+        <div className="mt-16 border-t border-[var(--color-border)] pt-8">
+          <Link href="/" className="text-sm text-[var(--color-text-muted)] hover:text-[var(--color-text-secondary)]">
+            ← 返回首页
+          </Link>
+        </div>
+      </div>
+    );
+  }
   return (
     <div className="mx-auto max-w-3xl px-6 py-20 md:py-28">
       <h1 className="text-3xl md:text-4xl font-bold text-[var(--color-text-primary)] mb-4">

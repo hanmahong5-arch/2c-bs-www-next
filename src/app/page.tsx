@@ -10,30 +10,33 @@ import {
   Section,
   type Maturity,
 } from "@/components/site";
-import { BrandMark } from "@/components/brand-mark";
-import { updates } from "@/app/blog/updates-data";
+import { BrandMark, MARK_BY_HREF, type BrandLine } from "@/components/brand-mark";
+import { updates } from "@/app/(shelf)/blog/updates-data";
+import { COMPANY_GROUPS, catalogMark, itemsIn } from "@/lib/catalog";
+import { siteProfile } from "@/lib/site-profile";
 
-// 首页：个人项目站。Urus 英雄图与 LURUS 剥层保留。
-// 我在做的工具与底座 → 三件事 → 三层手段 → 一行证据 → 近况 → 边界。
+// 首页结构共用。文案按 SITE_PROFILE 分个人站 / 公司站。
+// 三件事 → 三层手段 → 一行证据 → 近况 → 边界。
 // 近况只取更新日志真源的前三条。不写价格、客户名、编造数字。
-
-const CONTACT = "mailto:contact@lurus.cn";
 
 type Layer = {
   code: "LURUS" | "URUS" | "RUS";
   audience: string;
   title: string;
   line: string;
+  /** 这一层有唯一的标时写上。底座同时有裂和金属 Z，标跟在每条产品上。 */
+  mark?: BrandLine;
   products: ReadonlyArray<{ name: string; href: string; maturity?: Maturity }>;
 };
 
 /**
- * 三层仍是 Urus 命名（LURUS / URUS / RUS），是个人项目站上的工具与底座地图。
- * US 只作脚注，不进主列表。首页不挂 Hub 按量价格。
+ * 三层仍按 LURUS / URUS / RUS 拆开，两张面孔都列出。
+ * Founder、Lucrum、价目和日志放在脚注，不给它们编一个成熟度。
  */
 const LAYERS: readonly Layer[] = [
   {
     code: "LURUS",
+    mark: "z-flat",
     audience: "自助",
     title: "上手的工具",
     line: "桌面与下载，给已经在用的人自己上手。",
@@ -45,6 +48,7 @@ const LAYERS: readonly Layer[] = [
   },
   {
     code: "URUS",
+    mark: "crystal",
     audience: "环境里",
     title: "观测与方法",
     line: "装进你自己的环境：看清状态、记住上下文，以及怎么证明它稳。",
@@ -63,7 +67,7 @@ const LAYERS: readonly Layer[] = [
       { name: "Kova", href: "/kova", maturity: "早期试点" },
       { name: "Forge", href: "/forge", maturity: "内部生产使用" },
       { name: "Hub 私有部署", href: "/hub", maturity: "内部生产使用" },
-      { name: "Lugo", href: "/lugo", maturity: "内部生产使用" },
+      { name: "Platform", href: "/lugo", maturity: "内部生产使用" },
     ],
   },
 ];
@@ -119,6 +123,7 @@ function Dash({ children }: { children: React.ReactNode }) {
 }
 
 export default function Home() {
+  const site = siteProfile();
   return (
     <>
       {/* ── Hero：个人项目首屏，压在 Urus 山脊上 ── */}
@@ -145,42 +150,54 @@ export default function Home() {
 
         <div className="relative mx-auto flex max-w-5xl flex-col justify-end px-6 pb-12 pt-14 md:min-h-[min(92vh,52rem)] md:pb-24 md:pt-28">
           <div className="max-w-[38rem]">
-            <p className="hero-enter-up flex items-center gap-3 font-mono text-[11px] uppercase tracking-[0.2em] text-[var(--color-text-muted)]">
-              <BrandMark className="h-8 w-8 shrink-0 text-[var(--lt-ink)] md:h-9 md:w-9" />
-              Urus · 原牛
+            <p className="hero-enter-up flex items-center gap-3">
+              <BrandMark line="crystal" className="h-11 w-11 md:h-12 md:w-12" />
+              <span className="font-display text-sm font-semibold tracking-[-0.02em] text-[var(--lt-ink)]">
+                {site.id === "company" ? "硅知睿" : "LurusTech"}
+              </span>
             </p>
             <p
               className="hero-enter-up mt-5 font-mono text-[11px] uppercase tracking-[0.16em] text-[var(--lt-accent)]"
               style={{ animationDelay: "60ms" }}
             >
-              个人项目 · 工具与底座
+              {site.homeEyebrow}
             </p>
             <h1
               id="home-offer"
               className="hero-enter-up mt-4 font-display text-[1.875rem] font-semibold leading-[1.25] tracking-[-0.03em] text-[var(--lt-ink)] md:text-[3.25rem] md:leading-[1.12]"
               style={{ animationDelay: "120ms" }}
             >
-              我在做的 AI 工具与底座。
+              {site.homeH1}
             </h1>
             <p
               className="hero-enter-up mt-5 max-w-[36rem] text-[15px] leading-[1.75] text-[var(--color-text-secondary)] md:text-base md:leading-[1.8]"
               style={{ animationDelay: "200ms" }}
             >
-              桌面端、记忆与执行、网关与账号——状态写明证据强度，备份只认真恢复一次才算数，成熟度各自标明。系统留在你自己的环境里。
+              {site.homeLead}
             </p>
             <div
               className="hero-enter-up mt-8 flex flex-wrap items-center gap-3"
               style={{ animationDelay: "280ms" }}
             >
-              <Link href="/download" className="btn-primary">
-                下载与上手
-              </Link>
-              <Link href="/approach" className="btn-secondary">
-                阅读方法
-              </Link>
-              <a href={CONTACT} className="btn-secondary">
-                写信给 contact@lurus.cn
-              </a>
+              {site.homeActions.map((action) =>
+                action.href.startsWith("mailto:") ? (
+                  <a
+                    key={action.href}
+                    href={action.href}
+                    className={action.primary ? "btn-primary" : "btn-secondary"}
+                  >
+                    {action.label}
+                  </a>
+                ) : (
+                  <Link
+                    key={action.href}
+                    href={action.href}
+                    className={action.primary ? "btn-primary" : "btn-secondary"}
+                  >
+                    {action.label}
+                  </Link>
+                ),
+              )}
             </div>
           </div>
         </div>
@@ -192,7 +209,9 @@ export default function Home() {
           看清状态，执行留痕，用恢复证明备份。
         </SectionTitle>
         <Lead className="mt-6">
-          这三件事撑住可信交付：状态说得清来历，改动可以回放，备份用一次真恢复来证明。
+          {site.id === "company"
+            ? "验收时对这三行：状态说得清来历，改动可以回放，备份用一次真恢复来证明。"
+            : "我用这三行判断稳不稳：状态说得清来历，改动可以回放，备份用一次真恢复来证明。"}
         </Lead>
         <div className="mt-10">
           <Disclosure summary={<span className="text-[1.0625rem]">观测：月报里的「正常」，要说清凭什么。</span>}>
@@ -226,28 +245,70 @@ export default function Home() {
         </div>
       </Section>
 
-      {/* ── Layers: means, not a price list ── */}
+      {site.id === "company" ? (
+        <Section id="offer" labelledBy="offer-title">
+          <SectionTitle id="offer-title" eyebrow="卖的是这一件事">
+            已经在跑的系统，要能证明恢复得回来。
+          </SectionTitle>
+          <Lead className="mt-6">{site.layersLead}</Lead>
+          <ul className="mt-8 space-y-4 text-base leading-[1.8] text-[var(--color-text-secondary)]">
+            <Dash>备份文件在、恢复命令退出码是 0，仍可能只回来一部分行。判据是逐表核对，不是命令成功。</Dash>
+            <Dash>只备份数据库或数据卷，可能启动得了、凭据解不开。密钥覆盖单独记一行，判据是演练里凭据能解开。</Dash>
+            <Dash>不从零做一套新应用。优先接手你环境里已经在跑的系统。</Dash>
+            <Dash>
+              写操作前人批、崩溃后续跑、公钥验包，是增强档。今天这些动作仍多由独立脚本完成，见{" "}
+              <QuietLink href="/approach">方法</QuietLink>。
+            </Dash>
+          </ul>
+        </Section>
+      ) : null}
+
+      {/* ── Layers: full roster on both faces. Company hero above stays the offer. ── */}
       <Section id="layers" width="wide" labelledBy="layers-title">
         <div className="grid items-start gap-12 md:grid-cols-[minmax(0,20rem)_1fr]">
           <div>
-            <SectionTitle id="layers-title" eyebrow="项目地图">
-              剥开 LURUS，看清在做的东西。
+            <SectionTitle id="layers-title" eyebrow={site.id === "company" ? "构件" : "项目地图"}>
+              {site.id === "company" ? "每一样和合同的关系。" : "剥开 LURUS，看清在做的东西。"}
             </SectionTitle>
-            <Lead className="mt-6">
-              名字仍取自原牛 Urus。三层是工具与底座的地图，不是公司货架。怎么证明稳，写在方法页。最里一层
-              US 只留给自己用。
-            </Lead>
+            <Lead className="mt-6">{site.layersLead}</Lead>
             <figure className="mt-10 flex max-w-[16rem] flex-col items-start">
-              <div className="flex h-40 w-40 items-center justify-center bg-[var(--lt-bg)] ring-1 ring-[var(--lt-rule)]">
-                <BrandMark className="h-24 w-24 text-[var(--lt-ink)]" />
-              </div>
+              <BrandMark line="crystal" label="主标：核" className="h-40 w-40" />
               <figcaption className="mt-3 font-mono text-[11px] leading-relaxed text-[var(--color-text-muted)]">
-                商标 · U + 野牛角
+                主标 · 核
               </figcaption>
             </figure>
           </div>
 
           <div>
+            {site.id === "company" ? (
+              <ol className="border-t border-[var(--lt-rule)]">
+                {COMPANY_GROUPS.map((group) => (
+                  <li key={group.id} className="border-b border-[var(--lt-rule)] py-8">
+                    <div className="flex items-center gap-3">
+                      <BrandMark line={group.mark} className="h-8 w-8" />
+                      <p className="font-medium text-[var(--lt-ink)]">{group.title}</p>
+                    </div>
+                    <p className="mt-2 max-w-[40rem] text-[15px] leading-[1.8] text-[var(--color-text-secondary)]">
+                      {group.line}
+                    </p>
+                    <ul className="mt-5 space-y-4">
+                      {itemsIn(group.hrefs).map((item) => (
+                        <li key={item.href} className="max-w-[36rem]">
+                          <span className="inline-flex items-center gap-2">
+                            <BrandMark line={catalogMark(item.href)} className="h-6 w-6" />
+                            <QuietLink href={item.href}>{item.name}</QuietLink>
+                            {item.maturity ? <MaturityChip level={item.maturity} /> : null}
+                          </span>
+                          <span className="mt-1 block text-[15px] leading-[1.7] text-[var(--color-text-secondary)]">
+                            {item.relation}
+                          </span>
+                        </li>
+                      ))}
+                    </ul>
+                  </li>
+                ))}
+              </ol>
+            ) : (
             <ol className="border-t border-[var(--lt-rule)]">
               {LAYERS.map((layer, i) => (
                 <li
@@ -255,8 +316,11 @@ export default function Home() {
                   className="home-layer-row border-b border-[var(--lt-rule)] py-8"
                   style={{ animationDelay: `${i * 80}ms` }}
                 >
-                  <div className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-2">
-                    <LayerWord code={layer.code} />
+                  <div className="flex flex-wrap items-center justify-between gap-x-6 gap-y-2">
+                    <span className="inline-flex items-center gap-3">
+                      {layer.mark ? <BrandMark line={layer.mark} className="h-8 w-8" /> : null}
+                      <LayerWord code={layer.code} />
+                    </span>
                     <span className="font-mono text-[11px] uppercase tracking-[0.16em] text-[var(--lt-accent)]">
                       {layer.audience}
                     </span>
@@ -266,25 +330,36 @@ export default function Home() {
                     {layer.line}
                   </p>
                   <ul className="mt-5 flex flex-wrap gap-x-5 gap-y-2">
-                    {layer.products.map((p) => (
+                    {layer.products.map((p) => {
+                      const mark = MARK_BY_HREF[p.href];
+                      return (
                       <li key={p.href} className="flex items-center gap-2">
+                        {mark ? <BrandMark line={mark} className="h-6 w-6" /> : null}
                         <QuietLink href={p.href}>{p.name}</QuietLink>
                         {p.maturity ? <MaturityChip level={p.maturity} /> : null}
                       </li>
-                    ))}
+                      );
+                    })}
                   </ul>
                 </li>
               ))}
             </ol>
+            )}
 
+            {site.id === "personal" ? (
             <p className="mt-8 max-w-[40rem] text-[13px] leading-[1.7] text-[var(--color-text-muted)]">
               <span className="font-mono tracking-[0.12em] text-[var(--lt-ink)]/50">LUR</span>
               <span className="font-mono tracking-[0.12em] text-[var(--lt-ink)]">US</span>
               <span className="ml-3">
                 内部全站全线 · 设计 / 开发 / 经营用，不对外售卖。见{" "}
-                <QuietLink href="/about">关于</QuietLink>。
+                <QuietLink href="/about">关于</QuietLink>
+                。另有 <QuietLink href="/founder">Founder</QuietLink>（仅内部）、
+                <QuietLink href="/lucrum">Lucrum</QuietLink>（冻结维护）。价目见{" "}
+                <QuietLink href="/hub/pricing">Hub 价格</QuietLink>
+                ，日志见 <QuietLink href="/blog">更新日志</QuietLink>。
               </span>
             </p>
+            ) : null}
           </div>
         </div>
       </Section>
@@ -329,7 +404,7 @@ export default function Home() {
         </p>
       </Section>
 
-      {/* ── 近况：更新日志真源的前三条 ── */}
+      {/* ── 近况：公开日志的前三条，不另写客户故事。 ── */}
       <Section id="recent" width="wide" labelledBy="recent-title">
         <div className="max-w-[44rem]">
           <SectionTitle id="recent-title" eyebrow="近况">
@@ -369,23 +444,25 @@ export default function Home() {
 
       {/* ── Invite ── */}
       <Section labelledBy="invite-title">
+        {site.legalName ? (
+          <p className="mb-4 text-base leading-[1.8] text-[var(--color-text-secondary)]">{site.legalName}</p>
+        ) : null}
         <p
           id="invite-title"
           className="font-display text-xl leading-[1.5] text-[var(--lt-ink)] md:text-2xl"
         >
-          想看产品怎么证明稳，读 <QuietLink href="/approach">方法</QuietLink>
-          ；想聊环境或合作，写信到{" "}
+          {site.id === "company" ? "想核对验收怎么写，读" : "想看怎么证明稳，读"}{" "}
+          <QuietLink href="/approach">方法</QuietLink>
+          ；{site.id === "company" ? "想让我们看你现在的系统，写信到" : "想聊环境，写信到"}{" "}
           <a
-            href={CONTACT}
+            href={`mailto:${site.contactEmail}`}
             className="text-[var(--lt-ink)] underline decoration-[var(--lt-rule)] underline-offset-4 hover:decoration-[var(--lt-accent)]"
           >
-            contact@lurus.cn
+            {site.contactEmail}
           </a>
           。
         </p>
-        <p className="mt-4 text-sm leading-[1.7] text-[var(--color-text-muted)]">
-          下一步：来信写清环境现状与目标；我回复是否适合现阶段、怎么分期。
-        </p>
+        <p className="mt-4 text-sm leading-[1.7] text-[var(--color-text-muted)]">{site.inviteNext}</p>
       </Section>
     </>
   );

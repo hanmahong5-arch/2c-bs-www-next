@@ -1,12 +1,14 @@
 import type { MetadataRoute } from "next";
-import { SITE_ROUTES } from "@/lib/site-routes";
+import { routesFor } from "@/lib/site-routes";
+import { siteProfile } from "@/lib/site-profile";
 
-const BASE_URL = "https://www.lurus.cn";
+export const dynamic = "force-dynamic";
 
 export default function sitemap(): MetadataRoute.Sitemap {
+  const site = siteProfile();
   const now = new Date();
-  return SITE_ROUTES.map((r) => ({
-    url: `${BASE_URL}${r.path}`,
+  return routesFor(site.id).map((r) => ({
+    url: `${site.siteUrl}${r.path}`,
     lastModified: now,
     changeFrequency: r.changeFrequency,
     priority: r.priority,

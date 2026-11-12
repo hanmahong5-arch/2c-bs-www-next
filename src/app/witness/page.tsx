@@ -9,16 +9,27 @@ import {
   ProductHeader,
   Section,
 } from "@/components/site";
+import { siteProfile } from "@/lib/site-profile";
 
 // 见证：先一句话，细节进展开。事实来源见 2l-svc-fleet README / business-reading-guide、
 // 根仓 scripts/ops 下的外部探测、月报与恢复演练脚本，以及 docs 站 witness 目录。
+// 公司站把这一页当作月报的做法，不把它当成单独售卖的产品。
 // 全部服务端渲染，无 JS 动效。
 
-export const metadata: Metadata = {
-  title: "Lurus Witness · 见证",
-  description:
-    "只读采集、外部探测、每月真实恢复演练与月度证据报告。每条读数都写明证据强度。早期试点。",
-};
+export async function generateMetadata(): Promise<Metadata> {
+  if (siteProfile().id === "company") {
+    return {
+      title: "见证",
+      description:
+        "月报里的状态怎么来的：只读采集、外部探测、每月真恢复。每条读数写明证据强度。试点目前只在我们自己的环境里。",
+    };
+  }
+  return {
+    title: "Lurus Witness · 见证",
+    description:
+      "只读采集、外部探测、每月真实恢复演练与月度证据报告。每条读数都写明证据强度。早期试点。",
+  };
+}
 
 const DOCS = "https://docs.lurus.cn/witness/";
 
@@ -53,19 +64,34 @@ const linkClass =
   "text-[var(--lt-ink)] underline decoration-[var(--lt-rule)] underline-offset-4 hover:decoration-[var(--lt-accent)]";
 
 export default function WitnessPage() {
+  const site = siteProfile();
+  const company = site.id === "company";
   return (
     <>
       <ProductHeader
-        name="Lurus Witness · 见证"
+        name={company ? "见证" : "Lurus Witness · 见证"}
+        mark="crystal"
+        eyebrow={company ? "观测" : "构件"}
         maturity="早期试点"
         tagline="回答一个问题：你环境里的这套系统现在是什么状态，以及我们对这个判断有多确定。"
         access={{
-          actions: [
-            { label: "阅读文档", href: DOCS, primary: true, external: true },
-            { label: "联系试点", href: "mailto:contact@lurus.cn", external: true },
-            { label: "阅读方法", href: "/approach" },
-          ],
-          nextStep: "邮件说明被观测环境与值班诉求；我们回复是否适合现阶段试点。",
+          actions: company
+            ? [
+                { label: "阅读方法", href: "/approach", primary: true },
+                {
+                  label: "写信说明被观测的环境",
+                  href: `mailto:${site.contactEmail}`,
+                  external: true,
+                },
+              ]
+            : [
+                { label: "阅读文档", href: DOCS, primary: true, external: true },
+                { label: "联系试点", href: "mailto:contact@lurus.cn", external: true },
+                { label: "阅读方法", href: "/approach" },
+              ],
+          nextStep: company
+            ? "来信写清被观测的环境，以及月报里要看到什么。我们回复这一套能不能接。"
+            : "邮件说明被观测环境与值班诉求；我们回复是否适合现阶段试点。",
         }}
         evidence={{
           name: "platform-core",
@@ -271,20 +297,34 @@ export default function WitnessPage() {
           id="more-title"
           className="font-display text-xl leading-[1.5] text-[var(--lt-ink)] md:text-2xl"
         >
-          细节在{" "}
-          <a href={DOCS} className={linkClass}>
-            文档
-          </a>
-          ；我们怎么工作，见{" "}
-          <Link href="/approach" className={linkClass}>
-            方法
-          </Link>
-          。
+          {company ? (
+            <>
+              观测怎么写进月报，见{" "}
+              <Link href="/approach" className={linkClass}>
+                方法
+              </Link>
+              。
+            </>
+          ) : (
+            <>
+              细节在{" "}
+              <a href={DOCS} className={linkClass}>
+                文档
+              </a>
+              ；我们怎么工作，见{" "}
+              <Link href="/approach" className={linkClass}>
+                方法
+              </Link>
+              。
+            </>
+          )}
         </p>
         <p className="mt-4 text-sm leading-[1.7] text-[var(--color-text-muted)]">
-          下一步：邮件说明被观测环境与值班诉求；我们回复是否适合现阶段试点。来信{" "}
-          <a href="mailto:contact@lurus.cn" className={linkClass}>
-            contact@lurus.cn
+          {company
+            ? "下一步：来信写清被观测的环境，以及月报里要看到什么。我们回复这一套能不能接。来信 "
+            : "下一步：邮件说明被观测环境与值班诉求；我们回复是否适合现阶段试点。来信 "}
+          <a href={`mailto:${site.contactEmail}`} className={linkClass}>
+            {site.contactEmail}
           </a>
           。
         </p>

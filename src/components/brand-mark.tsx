@@ -1,61 +1,68 @@
 import Image from "next/image";
 
 /**
- * Urus mark — letter U + bison horns.
- * Small: reads as U (LURUS peel). Large: 野牛 trademark cue.
- * currentColor follows theme ink; ochre tip is brand accent.
+ * 四枚金属标。字标始终是 LurusTech。
+ * 核 = 公司主标 + 环境里；裂 = 执行；金属 Z = 入口与账的展示标；
+ * 平面 Z = 自助，也是 ≤32px 的唯一标（页眉、favicon）。
+ * 原图是黑金属加金线。垫一块纸，深色模式不反相。
  */
+export type BrandLine = "crystal" | "bolt" | "z-metal" | "z-flat";
+
+const MARK_SRC: Record<BrandLine, string> = {
+  crystal: "/images/brand/marks/crystal.png",
+  bolt: "/images/brand/marks/bolt.png",
+  "z-metal": "/images/brand/marks/z-metal.png",
+  "z-flat": "/images/brand/marks/z-flat.png",
+};
+
+/** 有产品线的路径。方法、下载、博客不在表里。 */
+export const MARK_BY_HREF: Record<string, BrandLine> = {
+  "/witness": "crystal",
+  "/memorus": "crystal",
+  "/memorus/benchmarks": "crystal",
+  "/kova": "bolt",
+  "/forge": "bolt",
+  "/hub": "z-metal",
+  "/hub/pricing": "z-metal",
+  "/lugo": "z-metal",
+  "/switch": "z-flat",
+  "/lux": "z-flat",
+  "/founder": "z-flat",
+  "/lucrum": "z-flat",
+};
+
 export function BrandMark({
+  line,
   className = "h-7 w-7",
+  label,
 }: {
+  line: BrandLine;
   className?: string;
+  /** 旁边已有名称时留空。单独出现时写上这枚标叫什么。 */
+  label?: string;
 }) {
   return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 64 64"
-      fill="none"
-      className={className}
-      aria-hidden="true"
+    <span
+      className={`relative inline-flex shrink-0 items-center justify-center bg-[#F5F2E8] ${className}`}
     >
-      <path
-        fill="currentColor"
-        d="M15 26c0-1.1.9-2 2-2h6c1.1 0 2 .9 2 2v16c0 3.9 2.7 7 7 7s7-3.1 7-7V26c0-1.1.9-2 2-2h6c1.1 0 2 .9 2 2v16c0 8.3-5.8 15-15 15S15 50.3 15 42V26z"
+      <Image
+        src={MARK_SRC[line]}
+        alt={label ?? ""}
+        fill
+        sizes="144px"
+        className="object-contain p-[7%]"
       />
-      <path fill="currentColor" d="M17 24 5 4l22 8-3 12H17z" />
-      <path fill="currentColor" d="M47 24 59 4 37 12l3 12h7z" />
-      <circle cx="32" cy="49" r="3" fill="#FF5D1F" />
-    </svg>
+    </span>
   );
 }
 
 export function BrandLockup({ className = "" }: { className?: string }) {
   return (
     <span className={`inline-flex items-center gap-2.5 ${className}`}>
-      <BrandMark className="h-7 w-7 text-[var(--lt-ink)]" />
+      <BrandMark line="z-flat" className="h-7 w-7" />
       <span className="font-display text-lg font-semibold tracking-[-0.02em] text-[var(--lt-ink)]">
         LurusTech
       </span>
     </span>
-  );
-}
-
-/** Large mark study for brand story panel. */
-export function UrusMarkPanel({
-  className = "",
-  priority = false,
-}: {
-  className?: string;
-  priority?: boolean;
-}) {
-  return (
-    <Image
-      src="/images/brand/urus-mark-study-u-horns.jpg"
-      alt="Urus 商标：字母 U 与野牛角"
-      width={1024}
-      height={1024}
-      priority={priority}
-      className={className}
-    />
   );
 }

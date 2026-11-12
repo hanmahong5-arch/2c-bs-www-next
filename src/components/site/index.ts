@@ -27,7 +27,7 @@
  * MaturityChip({ level: Maturity, className? })
  *   Maturity = "设计中" | "早期试点" | "内部生产使用" | "开源"（只允许这四个）。
  *
- * ProductHeader({ name, tagline, maturity, eyebrow? = "构件", evidence?: EvidenceLineProps,
+ * ProductHeader({ name, mark, tagline, maturity, eyebrow? = "构件", evidence?: EvidenceLineProps,
  *                 evidenceCaption? = "示例", note?, access?: AccessStationProps })
  *   产品页顶部，内含页面唯一的 <h1>：名称 + 成熟度 chip + 一句话 + 可选小注 + 可选接入站 + 可选证据样例。
  *   用了它的页面不要再自己写 <h1>。

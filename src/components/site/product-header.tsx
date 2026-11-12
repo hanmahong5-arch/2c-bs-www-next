@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import { BrandMark, type BrandLine } from "@/components/brand-mark";
 import { Eyebrow } from "./eyebrow";
 import { MaturityChip, type Maturity } from "./maturity-chip";
 import { EvidenceLine, type EvidenceLineProps } from "./evidence-line";
@@ -7,6 +8,8 @@ import { AccessStation, type AccessStationProps } from "./access-station";
 export interface ProductHeaderProps {
   /** 产品名，如 "Lurus Witness · 见证" */
   name: string;
+  /** 这一条产品线的标。见 brand-mark.tsx。 */
+  mark: BrandLine;
   /** 一句话定位 */
   tagline: ReactNode;
   maturity: Maturity;
@@ -25,6 +28,7 @@ export interface ProductHeaderProps {
 /** 产品页顶部（含页面唯一 <h1>）：名称、成熟度、一句话、可选接入站、可选证据样例。无动效，首屏直接可见。 */
 export function ProductHeader({
   name,
+  mark,
   tagline,
   maturity,
   eyebrow = "构件",
@@ -39,6 +43,7 @@ export function ProductHeader({
         <div className="max-w-[44rem]">
           <Eyebrow>{eyebrow}</Eyebrow>
           <div className="mt-4 flex flex-wrap items-center gap-x-4 gap-y-2">
+            <BrandMark line={mark} className="h-12 w-12 md:h-14 md:w-14" />
             <h1 className="font-display text-[2.25rem] font-semibold leading-[1.1] tracking-[-0.025em] text-[var(--lt-ink)] md:text-[3rem]">
               {name}
             </h1>

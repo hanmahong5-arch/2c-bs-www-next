@@ -1,16 +1,17 @@
 import type { MetadataRoute } from "next";
+import { siteProfile } from "@/lib/site-profile";
 
-const BASE_URL = "https://www.lurus.cn";
+export const dynamic = "force-dynamic";
 
-// 个人项目站全站开放抓取；登录页与 API 路由无 SEO 价值，明确排除。
 export default function robots(): MetadataRoute.Robots {
+  const site = siteProfile();
   return {
     rules: {
       userAgent: "*",
       allow: "/",
-      disallow: ["/login", "/api/"],
+      disallow: ["/login", "/api/", "/astryx-lab"],
     },
-    sitemap: `${BASE_URL}/sitemap.xml`,
-    host: BASE_URL,
+    sitemap: `${site.siteUrl}/sitemap.xml`,
+    host: site.siteUrl,
   };
 }

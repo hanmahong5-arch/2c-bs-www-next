@@ -2,7 +2,7 @@
 
 import { useEffect } from "react";
 import Link from "next/link";
-import { ExclamationTriangleIcon } from "@heroicons/react/24/outline";
+import { BrandMark } from "@/components/brand-mark";
 
 // 路由级错误边界。捕获 page/嵌套 layout 渲染期抛出的异常；根 layout 自身的错误
 // 由 global-error.tsx 兜底（本站根 layout 无数据依赖，暂不需要）。
@@ -21,10 +21,7 @@ export default function Error({
   return (
     <div className="min-h-[70vh] flex items-center justify-center px-6">
       <div className="text-center max-w-lg">
-        <ExclamationTriangleIcon
-          className="w-14 h-14 mx-auto mb-6 text-[var(--lt-accent)]"
-          aria-hidden="true"
-        />
+        <BrandMark line="bolt" className="mx-auto mb-6 h-16 w-16" />
         <h1 className="text-2xl font-semibold text-[var(--color-text-primary)] mb-3">
           页面出错了
         </h1>

@@ -3,9 +3,14 @@ import localFont from "next/font/local";
 import Script from "next/script";
 import { MotionConfig } from "framer-motion";
 import "./globals.css";
+import { CatalogRelation } from "@/components/catalog-relation";
 import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
 import { CommandPalette } from "@/components/command-palette";
+import { siteProfile, type SiteProfile } from "@/lib/site-profile";
+
+// 一个镜像两套面孔：SITE_PROFILE 在进程里读。静态生成会把个人站文案烤进镜像。
+export const dynamic = "force-dynamic";
 
 // 暗色模式先于 hydration 应用，避免浅色→深色的闪烁（FOUC）。
 // 读取失败（隐私模式等）时静默回退浅色，不影响页面渲染。
@@ -42,30 +47,29 @@ const jetbrainsMono = localFont({
   display: "swap",
 });
 
-const SITE_URL = "https://www.lurus.cn";
-const SITE_DESC =
-  "LurusTech 个人项目站：桌面工具、记忆与执行底座、网关与账号。状态写明证据强度；备份只认真恢复；各构件成熟度分别标明。";
-
-export const metadata: Metadata = {
-  title: {
-    default: "LurusTech — Urus · 个人项目站",
-    template: "%s — LurusTech",
-  },
-  description: SITE_DESC,
-  metadataBase: new URL(SITE_URL),
-  // "./" 按当前路径解析。写死 "/" 会继承到每一页，首屏「下载与上手」打开的 /download 会被说成首页。
-  alternates: { canonical: "./" },
-  openGraph: {
-    type: "website",
-    locale: "zh_CN",
-    siteName: "LurusTech",
-    url: "./",
-    // og:image 由 app/opengraph-image.tsx 动态注入
-  },
-  twitter: {
-    card: "summary_large_image",
-  },
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const site = siteProfile();
+  return {
+    title: {
+      default: site.title,
+      template: "%s — LurusTech",
+    },
+    description: site.description,
+    metadataBase: new URL(site.siteUrl),
+    // "./" 按当前路径解析。写死 "/" 会继承到每一页，首屏「下载与上手」打开的 /download 会被说成首页。
+    alternates: { canonical: "./" },
+    openGraph: {
+      type: "website",
+      locale: "zh_CN",
+      siteName: "LurusTech",
+      url: "./",
+      // og:image 由 app/opengraph-image.tsx 动态注入
+    },
+    twitter: {
+      card: "summary_large_image",
+    },
+  };
+}
 
 // 显式声明 viewport（Next 的 metadata/viewport 已分家；此处写的正是 Next 的默认
 // 值，落地 meta 与改动前逐字符相同 —— 显式化是为了把它变成可 review 的约定，
@@ -75,46 +79,61 @@ export const viewport: Viewport = {
   initialScale: 1,
 };
 
-// schema.org — 个人项目站：品牌用 Person，不暗示法人公司。
-// 不含 offers/评分/可用性；只列需要结构化声明的核心构件。
-const jsonLd = {
-  "@context": "https://schema.org",
-  "@graph": [
-    {
-      "@type": "Person",
-      "@id": `${SITE_URL}/#person`,
-      name: "LurusTech",
-      url: SITE_URL,
-      description: SITE_DESC,
-      sameAs: ["https://github.com/hanmahong5-arch"],
-    },
+// schema.org 不含 offers/评分/可用性。个人站用 Person；公司站用 Organization。
+function jsonLd(site: SiteProfile) {
+  const publisherId =
+    site.id === "company" ? `${site.siteUrl}/#organization` : `${site.siteUrl}/#person`;
+  const publisher =
+    site.id === "company"
+      ? {
+          "@type": "Organization",
+          "@id": publisherId,
+          name: site.legalName,
+          alternateName: "LurusTech",
+          url: site.siteUrl,
+          description: site.description,
+        }
+      : {
+          "@type": "Person",
+          "@id": publisherId,
+          name: "LurusTech",
+          url: site.siteUrl,
+          description: site.description,
+          sameAs: ["https://github.com/hanmahong5-arch"],
+        };
+  const graph: Record<string, unknown>[] = [
+    publisher,
     {
       "@type": "WebSite",
-      "@id": `${SITE_URL}/#website`,
+      "@id": `${site.siteUrl}/#website`,
       name: "LurusTech",
-      url: SITE_URL,
+      url: site.siteUrl,
       inLanguage: "zh-CN",
-      publisher: { "@id": `${SITE_URL}/#person` },
+      publisher: { "@id": publisherId },
     },
-    {
-      "@type": "SoftwareApplication",
-      "@id": `${SITE_URL}/kova#app`,
-      name: "Kova",
-      applicationCategory: "DeveloperApplication",
-      operatingSystem: "Linux",
-      url: `${SITE_URL}/kova`,
-      description:
-        "嵌入式持久执行引擎：WAL 崩溃恢复、执行留痕、可回放。成熟度：早期试点。",
-      publisher: { "@id": `${SITE_URL}/#person` },
-    },
-  ],
-};
+  ];
+  graph.push({
+    "@type": "SoftwareApplication",
+    "@id": `${site.siteUrl}/kova#app`,
+    name: "Kova",
+    applicationCategory: "DeveloperApplication",
+    operatingSystem: "Linux",
+    url: `${site.siteUrl}/kova`,
+    description: "嵌入式持久执行引擎：WAL 崩溃恢复、执行留痕、可回放。成熟度：早期试点。",
+    publisher: { "@id": publisherId },
+  });
+  return {
+    "@context": "https://schema.org",
+    "@graph": graph,
+  };
+}
 
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const site = siteProfile();
   return (
     <html
       lang="zh-CN"
@@ -127,13 +146,16 @@ export default function RootLayout({
         </Script>
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd(site)) }}
         />
         {/* reducedMotion="user" 让全站 framer-motion 动画（含 repeat:Infinity 的呼吸/漂移效果）
             自动尊重系统"减弱动态效果"偏好，无需逐组件改造。 */}
         <MotionConfig reducedMotion="user">
-          <Header />
-          <main className="flex-1">{children}</main>
+          <Header nav={site.nav} homeLabel={site.homeLabel} />
+          <main className="flex-1">
+            <CatalogRelation />
+            {children}
+          </main>
           <Footer />
           <CommandPalette />
         </MotionConfig>

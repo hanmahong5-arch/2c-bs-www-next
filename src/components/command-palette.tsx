@@ -4,26 +4,15 @@ import { useCallback, useEffect, useState, useMemo, useRef, useSyncExternalStore
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import {
-  HomeIcon,
-  CubeTransparentIcon,
-  ChartBarIcon,
-  WrenchScrewdriverIcon,
-  CurrencyYenIcon,
-  CloudArrowDownIcon,
-  DocumentTextIcon,
-  CodeBracketIcon,
-  EnvelopeIcon,
-  MegaphoneIcon,
-  CommandLineIcon,
-} from "@heroicons/react/24/outline";
+import { BrandMark, type BrandLine } from "@/components/brand-mark";
+import { CATALOG, catalogMark } from "@/lib/catalog";
 
 type Item = {
   label: string;
   href: string;
   hint?: string;
   external?: boolean;
-  Icon: typeof HomeIcon;
+  mark: BrandLine;
 };
 
 type Group = { section: string; items: Item[] };
@@ -35,30 +24,22 @@ const GROUPS: Group[] = [
   {
     section: "导航",
     items: [
-      { label: "首页", href: "/", Icon: HomeIcon },
-      { label: "见证 — 状态可核查", href: "/witness", Icon: CubeTransparentIcon },
-      { label: "Kova — 持久执行引擎", href: "/kova", Icon: WrenchScrewdriverIcon },
-      { label: "Forge — 工作流编排壳", href: "/forge", Icon: WrenchScrewdriverIcon },
-      { label: "Founder — 获客桌面（内部）", href: "/founder", Icon: MegaphoneIcon },
-      { label: "Lux — 编码 Agent CLI", href: "/lux", Icon: CommandLineIcon },
-      { label: "Memorus — AI 记忆引擎", href: "/memorus", Icon: ChartBarIcon },
-      { label: "Memorus 公开基准报告", href: "/memorus/benchmarks", Icon: DocumentTextIcon },
-      { label: "Hub — 私有 LLM 网关", href: "/hub", Icon: CloudArrowDownIcon },
-      { label: "Hub 按量价格", href: "/hub/pricing", Icon: CurrencyYenIcon },
-      { label: "Lugo — 账号与计费", href: "/lugo", Icon: CurrencyYenIcon },
-      { label: "Switch — AI CLI 管理器", href: "/switch", Icon: CloudArrowDownIcon },
-      { label: "方法", href: "/approach", Icon: WrenchScrewdriverIcon },
-      { label: "博客", href: "/blog", Icon: DocumentTextIcon },
-      { label: "关于", href: "/about", Icon: EnvelopeIcon },
+      { label: "首页", href: "/", mark: "crystal" },
+      ...CATALOG.map((item) => ({
+        label: item.name,
+        href: item.href,
+        mark: catalogMark(item.href),
+        hint: item.relation,
+      })),
+      { label: "关于", href: "/about", mark: "z-flat" },
     ],
   },
   {
     section: "资源",
     items: [
-      { label: "下载", href: "/download", Icon: CloudArrowDownIcon },
-      { label: "API 文档", href: "https://docs.lurus.cn", external: true, Icon: DocumentTextIcon, hint: "docs.lurus.cn" },
-      { label: "GitHub", href: "https://github.com/hanmahong5-arch", external: true, Icon: CodeBracketIcon },
-      { label: "联系我们", href: "/about#contact", Icon: EnvelopeIcon },
+      { label: "API 文档", href: "https://docs.lurus.cn", external: true, mark: "z-flat", hint: "docs.lurus.cn" },
+      { label: "GitHub", href: "https://github.com/hanmahong5-arch", external: true, mark: "z-flat" },
+      { label: "联系我们", href: "/about#contact", mark: "z-flat" },
     ],
   },
 ];
@@ -98,12 +79,14 @@ export function CommandPalette() {
     };
   }, [open, closePalette]);
 
+  const groups = GROUPS;
+
   // Flatten + filter
   const filteredFlat = useMemo(() => {
     const q = query.trim().toLowerCase();
     const out: { group: string; item: Item; flatIdx: number }[] = [];
     let idx = 0;
-    for (const g of GROUPS) {
+    for (const g of groups) {
       for (const item of g.items) {
         if (!q || item.label.toLowerCase().includes(q) || item.hint?.toLowerCase().includes(q)) {
           out.push({ group: g.section, item, flatIdx: idx++ });
@@ -111,7 +94,7 @@ export function CommandPalette() {
       }
     }
     return out;
-  }, [query]);
+  }, [groups, query]);
 
   // Arrow navigation + Enter
   useEffect(() => {
@@ -211,7 +194,7 @@ export function CommandPalette() {
                   <p className="mt-1 text-xs text-[var(--color-text-muted)]/60">试试输入产品名或页面名</p>
                 </div>
               ) : (
-                GROUPS.map((g) => {
+                groups.map((g) => {
                   const itemsInGroup = filteredFlat.filter((f) => f.group === g.section);
                   if (itemsInGroup.length === 0) return null;
                   return (
@@ -221,7 +204,6 @@ export function CommandPalette() {
                       </div>
                       {itemsInGroup.map(({ item, flatIdx }) => {
                         const isActive = activeIdx === flatIdx;
-                        const Icon = item.Icon;
                         const handleClick = closePalette;
                         const className = `flex items-center gap-3 mx-2 px-3 py-2.5 rounded-lg text-sm cursor-pointer transition-colors ${
                           isActive
@@ -230,7 +212,7 @@ export function CommandPalette() {
                         }`;
                         const inner = (
                           <>
-                            <Icon className={`w-4 h-4 shrink-0 ${isActive ? "text-[var(--color-ochre)]" : "text-[var(--color-text-muted)]"}`} />
+                            <BrandMark line={item.mark} className="h-6 w-6" />
                             <span className="flex-1 truncate">{item.label}</span>
                             {item.hint && (
                               <span className="text-[10px] font-mono text-[var(--color-text-muted)]/60 truncate">{item.hint}</span>

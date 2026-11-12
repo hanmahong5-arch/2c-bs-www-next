@@ -1,17 +1,18 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Disclosure, Eyebrow, Lead, Section } from "@/components/site";
+import { siteProfile } from "@/lib/site-profile";
 
-// 关于页：个人身份 → 信条 → 联系方式。
+// 关于页：身份 → 信条 → 联系方式。信条两边相同。
 // 不写客户名、金额、团队规模、产品数量、模型数量。全部服务端渲染，无 JS 动效。
 
-export const metadata: Metadata = {
-  title: "关于",
-  description:
-    "LurusTech 个人项目站：做 AI 工具与底座，用证据说明系统稳不稳。",
-};
-
-const CONTACT_EMAIL = "contact@lurus.cn";
+export async function generateMetadata(): Promise<Metadata> {
+  const site = siteProfile();
+  return {
+    title: "关于",
+    description: site.aboutDescription,
+  };
+}
 
 const linkClass =
   "text-[var(--lt-ink)] underline decoration-[var(--lt-rule)] underline-offset-4 hover:decoration-[var(--lt-accent)]";
@@ -21,6 +22,7 @@ function Point({ children }: { children: React.ReactNode }) {
 }
 
 export default function AboutPage() {
+  const site = siteProfile();
   return (
     <>
       {/* 首屏 */}
@@ -32,11 +34,9 @@ export default function AboutPage() {
               id="about-title"
               className="mt-5 font-display text-[2.125rem] font-semibold leading-[1.2] tracking-[-0.025em] text-[var(--lt-ink)] md:text-[2.75rem] md:leading-[1.15]"
             >
-              我在做 AI 工具与底座。
+              {site.aboutH1}
             </h1>
-            <Lead className="mt-7">
-              LurusTech 是个人项目站。系统留在你自己的环境里；状态可核查、数据可恢复、改动有记录——每条都写明凭什么。
-            </Lead>
+            <Lead className="mt-7">{site.aboutLead}</Lead>
           </div>
         </div>
       </section>
@@ -84,8 +84,8 @@ export default function AboutPage() {
           className="font-display text-xl leading-[1.5] text-[var(--lt-ink)] md:text-2xl"
         >
           写信到{" "}
-          <a href={`mailto:${CONTACT_EMAIL}`} className={linkClass}>
-            {CONTACT_EMAIL}
+          <a href={`mailto:${site.contactEmail}`} className={linkClass}>
+            {site.contactEmail}
           </a>
           。
         </p>

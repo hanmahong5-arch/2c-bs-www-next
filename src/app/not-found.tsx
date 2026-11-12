@@ -1,17 +1,28 @@
 import Link from "next/link";
 import { Eyebrow, Lead } from "@/components/site";
+import { CATALOG } from "@/lib/catalog";
+import { siteProfile } from "@/lib/site-profile";
 
-const suggestions = [
+const personalSuggestions = [
   { name: "首页", href: "/", desc: "回到起点" },
   { name: "方法", href: "/approach", desc: "我们怎么工作" },
   { name: "Memorus", href: "/memorus", desc: "记得住，也查得清" },
   { name: "文档", href: "https://docs.lurus.cn", desc: "docs.lurus.cn", external: true },
 ] as const;
 
+const companySuggestions = [
+  { name: "首页", href: "/", desc: "受托运维" },
+  ...CATALOG.map((item) => ({ name: item.name, href: item.href, desc: item.relation })),
+  { name: "公司", href: "/about", desc: "谁在做这件事" },
+  { name: "文档", href: "https://docs.lurus.cn", desc: "docs.lurus.cn", external: true as const },
+];
+
 const linkClass =
   "block border-b border-[var(--lt-rule)] py-4 text-left transition-colors hover:border-[var(--lt-accent)]";
 
 export default function NotFound() {
+  const site = siteProfile();
+  const suggestions = site.id === "company" ? companySuggestions : personalSuggestions;
   return (
     <div className="px-6">
       <div className="mx-auto flex min-h-[70vh] max-w-5xl flex-col justify-center py-24">
@@ -20,9 +31,11 @@ export default function NotFound() {
           <h1 className="mt-5 font-display text-[2.125rem] font-semibold leading-[1.2] tracking-[-0.025em] text-[var(--lt-ink)] md:text-[2.75rem]">
             没有这一页。
           </h1>
-          <Lead className="mt-6">
-            地址可能写错了，或者内容已经挪走。下面几条常有人去：
-          </Lead>
+            <Lead className="mt-6">
+              {site.id === "company"
+                ? "地址可能写错了。下面是这个站上的全部公开页。"
+                : "地址可能写错了，或者内容已经挪走。下面几条常有人去："}
+            </Lead>
 
           <ul className="mt-10 border-t border-[var(--lt-rule)]">
             {suggestions.map((s) => {

@@ -1,12 +1,51 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { siteProfile } from "@/lib/site-profile";
 
-export const metadata: Metadata = {
-  title: "隐私政策",
-  description: "Lurus 隐私政策 — 我们如何收集、使用和保护你的数据。",
-};
+export async function generateMetadata(): Promise<Metadata> {
+  if (siteProfile().id === "company") {
+    return {
+      title: "隐私",
+      description: "受托运维的保密以合同为准。系统留在客户自己的环境里。",
+    };
+  }
+  return {
+    title: "隐私政策",
+    description: "Lurus 隐私政策 — 我们如何收集、使用和保护你的数据。",
+  };
+}
 
 export default function PrivacyPage() {
+  const site = siteProfile();
+  if (site.id === "company") {
+    return (
+      <div className="mx-auto max-w-3xl px-6 py-20 md:py-28">
+        <h1 className="mb-4 font-display text-3xl font-semibold tracking-[-0.02em] text-[var(--lt-ink)] md:text-4xl">
+          隐私
+        </h1>
+        <div className="space-y-6 text-[var(--color-text-secondary)] leading-relaxed">
+          <p>
+            系统留在客户自己的环境里。月报里的读数在你的环境里测，不把客户系统里的数据搬出来出售。
+          </p>
+          <p>
+            来信里的联系方式和环境说明，只用于回复能不能接，以及合同范围内的工作。留存和保密以签署的合同为准。
+          </p>
+          <p>
+            要问一份具体合同怎么写，写信到{" "}
+            <a href={`mailto:${site.contactEmail}`} className="text-[var(--lt-ink)] underline underline-offset-4">
+              {site.contactEmail}
+            </a>
+            。
+          </p>
+        </div>
+        <div className="mt-16 border-t border-[var(--color-border)] pt-8">
+          <Link href="/" className="text-sm text-[var(--color-text-muted)] hover:text-[var(--color-text-secondary)]">
+            ← 返回首页
+          </Link>
+        </div>
+      </div>
+    );
+  }
   return (
     <div className="mx-auto max-w-3xl px-6 py-20 md:py-28">
       <h1 className="text-3xl md:text-4xl font-bold text-[var(--color-text-primary)] mb-4">

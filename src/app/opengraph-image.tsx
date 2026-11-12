@@ -1,9 +1,12 @@
 import { ImageResponse } from "next/og";
+import { readFile } from "node:fs/promises";
+import path from "node:path";
+import { siteProfile } from "@/lib/site-profile";
 
-// 动态生成站点社交分享卡 — 替代此前引用却不存在的静态 /og-image.png (404)。
-// 文案保持拉丁字形，避免在 ImageResponse 中加载中文字体的复杂度；品牌词为主体。
+// 动态生成站点社交分享卡。文案保持拉丁字形，避免在 ImageResponse 中加载中文字体。
+export const dynamic = "force-dynamic";
 export const alt =
-  "LurusTech — Urus. Personal workshop for AI tools and infrastructure: evidence-graded status, real restores, maturity labeled per component.";
+  "LurusTech. Evidence-graded status, a real restore when claiming recoverability, maturity labeled per component.";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -12,7 +15,10 @@ const INK = "#14130F";
 const ACCENT = "#FF5D1F";
 const MUTED = "#6B6860";
 
-export default function OpengraphImage() {
+export default async function OpengraphImage() {
+  const company = siteProfile().id === "company";
+  const mark = await readFile(path.join(process.cwd(), "public/images/brand/marks/crystal.png"));
+  const markSrc = `data:image/png;base64,${Buffer.from(mark).toString("base64")}`;
   return new ImageResponse(
     (
       <div
@@ -27,25 +33,8 @@ export default function OpengraphImage() {
           fontFamily: "sans-serif",
         }}
       >
-        {/* 顶部：Urus mark hint + layer peel */}
         <div style={{ display: "flex", alignItems: "center" }}>
-          <div
-            style={{
-              width: 48,
-              height: 48,
-              borderRadius: 8,
-              background: INK,
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              color: PAPER,
-              fontSize: 22,
-              fontWeight: 700,
-              letterSpacing: 1,
-            }}
-          >
-            U
-          </div>
+          <img src={markSrc} width={72} height={72} alt="" />
           <div
             style={{
               marginLeft: 18,
@@ -55,11 +44,10 @@ export default function OpengraphImage() {
               color: MUTED,
             }}
           >
-            LURUS · URUS · RUS
+            {company ? "LurusTech" : "LURUS · URUS · RUS"}
           </div>
         </div>
 
-        {/* 品牌词 + 副标题 */}
         <div style={{ display: "flex", flexDirection: "column" }}>
           <div
             style={{
@@ -81,7 +69,7 @@ export default function OpengraphImage() {
               textTransform: "uppercase",
             }}
           >
-            Urus — the aurochs
+            {company ? "Customer's own environment" : "Tools and the base underneath"}
           </div>
           <div
             style={{
@@ -92,12 +80,12 @@ export default function OpengraphImage() {
               maxWidth: 980,
             }}
           >
-            Personal workshop for AI tools and infrastructure: evidence-graded
-            status, a real restore when claiming recoverability, maturity labeled.
+            {company
+              ? "Company site for AI tools and infrastructure: evidence-graded status, a real restore when claiming recoverability, maturity labeled."
+              : "Personal workshop for AI tools and infrastructure: evidence-graded status, a real restore when claiming recoverability, maturity labeled."}
           </div>
         </div>
 
-        {/* 底部 URL */}
         <div style={{ display: "flex", alignItems: "center" }}>
           <div style={{ width: 40, height: 6, background: ACCENT, borderRadius: 3 }} />
           <div
@@ -108,7 +96,7 @@ export default function OpengraphImage() {
               color: INK,
             }}
           >
-            www.lurus.cn
+            {company ? "www.ailurus.top" : "www.lurus.cn"}
           </div>
         </div>
       </div>

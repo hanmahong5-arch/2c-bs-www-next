@@ -46,17 +46,6 @@ function ThemeToggle() {
 
 type NavItem = { name: string; href: string; external?: boolean };
 
-const nav: readonly NavItem[] = [
-  { name: "Switch", href: "/switch" },
-  { name: "见证", href: "/witness" },
-  { name: "Kova", href: "/kova" },
-  { name: "Memorus", href: "/memorus" },
-  { name: "Hub", href: "/hub" },
-  { name: "Lugo", href: "/lugo" },
-  { name: "方法", href: "/approach" },
-  { name: "文档", href: "https://docs.lurus.cn", external: true },
-];
-
 const LOGIN_URL = "https://identity.lurus.cn";
 
 function NavLink({
@@ -101,16 +90,20 @@ function NavLink({
   );
 }
 
-export function Header() {
+export function Header({ nav, homeLabel }: { nav: readonly NavItem[]; homeLabel: string }) {
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
-  const isActive = (item: NavItem) =>
-    !item.external && (pathname === item.href || pathname.startsWith(`${item.href}/`));
+  const isActive = (item: NavItem) => {
+    if (item.external) return false;
+    const path = item.href.split("#")[0] || "/";
+    if (item.href.includes("#")) return false;
+    return pathname === path || pathname.startsWith(`${path}/`);
+  };
 
   return (
     <header className="sticky top-0 z-50 border-b border-[var(--lt-rule)] bg-[var(--lt-paper)]/90 backdrop-blur">
       <div className="mx-auto flex h-14 max-w-5xl items-center justify-between px-6">
-        <Link href="/" aria-label="LurusTech 个人项目站首页" className="inline-flex items-center">
+        <Link href="/" aria-label={homeLabel} className="inline-flex items-center">
           <BrandLockup />
         </Link>
 

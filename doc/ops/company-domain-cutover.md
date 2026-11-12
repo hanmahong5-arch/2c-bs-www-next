@@ -3,11 +3,11 @@
 > **定案（2026-10）**  
 > - **企业主页域名**：`ailurus.top` / `www.ailurus.top`（**.top**，非 .cn）— 公司法人账户注册，**企业 ICP 备案进行中**  
 > - **原域名**：`lurus.cn` / `www.lurus.cn` — **继续个人备案**（鲁ICP备2026000242号）  
-> - 品牌字标仍可写 LurusTech / Urus；对外「公司官网入口」切到 `ailurus.top`
+> - 字标仍是 LurusTech。图画标是四枚金属标（核 / 裂 / 金属 Z / 平面 Z），不再用 U + 野牛角。对外「公司官网入口」切到 `ailurus.top`
 
 个人备案挂企业产品站，正是阿里云「已备案信息核查」的高发原因。双域分主体后，**企业内容只挂企业域**，个人域不再承载公司叙事。
 
-> **2026-11 现状**：`lurus.cn` 已按**个人项目站**运营（工具与底座展示，去掉公司 Careers / 企业成交主叙事），不再完整镜像企业官网；企业完整叙事仍等 `ailurus.top` 备案通过后再挂。
+> **2026-11 现状**：`lurus.cn` 继续个人项目站。公司官网文案已定，就是 `SITE_PROFILE=company` 这一版：首屏只卖客户自有环境里的可恢复性（每月真恢复、逐表核对、月报写明测量方式），不铺产品货架。公网仍等 `ailurus.top` 企业备案号写进 `deploy/k8s/ailurus-www.yaml` 后再把副本从 0 调到 1。
 
 ---
 
@@ -61,7 +61,7 @@
 
 | 面 | 现 | 建议 |
 |----|----|------|
-| 文档 | `docs.lurus.cn` | `docs.ailurus.top`（CNAME + 文档仓 baseURL）；过渡期双挂或 301 |
+| 文档 | `docs.lurus.cn` | 公开导航按各产品仓 README 写（`2l-bs-docs` 的 `public-catalog.ts`），不对着公司主页抄。域名改到 `docs.ailurus.top` 仍等企业 ICP 下发后再做 CNAME |
 | 邮件 | `@lurus.cn` | 开 `@ailurus.top` MX；旧址 **转发** 至少 6–12 个月 |
 | 页内 docs 链接 | header/footer/产品页 | 随 docs 切流批量替换 |
 
@@ -119,6 +119,7 @@
 
 ## 5. 本仓近期约定
 
-- **备案中**：不把 `SITE_URL` 改成 ailurus；不把企业全称写回 `lurus.cn` 页脚。  
-- **通过后**：开切流 PR（Host + SITE_URL + 新备案号 + 邮件展示）；产品 API 子域另 PR、另窗口。  
+- **备案中**：默认部署仍是个人站。`SITE_PROFILE` 不设或非 `company` 时，文案、备案号、canonical 都停在 `www.lurus.cn`。企业全称不进这条部署。  
+- **公司官网就用这一版**（2026-11 定）：`SITE_PROFILE=company`。首页、关于、导航、页脚、命令面板都走受托运维，不走个人站的产品地图。备案号读 `COMPANY_ICP`（及成对的 `COMPANY_PSB_LABEL` + `COMPANY_PSB_CODE`），未设置就不渲染备案行。清单在 `deploy/k8s/ailurus-www.yaml`，`replicas: 0`，没有 Service、没有 Ingress。  
+- **通过后**：把该 Deployment 的副本调到 1，补 Service 与 Ingress（新证书，Host `ailurus.top` / `www.ailurus.top`），写入企业备案号。产品 API 子域另 PR、另窗口。  
 - 真源文档即本文件；有变更只改这里，避免口头方案漂移。

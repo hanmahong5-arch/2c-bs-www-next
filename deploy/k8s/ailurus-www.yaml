@@ -1,0 +1,107 @@
+# 公司站部署。replicas 保持 0：没有 Service、没有 Ingress，不会接到公网。
+# 企业 ICP 下发后：副本调到 1，补 Service 与 IngressRoute，并设置 COMPANY_ICP。
+# 标签故意不用 lurus-www，避免现有 Service 把流量送进这个 Pod。
+# 镜像 tag 由 CI 与 deploy/k8s/deployment.yaml 一起改。
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ailurus-www
+  namespace: lurus-www
+  labels:
+    app: ailurus-www
+    app.kubernetes.io/name: ailurus-www
+    app.kubernetes.io/part-of: lurus
+    app.kubernetes.io/component: web
+spec:
+  replicas: 0
+  progressDeadlineSeconds: 900
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 0
+      maxSurge: 1
+  selector:
+    matchLabels:
+      app: ailurus-www
+      app.kubernetes.io/name: ailurus-www
+      app.kubernetes.io/part-of: lurus
+  template:
+    metadata:
+      labels:
+        app: ailurus-www
+        app.kubernetes.io/name: ailurus-www
+        app.kubernetes.io/part-of: lurus
+    spec:
+      imagePullSecrets:
+        - name: ghcr-pull-secret
+      hostAliases:
+        - ip: "43.226.45.87"
+          hostnames:
+            - hub.lurus.cn
+            - releases.lurus.cn
+      terminationGracePeriodSeconds: 30
+      containers:
+        - name: www
+          image: ghcr.io/hanmahong5-arch/2c-bs-www-next:main-11ceda8
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 3000
+              name: http
+          env:
+            - name: PORT
+              value: "3000"
+            - name: SITE_PROFILE
+              value: company
+          resources:
+            requests:
+              cpu: 100m
+              memory: 192Mi
+            limits:
+              cpu: 500m
+              memory: 384Mi
+          startupProbe:
+            httpGet:
+              path: /
+              port: http
+            initialDelaySeconds: 5
+            periodSeconds: 5
+            failureThreshold: 10
+          livenessProbe:
+            httpGet:
+              path: /
+              port: http
+            periodSeconds: 30
+          readinessProbe:
+            httpGet:
+              path: /
+              port: http
+            periodSeconds: 10
+          lifecycle:
+            preStop:
+              exec:
+                command: ["/bin/sleep", "10"]
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities:
+              drop: [ALL]
+          volumeMounts:
+            - name: tmp
+              mountPath: /tmp
+      # 与 lurus.cn 同一备案节点。副本为 0 时不会实际调度。
+      nodeSelector:
+        lurus.cn/role: www-gateway
+      tolerations:
+        - key: lurus.cn/www-only
+          value: "true"
+          effect: NoSchedule
+        - key: svclb-exclude
+          value: "true"
+          effect: NoSchedule
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 65534
+        fsGroup: 65534
+      volumes:
+        - name: tmp
+          emptyDir: {}

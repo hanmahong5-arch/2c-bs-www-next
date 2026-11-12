@@ -8,18 +8,21 @@ import {
   Lead,
   Section,
 } from "@/components/site";
+import { siteProfile } from "@/lib/site-profile";
 
-// 方法页：怎么证明系统稳（个人项目站）。
-// 不写客户名、行业名单、金额、案例数量。每个区块一句主张，细节放进 Disclosure。
-// 全部服务端渲染，无 JS 动效。
+// 方法页：怎么验收。公司站写到能放进合同的程度，不报价。
+// 不写客户名、行业名单、金额、案例数量。全部服务端渲染，无 JS 动效。
 
-export const metadata: Metadata = {
-  title: "方法",
-  description:
-    "怎么把已经做出来的 AI 系统在你自己的环境里跑稳：硬化、持续负责、按月交付证据。",
-};
-
-const CONTACT_EMAIL = "contact@lurus.cn";
+export async function generateMetadata(): Promise<Metadata> {
+  const site = siteProfile();
+  return {
+    title: "方法",
+    description:
+      site.id === "company"
+        ? "已经在跑的系统怎么验收：硬化、受托运维、每月真恢复和写明测量方式的月报。不报价。"
+        : "怎么把已经做出来的 AI 系统在你自己的环境里跑稳：硬化、持续负责、按月交付证据。",
+  };
+}
 
 function SectionTitle({
   id,
@@ -59,6 +62,8 @@ function Dash({ children }: { children: React.ReactNode }) {
 }
 
 export default function ApproachPage() {
+  const site = siteProfile();
+  const company = site.id === "company";
   return (
     <>
       {/* 首屏 */}
@@ -73,7 +78,9 @@ export default function ApproachPage() {
               怎么证明：已经做出来的 AI 系统，在你自己的环境里跑稳。
             </h1>
             <Lead className="mt-7">
-              这一页写接什么样的活、分几步做、认哪些判据、个人项目合作怎么计价，以及不做什么。
+              {company
+                ? "这一页写接什么样的系统、分几步做、认哪些判据，以及不做什么。费用写进合同，不在这里报价。"
+                : "这一页写接什么样的活、分几步做、认哪些判据、个人项目合作怎么计价，以及不做什么。"}
             </Lead>
           </div>
         </div>
@@ -211,10 +218,11 @@ export default function ApproachPage() {
           一次性硬化，加按环境的月度负责。
         </SectionTitle>
         <div className="mt-10">
-          <Disclosure summary={<Point>不公开价目；个人项目合作按范围报价。</Point>}>
+          <Disclosure summary={<Point>{company ? "不在这一页报价。" : "不公开价目；个人项目合作按范围报价。"}</Point>}>
             <p>
-              这不是公司标书价目。每个系统的规模、环境和验收要求都不一样。先看环境，
-              再按硬化工作量和需要持续负责的环境数量报价，具体以书面约定为准。
+              {company
+                ? "每个系统的规模、环境和验收要求都不一样。先看你现在跑的系统，再把范围和费用写进合同。"
+                : "这不是公司标书价目。每个系统的规模、环境和验收要求都不一样。先看环境，再按硬化工作量和需要持续负责的环境数量报价，具体以书面约定为准。"}
             </p>
           </Disclosure>
         </div>
@@ -240,15 +248,15 @@ export default function ApproachPage() {
         >
           想聊聊你的环境，写信到{" "}
           <a
-            href={`mailto:${CONTACT_EMAIL}`}
+            href={`mailto:${site.contactEmail}`}
             className="text-[var(--lt-ink)] underline decoration-[var(--lt-rule)] underline-offset-4 hover:decoration-[var(--lt-accent)]"
           >
-            {CONTACT_EMAIL}
+            {site.contactEmail}
           </a>
           。
         </p>
         <p className="mt-4 text-sm leading-[1.7] text-[var(--color-text-muted)]">
-          下一步：来信写清环境现状与目标；我回复是否适合现阶段、怎么分期。
+          {site.inviteNext}
         </p>
       </Section>
     </>
