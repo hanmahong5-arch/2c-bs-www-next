@@ -88,6 +88,10 @@ test("the command sample uses the measured gray edge", () => {
   expect(src).toContain("新记忆有 7 天保护期，权重保持满值");
   expect(src).toContain("memorus-r sweep");
   expect(src).toContain("run_decay_sweep");
+  expect(src).toContain("默认达到 0.9 时合并，几乎相同时直接跳过");
+  expect(src).toContain("落在 0.5 到 0.8 且互相矛盾的会被标出");
+  expect(src).toContain("memorus-r conflicts");
+  expect(src).toContain("没有嵌入时用词集合的 Jaccard 相似度");
   expect(src).toContain(
     'className="mt-10 max-w-[36rem] border border-[var(--color-text-muted)] bg-[var(--lt-paper)] px-4 py-3"',
   );
