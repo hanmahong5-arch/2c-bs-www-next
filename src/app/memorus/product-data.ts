@@ -61,10 +61,10 @@ export const HERO_STATS: readonly HeroStat[] = [
 export const PAIN_POINTS = [
   {
     key: "summary-loss",
-    pain: "摘要会丢信息",
-    painDetail: "只存摘要的记忆，丢掉的细节再也找不回来，也说不清答案从哪来。",
-    answer: "原文可回查",
-    answerDetail: "原话完整保留。经服务接口写入的记忆目前还没有来源记录。",
+    pain: "什么都存下来",
+    painDetail: "密钥和整段对话会一起留下。",
+    answer: "先脱敏，再抽取",
+    answerDetail: "默认写入前先脱敏，再从对话里抽取值得留下的事实。脱敏失败时这次写入不落库。经服务接口写入的记忆目前还没有来源记录。",
   },
   {
     key: "facts-change",
@@ -87,9 +87,9 @@ export const PAIN_POINTS = [
 export const CAPABILITIES = [
   {
     key: "raw",
-    title: "原文检索",
-    tagline: "无信息损失",
-    body: "检索的是原话本身，不是二手摘要。经服务接口写入的记忆目前还没有来源记录。",
+    title: "先脱敏，再抽取",
+    tagline: "默认从对话里抽取",
+    body: "默认写入前先脱敏，再从对话里抽取值得留下的事实。脱敏失败时这次写入不落库。经服务接口写入的记忆目前还没有来源记录。",
   },
   {
     key: "asof",

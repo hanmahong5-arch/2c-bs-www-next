@@ -27,7 +27,7 @@ import {
 export const metadata: Metadata = {
   title: "Memorus — AI 系统的长期记忆",
   description:
-    "记得住，也查得清：保留原文、旧值留作历史、删除原文和索引、带团队作用域。服务是 memorus-server，命令行是 memorus-r。默认零外部依赖。LongMemEval-S held-out 问答 0.837（95% 区间 0.769–0.888，n=147）。早期试点。",
+    "记得住，也查得清：先脱敏再抽取、旧值留作历史、删除原文和索引、带团队作用域。服务是 memorus-server，命令行是 memorus-r。默认零外部依赖。LongMemEval-S held-out 问答 0.837（95% 区间 0.769–0.888，n=147）。早期试点。",
 };
 
 // ───────────────────────── 小组件 ─────────────────────────
@@ -99,7 +99,7 @@ export default function MemorusPage() {
               记得住，也查得清。
             </span>
             <span className="mt-4 block">
-              AI 系统的长期记忆：保留原文、旧值留作历史、删除原文和索引、带团队作用域。服务是 memorus-server，命令行是 memorus-r。默认零外部依赖。
+              AI 系统的长期记忆：先脱敏再抽取、旧值留作历史、删除原文和索引、带团队作用域。服务是 memorus-server，命令行是 memorus-r。默认零外部依赖。
             </span>
           </>
         }
