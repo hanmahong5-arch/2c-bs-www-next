@@ -8,6 +8,7 @@ test("the command sample uses the measured gray edge", () => {
   expect(src).toContain("快速开始里的命令假定交付包已经在手里");
   expect(src).toContain("本页不提供公开镜像");
   expect(src).toContain("所有持久数据落在一个命名卷上。");
+  expect(src).toContain("并附 SHA256 校验和。校验命令是 sha256sum -c SHA256SUMS。");
   expect(src).not.toContain("安装见");
   expect(src).toContain("href={LINKS.quickstart}");
   expect(links).toContain('quickstart: "https://docs.lurus.cn/memx/quickstart"');
