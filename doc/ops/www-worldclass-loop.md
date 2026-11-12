@@ -435,3 +435,5 @@
 **本轮第二百零七刀：** Memorus 写明留下的记忆按主题（Section）和性质（KnowledgeType）两个维度分类。看完整基准仍是主按钮。
 
 **本轮第二百零八刀：** Memorus 写明合并阈值的配置键是 [ace.curator] dedup_threshold，默认 0.9。看完整基准仍是主按钮。
+
+**本轮第二百零九刀：** Memorus 写明导出 JSON 的命令是 memorus-r export --format json。看完整基准仍是主按钮。
