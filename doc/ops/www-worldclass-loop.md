@@ -447,3 +447,5 @@
 **本轮第二百一十三刀：** Memorus 写明作用域因子的配置键是 [ace.retrieval] scope_boost，命中时乘以 1.5。看完整基准仍是主按钮。
 
 **本轮第二百一十四刀：** Memorus 写明核验状态是 verified（已核验）、stale（陈旧）、unverifiable（无法核验）。看完整基准仍是主按钮。
+
+**本轮第二百一十五刀：** Memorus 写明默认配置不需要 GPU，规则抽取与关键词检索都在 CPU 上完成。看完整基准仍是主按钮。
