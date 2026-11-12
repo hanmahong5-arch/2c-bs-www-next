@@ -127,6 +127,9 @@ test("the command sample uses the measured gray edge", () => {
   expect(links).toContain("导出 JSON 时，命令是 memorus-r export --format json。");
   expect(links).toContain("导出时，输出文件用 -o 指定。");
   expect(links).toContain("从文件导入时，命令是 memorus-r import -i。");
+  expect(links).toContain(
+    "记错了的内容，用 memorus-r list 或 memorus-r conflicts 找到，用 memorus-r forget 带上记忆编号删除，用 memorus-r learn 手动写入正确内容。",
+  );
   expect(links).not.toContain("forget / team");
   expect(links).not.toContain("会话 #");
   expect(links).not.toContain("第 4 轮");
