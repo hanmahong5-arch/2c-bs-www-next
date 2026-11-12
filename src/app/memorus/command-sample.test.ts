@@ -14,6 +14,7 @@ test("the command sample uses the measured gray edge", () => {
   expect(links).not.toContain("改一行配置");
   expect(src).toContain("这时语义层不起作用。没有查询向量时，融合权重变为 1.0 / 0.0，退化为纯关键词。");
   expect(src).toContain("有查询向量时，精确关键词、词干模糊和元数据合起来占 0.6，语义层占 0.4。");
+  expect(src).toContain("融合之后再乘以衰减权重、时效因子和作用域因子，结果截断到 0 到 1。");
   expect(src).not.toContain("检索主要靠关键词");
   expect(src).toContain("中文按字符二元组切词，不是词典分词。");
   expect(src).toContain("onnx-embedding");
