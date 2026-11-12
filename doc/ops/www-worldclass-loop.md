@@ -421,3 +421,5 @@
 **本轮第二百刀：** Memorus 写明衰减四项在配置里是 [ace.decay] 的 half_life、boost_factor、protection_days、permanent_threshold。看完整基准仍是主按钮。
 
 **本轮第二百零一刀：** Memorus 写明移出活跃检索的阈值键名是 archive_threshold。看完整基准仍是主按钮。
+
+**本轮第二百零二刀：** Memorus 写明导出和导入的命令是 memorus-r export、memorus-r import。看完整基准仍是主按钮。
