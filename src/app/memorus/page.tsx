@@ -437,6 +437,7 @@ export default function MemorusPage() {
             <Code>memorus-r sweep</Code>，或 MCP 工具 <Code>run_decay_sweep</Code>。权重低于 0.02 的记忆，清理时移出活跃检索，不是删除。
           </Item>
           <Item>检索打分时，7 天内的新记忆最多加成 20%，随天数线性归零。</Item>
+          <Item>检索打分时，命中查询所指定作用域的记忆乘以 1.5。</Item>
           <Item>MCP 的服务端 HTTP 端点目前仅支持单租户；多租户请走 REST。</Item>
           <Item>备份中的副本尚未纳入删除传播，正在建设。</Item>
           <Item>读写延迟尚未系统测量，所以不报。</Item>
