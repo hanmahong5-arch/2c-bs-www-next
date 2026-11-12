@@ -98,9 +98,7 @@ export function AsOfDemo() {
           <blockquote className="mt-2 border-l-2 border-[var(--lt-ink)] pl-4 text-[1.0625rem] leading-[1.7] text-[var(--lt-ink)]">
             「{valid.quote}」
           </blockquote>
-          <p className="mt-2 font-mono text-[11px] text-[var(--color-text-secondary)]">
-            {valid.date} · {valid.source}
-          </p>
+          <p className="mt-2 font-mono text-[11px] text-[var(--color-text-secondary)]">{valid.date}</p>
         </div>
       </div>
 
