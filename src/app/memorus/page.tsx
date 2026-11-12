@@ -434,7 +434,7 @@ export default function MemorusPage() {
           </Item>
           <Item>
             无召回时，记忆权重默认 30 天减半。新记忆有 7 天保护期，权重保持满值。清理要另外触发：命令行{" "}
-            <Code>memorus-r sweep</Code>，或 MCP 工具 <Code>run_decay_sweep</Code>。
+            <Code>memorus-r sweep</Code>，或 MCP 工具 <Code>run_decay_sweep</Code>。权重低于 0.02 的记忆，清理时移出活跃检索，不是删除。
           </Item>
           <Item>MCP 的服务端 HTTP 端点目前仅支持单租户；多租户请走 REST。</Item>
           <Item>备份中的副本尚未纳入删除传播，正在建设。</Item>

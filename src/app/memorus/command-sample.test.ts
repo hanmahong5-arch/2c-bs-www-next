@@ -102,6 +102,7 @@ test("the command sample uses the measured gray edge", () => {
   expect(src).toContain("新记忆有 7 天保护期，权重保持满值");
   expect(src).toContain("memorus-r sweep");
   expect(src).toContain("run_decay_sweep");
+  expect(src).toContain("权重低于 0.02 的记忆，清理时移出活跃检索，不是删除。");
   expect(src).toContain("默认达到 0.9 时合并，几乎相同时直接跳过");
   expect(src).toContain("落在 0.5 到 0.8 且互相矛盾的会被标出");
   expect(src).toContain("memorus-r conflicts");
