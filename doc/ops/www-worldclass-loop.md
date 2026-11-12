@@ -485,3 +485,5 @@
 **本轮第二百三十二刀：** Memorus 写明列出记忆时，条数用 --limit 指定。看完整基准仍是主按钮。
 
 **本轮第二百三十三刀：** Memorus 写明写入是 POST /api/v1/memories，检索是 GET /api/v1/memories/search。看完整基准仍是主按钮。
+
+**本轮第二百三十四刀：** Memorus 写明快速开始里写入体带 content、user_id、scope，检索参数是 query、user_id、limit。看完整基准仍是主按钮。
