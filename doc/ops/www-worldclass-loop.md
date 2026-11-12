@@ -395,3 +395,5 @@
 **本轮第一百八十七刀：** Memorus 的 MCP 卡写明本地命令是 memorus-server mcp。看完整基准仍是主按钮。
 
 **本轮第一百八十八刀：** Memorus 写明服务端 HTTP 端点随 memorus-server serve 提供，路径是 POST /mcp。看完整基准仍是主按钮。
+
+**本轮第一百八十九刀：** Memorus 写明请求头用 Authorization: Bearer，或 X-API-Key。看完整基准仍是主按钮。
