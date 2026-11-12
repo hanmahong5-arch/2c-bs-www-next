@@ -119,7 +119,7 @@ export const CAPABILITIES = [
     key: "trust",
     title: "可信度核验",
     tagline: "源头变了会被标出",
-    body: "锚定到源文件的记忆，检索时会重新核对。源头变了，结果里会标出来。对陈旧记忆默认只标注，也可以配置为降权或剔除。配置项是 [ace.verification] policy，默认 flag 只标注，demote 降权，drop 剔除。命令行 memorus-r verify 可以批量核对。",
+    body: "锚定到源文件的记忆，检索时会重新核对。源头变了，结果里会标出来。对陈旧记忆默认只标注，也可以配置为降权或剔除。配置项是 [ace.verification] policy，默认 flag 只标注，demote 降权，drop 剔除。命令行 memorus-r verify 可以批量核对。只核对陈旧的锚点记忆时，命令是 memorus-r verify --stale-only。",
   },
 ] as const;
 
