@@ -401,3 +401,5 @@
 **本轮第一百九十刀：** Memorus 写明后台进程的命令是 memorus-server daemon。看完整基准仍是主按钮。
 
 **本轮第一百九十一刀：** Memorus 写明密钥用启动参数 --api-key，或环境变量 MEMORUS_API_KEY。看完整基准仍是主按钮。
+
+**本轮第一百九十二刀：** Memorus 的 REST 示例改为文档里的健康检查 GET /health。看完整基准仍是主按钮。
