@@ -20,6 +20,7 @@ test("the command sample uses the measured gray edge", () => {
   expect(links).not.toContain("改一行配置");
   expect(src).toContain("这时语义层不起作用。没有查询向量时，融合权重变为 1.0 / 0.0，退化为纯关键词。");
   expect(src).toContain("有查询向量时，精确关键词、词干模糊和元数据合起来占 0.6，语义层占 0.4。");
+  expect(src).toContain("关键词三层先相加，除以满分，再截到 1，然后才乘这 0.6。");
   expect(src).toContain("元数据层看查询词是否命中工具、实体、标签字段。");
   expect(src).toContain("精确关键词看查询词是否原样出现在正文。");
   expect(src).toContain("词干模糊对查询与正文取词干后比较。");
