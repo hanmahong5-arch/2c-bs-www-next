@@ -434,7 +434,7 @@ export default function MemorusPage() {
           </Item>
           <Item>
             无召回时，记忆权重默认 30 天减半。每次召回的回升系数默认是 0.1，权重上限仍是满值。新记忆有 7 天保护期，权重保持满值。召回次数达到 15 次后，这条记忆不再衰减。清理要另外触发：命令行{" "}
-            <Code>memorus-r sweep</Code>，或 MCP 工具 <Code>run_decay_sweep</Code>。权重低于 0.02 的记忆，清理时移出活跃检索，不是删除。
+            <Code>memorus-r sweep</Code>，或 MCP 工具 <Code>run_decay_sweep</Code>。权重低于 0.02 的记忆，清理时移出活跃检索，不是删除。半衰期、回升系数、保护期和停止衰减的次数，在配置里是 [ace.decay] 的 half_life、boost_factor、protection_days、permanent_threshold。
           </Item>
           <Item>检索打分时，7 天内的新记忆最多加成 20%，随天数线性归零。</Item>
           <Item>检索打分时，命中查询所指定作用域的记忆乘以 1.5。</Item>
