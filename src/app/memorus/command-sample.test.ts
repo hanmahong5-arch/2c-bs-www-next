@@ -99,6 +99,8 @@ test("the command sample uses the measured gray edge", () => {
   expect(src).toContain("写入时显式带了源文件锚点的记忆不走抽取，但仍先经过同一套脱敏。");
   expect(src).toContain("默认的规则抽取只认五类：错误修复、多次重试后成功、配置变更、首次使用新工具、重复操作。");
   expect(src).toContain("每条候选按 0 到 100 评分，低于 30 的会被丢弃。");
+  expect(src).toContain("检索接口返回总分和核验状态。");
+  expect(src).toContain("各层的分项得分目前只在引擎内部计算，还没有通过接口返回。");
   expect(src).toContain(
     'className="mt-10 max-w-[36rem] border border-[var(--color-text-muted)] bg-[var(--lt-paper)] px-4 py-3"',
   );
