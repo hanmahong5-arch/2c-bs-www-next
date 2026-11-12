@@ -47,7 +47,8 @@ test("the command sample uses the measured gray edge", () => {
   expect(links).not.toContain("Python、Node、WASM，在你自己的进程里直接调用");
   expect(src).toContain("旧值留作历史");
   expect(src).toContain("旧记忆标成已被取代，检索时排在后面");
-  expect(src).toContain('变更历史可以按条查询，接口是 GET /api/v1/memories/{"{id}"}/history。');
+  expect(src).toContain('新增、修改、删除都记入变更历史，可以按条查询，接口是 GET /api/v1/memories/{"{id}"}/history。');
+  expect(links.match(/新增、修改、删除都记入变更历史，可以按条查询/g)).toHaveLength(2);
   expect(links.match(/接口是 GET \/api\/v1\/memories\/\{id\}\/history。/g)).toHaveLength(2);
   expect(src).not.toContain("可按时点追问");
   expect(src).not.toContain("问「当时」，就答「当时」");

@@ -71,7 +71,7 @@ export const PAIN_POINTS = [
     pain: "事实会变",
     painDetail: "预算改了三次，只留下最后一次，更早的说法就没了。",
     answer: "旧值留作历史",
-    answerDetail: "同一事实出现新值时，旧记忆标成已被取代，检索时排在后面。变更历史可以按条查询，接口是 GET /api/v1/memories/{id}/history。",
+    answerDetail: "同一事实出现新值时，旧记忆标成已被取代，检索时排在后面。新增、修改、删除都记入变更历史，可以按条查询，接口是 GET /api/v1/memories/{id}/history。",
   },
   {
     key: "erasure",
@@ -95,7 +95,7 @@ export const CAPABILITIES = [
     key: "asof",
     title: "旧值留作历史",
     tagline: "检索时排在后面",
-    body: "同一事实出现新值时，旧记忆标成已被取代，检索时排在后面。变更历史可以按条查询，接口是 GET /api/v1/memories/{id}/history。",
+    body: "同一事实出现新值时，旧记忆标成已被取代，检索时排在后面。新增、修改、删除都记入变更历史，可以按条查询，接口是 GET /api/v1/memories/{id}/history。",
   },
   {
     key: "erasure",
