@@ -423,3 +423,5 @@
 **本轮第二百零一刀：** Memorus 写明移出活跃检索的阈值键名是 archive_threshold。看完整基准仍是主按钮。
 
 **本轮第二百零二刀：** Memorus 写明导出和导入的命令是 memorus-r export、memorus-r import。看完整基准仍是主按钮。
+
+**本轮第二百零三刀：** Memorus 写明只核对陈旧锚点时用 memorus-r verify --stale-only。看完整基准仍是主按钮。
