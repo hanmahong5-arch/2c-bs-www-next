@@ -99,6 +99,7 @@ test("the command sample uses the measured gray edge", () => {
   expect(links).toContain("记忆操作以工具形式暴露");
   expect(links).not.toContain("主流编码助手");
   expect(src).toContain("无召回时，记忆权重默认 30 天减半");
+  expect(src).toContain("每次召回的回升系数默认是 0.1，权重上限仍是满值。");
   expect(src).toContain("新记忆有 7 天保护期，权重保持满值");
   expect(src).toContain("召回次数达到 15 次后，这条记忆不再衰减。");
   expect(src).toContain("memorus-r sweep");
