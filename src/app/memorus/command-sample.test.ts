@@ -50,6 +50,7 @@ test("the command sample uses the measured gray edge", () => {
   expect(links).toContain("未设路径时为内存态");
   expect(links).not.toContain("数据落在本地一个文件里");
   expect(links).toContain("对陈旧记忆默认只标注，也可以配置为降权或剔除。");
+  expect(links).toContain("配置项是 [ace.verification] policy，默认 flag 只标注，demote 降权，drop 剔除。");
   expect(links).toContain("命令行 memorus-r verify 可以批量核对。");
   expect(links).not.toContain("旧结论不会悄悄混进回答");
   expect(links.match(/WASM 绑定是另一套独立实现/g)).toHaveLength(2);
