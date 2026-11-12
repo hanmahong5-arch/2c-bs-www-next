@@ -433,3 +433,5 @@
 **本轮第二百零六刀：** Memorus 写明教学价值评分低于 [ace.reflector] min_score（默认 30）的候选会被丢弃。看完整基准仍是主按钮。
 
 **本轮第二百零七刀：** Memorus 写明留下的记忆按主题（Section）和性质（KnowledgeType）两个维度分类。看完整基准仍是主按钮。
+
+**本轮第二百零八刀：** Memorus 写明合并阈值的配置键是 [ace.curator] dedup_threshold，默认 0.9。看完整基准仍是主按钮。
