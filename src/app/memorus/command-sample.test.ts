@@ -55,6 +55,11 @@ test("the command sample uses the measured gray edge", () => {
   expect(links).not.toContain("管理员权限");
   expect(src).toContain("没有可比对的源文件则无法核验");
   expect(src).not.toContain("每条记忆随结果返回出处");
+  expect(src).toContain("删除原文和索引");
+  expect(src).not.toContain("删除可传播");
+  expect(links).not.toContain("删除可传播");
+  expect(links).not.toContain("只作用于本租户");
+  expect(links).toContain("按用户或按条删除，原文和检索索引一并移除。");
   expect(src).toContain(
     'className="mt-10 max-w-[36rem] border border-[var(--color-text-muted)] bg-[var(--lt-paper)] px-4 py-3"',
   );
