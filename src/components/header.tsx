@@ -141,8 +141,12 @@ export function Header({
   const [open, setOpen] = useState(false);
   const [lifted, setLifted] = useState(false);
   const pathname = usePathname();
-  const pathRef = useRef(pathname);
   const menuButtonRef = useRef<HTMLButtonElement>(null);
+  const [seenPath, setSeenPath] = useState(pathname);
+  if (pathname !== seenPath) {
+    setSeenPath(pathname);
+    if (open) setOpen(false);
+  }
   useEffect(() => {
     if (!field) return;
     const onScroll = () => setLifted(window.scrollY > 24);
@@ -156,15 +160,6 @@ export function Header({
     const path = item.href.split("#")[0] || "/";
     return pathname === path || pathname.startsWith(`${path}/`);
   };
-
-  useEffect(() => {
-    if (!pathClosesMenu(open, pathRef.current, pathname)) {
-      pathRef.current = pathname;
-      return;
-    }
-    pathRef.current = pathname;
-    setOpen(false);
-  }, [open, pathname]);
 
   useEffect(() => {
     if (!open) return;
