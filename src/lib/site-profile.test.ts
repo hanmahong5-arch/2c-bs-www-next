@@ -1,4 +1,5 @@
 import assert from "node:assert/strict";
+import { frameCompanyAccess } from "./company-access";
 import { CATALOG, COMPANY_GROUPS, catalogItem, itemsIn } from "./catalog";
 import { profileFrom } from "./site-profile";
 import { routesFor } from "./site-routes";
@@ -64,9 +65,40 @@ for (const path of companyPaths) {
   assert.equal(catalogHrefs.includes(path), !structural, path);
 }
 const catalogText = JSON.stringify({ CATALOG, COMPANY_GROUPS });
+for (const item of CATALOG) {
+  assert.ok(item.sheet.length >= 3, item.href);
+  assert.equal(item.relation.includes("你"), false, item.href);
+  for (const row of item.sheet) {
+    assert.equal(row.value.includes("你"), false, `${item.href} ${row.label}`);
+    assert.equal(row.value.includes("行为"), false, `${item.href} ${row.label}`);
+  }
+}
 assert.equal(catalogItem("/hub")?.name, "Hub");
 assert.equal(catalogItem("/hub/pricing")?.name, "Hub 价格");
 assert.equal(catalogItem("/"), undefined);
+
+const offer = { label: "写信说明现在跑的系统", href: "mailto:contact@ailurus.top?subject=x" };
+const framed = frameCompanyAccess(
+  [
+    { label: "阅读文档", href: "https://docs.lurus.cn", primary: true, external: true },
+    { label: "联系试用", href: "mailto:contact@lurus.cn", external: true },
+  ],
+  offer,
+);
+assert.equal(framed[0]?.label, offer.label);
+assert.equal(framed[0]?.primary, true);
+assert.equal(framed.some((action) => action.label === "联系试用"), false);
+assert.equal(framed.some((action) => action.label === "阅读方法"), true);
+assert.equal(framed.some((action) => action.label === "阅读文档"), true);
+const witness = frameCompanyAccess(
+  [
+    { label: "阅读方法", href: "/approach", primary: true },
+    { label: "写信说明被观测的环境", href: "mailto:contact@ailurus.top", external: true },
+  ],
+  offer,
+);
+assert.equal(witness[0]?.label, "阅读方法");
+assert.equal(witness.length, 2);
 assert.equal(catalogText.includes("托管"), false);
 assert.equal(catalogText.includes("产品线"), false);
 

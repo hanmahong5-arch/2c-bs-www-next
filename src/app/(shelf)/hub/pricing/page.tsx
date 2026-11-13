@@ -17,7 +17,9 @@ export const metadata: Metadata = {
     "hub.lurus.cn 的模型调用按量计费：先往钱包充值，用多少扣多少。价目表实时读取自 Hub 的公开价格接口，与实际扣费同源。",
 };
 
-const TOPUP_URL = "https://identity.lurus.cn/topup";
+// 充值页只接受 *.lurus.cn 的 return_to。公司域名不在这份白名单里，付完回到个人站价目页。
+const TOPUP_RETURN = "https://www.lurus.cn/hub/pricing";
+const TOPUP_URL = `https://identity.lurus.cn/topup?return_to=${encodeURIComponent(TOPUP_RETURN)}`;
 
 const linkClass =
   "text-[var(--lt-ink)] underline decoration-[var(--lt-rule)] underline-offset-4 hover:decoration-[var(--lt-accent)]";
@@ -103,8 +105,13 @@ export default function HubPricingPage() {
           </Dash>
           <Dash>调用时按上表单价从钱包扣费；余额不足时请求会被拒绝，不会先欠费再催缴。</Dash>
         </ul>
+        <p className="mt-8">
+          <a href={TOPUP_URL} className="btn-primary">
+            去钱包充值
+          </a>
+        </p>
         <p className="mt-4 text-sm leading-[1.7] text-[var(--color-text-muted)]">
-          下一步：登录后钱包充值 → 用 API Key 调 hub.lurus.cn；私有部署写信说明上游与网络约束。
+          未登录会先到登录页，付完回到本价目。下一步：用 API Key 调 hub.lurus.cn。私有部署写信说明上游与网络约束。
         </p>
       </Section>
 

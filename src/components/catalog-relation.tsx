@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { headers } from "next/headers";
-import { catalogItem } from "@/lib/catalog";
+import { COMPANY_GROUPS, catalogItem } from "@/lib/catalog";
 import { siteProfile } from "@/lib/site-profile";
 
 /**
@@ -12,17 +12,32 @@ export async function CatalogRelation() {
   const path = (await headers()).get("x-lurus-path") ?? "";
   const item = catalogItem(path);
   if (!item) return null;
+  const group = COMPANY_GROUPS.find((entry) => entry.hrefs.includes(item.href));
   return (
     <div className="border-b border-[var(--lt-rule)] px-6">
-      <p className="mx-auto flex max-w-5xl flex-wrap items-baseline gap-x-3 py-3 text-sm leading-[1.7] text-[var(--color-text-secondary)]">
-        <Link
-          href="/#layers"
-          className="font-mono text-[11px] tracking-[0.16em] text-[var(--lt-accent)]"
-        >
-          构件
-        </Link>
-        <span>{item.relation}</span>
-      </p>
+      <div className="mx-auto max-w-5xl py-6">
+        <p className="flex flex-wrap items-baseline gap-x-3 text-sm leading-[1.7] text-[var(--color-text-secondary)]">
+          <Link
+            href="/#layers"
+            className="font-mono text-[11px] tracking-[0.16em] text-[var(--lt-accent)]"
+          >
+            {group?.title ?? "构件"}
+          </Link>
+          <span>{item.relation}</span>
+        </p>
+        <dl className="mt-6 grid gap-x-12 gap-y-5 sm:grid-cols-2">
+          {item.sheet.map((row) => (
+            <div key={row.label} className="max-w-[28rem]">
+              <dt className="font-mono text-[11px] tracking-[0.14em] text-[var(--color-text-muted)]">
+                {row.label}
+              </dt>
+              <dd className="mt-1 text-[15px] leading-[1.65] text-[var(--color-text-secondary)]">
+                {row.value}
+              </dd>
+            </div>
+          ))}
+        </dl>
+      </div>
     </div>
   );
 }

@@ -1,5 +1,7 @@
 import type { ReactNode } from "react";
 import Link from "next/link";
+import { frameCompanyAccess } from "@/lib/company-access";
+import { siteProfile } from "@/lib/site-profile";
 
 /** 产品接入站上的一条动作：站内路径或外链（登录 / 文档 / 控制台）。 */
 export type AccessAction = {
@@ -52,10 +54,18 @@ function ActionLink({ action }: { action: AccessAction }) {
  */
 export function AccessStation({ actions, nextStep, className }: AccessStationProps) {
   if (actions.length === 0) return null;
+  const site = siteProfile();
+  const shown =
+    site.id === "company"
+      ? frameCompanyAccess(actions, {
+          label: site.homeActions[0]?.label ?? "写信",
+          href: site.homeActions[0]?.href ?? `mailto:${site.contactEmail}`,
+        })
+      : actions;
   return (
     <div className={className}>
       <div className="flex flex-wrap items-center gap-3">
-        {actions.map((action) => (
+        {shown.map((action) => (
           <ActionLink key={`${action.href}:${action.label}`} action={action} />
         ))}
       </div>

@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState, useSyncExternalStore } from "react";
+import { useEffect, useState, useSyncExternalStore } from "react";
 import { CommandPaletteTrigger } from "@/components/command-palette";
 import { BrandLockup } from "@/components/brand-mark";
 
@@ -90,9 +90,27 @@ function NavLink({
   );
 }
 
-export function Header({ nav, homeLabel }: { nav: readonly NavItem[]; homeLabel: string }) {
+export function Header({
+  nav,
+  homeLabel,
+  field = false,
+}: {
+  nav: readonly NavItem[];
+  homeLabel: string;
+  /** 个人站首页：页眉浮在山脊上，滚过再落回纸面。 */
+  field?: boolean;
+}) {
   const [open, setOpen] = useState(false);
+  const [lifted, setLifted] = useState(false);
   const pathname = usePathname();
+  useEffect(() => {
+    if (!field) return;
+    const onScroll = () => setLifted(window.scrollY > 24);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, [field]);
+  const overField = field && pathname === "/" && !open && !lifted;
   const isActive = (item: NavItem) => {
     if (item.external) return false;
     const path = item.href.split("#")[0] || "/";
@@ -101,7 +119,13 @@ export function Header({ nav, homeLabel }: { nav: readonly NavItem[]; homeLabel:
   };
 
   return (
-    <header className="sticky top-0 z-50 border-b border-[var(--lt-rule)] bg-[var(--lt-paper)]/90 backdrop-blur">
+    <header
+      className={
+        overField
+          ? "sticky top-0 z-50 border-b border-transparent bg-transparent"
+          : "sticky top-0 z-50 border-b border-[var(--lt-rule)] bg-[var(--lt-paper)]/90 backdrop-blur"
+      }
+    >
       <div className="mx-auto flex h-14 max-w-5xl items-center justify-between px-6">
         <Link href="/" aria-label={homeLabel} className="inline-flex items-center">
           <BrandLockup />

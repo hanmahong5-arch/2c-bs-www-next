@@ -140,7 +140,10 @@ export default function RootLayout({
       suppressHydrationWarning
       className={`${fraunces.variable} ${interTight.variable} ${jetbrainsMono.variable} antialiased`}
     >
-      <body className="min-h-screen flex flex-col bg-[var(--background)] text-[var(--foreground)]">
+      <body
+        data-profile={site.id}
+        className="min-h-screen flex flex-col bg-[var(--background)] text-[var(--foreground)]"
+      >
         <Script id="theme-init" strategy="beforeInteractive">
           {THEME_INIT_SCRIPT}
         </Script>
@@ -151,7 +154,7 @@ export default function RootLayout({
         {/* reducedMotion="user" 让全站 framer-motion 动画（含 repeat:Infinity 的呼吸/漂移效果）
             自动尊重系统"减弱动态效果"偏好，无需逐组件改造。 */}
         <MotionConfig reducedMotion="user">
-          <Header nav={site.nav} homeLabel={site.homeLabel} />
+          <Header nav={site.nav} homeLabel={site.homeLabel} field={site.id === "personal"} />
           <main className="flex-1">
             <CatalogRelation />
             {children}

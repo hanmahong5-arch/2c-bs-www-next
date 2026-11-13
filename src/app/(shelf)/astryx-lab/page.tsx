@@ -1,12 +1,9 @@
-import { Button } from "@astryxdesign/core/Button";
-
-/** Runtime probe only — not linked from product nav. */
+/** Probe route. The design package is not installed, so this page stays plain. */
 export default function AstryxLabPage() {
   return (
     <>
       <h1>Astryx Lab</h1>
-      <p>www-next /astryx-lab — Theme + Button smoke. Product UI unchanged.</p>
-      <Button label="Astryx Button" />
+      <p>探针未接入依赖。产品页不从这里取样式。</p>
     </>
   );
 }

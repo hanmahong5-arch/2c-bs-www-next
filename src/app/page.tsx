@@ -124,12 +124,22 @@ function Dash({ children }: { children: React.ReactNode }) {
 
 export default function Home() {
   const site = siteProfile();
+  const buttonClass = (primary?: boolean) =>
+    primary
+      ? "btn-primary"
+      : site.id === "personal"
+        ? "btn-secondary bg-[var(--lt-paper)]"
+        : "btn-secondary";
   return (
     <>
-      {/* ── Hero：个人项目首屏，压在 Urus 山脊上 ── */}
+      {/* 首页满幅用抽象山脊，不是商标。个人站让脊线露出来；公司站罩纸，版式不动。 */}
       <section
         aria-labelledby="home-offer"
-        className="relative isolate overflow-hidden border-b border-[var(--lt-rule)]"
+        className={
+          site.id === "personal"
+            ? "personal-hero relative isolate -mt-14 overflow-hidden border-b border-[var(--lt-rule)]"
+            : "relative isolate overflow-hidden border-b border-[var(--lt-rule)]"
+        }
       >
         <Image
           src="/images/brand/hero-abstract-ridge.jpg"
@@ -137,24 +147,49 @@ export default function Home() {
           fill
           priority
           sizes="100vw"
-          className="home-hero-bg object-cover object-[70%_45%] md:object-[60%_42%]"
+          className={
+            site.id === "personal"
+              ? "personal-hero-plate object-cover object-[62%_70%]"
+              : "home-hero-bg object-cover object-[70%_45%] md:object-[60%_42%]"
+          }
         />
-        <div
-          aria-hidden="true"
-          className="absolute inset-0 bg-gradient-to-r from-[var(--lt-paper)] from-0% via-[var(--lt-paper)]/80 via-42% to-transparent to-90%"
-        />
-        <div
-          aria-hidden="true"
-          className="absolute inset-0 bg-gradient-to-t from-[var(--lt-paper)] from-0% via-[var(--lt-paper)]/25 via-32% to-transparent to-58%"
-        />
+        {site.id === "personal" ? (
+          <>
+            <div aria-hidden="true" className="personal-hero-scrim" />
+            <div aria-hidden="true" className="personal-hero-ground" />
+            <div aria-hidden="true" className="personal-hero-grain" />
+          </>
+        ) : (
+          <>
+            <div
+              aria-hidden="true"
+              className="absolute inset-0 bg-gradient-to-r from-[var(--lt-paper)] from-0% via-[var(--lt-paper)]/80 via-42% to-transparent to-90%"
+            />
+            <div
+              aria-hidden="true"
+              className="absolute inset-0 bg-gradient-to-t from-[var(--lt-paper)] from-0% via-[var(--lt-paper)]/25 via-32% to-transparent to-58%"
+            />
+          </>
+        )}
 
-        <div className="relative mx-auto flex max-w-5xl flex-col justify-end px-6 pb-12 pt-14 md:min-h-[min(92vh,52rem)] md:pb-24 md:pt-28">
+        <div
+          className={
+            site.id === "personal"
+              ? "relative mx-auto flex min-h-[100svh] max-w-5xl flex-col px-6 pb-28 pt-28 md:pb-36 md:pt-40"
+              : "relative mx-auto flex max-w-5xl flex-col justify-end px-6 pb-12 pt-14 md:min-h-[min(92vh,52rem)] md:pb-24 md:pt-28"
+          }
+        >
           <div className="max-w-[38rem]">
             <p className="hero-enter-up flex items-center gap-3">
-              <BrandMark line="crystal" className="h-11 w-11 md:h-12 md:w-12" />
-              <span className="font-display text-sm font-semibold tracking-[-0.02em] text-[var(--lt-ink)]">
-                {site.id === "company" ? "硅知睿" : "LurusTech"}
-              </span>
+              <BrandMark
+                line="crystal"
+                className={site.id === "personal" ? "h-14 w-14 md:h-16 md:w-16" : "h-11 w-11 md:h-12 md:w-12"}
+              />
+              {site.id === "personal" ? null : (
+                <span className="font-display text-sm font-semibold tracking-[-0.02em] text-[var(--lt-ink)]">
+                  硅知睿
+                </span>
+              )}
             </p>
             <p
               className="hero-enter-up mt-5 font-mono text-[11px] uppercase tracking-[0.16em] text-[var(--lt-accent)]"
@@ -164,7 +199,11 @@ export default function Home() {
             </p>
             <h1
               id="home-offer"
-              className="hero-enter-up mt-4 font-display text-[1.875rem] font-semibold leading-[1.25] tracking-[-0.03em] text-[var(--lt-ink)] md:text-[3.25rem] md:leading-[1.12]"
+              className={
+                site.id === "personal"
+                  ? "hero-enter-up headline-balance mt-6 max-w-[7.4em] font-display text-[2.75rem] font-semibold leading-[1.06] tracking-[-0.035em] text-[var(--lt-ink)] md:text-[4.75rem]"
+                  : "hero-enter-up mt-4 font-display text-[1.875rem] font-semibold leading-[1.25] tracking-[-0.03em] text-[var(--lt-ink)] md:text-[3.25rem] md:leading-[1.12]"
+              }
               style={{ animationDelay: "120ms" }}
             >
               {site.homeH1}
@@ -184,7 +223,7 @@ export default function Home() {
                   <a
                     key={action.href}
                     href={action.href}
-                    className={action.primary ? "btn-primary" : "btn-secondary"}
+                    className={buttonClass(action.primary)}
                   >
                     {action.label}
                   </a>
@@ -192,7 +231,7 @@ export default function Home() {
                   <Link
                     key={action.href}
                     href={action.href}
-                    className={action.primary ? "btn-primary" : "btn-secondary"}
+                    className={buttonClass(action.primary)}
                   >
                     {action.label}
                   </Link>

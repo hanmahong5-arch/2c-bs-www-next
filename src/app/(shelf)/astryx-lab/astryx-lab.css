@@ -1,5 +1,1 @@
-/* Scoped to /astryx-lab only — do not import from the product root layout. */
-@import "@astryxdesign/core/reset.css";
-@import "@astryxdesign/core/astryx.css";
-@import "@astryxdesign/theme-neutral/theme.css";
-@import "@astryxdesign/theme-neutral/fonts.css";
+/* Astryx CSS stays out until @astryxdesign is installed. Do not import this from the product layout. */
