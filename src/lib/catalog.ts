@@ -224,7 +224,7 @@ export const COMPANY_GROUPS: readonly {
     id: "execute",
     mark: "bolt",
     title: "执行",
-    line: "写前审批、崩溃续跑。默认仍是独立脚本。",
+    line: "崩溃续跑在库内。写前审批仍在建设。其余写操作仍是独立脚本。",
     hrefs: ["/kova", "/forge"],
   },
   {

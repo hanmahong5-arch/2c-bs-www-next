@@ -13,7 +13,7 @@ export const contentType = "image/png";
 const PAPER = "#F5F2E8";
 const INK = "#14130F";
 const ACCENT = "#FF5D1F";
-const MUTED = "#6B6860";
+const MUTED = "#66635B";
 
 export default async function OpengraphImage() {
   const company = siteProfile().id === "company";

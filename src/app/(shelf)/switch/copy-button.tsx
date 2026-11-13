@@ -21,7 +21,7 @@ export function CopyButton({ value, label }: { value: string; label: string }) {
       type="button"
       onClick={copy}
       aria-label={label}
-      className="ml-2 font-sans text-[var(--color-text-muted)] underline decoration-[var(--lt-rule)] underline-offset-4 hover:text-[var(--lt-ink)]"
+      className="ml-2 font-sans text-[var(--color-text-muted)] underline decoration-[var(--color-text-muted)] underline-offset-4 hover:text-[var(--lt-ink)]"
     >
       {copied ? "已复制" : "复制"}
     </button>

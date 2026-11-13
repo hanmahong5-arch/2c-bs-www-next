@@ -10,15 +10,15 @@ import data from "./scene-data.json";
  */
 export const SCENE_PALETTE = [
   "#4E79A7",
-  "#59A14F",
-  "#B07AA1",
-  "#3FA7A0",
-  "#8C8C8C",
-  "#7A8CD6",
+  "#55994B",
+  "#AE79A0",
+  "#399791",
+  "#898989",
+  "#7586CD",
   "#9C755F",
-  "#84A03A",
-  "#6FA8DC",
-  "#A98FC9",
+  "#799335",
+  "#5E8EBA",
+  "#9780B3",
 ] as const;
 
 /** 五角星顶点串（SVG points），供场景与图例共用。 */
@@ -75,14 +75,14 @@ export function SceneProjection() {
       preserveAspectRatio="xMidYMid meet"
       className="block h-full w-full"
     >
-      {/* 淡坐标轴：只示意投影平面，没有刻度 */}
-      <g style={{ stroke: "var(--lt-rule)" }} strokeWidth={1}>
+      {/* 坐标轴用已经量过的灰色。发丝线在纸面上只有 1.35:1。点、连线和星仍按原来的颜色。 */}
+      <g style={{ stroke: "var(--color-text-muted)" }} strokeWidth={1}>
         <line x1={-1.05} y1={0} x2={1.05} y2={0} vectorEffect="non-scaling-stroke" />
         <line x1={0} y1={-1.05} x2={0} y2={1.05} vectorEffect="non-scaling-stroke" />
       </g>
 
-      {/* 其他会话：小点、低不透明度 */}
-      <g opacity={0.5}>
+      {/* 其他会话：小点、实色。浅色纸上至少 3.1:1 */}
+      <g>
         {groups.map((d, i) =>
           d.length === 0 ? null : (
             <path

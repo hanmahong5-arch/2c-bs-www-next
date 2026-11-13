@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Disclosure, Eyebrow, Lead, Section } from "@/components/site";
 import { BrandMark } from "@/components/brand-mark";
+import { NewWindowNote } from "@/components/site/new-window-note";
 import {
   BarChart,
   ChartBlock,
@@ -45,6 +46,7 @@ import {
 } from "./data";
 import { RetrievalScene } from "./retrieval-scene";
 import { sceneStats } from "./scene-projection";
+import { changelogFeedTypes } from "@/lib/changelog-rss";
 
 // Memorus 公开基准报告：LongMemEval_S / LoCoMo 的数据、流程、失败与下一步全部公开。
 // 结构：标题与主数 → 一次真实检索 → 测什么 → 怎么测 → 结果 → 怎么提上去的 → 没采用的 → 预测 vs 实测
@@ -58,7 +60,7 @@ const DESCRIPTION = `Memorus 在 LongMemEval_S held-out 上问答准确率 ${fmt
 export const metadata: Metadata = {
   title: TITLE,
   description: DESCRIPTION,
-  alternates: { canonical: "/memorus/benchmarks" },
+  alternates: { canonical: "/memorus/benchmarks", types: changelogFeedTypes() },
   openGraph: { title: TITLE, description: DESCRIPTION, url: "/memorus/benchmarks" },
 };
 
@@ -129,7 +131,7 @@ function Mono({ children }: { children: React.ReactNode }) {
 }
 
 const LINK_CLASS =
-  "text-[var(--lt-ink)] underline decoration-[var(--lt-rule)] underline-offset-4 hover:decoration-[var(--lt-accent)]";
+  "text-[var(--lt-ink)] underline decoration-[var(--color-text-muted)] underline-offset-4 hover:decoration-[var(--lt-ink)]";
 
 const EXT_LAYOUT = {
   /** 独立成行：触控高度 ≥ 44px，文字垂直居中 */
@@ -152,7 +154,7 @@ function ExtLink({
   return (
     <a href={href} target="_blank" rel="noopener noreferrer" className={`${LINK_CLASS} ${EXT_LAYOUT[layout]}`}>
       {children}
-      <span className="sr-only">（在新窗口打开）</span>
+      <NewWindowNote />
     </a>
   );
 }
@@ -234,7 +236,7 @@ export default function BenchmarksPage() {
                 <li key={t.id}>
                   <a
                     href={`#${t.id}`}
-                    className="inline-flex min-h-11 items-center px-2 font-mono text-[12px] text-[var(--lt-ink)] underline decoration-[var(--lt-rule)] underline-offset-4 hover:decoration-[var(--lt-accent)]"
+                    className="inline-flex min-h-11 items-center px-2 font-mono text-[12px] text-[var(--lt-ink)] underline decoration-[var(--color-text-muted)] underline-offset-4 hover:decoration-[var(--lt-ink)]"
                   >
                     {t.label}
                   </a>
@@ -775,7 +777,7 @@ export default function BenchmarksPage() {
         <pre
           tabIndex={0}
           aria-label="评测命令（形态）"
-          className="code-block mt-4 p-4 outline-none focus-visible:ring-2 focus-visible:ring-[var(--lt-accent)]"
+          className="code-block mt-4 p-4 focus-ink"
         >
           {COST.reproCommand}
         </pre>

@@ -5,6 +5,8 @@ import { MotionConfig } from "framer-motion";
 import "./globals.css";
 import { CatalogRelation } from "@/components/catalog-relation";
 import { Header } from "@/components/header";
+import { changelogFeedTypes } from "@/lib/changelog-rss";
+import { PAPER_LIGHT, themeChromeScript } from "@/lib/theme-chrome";
 import { Footer } from "@/components/footer";
 import { CommandPalette } from "@/components/command-palette";
 import { siteProfile, type SiteProfile } from "@/lib/site-profile";
@@ -14,7 +16,8 @@ export const dynamic = "force-dynamic";
 
 // 暗色模式先于 hydration 应用，避免浅色→深色的闪烁（FOUC）。
 // 读取失败（隐私模式等）时静默回退浅色，不影响页面渲染。
-const THEME_INIT_SCRIPT = `(function(){try{var t=localStorage.getItem('theme');if(t==='dark'||(!t&&window.matchMedia('(prefers-color-scheme: dark)').matches)){document.documentElement.classList.add('dark');}}catch(e){}})();`;
+// 同一段也把浏览器顶栏改成当前纸色。
+const THEME_INIT_SCRIPT = themeChromeScript();
 
 // Latin 主字体自托管（src/fonts），中文走系统 CJK 回退（globals.css）。
 // 不用 next/font/google：Google 偶发返回无扩展名的 /l/font?kit=…&skey=… URL，
@@ -57,13 +60,12 @@ export async function generateMetadata(): Promise<Metadata> {
     description: site.description,
     metadataBase: new URL(site.siteUrl),
     // "./" 按当前路径解析。写死 "/" 会继承到每一页，首屏「下载与上手」打开的 /download 会被说成首页。
-    alternates: { canonical: "./" },
+    alternates: { canonical: "./", types: changelogFeedTypes() },
     openGraph: {
       type: "website",
       locale: "zh_CN",
       siteName: "LurusTech",
       url: "./",
-      // og:image 由 app/opengraph-image.tsx 动态注入
     },
     twitter: {
       card: "summary_large_image",
@@ -71,12 +73,11 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
-// 显式声明 viewport（Next 的 metadata/viewport 已分家；此处写的正是 Next 的默认
-// 值，落地 meta 与改动前逐字符相同 —— 显式化是为了把它变成可 review 的约定，
-// 而不是靠框架默认值“碰巧对”）。
+// 顶栏默认浅色纸。切换深色时，页眉里的脚本会改这一条的 content。
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
+  themeColor: PAPER_LIGHT,
 };
 
 // schema.org 不含 offers/评分/可用性。个人站用 Person；公司站用 Organization。
@@ -154,8 +155,11 @@ export default function RootLayout({
         {/* reducedMotion="user" 让全站 framer-motion 动画（含 repeat:Infinity 的呼吸/漂移效果）
             自动尊重系统"减弱动态效果"偏好，无需逐组件改造。 */}
         <MotionConfig reducedMotion="user">
+          <a href="#content" className="skip-link">
+            跳到正文
+          </a>
           <Header nav={site.nav} homeLabel={site.homeLabel} field={site.id === "personal"} />
-          <main className="flex-1">
+          <main id="content" tabIndex={-1} className="flex-1 scroll-mt-14 outline-none">
             <CatalogRelation />
             {children}
           </main>

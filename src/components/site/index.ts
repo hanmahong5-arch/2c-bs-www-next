@@ -32,6 +32,21 @@
  *   产品页顶部，内含页面唯一的 <h1>：名称 + 成熟度 chip + 一句话 + 可选小注 + 可选接入站 + 可选证据样例。
  *   用了它的页面不要再自己写 <h1>。
  *
+ * IntakeBrief({ className? })
+ *   首信清单：复用 ScopeSplit，列出第一封邮件要写清的范围与不包含项，附成熟度小注。
+ *
+ * LedgerRow({ href, label, meta, className? })
+ *   一行 1px 发丝链接：标签、附注、↗。无填充、无阴影、无圆角、无光晕。
+ *
+ * RestoreReceipt({ input?, className? })
+ *   恢复演练回执的留空样子：发丝栏位，加 ScopeSplit 写明回执记录什么、不声称什么。
+ *
+ * EvidenceReport({ input?, className? })
+ *   月度证据报告的留空样子：发丝栏位，加 ScopeSplit 写明报告写下什么、不声称什么。
+ *
+ * NewWindowNote({ arrow?: boolean = false })
+ *   外链已 target=_blank 时的读屏说明「（新窗口打开）」。arrow 为真时另给眼睛一个隐藏箭头。
+ *
  * AccessStation({ actions, nextStep, className? })
  *   产品接入站：主 CTA 组 + 「下一步」说明。可单独用，或经 ProductHeader.access 挂首屏。
  */
@@ -53,6 +68,14 @@ export {
   type MaturityChipProps,
 } from "./maturity-chip";
 export { ProductHeader, type ProductHeaderProps } from "./product-header";
+export { Lineage, type LineageProps, type LineageFact } from "./lineage";
+export { ScopeSplit, type ScopeSplitProps } from "./scope-split";
+export { NextStep, type NextStepProps } from "./next-step";
+export { IntakeBrief, type IntakeBriefProps } from "./intake-brief";
+export { LedgerRow, type LedgerRowProps } from "./ledger-row";
+export { RestoreReceipt, type RestoreReceiptProps } from "./restore-receipt";
+export { EvidenceReport, type EvidenceReportProps } from "./evidence-report";
+export { NewWindowNote, NEW_WINDOW_LABEL } from "./new-window-note";
 export {
   AccessStation,
   type AccessAction,

@@ -6,18 +6,22 @@ import {
   EvidenceList,
   Eyebrow,
   Lead,
+  LedgerRow,
   MaturityChip,
+  NextStep,
   Section,
   type Maturity,
 } from "@/components/site";
 import { BrandMark, MARK_BY_HREF, type BrandLine } from "@/components/brand-mark";
-import { updates } from "@/app/(shelf)/blog/updates-data";
+import { updates } from "@/app/blog/updates-data";
 import { COMPANY_GROUPS, catalogMark, itemsIn } from "@/lib/catalog";
+import { changelogAnchor } from "@/lib/changelog-rss";
 import { siteProfile } from "@/lib/site-profile";
 
 // 首页结构共用。文案按 SITE_PROFILE 分个人站 / 公司站。
 // 三件事 → 三层手段 → 一行证据 → 近况 → 边界。
 // 近况只取更新日志真源的前三条。不写价格、客户名、编造数字。
+// 证据带下只链已核对的公开入口，不把示例行改成实测，也不在首页重述价目数字。
 
 type Layer = {
   code: "LURUS" | "URUS" | "RUS";
@@ -72,11 +76,62 @@ const LAYERS: readonly Layer[] = [
   },
 ];
 
+// 与方法页「可核对」同一套纸面细表：左列入口，右列等宽种类。
+// 路由已在源码核对。/hub/pricing.md 是纯文本 route，不在 SITE_ROUTES，用普通链接，不走页面预取。
+// 不链 /security，不编 GitHub，不写运行数字、客户名或 SLA。
+const REAL_PROOF: readonly {
+  href: string;
+  title: string;
+  kind: "基准" | "价目" | "价目纯文本" | "日志" | "产品" | "首信";
+  plain?: boolean;
+}[] = [
+  { href: "/memorus/benchmarks", title: "Memorus 公开基准报告", kind: "基准" },
+  { href: "/hub/pricing", title: "Hub 按量价格", kind: "价目" },
+  { href: "/hub/pricing.md", title: "Hub 价目纯文本", kind: "价目纯文本", plain: true },
+  { href: "/blog", title: "更新日志", kind: "日志" },
+  { href: "/witness", title: "见证", kind: "产品" },
+  { href: "/approach#intake", title: "方法页首信清单", kind: "首信" },
+];
+
+function ProofLink({
+  href,
+  title,
+  kind,
+  plain,
+}: {
+  href: string;
+  title: string;
+  kind: string;
+  plain?: boolean;
+}) {
+  const className = "group flex items-baseline justify-between gap-x-6 py-3";
+  const inner = (
+    <>
+      <span className="text-[15px] leading-[1.6] text-[var(--lt-ink)] underline decoration-[var(--color-text-muted)] underline-offset-4 group-hover:decoration-[var(--lt-ink)]">
+        {title}
+      </span>
+      <span className="shrink-0 font-mono text-[12px] text-[var(--color-text-muted)]">{kind}</span>
+    </>
+  );
+  if (plain) {
+    return (
+      <a href={href} className={className}>
+        {inner}
+      </a>
+    );
+  }
+  return (
+    <Link href={href} className={className}>
+      {inner}
+    </Link>
+  );
+}
+
 function QuietLink({ href, children }: { href: string; children: React.ReactNode }) {
   return (
     <Link
       href={href}
-      className="text-[var(--lt-ink)] underline decoration-[var(--lt-rule)] underline-offset-4 hover:decoration-[var(--lt-accent)]"
+      className="text-[var(--lt-ink)] underline decoration-[var(--color-text-muted)] underline-offset-4 hover:decoration-[var(--lt-ink)]"
     >
       {children}
     </Link>
@@ -97,16 +152,19 @@ function SectionTitle({ id, eyebrow, children }: { id: string; eyebrow: string; 
   );
 }
 
-/** Typographic peel: highlight the active syllable inside LURUS */
+/** Typographic peel: the faint letters are a graphic. The active syllable is the name. */
 function LayerWord({ code }: { code: Layer["code"] }) {
   const full = "LURUS";
   const start = code === "LURUS" ? 0 : full.indexOf(code);
   const end = start + code.length;
   return (
-    <span className="font-display text-[2rem] font-semibold tracking-[0.12em] md:text-[2.75rem]" aria-label={code}>
-      <span className="text-[var(--lt-ink)]/25">{full.slice(0, start)}</span>
-      <span className="text-[var(--lt-ink)]">{full.slice(start, end)}</span>
-      <span className="text-[var(--lt-ink)]/25">{full.slice(end)}</span>
+    <span className="font-display text-[2rem] font-semibold tracking-[0.12em] md:text-[2.75rem]">
+      <span className="sr-only">{code}</span>
+      <span aria-hidden="true">
+        <span className="text-[var(--lt-ink)]/25">{full.slice(0, start)}</span>
+        <span className="text-[var(--lt-ink)]">{full.slice(start, end)}</span>
+        <span className="text-[var(--lt-ink)]/25">{full.slice(end)}</span>
+      </span>
     </span>
   );
 }
@@ -192,7 +250,7 @@ export default function Home() {
               )}
             </p>
             <p
-              className="hero-enter-up mt-5 font-mono text-[11px] uppercase tracking-[0.16em] text-[var(--lt-accent)]"
+              className="hero-enter-up mt-5 font-mono text-[11px] uppercase tracking-[0.16em] text-[var(--lt-ink)]"
               style={{ animationDelay: "60ms" }}
             >
               {site.homeEyebrow}
@@ -311,7 +369,10 @@ export default function Home() {
             </SectionTitle>
             <Lead className="mt-6">{site.layersLead}</Lead>
             <figure className="mt-10 flex max-w-[16rem] flex-col items-start">
-              <BrandMark line="crystal" label="主标：核" className="h-40 w-40" />
+              {/* 商标框的边用已经量过的灰色。发丝线贴在区块底上只有 1.19:1。标记仍是墨色。 */}
+              <div className="flex h-40 w-40 items-center justify-center bg-[var(--lt-bg)] ring-1 ring-[var(--color-text-muted)]">
+                <BrandMark line="crystal" label="主标：核" className="h-24 w-24" />
+              </div>
               <figcaption className="mt-3 font-mono text-[11px] leading-relaxed text-[var(--color-text-muted)]">
                 主标 · 核
               </figcaption>
@@ -360,7 +421,7 @@ export default function Home() {
                       {layer.mark ? <BrandMark line={layer.mark} className="h-8 w-8" /> : null}
                       <LayerWord code={layer.code} />
                     </span>
-                    <span className="font-mono text-[11px] uppercase tracking-[0.16em] text-[var(--lt-accent)]">
+                    <span className="font-mono text-[11px] uppercase tracking-[0.16em] text-[var(--lt-ink)]">
                       {layer.audience}
                     </span>
                   </div>
@@ -387,7 +448,7 @@ export default function Home() {
 
             {site.id === "personal" ? (
             <p className="mt-8 max-w-[40rem] text-[13px] leading-[1.7] text-[var(--color-text-muted)]">
-              <span className="font-mono tracking-[0.12em] text-[var(--lt-ink)]/50">LUR</span>
+              <span className="font-mono tracking-[0.12em] text-[var(--color-text-muted)]">LUR</span>
               <span className="font-mono tracking-[0.12em] text-[var(--lt-ink)]">US</span>
               <span className="ml-3">
                 内部全站全线 · 设计 / 开发 / 经营用，不对外售卖。见{" "}
@@ -437,6 +498,30 @@ export default function Home() {
             source="采集器 3 小时未上报 —— 这不是「正常」，是「不知道」"
           />
         </EvidenceList>
+        <div className="mt-10 max-w-[44rem]">
+          <p className="text-[15px] leading-relaxed text-[var(--color-text-secondary)]">
+            上面三行仍是示例。这些页是已经发布的入口，打开原页自己看，这里不重述数字。
+          </p>
+          <ul className="mt-6 border-y border-[var(--lt-rule)]">
+            {REAL_PROOF.map((row, i) => (
+              <li key={row.href} className={i > 0 ? "border-t border-[var(--lt-rule)]" : undefined}>
+                <ProofLink {...row} />
+              </li>
+            ))}
+          </ul>
+          <LedgerRow
+            href="/approach#receipt"
+            label="演练回执"
+            meta="字段留空，不写可用率"
+            className="mt-8"
+          />
+          <LedgerRow
+            href="/witness#report"
+            label="月度证据报告"
+            meta="五栏留空，不代替回执"
+            className="-mt-px"
+          />
+        </div>
         <p className="mt-8 text-[15px] leading-relaxed text-[var(--color-text-secondary)]">
           怎么硬化、怎么证明稳，写在 <QuietLink href="/approach">方法</QuietLink>
           。观测见 <QuietLink href="/witness">见证</QuietLink>。
@@ -458,7 +543,9 @@ export default function Home() {
               className="grid gap-x-8 gap-y-1 border-b border-[var(--lt-rule)] py-5 md:grid-cols-[6rem_14rem_1fr] md:items-baseline"
             >
               <span className="font-mono text-[13px] text-[var(--color-text-muted)]">{u.date}</span>
-              <span className="font-medium text-[var(--lt-ink)]">{u.title}</span>
+              <span className="font-medium">
+                <QuietLink href={`/blog#${changelogAnchor(u)}`}>{u.title}</QuietLink>
+              </span>
               <span className="text-[15px] leading-relaxed text-[var(--color-text-secondary)]">{u.desc}</span>
             </li>
           ))}
@@ -495,13 +582,16 @@ export default function Home() {
           ；{site.id === "company" ? "想让我们看你现在的系统，写信到" : "想聊环境，写信到"}{" "}
           <a
             href={`mailto:${site.contactEmail}`}
-            className="text-[var(--lt-ink)] underline decoration-[var(--lt-rule)] underline-offset-4 hover:decoration-[var(--lt-accent)]"
+            className="text-[var(--lt-ink)] underline decoration-[var(--color-text-muted)] underline-offset-4 hover:decoration-[var(--lt-ink)]"
           >
             {site.contactEmail}
           </a>
           。
         </p>
-        <p className="mt-4 text-sm leading-[1.7] text-[var(--color-text-muted)]">{site.inviteNext}</p>
+        <NextStep>{site.inviteNext}</NextStep>
+        <p className="mt-4">
+          <QuietLink href="/approach#intake">方法页首信清单</QuietLink>
+        </p>
       </Section>
     </>
   );

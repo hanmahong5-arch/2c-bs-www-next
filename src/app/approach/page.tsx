@@ -5,9 +5,17 @@ import {
   Eyebrow,
   EvidenceLine,
   EvidenceList,
+  IntakeBrief,
   Lead,
+  LedgerRow,
+  NextStep,
+  RestoreReceipt,
+  ScopeSplit,
   Section,
 } from "@/components/site";
+import { DELIVERY_EXCLUDED, DELIVERY_INCLUDED, DELIVERY_NOTE } from "@/lib/engagement-delivery";
+import { intakeMailto } from "@/lib/engagement-intake";
+import { RESTORE_RECEIPT_INTRO } from "@/lib/restore-receipt";
 import { siteProfile } from "@/lib/site-profile";
 
 // 方法页：怎么验收。公司站写到能放进合同的程度，不报价。
@@ -22,6 +30,61 @@ export async function generateMetadata(): Promise<Metadata> {
         ? "已经在跑的系统怎么验收：硬化、受托运维、每月真恢复和写明测量方式的月报。不报价。"
         : "怎么把已经做出来的 AI 系统在你自己的环境里跑稳：硬化、持续负责、按月交付证据。",
   };
+}
+
+// 买方可核对。右列种类只写这四个词。
+// 页内锚点已在源码核对：/hub/pricing 的 Section id="prices"，/witness 的 Section id="report"。
+// /hub/pricing.md 不在 SITE_ROUTES（accept 按纯文本另查），route handler 在
+// src/app/hub/pricing.md/route.ts，本波点名，用普通链接打开，不走页面预取。
+// 表内已有 /witness#report，不再重复。表下两行 LedgerRow 只补尚未出现的
+// /llms.txt 与 /approach#receipt。
+// 不链 /security（仓库里没有这个路由），不编 GitHub 地址。
+const PROOF: readonly {
+  href: string;
+  title: string;
+  kind: "基准" | "价目" | "日志" | "产品";
+  plain?: boolean;
+}[] = [
+  { href: "/memorus/benchmarks", title: "Memorus 公开基准报告", kind: "基准" },
+  { href: "/hub/pricing#prices", title: "Hub 按量价格", kind: "价目" },
+  { href: "/hub/pricing.md", title: "Hub 价目纯文本", kind: "价目", plain: true },
+  { href: "/blog", title: "更新日志", kind: "日志" },
+  { href: "/witness#report", title: "见证", kind: "产品" },
+  { href: "/kova", title: "Kova", kind: "产品" },
+];
+
+function ProofLink({
+  href,
+  title,
+  kind,
+  plain,
+}: {
+  href: string;
+  title: string;
+  kind: string;
+  plain?: boolean;
+}) {
+  const className = "group flex items-baseline justify-between gap-x-6 py-3";
+  const inner = (
+    <>
+      <span className="text-[15px] leading-[1.6] text-[var(--lt-ink)] underline decoration-[var(--color-text-muted)] underline-offset-4 group-hover:decoration-[var(--lt-ink)]">
+        {title}
+      </span>
+      <span className="shrink-0 font-mono text-[12px] text-[var(--color-text-muted)]">{kind}</span>
+    </>
+  );
+  if (plain) {
+    return (
+      <a href={href} className={className}>
+        {inner}
+      </a>
+    );
+  }
+  return (
+    <Link href={href} className={className}>
+      {inner}
+    </Link>
+  );
 }
 
 function SectionTitle({
@@ -82,6 +145,14 @@ export default function ApproachPage() {
                 ? "这一页写接什么样的系统、分几步做、认哪些判据，以及不做什么。费用写进合同，不在这里报价。"
                 : "这一页写接什么样的活、分几步做、认哪些判据、个人项目合作怎么计价，以及不做什么。"}
             </Lead>
+            <p className="mt-6 text-[13px] leading-[1.7]">
+              <a
+                href="/approach.md"
+                className="text-[var(--color-text-muted)] underline decoration-[var(--color-text-muted)] underline-offset-4 hover:text-[var(--lt-ink)] hover:decoration-[var(--lt-ink)]"
+              >
+                同一份说明的纯文本
+              </a>
+            </p>
           </div>
         </div>
       </section>
@@ -133,13 +204,37 @@ export default function ApproachPage() {
             <p className="mt-2">
               <Link
                 href="/witness"
-                className="text-[var(--lt-ink)] underline decoration-[var(--lt-rule)] underline-offset-4 hover:decoration-[var(--lt-accent)]"
+                className="text-[var(--lt-ink)] underline decoration-[var(--color-text-muted)] underline-offset-4 hover:decoration-[var(--lt-ink)]"
               >
                 见证 →
               </Link>
             </p>
           </Disclosure>
         </div>
+      </Section>
+
+      {/* 交付分界：阶段之后、判据之前。复用 ScopeSplit，不另做皮。 */}
+      <Section id="delivery" width="wide" labelledBy="delivery-title">
+        <div className="max-w-[44rem]">
+          <SectionTitle id="delivery-title" eyebrow="范围">
+            硬化与受托运维，各包含什么。
+          </SectionTitle>
+          <Lead className="mt-6">
+            每个环境不同，具体以合同约定为准。这里只写我们通常怎么分界，不是价目，也不是 SLA。
+          </Lead>
+        </div>
+        <ScopeSplit className="mt-10" included={DELIVERY_INCLUDED} excluded={DELIVERY_EXCLUDED} />
+        <p className="mt-8 max-w-[64ch] text-[13px] leading-[1.7] text-[var(--color-text-muted)]">
+          {DELIVERY_NOTE}
+        </p>
+        <p className="mt-3 text-[13px] leading-[1.7]">
+          <Link
+            href="/witness#report"
+            className="text-[var(--color-text-muted)] underline decoration-[var(--color-text-muted)] underline-offset-4 hover:text-[var(--lt-ink)] hover:decoration-[var(--lt-ink)]"
+          >
+            报告结构见见证页
+          </Link>
+        </p>
       </Section>
 
       {/* 3. 判据 */}
@@ -194,6 +289,50 @@ export default function ApproachPage() {
         </div>
       </Section>
 
+      {/* 回执：判据之后。留空示例，不填某一次演练。 */}
+      <Section id="receipt" width="wide" labelledBy="receipt-title">
+        <div className="max-w-[44rem]">
+          <SectionTitle id="receipt-title" eyebrow="回执">
+            演练之后，写下这一张。
+          </SectionTitle>
+          <Lead className="mt-6">{RESTORE_RECEIPT_INTRO}</Lead>
+        </div>
+        <RestoreReceipt className="mt-10" />
+        <LedgerRow
+          href="/witness#restore"
+          label="演练步骤见见证页"
+          meta="只认真恢复"
+          className="mt-8"
+        />
+      </Section>
+
+      {/* 可核对：不改上面的主张，只加一张细线索引 */}
+      <Section id="proof" labelledBy="proof-title">
+        <SectionTitle id="proof-title" eyebrow="可核对">
+          公开的材料都在这些页面上。
+        </SectionTitle>
+        <Lead className="mt-6">这里不重述数字。打开原页自己看。</Lead>
+        <ul className="mt-8 border-t border-[var(--lt-rule)]">
+          {PROOF.map((row) => (
+            <li key={row.href} className="border-b border-[var(--lt-rule)]">
+              <ProofLink {...row} />
+            </li>
+          ))}
+        </ul>
+        <LedgerRow
+          href="/llms.txt"
+          label="索引 /llms.txt"
+          meta="六条已有入口"
+          className="mt-8"
+        />
+        <LedgerRow
+          href="/approach#receipt"
+          label="演练回执"
+          meta="字段留空，不写可用率"
+          className="-mt-px"
+        />
+      </Section>
+
       {/* 4. 可接管 */}
       <Section id="handover" labelledBy="handover-title">
         <SectionTitle id="handover-title" eyebrow="可接管">
@@ -240,6 +379,25 @@ export default function ApproachPage() {
         </ul>
       </Section>
 
+      {/* 首信：联系收束之前，先把第一封邮件的范围写清 */}
+      <Section id="intake" width="wide" labelledBy="intake-title">
+        <div className="max-w-[44rem]">
+          <SectionTitle id="intake-title" eyebrow="首信">
+            来信请先写清这些。
+          </SectionTitle>
+          <Lead className="mt-6">
+            每个环境不一样，我们不在这页报价，也不收集密码。下面是要在你第一封邮件里说清的范围；我们读后回复是否接、硬化与受托运维怎么分期。具体以合同约定为准。
+          </Lead>
+        </div>
+        <IntakeBrief className="mt-10" />
+        <LedgerRow
+          href={intakeMailto()}
+          label="写第一封邮件"
+          meta="不报价，不收集密码"
+          className="mt-8"
+        />
+      </Section>
+
       {/* 结尾 */}
       <Section labelledBy="contact-title">
         <p
@@ -249,15 +407,13 @@ export default function ApproachPage() {
           想聊聊你的环境，写信到{" "}
           <a
             href={`mailto:${site.contactEmail}`}
-            className="text-[var(--lt-ink)] underline decoration-[var(--lt-rule)] underline-offset-4 hover:decoration-[var(--lt-accent)]"
+            className="text-[var(--lt-ink)] underline decoration-[var(--color-text-muted)] underline-offset-4 hover:decoration-[var(--lt-ink)]"
           >
             {site.contactEmail}
           </a>
           。
         </p>
-        <p className="mt-4 text-sm leading-[1.7] text-[var(--color-text-muted)]">
-          {site.inviteNext}
-        </p>
+        <NextStep>{site.inviteNext}</NextStep>
       </Section>
     </>
   );

@@ -4,12 +4,18 @@ import {
   Disclosure,
   EvidenceLine,
   EvidenceList,
+  EvidenceReport,
   Eyebrow,
   Lead,
+  NextStep,
   ProductHeader,
+  ScopeSplit,
   Section,
 } from "@/components/site";
+import { NewWindowNote } from "@/components/site/new-window-note";
+import { EVIDENCE_REPORT_INTRO } from "@/lib/evidence-report";
 import { siteProfile } from "@/lib/site-profile";
+import { drillMeasure } from "@/lib/witness-drill";
 
 // 见证：先一句话，细节进展开。事实来源见 2l-svc-fleet README / business-reading-guide、
 // 根仓 scripts/ops 下的外部探测、月报与恢复演练脚本，以及 docs 站 witness 目录。
@@ -61,11 +67,12 @@ function Dash({ children }: { children: React.ReactNode }) {
 }
 
 const linkClass =
-  "text-[var(--lt-ink)] underline decoration-[var(--lt-rule)] underline-offset-4 hover:decoration-[var(--lt-accent)]";
+  "text-[var(--lt-ink)] underline decoration-[var(--color-text-muted)] underline-offset-4 hover:decoration-[var(--lt-ink)]";
 
 export default function WitnessPage() {
   const site = siteProfile();
   const company = site.id === "company";
+  const measure = drillMeasure();
   return (
     <>
       <ProductHeader
@@ -247,17 +254,37 @@ export default function WitnessPage() {
             </p>
           </Disclosure>
         </div>
+        <p className="mt-10 text-base leading-[1.8] text-[var(--color-text-secondary)]">{measure.intro}</p>
+        <div className="mt-6 border-t border-[var(--lt-rule)]">
+          <div className="grid gap-x-8 gap-y-1 border-b border-[var(--lt-rule)] py-3 sm:grid-cols-[8.5rem_minmax(0,1fr)]">
+            <div className="font-mono text-[12px] leading-[1.7] text-[var(--color-text-muted)]">是否恢复成功</div>
+            <div className="text-[15px] leading-[1.7] text-[var(--lt-ink)]">{measure.outcome}</div>
+          </div>
+        </div>
+        <p className="mt-2 font-mono text-[11px] leading-[1.6] text-[var(--color-text-muted)]">
+          <span aria-hidden="true" className="text-[var(--lt-accent)]">
+            ●
+          </span>{" "}
+          定义 · 这一格留空，不是某一次演练
+        </p>
+        <ScopeSplit className="mt-8" included={measure.measured} excluded={measure.notMeasured} />
       </Section>
 
       {/* 月度证据报告 */}
-      <Section id="report" labelledBy="report-title">
-        <SectionTitle id="report-title" eyebrow="月度证据报告">
-          每个数字旁边，写着它是怎么测的。
-        </SectionTitle>
-        <Lead className="mt-6">
-          可用率分本机与外部两路并列；外部一路缺样本的时段记为「未采样」，不计为成功。
-        </Lead>
-        <div className="mt-8">
+      <Section id="report" width="wide" labelledBy="report-title">
+        <div className="max-w-[44rem]">
+          <SectionTitle id="report-title" eyebrow="月度证据报告">
+            每个数字旁边，写着它是怎么测的。
+          </SectionTitle>
+          <Lead className="mt-6">{EVIDENCE_REPORT_INTRO}</Lead>
+        </div>
+        <EvidenceReport className="mt-10" />
+        <div className="mt-10 max-w-[44rem]">
+          <Lead>
+            可用率分本机与外部两路并列；外部一路缺样本的时段记为「未采样」，不计为成功。
+          </Lead>
+        </div>
+        <div className="mt-8 max-w-[44rem]">
           <Disclosure summary="报告里有什么">
             <ul className="space-y-2">
               <Dash>外部探测每 5 分钟一次；报告同时写出成功、失败、未采样三个数。</Dash>
@@ -308,8 +335,9 @@ export default function WitnessPage() {
           ) : (
             <>
               细节在{" "}
-              <a href={DOCS} className={linkClass}>
+              <a href={DOCS} target="_blank" rel="noopener noreferrer" className={linkClass}>
                 文档
+                <NewWindowNote />
               </a>
               ；我们怎么工作，见{" "}
               <Link href="/approach" className={linkClass}>
@@ -319,15 +347,19 @@ export default function WitnessPage() {
             </>
           )}
         </p>
-        <p className="mt-4 text-sm leading-[1.7] text-[var(--color-text-muted)]">
+        <NextStep>
           {company
-            ? "下一步：来信写清被观测的环境，以及月报里要看到什么。我们回复这一套能不能接。来信 "
-            : "下一步：邮件说明被观测环境与值班诉求；我们回复是否适合现阶段试点。来信 "}
+            ? "来信写清被观测的环境，以及月报里要看到什么。我们回复这一套能不能接。来信 "
+            : "邮件说明被观测环境与值班诉求；我们回复是否适合现阶段试点。来信 "}
           <a href={`mailto:${site.contactEmail}`} className={linkClass}>
             {site.contactEmail}
           </a>
+          。范围见{" "}
+          <Link href="/approach#intake" className={linkClass}>
+            首信清单
+          </Link>
           。
-        </p>
+        </NextStep>
       </Section>
     </>
   );

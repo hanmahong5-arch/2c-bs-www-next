@@ -18,7 +18,7 @@ export const metadata: Metadata = {
 const DOCS = "https://docs.lurus.cn";
 
 const linkClass =
-  "text-[var(--lt-ink)] underline decoration-[var(--lt-rule)] underline-offset-4 hover:decoration-[var(--lt-accent)]";
+  "text-[var(--lt-ink)] underline decoration-[var(--color-text-muted)] underline-offset-4 hover:decoration-[var(--lt-ink)]";
 
 function SectionTitle({
   id,
@@ -119,9 +119,6 @@ export default function LuxPage() {
             {contact.email}
           </a>
           。
-        </p>
-        <p className="mt-4 text-sm leading-[1.7] text-[var(--color-text-muted)]">
-          下一步：内部配好 LUX_BASE_URL 与 lux-control 再跑；外部先来信。有公开包或安装通道后再改本页 CTA。
         </p>
       </Section>
     </>

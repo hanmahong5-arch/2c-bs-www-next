@@ -1,7 +1,17 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { Eyebrow, Lead } from "@/components/site";
+import { NewWindowNote } from "@/components/site/new-window-note";
 import { CATALOG } from "@/lib/catalog";
+import { changelogFeedTypes } from "@/lib/changelog-rss";
 import { siteProfile } from "@/lib/site-profile";
+
+// 缺失地址不是一份文档。标题和说明不用首页的那一套，也不把它写成规范地址。
+export const metadata: Metadata = {
+  title: "没有这一页",
+  description: "地址可能写错了，或者内容已经挪走。",
+  alternates: { canonical: null, types: changelogFeedTypes() },
+};
 
 const personalSuggestions = [
   { name: "首页", href: "/", desc: "回到起点" },
@@ -18,7 +28,7 @@ const companySuggestions = [
 ];
 
 const linkClass =
-  "block border-b border-[var(--lt-rule)] py-4 text-left transition-colors hover:border-[var(--lt-accent)]";
+  "block border-b border-[var(--color-text-muted)] py-4 text-left transition-colors hover:border-[var(--lt-ink)]";
 
 export default function NotFound() {
   const site = siteProfile();
@@ -31,11 +41,11 @@ export default function NotFound() {
           <h1 className="mt-5 font-display text-[2.125rem] font-semibold leading-[1.2] tracking-[-0.025em] text-[var(--lt-ink)] md:text-[2.75rem]">
             没有这一页。
           </h1>
-            <Lead className="mt-6">
-              {site.id === "company"
-                ? "地址可能写错了。下面是这个站上的全部公开页。"
-                : "地址可能写错了，或者内容已经挪走。下面几条常有人去："}
-            </Lead>
+          <Lead className="mt-6">
+            {site.id === "company"
+              ? "地址可能写错了。下面是这个站上的全部公开页。"
+              : "可以从这些页面继续："}
+          </Lead>
 
           <ul className="mt-10 border-t border-[var(--lt-rule)]">
             {suggestions.map((s) => {
@@ -59,6 +69,7 @@ export default function NotFound() {
                       className={linkClass}
                     >
                       {inner}
+                      <NewWindowNote />
                     </a>
                   </li>
                 );
@@ -76,7 +87,7 @@ export default function NotFound() {
           <p className="mt-10 text-sm text-[var(--color-text-secondary)]">
             <Link
               href="/"
-              className="text-[var(--lt-ink)] underline decoration-[var(--lt-rule)] underline-offset-4 hover:decoration-[var(--lt-accent)]"
+              className="text-[var(--lt-ink)] underline decoration-[var(--color-text-muted)] underline-offset-4 hover:decoration-[var(--lt-ink)]"
             >
               返回首页
             </Link>

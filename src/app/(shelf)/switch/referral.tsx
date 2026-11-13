@@ -71,7 +71,7 @@ export function ReferralNotice() {
         天内、选填、只能一次）。已安装？
         <a
           href={switchReferralLink(ref)}
-          className="ml-1 underline decoration-[var(--lt-rule)] underline-offset-4 hover:text-[var(--lt-ink)]"
+          className="ml-1 underline decoration-[var(--color-text-muted)] underline-offset-4 hover:text-[var(--lt-ink)]"
         >
           在 Switch 中打开
         </a>

@@ -17,7 +17,7 @@ const FORGE_URL = "https://forge.lurus.cn";
 const DOCS_JOINT = "https://docs.lurus.cn/kova/triple-joint";
 
 const linkClass =
-  "text-[var(--lt-ink)] underline decoration-[var(--lt-rule)] underline-offset-4 hover:decoration-[var(--lt-accent)]";
+  "text-[var(--lt-ink)] underline decoration-[var(--color-text-muted)] underline-offset-4 hover:decoration-[var(--lt-ink)]";
 
 function SectionTitle({
   id,
@@ -76,7 +76,7 @@ export default function ForgePage() {
             { label: "写信询问", href: contact.href, external: true },
           ],
           nextStep:
-            "现网可打开看界面；要进你自己的环境，写信说明工作流形态与网络约束。不提供自助注册入口。",
+            "现网可打开看编排面；要自建，写信说明上游网关、工作流形态，以及是否需要 Kova。不提供自助注册入口。",
         }}
       />
 
@@ -120,9 +120,6 @@ export default function ForgePage() {
             {contact.email}
           </a>
           。
-        </p>
-        <p className="mt-4 text-sm leading-[1.7] text-[var(--color-text-muted)]">
-          下一步：先打开现网看编排面；要自建，邮件写清上游网关与是否需要 Kova。
         </p>
       </Section>
     </>

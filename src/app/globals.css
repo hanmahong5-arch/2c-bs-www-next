@@ -20,6 +20,7 @@ html {
 }
 
 :root {
+  color-scheme: light;
   /* 品牌基色 token(--lt-paper/-bg/-ink/-rule/-ok/-warn/-err/-info/-accent/-accent-2)
      现由上面 import 的 vendor tokens.css 提供，本文件不再手写第二份。 */
 
@@ -60,7 +61,7 @@ html {
   --color-border-hover: #C4C0B0;
   --color-text-primary: var(--lt-ink);
   --color-text-secondary: #3D3B33;
-  --color-text-muted: #6B6860; /* #E8E4D6 底上 ≥4.5:1 (WCAG AA); 原 #7A7769 不达标 */
+  --color-text-muted: #66635B; /* 区块底 #E8E4D6 上 4.71:1，纸 #F5F2E8 上 5.36:1。原 #6B6860 在区块底只有 4.37:1 */
   --color-accent: var(--lt-accent);
   --color-success: var(--lt-ok);
   --color-error: var(--lt-err);
@@ -97,7 +98,8 @@ html {
    4.51:1(AA)。改用真源值会让暗色下 accent-2 的 ~25 处引用点变亮 —— 这正是修复
    目的(原值在暗底上几乎看不清)，是一次有意的暗色视觉变更，不是意外漂移。 */
 .dark {
-  --lt-paper: #16150F; /* 表面色不承载文字对比度，保留本仓值 */
+  color-scheme: dark;
+  --lt-paper: #16150F; /* 表面色不承载文字对比度，保留本仓值。浏览器顶栏用同一个色，见 theme-chrome.ts */
   --lt-bg: #1E1C15; /* 同上 */
   --lt-rule: #35321F; /* 分隔线对 --lt-paper 实测 1.42:1，优于真源 #25221C 的 1.17:1，保留 */
   --lt-ok: #3FBE81; /* 对 --lt-paper 实测 7.75:1，优于真源 #3FA876 的 6.26:1，保留 */
@@ -202,54 +204,11 @@ body {
   line-height: 1.7;
 }
 
-/* Brand gradient */
-.text-gradient-gold {
-  background: linear-gradient(
-    135deg,
-    var(--color-ochre-light) 0%,
-    var(--color-ochre) 50%,
-    var(--color-ochre-dark) 100%
-  );
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-.bg-gradient-gold {
-  background: linear-gradient(
-    135deg,
-    var(--color-ochre) 0%,
-    var(--color-ochre-dark) 100%
-  );
-}
-
-/* Card style */
-.card {
-  background: var(--color-surface);
-  border: 1px solid var(--color-border);
-  border-radius: 16px;
-  transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
-}
-.card:hover {
-  border-color: var(--color-border-hover);
-  box-shadow: 0 8px 24px color-mix(in srgb, var(--lt-ink) 8%, transparent);
-  transform: translateY(-2px);
-}
-
-/* Card variants */
-.card-elevated {
-  background: var(--color-surface-elevated);
-  border: 1px solid var(--color-border);
-  border-radius: 16px;
-  box-shadow: 0 2px 12px color-mix(in srgb, var(--lt-ink) 6%, transparent);
-}
-.card-flat {
-  background: transparent;
-  border: 1px solid var(--color-border);
-  border-radius: 16px;
-}
-
-/* ── Button variants（全站统一，杜绝散装按钮样式）── */
+/* ── Button variants（全站统一，杜绝散装按钮样式）──
+   发丝线，无圆角，无填充。白字铺在 #FF5D1F 上对比度只有 3.07:1，
+   所以主按钮用墨色边，字用纸上的墨色。悬停时铺成墨色、字改纸色。
+   次按钮的边用已经量过的灰色。发丝线在纸面上只有 1.35:1。悬停时改成墨色。
+   赭石边在纸面上只有 2.74:1，不再拿来当悬停。 */
 .btn-primary,
 .btn-secondary,
 .btn-ghost {
@@ -258,104 +217,41 @@ body {
   justify-content: center;
   gap: 0.5rem;
   min-height: 2.75rem; /* 44px touch target */
-  padding: 0.625rem 1.5rem;
-  border-radius: 0.75rem;
+  padding: 0.625rem 1.25rem;
+  border-radius: 0;
+  background: transparent;
   font-size: 0.875rem;
   font-weight: 600;
-  transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+  transition: border-color 0.2s ease, color 0.2s ease;
 }
-/* 底色用 --color-ochre-dark 而非 --lt-accent：白字配 #FF5D1F 实测对比度仅
-   3.07:1，低于 WCAG AA 对正常字号要求的 4.5:1（按钮文字 14px/600，够不上
-   large-text 豁免）。#CC4A18 配白字为 4.6:1，且本就是色板内的既有值
-   （原 hover 色），不新造品牌色。hover 顺延到更深一档。 */
 .btn-primary {
-  background: var(--color-ochre-dark);
-  color: #fff;
+  border: 1px solid var(--lt-ink);
+  color: var(--lt-ink);
 }
 .btn-primary:hover {
-  background: #A83C12;
+  background: var(--lt-ink);
+  border-color: var(--lt-ink);
+  color: var(--lt-paper);
 }
 .btn-secondary {
-  border: 1px solid var(--color-border);
-  color: var(--color-text-primary);
+  border: 1px solid var(--color-text-muted);
+  color: var(--lt-ink);
 }
 .btn-secondary:hover {
-  border-color: var(--color-border-hover);
-  background: var(--color-surface);
+  border-color: var(--lt-ink);
 }
 .btn-ghost {
+  border: 0;
   color: var(--color-text-secondary);
 }
 .btn-ghost:hover {
-  color: var(--color-text-primary);
-  background: var(--color-surface);
+  color: var(--lt-ink);
 }
-
-/* ── Spotlight cursor effect (Aceternity / Vercel signature) ──
-   Apply `.card-spotlight` to a card and add onMouseMove handler that
-   sets --mx and --my CSS variables. A radial gradient follows cursor. */
-.card-spotlight {
-  position: relative;
-  isolation: isolate;
-}
-.card-spotlight::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  pointer-events: none;
-  opacity: 0;
-  transition: opacity 0.3s ease;
-  background: radial-gradient(
-    520px circle at var(--mx, 50%) var(--my, 50%),
-    color-mix(in srgb, var(--lt-accent) 8%, transparent),
-    transparent 42%
-  );
-  z-index: 1;
-}
-.card-spotlight:hover::before {
-  opacity: 1;
-}
-.card-spotlight > * {
-  position: relative;
-  z-index: 2;
-}
-
-/* Static grid background */
-.grid-bg {
-  background-image:
-    linear-gradient(color-mix(in srgb, var(--lt-ink) 4%, transparent) 1px, transparent 1px),
-    linear-gradient(90deg, color-mix(in srgb, var(--lt-ink) 4%, transparent) 1px, transparent 1px);
-  background-size: 60px 60px;
-}
-
-
-
-/* Noise texture overlay */
-.noise::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  opacity: 0.015;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
-  background-repeat: repeat;
-  background-size: 256px;
-  pointer-events: none;
-  z-index: 0;
-}
-
-/* Section divider with gradient fade */
-.section-divider {
-  height: 1px;
-  background: linear-gradient(
-    90deg,
-    transparent 0%,
-    var(--color-border) 20%,
-    var(--color-ochre-dark) 50%,
-    var(--color-border) 80%,
-    transparent 100%
-  );
-  opacity: 0.4;
+.btn-primary:focus-visible,
+.btn-secondary:focus-visible,
+.btn-ghost:focus-visible {
+  outline: 1px solid var(--lt-ink);
+  outline-offset: 4px;
 }
 
 /* Code block style */
@@ -367,17 +263,18 @@ body {
    light-on-dark colors, not the page's dark ink tokens. */
 .code-block {
   background: #1A1712;
-  border: 1px solid #2C271E;
-  border-radius: 12px;
+  /* 边用已经量过的灰色。#2C271E 贴在这块深底上只有 1.20:1，暗色纸面上只有 1.23:1。字仍是浅色。 */
+  border: 1px solid var(--color-text-muted);
+  border-radius: 0;
   color: #CBC4B4;
   font-family: var(--font-mono);
   font-size: 0.8125rem;
   line-height: 1.7;
   overflow-x: auto;
   max-width: 100%; /* grid/flex 子项中防 nowrap 代码撑破容器 (移动端横向溢出) */
-  /* 面板是暖深色，滚动条必须跟着深，否则浅灰滚动条横在窗底非常扎眼 */
+  /* 滚动条用已经量过的暗色灰。#3A342A 贴在这块深底上只有 1.45:1。窗底仍是深色，所以这灰色不随纸面翻转。 */
   scrollbar-width: thin;
-  scrollbar-color: #3A342A transparent;
+  scrollbar-color: #A19C89 transparent;
 }
 
 .code-block .line-number {
@@ -560,50 +457,6 @@ body[data-profile="personal"]::before {
   animation: home-layer-in 0.7s var(--ease-out-expo) both;
 }
 
-/* Pill badge */
-.pill {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.375rem 1rem;
-  border-radius: 9999px;
-  border: 1px solid color-mix(in srgb, var(--lt-accent) 25%, transparent);
-  background: color-mix(in srgb, var(--lt-accent) 6%, transparent);
-  color: var(--color-ochre-dark);
-  font-size: 0.8125rem;
-  font-weight: 500;
-}
-
-
-/* ── Hand-drawn / sketch layer ──
-   叠加在纸感编辑风之上的手作元素;全部基于既有 ink/accent token,不改配色/字体,
-   纯增量可逆。给编辑风注入温度与手绘感(贴 paper + Fraunces 的有机调性)。 */
-
-
-.sketch-shadow-accent {
-  box-shadow: 4px 4px 0 color-mix(in srgb, var(--lt-accent) 70%, transparent);
-}
-
-
-/* 手绘波浪下划线 — 橙,强调关键词(套在 inline 元素上) */
-.sketch-underline {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='12' viewBox='0 0 120 12' preserveAspectRatio='none'%3E%3Cpath d='M3 7 Q 18 2 33 6 T 63 6 T 93 6 T 117 6' fill='none' stroke='%23FF5D1F' stroke-width='2.6' stroke-linecap='round'/%3E%3C/svg%3E");
-  background-repeat: no-repeat;
-  background-position: center 100%;
-  background-size: 100% 0.42em;
-  padding-bottom: 0.16em;
-}
-
-/* 手绘波浪分隔线 — 替代直线 section-divider 的有机版 */
-.sketch-divider {
-  height: 12px;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='12' viewBox='0 0 240 12'%3E%3Cpath d='M2 6 Q 30 1 60 6 T 120 6 T 180 6 T 238 6' fill='none' stroke='%2314130F' stroke-width='1.4' stroke-linecap='round'/%3E%3C/svg%3E");
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: 240px 12px;
-  opacity: 0.45;
-}
-
 /* ── View Transitions ── */
 
 /* Keep header fixed during page transitions */
@@ -649,6 +502,53 @@ header {
    起始帧（opacity:0）失效从而正常显示，但**漏掉任何一个类，该元素就会永久停在
    透明起始态**——对开了「减弱动态效果」的用户等于内容消失。新增 .hero-* 动画类时
    务必同步加到下面的列表里。 */
+/* 跳到正文：平时收成 1px，聚焦后固定盖在粘性页眉上。
+   不用 sr-only / not-sr-only，避免 position 与 padding 互相盖掉。 */
+.skip-link {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+.skip-link:focus {
+  position: fixed;
+  left: 1rem;
+  top: 0.75rem;
+  z-index: 60;
+  width: auto;
+  height: auto;
+  margin: 0;
+  overflow: visible;
+  clip: auto;
+  white-space: normal;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid var(--lt-rule);
+  background: var(--lt-paper);
+  color: var(--lt-ink);
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  outline: 1px solid var(--lt-ink);
+}
+
+/* 键盘焦点：1px 墨色线，外偏 4px。铺满容器的用内侧那条，避免被裁掉。
+   链接、按钮和摘要没有单独的类时，聚焦也走这一条，不再用浏览器的自动环。 */
+a:focus-visible,
+button:focus-visible,
+summary:focus-visible,
+.focus-ink:focus-visible {
+  outline: 1px solid var(--lt-ink);
+  outline-offset: 4px;
+}
+.focus-ink-inset:focus-visible {
+  outline: 1px solid var(--lt-ink);
+  outline-offset: -1px;
+}
+
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   ::view-transition-old(root),

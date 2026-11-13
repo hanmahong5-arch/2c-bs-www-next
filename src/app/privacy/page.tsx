@@ -47,15 +47,15 @@ export default function PrivacyPage() {
     );
   }
   return (
-    <div className="mx-auto max-w-3xl px-6 py-20 md:py-28">
-      <h1 className="text-3xl md:text-4xl font-bold text-[var(--color-text-primary)] mb-4">
+    <div className="mx-auto max-w-3xl px-6 pb-20 pt-24 md:pb-28 md:pt-32">
+      <h1 className="font-display text-[2.125rem] font-semibold leading-[1.2] tracking-[-0.025em] text-[var(--lt-ink)] md:text-[2.75rem] md:leading-[1.15]">
         隐私政策
       </h1>
-      <p className="text-sm text-[var(--color-text-muted)] mb-12">
+      <p className="mt-5 text-sm leading-[1.7] text-[var(--color-text-muted)]">
         最后更新：2026 年 4 月
       </p>
 
-      <div className="space-y-10 text-[var(--color-text-secondary)] leading-relaxed">
+      <div className="mt-12 space-y-10 text-base leading-[1.8] text-[var(--color-text-secondary)]">
         <Section title="1. 信息收集">
           我们收集你在注册和使用服务时主动提供的信息（如邮箱、企业名称），以及服务自动产生的使用数据（如
           API 调用频率、模型选择偏好）。我们不会收集与服务无关的个人信息。
@@ -84,17 +84,17 @@ export default function PrivacyPage() {
           如有隐私相关问题，请联系{" "}
           <a
             href="mailto:privacy@lurus.cn"
-            className="text-[var(--color-ochre)] hover:underline"
+            className="text-[var(--lt-ink)] underline decoration-[var(--color-text-muted)] underline-offset-4 hover:decoration-[var(--lt-ink)]"
           >
             privacy@lurus.cn
           </a>
         </Section>
       </div>
 
-      <div className="mt-16 pt-8 border-t border-[var(--color-border)]">
+      <div className="mt-16 border-t border-[var(--lt-rule)] pt-8">
         <Link
           href="/"
-          className="text-sm text-[var(--color-text-muted)] hover:text-[var(--color-text-secondary)] transition-colors"
+          className="text-sm text-[var(--lt-ink)] underline decoration-[var(--color-text-muted)] underline-offset-4 hover:decoration-[var(--lt-ink)]"
         >
           ← 返回首页
         </Link>
@@ -112,7 +112,7 @@ function Section({
 }) {
   return (
     <div>
-      <h2 className="text-lg font-semibold text-[var(--color-text-primary)] mb-3">
+      <h2 className="mb-3 font-display text-[1.25rem] font-semibold leading-[1.35] tracking-[-0.02em] text-[var(--lt-ink)]">
         {title}
       </h2>
       <p>{children}</p>

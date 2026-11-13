@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { BrandLockup } from "@/components/brand-mark";
+import { NewWindowNote } from "@/components/site/new-window-note";
 import { CATALOG } from "@/lib/catalog";
 import { siteProfile } from "@/lib/site-profile";
 
@@ -11,28 +12,27 @@ function footerLinks(
   profile: "personal" | "company",
 ): ReadonlyArray<{ title: string; links: readonly FooterLink[] }> {
   const legal = [
-    { name: "Terms of Service", href: "/terms" },
-    { name: "Privacy Policy", href: "/privacy" },
-    { name: "Security & DPA", href: `mailto:${email}?subject=Security%20%26%20DPA` },
+    { name: "服务条款", href: "/terms" },
+    { name: "隐私政策", href: "/privacy" },
+    { name: "安全问题", href: `mailto:${email}?subject=%E5%AE%89%E5%85%A8%E9%97%AE%E9%A2%98` },
   ];
   const products: readonly FooterLink[] = [
-    { name: "见证 witness", href: "/witness" },
-    { name: "kova", href: "/kova" },
-    { name: "forge", href: "/forge" },
-    { name: "founder", href: "/founder" },
-    { name: "lux", href: "/lux" },
-    { name: "memorus", href: "/memorus" },
-    { name: "hub", href: "/hub" },
-    { name: "platform", href: "/lugo" },
-    { name: "switch", href: "/switch" },
-    { name: "lucrum", href: "/lucrum" },
+    { name: "见证", href: "/witness" },
+    { name: "Kova", href: "/kova" },
+    { name: "Forge", href: "/forge" },
+    { name: "Founder", href: "/founder" },
+    { name: "Lux", href: "/lux" },
+    { name: "Memorus", href: "/memorus" },
+    { name: "Hub", href: "/hub" },
+    { name: "Lugo", href: "/lugo" },
+    { name: "Switch", href: "/switch" },
   ];
   const resources: readonly FooterLink[] = [
     { name: "文档", href: "https://docs.lurus.cn" },
-    { name: "方法 approach", href: "/approach" },
-    { name: "changelog", href: "/blog" },
+    { name: "方法", href: "/approach" },
+    { name: "更新日志", href: "/blog" },
     { name: "下载", href: "/download" },
-    { name: "Hub 价格", href: "/hub/pricing" },
+    { name: "Hub 按量价格", href: "/hub/pricing" },
   ];
   const about: readonly FooterLink[] =
     profile === "company"
@@ -42,8 +42,8 @@ function footerLinks(
           { name: "写信", href: `mailto:${email}` },
         ]
       : [
-          { name: "About", href: "/about" },
-          { name: "Contact", href: `mailto:${email}` },
+          { name: "关于", href: "/about" },
+          { name: "联系", href: `mailto:${email}` },
         ];
   if (profile === "company") {
     return [
@@ -61,7 +61,7 @@ function footerLinks(
 }
 
 const linkClass =
-  "text-[13px] text-[var(--lt-ink)]/70 hover:text-[var(--lt-ink)] hover:underline underline-offset-4";
+  "focus-ink text-[13px] text-[var(--lt-ink)]/70 hover:text-[var(--lt-ink)] hover:underline underline-offset-4";
 
 function FooterAnchor({ link }: { link: FooterLink }) {
   const external = link.href.startsWith("http");
@@ -73,11 +73,7 @@ function FooterAnchor({ link }: { link: FooterLink }) {
         className={linkClass}
       >
         {link.name}
-        {external && (
-          <span aria-hidden="true" className="ml-0.5">
-            ↗
-          </span>
-        )}
+        {external ? <NewWindowNote arrow /> : null}
       </a>
     );
   }
@@ -120,8 +116,8 @@ export function Footer() {
         </div>
 
         <div className="mt-12 flex flex-col gap-3 border-t border-[var(--lt-rule)] pt-6 text-xs text-[var(--lt-ink)]/70">
-          <p>&copy; {year} LurusTech. All rights reserved.</p>
-          {site.id === "personal" ? <p>Lurus Hub: Built on New API · AGPL-3.0.</p> : null}
+          <p>&copy; {year} LurusTech。保留所有权利。</p>
+          {site.id === "personal" ? <p>Lurus Hub 基于开源 New API，AGPLv3。</p> : null}
 
           {/* 只挂当前面孔已取得的备案号。公司号未下发时这一行不出现。 */}
           {site.beian.length > 0 ? (
@@ -133,24 +129,25 @@ export function Footer() {
                     href={item.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="hover:text-[var(--lt-ink)] hover:underline"
+                    className="focus-ink hover:text-[var(--lt-ink)] hover:underline"
                   >
                     {item.label}
+                    <NewWindowNote />
                   </a>
                 </span>
               ))}
             </div>
           ) : null}
           <div className="flex min-h-8 flex-wrap items-center gap-x-6 gap-y-2">
-            <Link href="/terms" className="hover:text-[var(--lt-ink)] hover:underline">
-              《用户协议》
+            <Link href="/terms" className="focus-ink hover:text-[var(--lt-ink)] hover:underline">
+              《服务条款》
             </Link>
-            <Link href="/privacy" className="hover:text-[var(--lt-ink)] hover:underline">
+            <Link href="/privacy" className="focus-ink hover:text-[var(--lt-ink)] hover:underline">
               《隐私政策》
             </Link>
             <a
               href={`mailto:${site.contactEmail}?subject=侵权投诉`}
-              className="hover:text-[var(--lt-ink)] hover:underline"
+              className="focus-ink hover:text-[var(--lt-ink)] hover:underline"
             >
               《侵权投诉》
             </a>

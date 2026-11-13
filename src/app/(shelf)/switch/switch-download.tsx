@@ -1,4 +1,4 @@
-import { Section } from "@/components/site";
+import { NextStep, Section } from "@/components/site";
 import {
   RELEASES_BASE,
   assetUrl,
@@ -53,9 +53,11 @@ function SectionHeader() {
         下载
       </h2>
       <p className="mt-3 text-base leading-[1.8] text-[var(--color-text-secondary)]">
-        安装包信息读取自 releases.lurus.cn 的发布清单。下一步：安装 → 登录 Lurus
-        账号 →（若有推广码）在「开始」页填写（注册 7 天内、只能一次）。
+        安装包信息读取自 releases.lurus.cn 的发布清单。
       </p>
+      <NextStep>
+        安装 → 登录 Lurus 账号 →（若有推广码）在「开始」页填写（注册 7 天内、只能一次）。
+      </NextStep>
     </>
   );
 }
@@ -103,10 +105,10 @@ export async function SwitchDownloadSection() {
                 <li key={f.filename} className={rowClass}>
                   <a
                     href={assetUrl(manifest.baseUrl, f.filename)}
-                    className={`underline underline-offset-4 hover:decoration-[var(--lt-accent)] ${
+                    className={`underline underline-offset-4 ${
                       isPrimary
-                        ? "font-semibold text-[var(--lt-ink)] decoration-[var(--lt-accent)]"
-                        : "text-[var(--lt-ink)] decoration-[var(--lt-rule)]"
+                        ? "font-semibold text-[var(--lt-ink)] decoration-[var(--lt-ink)]"
+                        : "text-[var(--lt-ink)] decoration-[var(--color-text-muted)] hover:decoration-[var(--lt-ink)]"
                     }`}
                   >
                     {meta?.label ?? f.filename}

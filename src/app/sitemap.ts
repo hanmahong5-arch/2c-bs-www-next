@@ -4,13 +4,16 @@ import { siteProfile } from "@/lib/site-profile";
 
 export const dynamic = "force-dynamic";
 
-export default function sitemap(): MetadataRoute.Sitemap {
+/** 不写 lastModified。仓库里没有每页的真实修改日。 */
+export function sitemapEntries(): MetadataRoute.Sitemap {
   const site = siteProfile();
-  const now = new Date();
   return routesFor(site.id).map((r) => ({
     url: `${site.siteUrl}${r.path}`,
-    lastModified: now,
     changeFrequency: r.changeFrequency,
     priority: r.priority,
   }));
+}
+
+export default function sitemap(): MetadataRoute.Sitemap {
+  return sitemapEntries();
 }
