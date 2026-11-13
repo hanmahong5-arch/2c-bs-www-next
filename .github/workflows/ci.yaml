@@ -67,7 +67,10 @@ jobs:
         # 指明用 standalone server.js)。与 Dockerfile 生产起法保持同源。
         run: |
           cp -r .next/static .next/standalone/.next/static
-          cp -r public .next/standalone/public
+          # next build 只把被引用的 public 文件拷进 standalone。目录已存在时
+          # cp -r public dest 会再套一层 public/，/llms.txt 就 404。
+          mkdir -p .next/standalone/public
+          cp -a public/. .next/standalone/public/
           bun .next/standalone/server.js &
           for _ in $(seq 1 30); do
             curl -sf http://localhost:3000/ >/dev/null && break
